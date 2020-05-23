@@ -11,10 +11,20 @@
   "version": "0.1.0",
   "devDependencies": {
     "@prettier/plugin-ruby": "^0.18.2",
+    "husky": ">=4",
     "prettier": "^2.0.5",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "lint-staged": ">=10"
   },
   "prettier": {
     "printWidth": 120
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
   }
 }

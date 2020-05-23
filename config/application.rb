@@ -14,5 +14,11 @@ module OtvorenesudyProkuratura
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # Time Zone
+    config.time_zone = "Europe/Bratislava"
+
+    # Databa Schema Format
+    config.active_record.schema_format = :ruby
   end
 end
