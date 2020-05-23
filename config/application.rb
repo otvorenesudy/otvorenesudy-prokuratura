@@ -28,3 +28,6 @@ module OtvoreneSudy
     end
   end
 end
+
+require 'legacy'
+require 'genpro_gov_sk'

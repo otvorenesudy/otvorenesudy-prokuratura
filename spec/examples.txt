@@ -1,0 +1,5 @@
+example_id                                             | status | run_time       |
+------------------------------------------------------ | ------ | -------------- |
+./spec/features/genpro_gov_sk/prosecutors_spec.rb[1:1] | passed | 5.05 seconds   |
+./spec/lib/file_downloader_spec.rb[1:1:1]              | passed | 0.0461 seconds |
+./spec/lib/p_d_f_extractor_spec.rb[1:1:1]              | passed | 4.9 seconds    |
