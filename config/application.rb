@@ -16,9 +16,13 @@ module OtvorenesudyProkuratura
     # the framework and any gems in your application.
 
     # Time Zone
-    config.time_zone = "Europe/Bratislava"
+    config.time_zone = 'Europe/Bratislava'
 
     # Databa Schema Format
     config.active_record.schema_format = :ruby
+
+    # I18n
+    config.i18n.available_locales = %i[en sk]
+    config.i18n.default_localea = :sk
   end
 end
