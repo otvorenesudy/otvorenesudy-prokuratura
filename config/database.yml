@@ -10,7 +10,7 @@ default: &default
   timeout: 5000
   encoding: unicode
   username: otvorenesudy
-  password: ENV['OTVORENESUDY_PROKURATURA_POSTGRES_PASSWORD']
+  password: <%= Rails.application.credentials.postgresql_password %>
 
 development:
   <<: *default

@@ -30,7 +30,7 @@ end
 group :development, :test do
   gem 'prettier'
   gem 'pry'
-  gem 'dotenv-rails'
+  gem 'rubocop', '~> 0.84', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
