@@ -40,9 +40,7 @@
 yarn-debug.log*
 .yarn-integrity
 
-# Dotenv
-.env
-
 /config/credentials/development.key
-
 /config/credentials/test.key
+
+spec/examples.txt
