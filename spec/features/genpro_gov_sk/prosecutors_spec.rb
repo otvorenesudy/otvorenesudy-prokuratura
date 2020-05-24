@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'GenproGovSk Prosecutors' do
-  it 'correctly parses all prosecutors', vcr: :disabled do
+RSpec.describe 'GenproGovSk Prosecutors', type: :feature do
+  it 'correctly parses all prosecutors', webmock: :disabled do
     prosecutors = GenproGovSk::Prosecutors.all
 
     expect(prosecutors.size).to eql(967)

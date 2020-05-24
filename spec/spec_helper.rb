@@ -106,12 +106,5 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.ignore_localhost = true
   config.configure_rspec_metadata!
-
-  RSpec.configure do |config|
-    config.around(:each, vcr: :disabled) do |example|
-      WebMock.allow_net_connect!
-      example.run
-      WebMock.disable_net_connect!
-    end
-  end
+  config.allow_http_connections_when_no_cassette = true
 end

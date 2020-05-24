@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'file_downloader'
 
-RSpec.describe FileDownloader do
+RSpec.describe FileDownloader, type: :unit do
   describe '.download' do
     let(:url) { 'https://www.genpro.gov.sk/extdoc/54888/Menny%20zoznam%20prokuratorov%20SR%20k%2015_05_2020' }
 

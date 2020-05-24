@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2020_05_24_091918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
+
+  create_table 'genpro_gov_sk_prosecutors_lists', force: :cascade do |t|
+    t.json 'data', null: false
+    t.binary 'file', null: false
+    t.string 'digest', null: false
+    t.index %w[digest], name: 'index_genpro_gov_sk_prosecutors_lists_on_digest', unique: true
+  end
 end

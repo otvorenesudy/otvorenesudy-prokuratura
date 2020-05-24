@@ -33,6 +33,8 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 4.0.0'
+  gem 'shoulda-matchers', '~> 4.3.0'
+  gem 'factory_bot', '~> 5.2.0'
   gem 'vcr'
   gem 'prettier'
   gem 'pry-rails'

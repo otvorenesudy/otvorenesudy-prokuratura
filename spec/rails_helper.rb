@@ -28,6 +28,7 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path =
@@ -57,5 +58,15 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   # Filter lines from Rails gems in backtraces.
-  config.filter_rails_from_backtrace! # config.filter_gems_from_backtrace("gem name") # arbitrary gems may also be filtered via:
+  config.filter_rails_from_backtrace!
+
+  config.include FactoryBot::Syntax::Methods
+  config.before(:suite) { FactoryBot.find_definitions } # config.filter_gems_from_backtrace("gem name") # arbitrary gems may also be filtered via:
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
 end
