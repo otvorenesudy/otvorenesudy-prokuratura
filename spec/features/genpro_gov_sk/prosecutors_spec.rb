@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'GenproGovSk Prosecutors', type: :feature do
   it 'correctly parses all prosecutors', webmock: :disabled do
-    prosecutors = GenproGovSk::Prosecutors.all
+    prosecutors = GenproGovSk::Prosecutors.import
 
     expect(prosecutors.size).to eql(967)
     expect(prosecutors.sort_by { |e| e[:id] }).to eql(

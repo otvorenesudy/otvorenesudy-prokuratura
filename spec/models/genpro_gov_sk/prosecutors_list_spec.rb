@@ -11,9 +11,18 @@ RSpec.describe GenproGovSk::ProsecutorsList, type: :model do
   describe '.import_from' do
     context 'with new file' do
       it 'saves the list' do
-        expect { GenproGovSk::ProsecutorsList.import_from(data: { a: 123 }, file: '123') }.to change {
-          GenproGovSk::ProsecutorsList.where(digest: Digest::MD5.hexdigest('123')).count
-        }.by(1)
+        expect {
+          GenproGovSk::ProsecutorsList.import_from(
+            data: [{ id: '1', name: 'JUDr. John Smith', office: "Attorney General's Office" }], file: '123'
+          )
+        }.to change { GenproGovSk::ProsecutorsList.where(digest: Digest::MD5.hexdigest('123')).count }.by(1)
+
+        prosecutor = Prosecutor.order(:id).last
+
+        expect(prosecutor.name).to eql('JUDr. John Smith')
+        expect(prosecutor.genpro_gov_sk_prosecutors_list).to eql(
+          GenproGovSk::ProsecutorsList.find_by(digest: Digest::MD5.hexdigest('123'))
+        )
       end
     end
 

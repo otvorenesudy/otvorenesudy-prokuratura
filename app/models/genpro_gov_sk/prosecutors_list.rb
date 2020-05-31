@@ -9,12 +9,31 @@ module GenproGovSk
 
       return if exists?(digest: digest)
 
-      list = create!(digest: digest, file: file, data: data)
+      ActiveRecord::Base.transaction do
+        Prosecutor.lock
+        Office.lock
+        Appointment.lock
 
-      data.each do |value|
-        reconciler = ProsecutorReconciler.new(data, list)
+        time = Time.zone.now
+        list = create!(digest: digest, file: file, data: data)
 
-        reconciler.reconcile!
+        data.each do |value|
+          prosecutor = Prosecutor.find_or_initialize_by(name: value[:name])
+          prosecutor.update!(genpro_gov_sk_prosecutors_list: list) if prosecutor.new_record?
+
+          office = Office.find_or_initialize_by(name: value[:office])
+          office.update!(genpro_gov_sk_prosecutors_list: list) if office.new_record?
+
+          appointment = prosecutor.appointments.current.fixed.find_or_initialize_by(office: office)
+          appointment.update!(genpro_gov_sk_prosecutors_list: list, started_at: time) if appointment.new_record?
+          prosecutor.appointments.current.fixed.where.not(id: appointment.id).update_all(ended_at: time)
+
+          if value[:termporary_office]
+            appointment = prosecutor.appointments.current.temporary.find_or_initialize_by(office: office)
+            appointment.update!(genpro_gov_sk_prosecutors_list: list, started_at: time) if appointment.new_record?
+            prosecutor.appointments.current.temporary.where.not(id: appointment.id).update_all(ended_at: time)
+          end
+        end
       end
     end
   end

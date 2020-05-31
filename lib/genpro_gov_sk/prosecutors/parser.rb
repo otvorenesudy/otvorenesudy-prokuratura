@@ -23,7 +23,7 @@ module GenproGovSk
         end
 
         def parse_line(line)
-          _, id = *line.match(/\A(d+)/)
+          _, number = *line.match(/\A(\d+)/)
 
           line.gsub!(/\A\d+/, '')
 
@@ -33,7 +33,7 @@ module GenproGovSk
           office = parts[1].strip
           temporary_office = parts[2]&.strip
 
-          { id: id, name: name, office: office, tempary_office: temporary_office }
+          { number: number, name: name, office: office, tempary_office: temporary_office }
         end
 
         def parse_name(value)

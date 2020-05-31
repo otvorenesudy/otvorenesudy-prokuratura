@@ -10,14 +10,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_24_091918) do
+ActiveRecord::Schema.define(version: 2020_05_31_155004) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
+
+  create_table 'appointments', force: :cascade do |t|
+    t.bigint 'office_id', null: false
+    t.bigint 'prosecutor_id', null: false
+    t.bigint 'genpro_gov_sk_prosecutors_list_id', null: false
+    t.datetime 'started_at', null: false
+    t.datetime 'ended_at'
+    t.integer 'type', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index %w[genpro_gov_sk_prosecutors_list_id], name: 'index_appointments_on_genpro_gov_sk_prosecutors_list_id'
+    t.index %w[office_id], name: 'index_appointments_on_office_id'
+    t.index %w[prosecutor_id], name: 'index_appointments_on_prosecutor_id'
+  end
 
   create_table 'genpro_gov_sk_prosecutors_lists', force: :cascade do |t|
     t.json 'data', null: false
     t.binary 'file', null: false
     t.string 'digest', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
     t.index %w[digest], name: 'index_genpro_gov_sk_prosecutors_lists_on_digest', unique: true
   end
+
+  create_table 'offices', force: :cascade do |t|
+    t.bigint 'genpro_gov_sk_prosecutors_list_id', null: false
+    t.string 'name', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index %w[genpro_gov_sk_prosecutors_list_id], name: 'index_offices_on_genpro_gov_sk_prosecutors_list_id'
+    t.index %w[name], name: 'index_offices_on_name', unique: true
+  end
+
+  create_table 'prosecutors', force: :cascade do |t|
+    t.bigint 'genpro_gov_sk_prosecutors_list_id', null: false
+    t.string 'name', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index %w[genpro_gov_sk_prosecutors_list_id], name: 'index_prosecutors_on_genpro_gov_sk_prosecutors_list_id'
+    t.index %w[name], name: 'index_prosecutors_on_name', unique: true
+  end
+
+  add_foreign_key 'appointments', 'genpro_gov_sk_prosecutors_lists'
+  add_foreign_key 'appointments', 'offices'
+  add_foreign_key 'appointments', 'prosecutors'
+  add_foreign_key 'offices', 'genpro_gov_sk_prosecutors_lists'
+  add_foreign_key 'prosecutors', 'genpro_gov_sk_prosecutors_lists'
 end
