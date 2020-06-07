@@ -1,15 +1,41 @@
-<!DOCTYPE html>
-<html>
+<html lang="<%= I18n.locale %>">
   <head>
-    <title>OtvorenesudyProkuratura</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
+    <meta charset="utf-8" />
+    <title><%# = resolve_title(yield :title) %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="<%= t '.description'%>" />
+    <meta name="keywords" content="<%= t '.keywords' %>" />
+    <meta name="author" content="<%= t '.authors' %>" />
+    <meta property="og:title" content="<%= resolve_title(yield :title) %>" />
+    <meta property="og:description" content="<%= t '.content' %>" />
+    <meta property="og:image" content="<%= asset_path "brands/otvorene-sudy.#{I18n.locale}.svg" %>" />
+    <meta property="og:url" content="<%= canonical_url %>" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="<%= resolve_title(yield :title) %>" />
+    <meta name="twitter:description" content="<%= t '.content' %>" />
+    <meta name="twitter:image" content="<%= asset_path "brands/otvorene-sudy.#{I18n.locale}.svg" %>" />
+    <meta name="twitter:url" content="<%= canonical_url %>" />
+    <link rel="mask-icon" href="<%= asset_path 'maskicon.svg' %>" sizes="any" />
+    <link rel="apple-touch-icon" href="<%= asset_path 'touchicon.png' %>" />
+    <link rel="icon" href="<%= asset_path 'favicon.png' %>" />
+    <meta name="msapplication-TileImage" content="<%= asset_path 'tileicon.png' %>" />
+    <meta name="msapplication-TileColor" content="#fff" />
+    <link rel="prefetch" href="<%= asset_path 'icons.svg' %>" />
+    <link rel="prefetch" href="<%= asset_path 'brands.svg' %>" />
+    <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:300,700&subset=latin-ext" />
+    <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
   </head>
-
   <body>
-    <%= yield %>
+    <%= render 'layouts/header' %>
+    <div class="container mt-4 px-sm-0">
+      <%#= render 'shared/flash_messages' %>
+      <%= yield %>
+    </div>
+    <%#= render 'layouts/footer' %>
   </body>
 </html>

@@ -1,0 +1,16 @@
+sk:
+  layouts:
+    application:
+      title: 'Otvorená Prokuratúra'
+      description: TODO
+      authors: TODO
+      content: TODO
+      keywords: TODO
+
+    header:
+      prosecutors: Prokurátori
+      offices: Prokuratúra
+      criminality: Kriminality v kocke
+      search_prosecutor: Hľadať
+      otvorenesudy: Otvorené Súdy
+      donate: Podporte
