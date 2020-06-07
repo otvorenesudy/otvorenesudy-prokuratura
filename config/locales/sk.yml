@@ -10,7 +10,41 @@ sk:
     header:
       prosecutors: Prokurátori
       offices: Prokuratúra
-      criminality: Kriminality v kocke
-      search_prosecutor: Hľadať
+      criminality: Kriminalita
+      search: Hľadaj
       otvorenesudy: Otvorené Súdy
       donate: Podporte
+
+    footer:
+      about: O projekte
+      analyses: Články
+      api: API
+      contact: Kontakt
+      faq: FAQ
+      feedback: Našli ste chybu?
+      privacy: Ochrana súkromia
+      tos: Podmienky používania
+
+      sign_in: Prihlásenie
+
+      donate: Podporte
+
+      disclaimer:
+        resources: Projekt využíva výhradne dáta verejných inštitúcií.
+        correctness: Za ich vecnú správnosť autori nenesú zodpovednosť.
+
+      sme:
+        price_of_state: Cena štátu
+        municipalities: Obce
+        schools: Školy
+        procurements: Verejné obstarávanie
+        universities: Vysoké školy
+
+  static_pages:
+    home:
+      squares:
+        prosecutors: Prokurátori
+        offices: Prokuratúra
+        criminality: Kriminalita
+        search: Hľadaj
+

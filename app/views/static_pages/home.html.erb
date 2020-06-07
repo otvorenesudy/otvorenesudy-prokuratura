@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col">
+    <div id="carousel" class="carousel carousel-fade slide mb-5" data-ride="carousel">
+      <div class="carousel-inner mb-3">
+        <div class="carousel-item active">
+          <%= link_to image_tag(asset_path('slides/dve-percenta.png'), alt: 'Venujte 2% Transparency International', style: 'max-width: 100%; max-height: 100%'), 'https://transparency.sk/sk/2percenta/', class: 'd-block w-100'  %>
+        </div>
+        <div class="carousel-item">
+          <%= link_to image_tag(asset_path('slides/parlamentne-volby-2020.png'), alt: 'Parlamentné voľby 2020', style: 'max-width: 100%; max-height: 100%'), 'http://volby.transparency.sk/parlament2020', class: 'd-block w-100' %>
+        </div>
+        <div class="carousel-item">
+          <%= link_to image_tag(asset_path('slides/justicia-a-infozakon.svg'), alt: 'Justícia a infozákon'), 'https://transparency.sk/sk/akademia/temy/justicia', class: 'd-block w-100' %>
+        </div>
+        <div class="carousel-item">
+          <%= link_to image_tag(asset_path('slides/rodinne-vazby-sudcov.svg'), alt: 'Rodinné väzby sudcov'), 'http://sudy.transparency.sk', class: 'd-block w-100' %>
+        </div>
+        <div class="carousel-item">
+          <%= link_to image_tag(asset_path('slides/korupcia-zabija-spravodlivost.svg'), alt: 'Korupcia zabíja spravodlivosť'), 'https://transparency.darujme.sk/2319/?donation=40&periodicity=periodical', class: 'd-block w-100' %>
+        </div>
+        <div class="carousel-item">
+          <%= link_to image_tag(asset_path('slides/spravy-z-boja-proti-korupcii.svg'), alt: 'Správy z boja proti korupcii'), 'https://eepurl.com/doWD8X', class: 'd-block w-100' %>
+        </div>
+      </div>
+      <ol class="carousel-indicators">
+        <li data-target="#carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel" data-slide-to="1"></li>
+        <li data-target="#carousel" data-slide-to="2"></li>
+        <li data-target="#carousel" data-slide-to="3"></li>
+        <li data-target="#carousel" data-slide-to="4"></li>
+        <li data-target="#carousel" data-slide-to="5"></li>
+      </ol>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 mt-4 mt-lg-0">
+    <div class="row font-weight-bold text-center text-uppercase">
+      <%= link_to icon_tag('judges', size: 60) + content_tag(:span, t('.squares.prosecutors')), '', class: 'square mx-3 mb-4' %>
+      <%= link_to icon_tag('courts', size: 60) + content_tag(:span, t('.squares.offices')), '', class: 'square mx-3 mb-4' %>
+      <div class="d-block d-md-block d-lg-block d-xl-none w-100"></div>
+      <%= link_to icon_tag('hearings', size: 60) + content_tag(:span, t('.squares.criminality')), '', class: 'square mx-3 mb-4' %>
+      <%= link_to icon_tag('search', size: 60) + content_tag(:span, t('.squares.search')), '', class: 'square mx-3 mb-4 mb-xl-0' %>
+    </div>
+  </div>
+</div>

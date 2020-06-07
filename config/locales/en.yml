@@ -11,6 +11,39 @@ en:
       prosecutors: Prosecutors
       offices: Public Prosecutor's Office
       criminality: Criminality
-      search_prosecutor: Search
+      search: Search
       otvorenesudy: Otvorené Súdy
       donate: Donate
+
+    footer:
+      about: About
+      analyses: Analyses
+      api: API
+      contact: Contact
+      faq: FAQ
+      feedback: Found a mistake?
+      privacy: Privacy policy
+      tos: Terms of use
+
+      sign_in: Sign in
+
+      donate: Support us
+
+      disclaimer:
+        resources: Project uses only data provided by public institutions.
+        correctness: Authors are not responsible for their accuracy.
+
+      sme:
+        price_of_state: Price of state
+        municipalities: Municipalities
+        schools: Schools
+        procurements: Procurements
+        universities: Universities
+
+  static_pages:
+    home:
+      squares:
+        prosecutors: Prosecutors
+        offices: Public Prosecutor's Office
+        criminality: Criminality
+        search: Search

@@ -21,11 +21,11 @@ module ApplicationHelper
     "https://transparency.darujme.sk/#{I18n.locale == :sk ? 238 : 761}?donation=40&periodicity=periodical"
   end
 
-  def organization_url(path = nil)
-    "https://github.com/#{Configuration.github.organization}/#{path}".sub(%r{\/\z}, '')
+  def organisation_url(path = nil)
+    "https://github.com/otvorenesudy/#{path}".sub(%r{\/\z}, '')
   end
 
   def repository_url(path = nil)
-    organization_url "#{Configuration.github.repository}/#{path}".sub(%r{\/\z}, '')
+    organisation_url "otvorenesudy-prokuratura/#{path}".sub(%r{\/\z}, '')
   end
 end

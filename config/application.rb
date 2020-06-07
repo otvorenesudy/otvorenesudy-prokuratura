@@ -1,4 +1,5 @@
 require_relative 'boot'
+require_relative 'version'
 
 require 'rails/all'
 
@@ -6,7 +7,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module OtvorenaProkuratura
+module OpenCourts
   module Prokuratura
     class Application < Rails::Application
       config.load_defaults 6.0

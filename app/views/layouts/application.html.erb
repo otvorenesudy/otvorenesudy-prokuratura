@@ -1,7 +1,7 @@
 <html lang="<%= I18n.locale %>">
   <head>
     <meta charset="utf-8" />
-    <title><%# = resolve_title(yield :title) %></title>
+    <title><%= resolve_title(yield :title) %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="<%= t '.description'%>" />
     <meta name="keywords" content="<%= t '.keywords' %>" />
@@ -36,6 +36,6 @@
       <%#= render 'shared/flash_messages' %>
       <%= yield %>
     </div>
-    <%#= render 'layouts/footer' %>
+    <%= render 'layouts/footer' %>
   </body>
 </html>
