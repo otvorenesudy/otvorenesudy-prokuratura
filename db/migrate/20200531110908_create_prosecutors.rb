@@ -8,6 +8,6 @@ class CreateProsecutors < ActiveRecord::Migration[6.0]
       t.timestamps null: false
     end
 
-    add_index :prosecutors, :name, unique: true
+    add_index :prosecutors, :name
   end
 end

@@ -40,6 +40,12 @@ ActiveRecord::Schema.define(version: 2020_05_31_155004) do
   create_table 'offices', force: :cascade do |t|
     t.bigint 'genpro_gov_sk_prosecutors_list_id', null: false
     t.string 'name', null: false
+    t.string 'address', limit: 1024, null: false
+    t.string 'phone', null: false
+    t.string 'fax'
+    t.string 'email', null: false
+    t.string 'electronic_registry'
+    t.jsonb 'registry', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index %w[genpro_gov_sk_prosecutors_list_id], name: 'index_offices_on_genpro_gov_sk_prosecutors_list_id'
@@ -52,7 +58,7 @@ ActiveRecord::Schema.define(version: 2020_05_31_155004) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index %w[genpro_gov_sk_prosecutors_list_id], name: 'index_prosecutors_on_genpro_gov_sk_prosecutors_list_id'
-    t.index %w[name], name: 'index_prosecutors_on_name', unique: true
+    t.index %w[name], name: 'index_prosecutors_on_name'
   end
 
   add_foreign_key 'appointments', 'genpro_gov_sk_prosecutors_lists'
