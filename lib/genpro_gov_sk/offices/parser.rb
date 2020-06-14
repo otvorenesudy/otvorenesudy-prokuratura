@@ -88,7 +88,7 @@ module GenproGovSk
           name: normalize(document.css('.contentPage > h3').text),
           employees:
             document.css('.tab-kontakt:nth-of-type(2) tr')[1..-1].map do |row|
-              text = row.css('td').map { |e| normalize(e.text).presence }.compact.join('\t')
+              text = row.css('td').map { |e| normalize(e.text).presence }.compact.join('<>')
 
               next unless text.present?
 
@@ -96,14 +96,14 @@ module GenproGovSk
                 EMPLOYEE_POSITIONS.select do |position|
                   next unless text.include?(position)
 
-                  text.gsub!(position, '')
+                  text.gsub!(/#{position}[[:space:]]*<>/, '')
 
                   break position
                 end
 
               raise StandardError.new("Unkown position for employee: #{text}") unless position
 
-              name, phone = text.split('\t').map { |e| normalize(e) }
+              name, phone = normalize(text).split('<>').map { |e| normalize(e) }
 
               _, suffix_to_position = *name.match(/(?<suffix>- (ne)?trestný úsek)\z/)
 
@@ -123,7 +123,7 @@ module GenproGovSk
 
         def normalize(string)
           string&.gsub(/,{2,}/, ',')&.gsub(/(\A,|,\z)/, '')&.gsub(/(\A[[:space:]]+|[[:space:]]+\z)/, '')&.gsub(
-            /[[:space:]]{2,}/,
+            /[[:space:]]{3,}/,
             ', '
           )&.gsub(/[[:space:]]/, ' ')&.gsub(/,\z/, '')
         end
