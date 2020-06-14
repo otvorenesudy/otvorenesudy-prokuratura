@@ -15,11 +15,11 @@ RSpec.describe GenproGovSk::Offices::Parser do
         {
           phone: '02/208 37 768, 595 32 768',
           hours: {
-            monday: %w[8:00 15:00],
-            tuesday: %w[8:00 15:00],
-            wednesday: %w[8:00 15:00],
-            thursday: %w[8:00 15:00],
-            friday: %w[8:00 15:00]
+            monday: '8:00 – 15:00',
+            tuesday: '8:00 – 15:00',
+            wednesday: '8:00 – 15:00',
+            thursday: '8:00 – 15:00',
+            friday: '8:00 – 15:00'
           }
         }
       )

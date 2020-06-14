@@ -132,6 +132,8 @@ module GenproGovSk
           registry_phone =
             document.css('.tab-kontakt:nth-of-type(1) tr:nth-of-type(2) td:nth-of-type(1) p').text.match(/\((.+)\)/)
 
+          remove_excessive_redundant_columns_from_first_contact_table(document)
+
           data = {
             address:
               document.css('.tab-kontakt:nth-of-type(1) tr:nth-of-type(1) td:nth-of-type(1) p').map do |e|
@@ -148,8 +150,8 @@ module GenproGovSk
                   {
                     day =>
                       document.css(".tab-kontakt:nth-of-type(1) tr:nth-of-type(#{i + 3}) td")[1..2].map do |e|
-                        normalize(e.text).gsub(/\./, ':')
-                      end
+                        normalize(e.text).presence
+                      end.compact.join(' – ').gsub(/\./, ':')
                   }
                 end.inject(:merge)
             }
@@ -166,6 +168,16 @@ module GenproGovSk
               next { electronic_registry: normalize(line.css('a')[0][:href]) }
             end
           end.compact.inject(:merge).merge(data)
+        end
+
+        def remove_excessive_redundant_columns_from_first_contact_table(document)
+          lines = document.css('.tab-kontakt:nth-of-type(1) tr').size
+
+          return unless lines > 7
+
+          redundant_lines_range = 2..(2 + (lines - 7) - 1)
+
+          document.css('.tab-kontakt:nth-of-type(1) tr')[redundant_lines_range].map(&:remove)
         end
       end
     end
