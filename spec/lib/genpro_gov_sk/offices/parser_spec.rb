@@ -43,4 +43,9 @@ RSpec.describe GenproGovSk::Offices::Parser do
       expect(data[:employees].size).to eql(48)
     end
   end
+
+  context 'with coupled people names and positions' do
+    it 'correctly parses names and positions of prosecutors' do
+    end
+  end
 end

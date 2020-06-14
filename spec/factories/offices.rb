@@ -28,5 +28,21 @@ FactoryBot.define do
     association :'genpro_gov_sk_prosecutors_list'
 
     sequence(:name) { |n| "Office #{n}" }
+    address { 'Hlavná 1, 123 45 Bratislava' }
+    email { 'prokuratura@genpro.gov.sk' }
+    phone { '+421 123 456 789' }
+
+    registry do
+      {
+        phone: '+421 987 654 321',
+        hours: {
+          monday: %w[08:00 15:00],
+          tuesday: %w[08:00 15:00],
+          wedneysday: %w[08:00 15:00],
+          thursday: %w[08:00 15:00],
+          friday: %w[08:00 15:00]
+        }
+      }
+    end
   end
 end

@@ -27,4 +27,8 @@ class Office < ApplicationRecord
   belongs_to :genpro_gov_sk_prosecutors_list, class_name: :'GenproGovSk::ProsecutorsList'
 
   validates :name, presence: true, uniqueness: true
+  validates :address, presence: true
+  validates :email, presence: true
+  validates :phone, presence: true
+  validates :registry, presence: true
 end
