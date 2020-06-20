@@ -28,6 +28,7 @@ module GenproGovSk
         ::Prosecutor.lock
         ::Office.lock
         ::Appointment.lock
+        ::Employee.lock
 
         time = Time.zone.now
         list = create!(digest: digest, file: file, data: data)
@@ -46,6 +47,8 @@ module GenproGovSk
           appointment.update!(genpro_gov_sk_prosecutors_list: list, started_at: time) if appointment.new_record?
           prosecutor.appointments.current.fixed.where.not(id: appointment.id).update_all(ended_at: time)
 
+          office.employees.where(name: prosecutor.name).update_all(prosecutor_id: prosecutor.id)
+
           if value[:temporary_office] # TODO: handle string only if office does not exist
             office = ::Office.find_by(name: value[:temporary_office])
 
@@ -53,8 +56,11 @@ module GenproGovSk
               prosecutor.appointments.current.temporary.find_or_initialize_by(
                 office ? { office: office } : { place: value[:temporary_office] }
               )
+
             appointment.update!(genpro_gov_sk_prosecutors_list: list, started_at: time) if appointment.new_record?
             prosecutor.appointments.current.temporary.where.not(id: appointment.id).update_all(ended_at: time)
+
+            office.employees.where(name: prosecutor.name).update_all(prosecutor_id: prosecutor.id) if office
           end
         end
       end
