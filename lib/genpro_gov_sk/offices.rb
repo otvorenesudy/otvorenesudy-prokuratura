@@ -10,7 +10,7 @@ module GenproGovSk
         html = Curl.get(link).body_str
         data = Parser.parse(html)
 
-        data # GenproGovSk::Office.import_from(data: data, html: html)
+        GenproGovSk::Office.import_from(data: data, file: html)
       end
     end
   end

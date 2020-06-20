@@ -3,7 +3,7 @@
 # Table name: genpro_gov_sk_prosecutors_lists
 #
 #  id         :bigint           not null, primary key
-#  data       :json             not null
+#  data       :jsonb            not null
 #  digest     :string           not null
 #  file       :binary           not null
 #  created_at :datetime         not null

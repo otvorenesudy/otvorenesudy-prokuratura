@@ -25,7 +25,7 @@ module OpenCourts
 
       # I18n
       config.i18n.available_locales = %i[en sk]
-      config.i18n.default_locale = :sk
+      config.i18n.default_locale = Rails.env.production? ? :sk : :en
       config.i18n.fallbacks = [I18n.default_locale]
     end
   end
