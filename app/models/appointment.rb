@@ -4,12 +4,13 @@
 #
 #  id                                :bigint           not null, primary key
 #  ended_at                          :datetime
+#  place                             :string
 #  started_at                        :datetime         not null
 #  type                              :integer          not null
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  genpro_gov_sk_prosecutors_list_id :bigint           not null
-#  office_id                         :bigint           not null
+#  office_id                         :bigint
 #  prosecutor_id                     :bigint           not null
 #
 # Indexes
@@ -29,10 +30,12 @@ class Appointment < ApplicationRecord
 
   belongs_to :genpro_gov_sk_prosecutors_list, class_name: :'GenproGovSk::ProsecutorsList'
   belongs_to :prosecutor
-  belongs_to :office
+  belongs_to :office, required: false
 
   validates :started_at, presence: true
   validates :type, presence: true
+  validates :place, presence: true, unless: :office_id?
+  validates :office, presence: true, unless: :place?
 
   enum type: %i[fixed temporary]
 

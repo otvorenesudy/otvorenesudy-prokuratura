@@ -125,7 +125,7 @@ module GenproGovSk
           string&.gsub(/,{2,}/, ',')&.gsub(/(\A,|,\z)/, '')&.gsub(/(\A[[:space:]]+|[[:space:]]+\z)/, '')&.gsub(
             /[[:space:]]{3,}/,
             ', '
-          )&.gsub(/[[:space:]]/, ' ')&.gsub(/,\z/, '')
+          )&.gsub(/[[:space:]]+/, ' ')&.gsub(/,\z/, '')
         end
 
         def parse_contact(document)

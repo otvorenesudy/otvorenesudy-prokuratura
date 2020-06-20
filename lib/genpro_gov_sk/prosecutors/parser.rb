@@ -4,6 +4,8 @@ require 'legacy'
 module GenproGovSk
   module Prosecutors
     module Parser
+      OFFICE_MAP = { 'Generálna prokuratúra SR' => 'Generálna prokuratúra Slovenskej republiky' }
+
       def self.parse(text)
         text = cleanup(text)
         lines = text.split("\n").map(&:strip).select(&:present?)
@@ -33,7 +35,10 @@ module GenproGovSk
           office = parts[1].strip
           temporary_office = parts[2]&.strip
 
-          { number: number, name: name, office: office, tempary_office: temporary_office }
+          office = OFFICE_MAP[office] || office
+          temporary_office = OFFICE_MAP[temporary_office] || temporary_office
+
+          { number: number, name: name, office: office, temporary_office: temporary_office }
         end
 
         def parse_name(value)

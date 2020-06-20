@@ -35,7 +35,6 @@ module GenproGovSk
         office = ::Office.find_or_initialize_by(genpro_gov_sk_office: genpro_gov_sk_office)
 
         office.lock!
-
         office.update!(data.except(:employees))
 
         office.employees.lock!

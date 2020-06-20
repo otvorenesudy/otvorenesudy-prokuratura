@@ -4,12 +4,13 @@
 #
 #  id                                :bigint           not null, primary key
 #  ended_at                          :datetime
+#  place                             :string
 #  started_at                        :datetime         not null
 #  type                              :integer          not null
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  genpro_gov_sk_prosecutors_list_id :bigint           not null
-#  office_id                         :bigint           not null
+#  office_id                         :bigint
 #  prosecutor_id                     :bigint           not null
 #
 # Indexes

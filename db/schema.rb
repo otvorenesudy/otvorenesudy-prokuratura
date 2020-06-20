@@ -15,12 +15,13 @@ ActiveRecord::Schema.define(version: 2020_06_20_081502) do
   enable_extension 'plpgsql'
 
   create_table 'appointments', force: :cascade do |t|
-    t.bigint 'office_id', null: false
+    t.bigint 'office_id'
     t.bigint 'prosecutor_id', null: false
     t.bigint 'genpro_gov_sk_prosecutors_list_id', null: false
     t.datetime 'started_at', null: false
     t.datetime 'ended_at'
     t.integer 'type', null: false
+    t.string 'place'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index %w[genpro_gov_sk_prosecutors_list_id], name: 'index_appointments_on_genpro_gov_sk_prosecutors_list_id'
@@ -30,6 +31,7 @@ ActiveRecord::Schema.define(version: 2020_06_20_081502) do
 
   create_table 'employees', force: :cascade do |t|
     t.bigint 'office_id', null: false
+    t.bigint 'prosecutor_id'
     t.string 'name', null: false
     t.string 'position', limit: 1024, null: false
     t.string 'phone'
@@ -38,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_06_20_081502) do
     t.datetime 'updated_at', precision: 6, null: false
     t.index %w[name position], name: 'index_employees_on_name_and_position'
     t.index %w[office_id], name: 'index_employees_on_office_id'
+    t.index %w[prosecutor_id], name: 'index_employees_on_prosecutor_id'
   end
 
   create_table 'genpro_gov_sk_offices', force: :cascade do |t|
@@ -86,6 +89,7 @@ ActiveRecord::Schema.define(version: 2020_06_20_081502) do
   add_foreign_key 'appointments', 'offices'
   add_foreign_key 'appointments', 'prosecutors'
   add_foreign_key 'employees', 'offices'
+  add_foreign_key 'employees', 'prosecutors'
   add_foreign_key 'offices', 'genpro_gov_sk_offices'
   add_foreign_key 'prosecutors', 'genpro_gov_sk_prosecutors_lists'
 end
