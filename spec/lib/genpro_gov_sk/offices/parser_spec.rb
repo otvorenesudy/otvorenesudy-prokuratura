@@ -46,6 +46,22 @@ RSpec.describe GenproGovSk::Offices::Parser do
 
   context 'with coupled people names and positions' do
     it 'correctly parses names and positions of prosecutors' do
+      html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'bratislava.html'))
+      data = described_class.parse(html)
+
+      expect(data[:name]).to eq('Okresná prokuratúra Bratislava I')
+
+      expect(data[:employees][0][:name]).to eq('JUDr. Stanislav Lešo')
+      expect(data[:employees][0][:position]).to eq('okresný prokurátor')
+      expect(data[:employees][0][:phone]).to eq('02/208 36 612')
+
+      expect(data[:employees][1][:name]).to eq('JUDr. Katarína Kuljačková')
+      expect(data[:employees][1][:position]).to eq('námestník okresného prokurátora')
+      expect(data[:employees][1][:phone]).to eq('02/208 36 619')
+
+      expect(data[:employees][2][:name]).to eq('JUDr. Hana Štaffenová')
+      expect(data[:employees][2][:position]).to eq('námestník okresného prokurátora')
+      expect(data[:employees][2][:phone]).to eq('02/208 36 611')
     end
   end
 end

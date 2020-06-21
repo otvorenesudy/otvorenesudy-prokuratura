@@ -19,6 +19,7 @@ gem 'bootstrap', '~> 4.1.0'
 gem 'pg', '~> 1.2.3'
 gem 'pdf-reader', '~> 2.4.0'
 gem 'json-schema', '~> 2.8.1'
+gem 'sidekiq', '~> 6.0.7'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

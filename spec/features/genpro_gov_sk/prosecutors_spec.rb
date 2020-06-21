@@ -2,12 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'GenproGovSk Prosecutors', type: :feature do
   it 'correctly parses all prosecutors', webmock: :disabled do
+    GenproGovSk::Offices.import
+
     prosecutors = GenproGovSk::Prosecutors.import
 
     expect(prosecutors.size).to eql(967)
-    expect(prosecutors.sort_by { |e| e[:id] }).to eql(
-      JSON.parse(File.read(Rails.root.join('spec/fixtures/genpro_gov_sk/prosecutors.json')), symbolize_names: true)
-        .sort_by { |e| e[:id] }
-    )
   end
 end

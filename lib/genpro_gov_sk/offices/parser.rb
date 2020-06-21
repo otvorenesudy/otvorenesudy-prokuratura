@@ -96,7 +96,7 @@ module GenproGovSk
                 EMPLOYEE_POSITIONS.select do |position|
                   next unless text.include?(position)
 
-                  text.gsub!(/#{position}[[:space:]]*<>/, '')
+                  text.gsub!(/#{position}[[:space:]]*(<>)?/, '')
 
                   break position
                 end
