@@ -58,8 +58,6 @@ class Office < ApplicationRecord
 
     return if JSON::Validator.validate(schema, registry)
 
-    require 'pry'
-    binding.pry
     errors.add(:registry, :invalid)
   end
 end

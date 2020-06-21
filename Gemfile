@@ -13,6 +13,7 @@ gem 'sprockets', '~> 4.0.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 gem 'curb'
+gem 'mechanize'
 
 gem 'bootstrap', '~> 4.1.0'
 gem 'pg', '~> 1.2.3'

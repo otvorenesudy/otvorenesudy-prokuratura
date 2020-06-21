@@ -3,6 +3,7 @@
 # Table name: prosecutors
 #
 #  id                                :bigint           not null, primary key
+#  declarations                      :jsonb
 #  name                              :string           not null
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null

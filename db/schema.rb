@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2020_06_20_081502) do
   create_table 'prosecutors', force: :cascade do |t|
     t.bigint 'genpro_gov_sk_prosecutors_list_id', null: false
     t.string 'name', null: false
+    t.jsonb 'declarations'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index %w[genpro_gov_sk_prosecutors_list_id], name: 'index_prosecutors_on_genpro_gov_sk_prosecutors_list_id'

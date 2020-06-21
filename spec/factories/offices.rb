@@ -25,7 +25,7 @@
 #
 FactoryBot.define do
   factory :office do
-    association :'genpro_gov_sk_prosecutors_list'
+    association :'genpro_gov_sk_office'
 
     sequence(:name) { |n| "Office #{n}" }
     address { 'Hlavná 1, 123 45 Bratislava' }
@@ -36,11 +36,11 @@ FactoryBot.define do
       {
         phone: '+421 987 654 321',
         hours: {
-          monday: %w[08:00 15:00],
-          tuesday: %w[08:00 15:00],
-          wedneysday: %w[08:00 15:00],
-          thursday: %w[08:00 15:00],
-          friday: %w[08:00 15:00]
+          monday: '08:00 - 15:00',
+          tuesday: '08:00 - 15:00',
+          wednesday: '08:00 - 15:00',
+          thursday: '8:00 - 15:00',
+          friday: '08:00 - 15:00'
         }
       }
     end

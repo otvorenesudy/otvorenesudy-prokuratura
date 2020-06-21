@@ -42,7 +42,7 @@ module GenproGovSk
         end
 
         def parse_name(value)
-          Legacy::Normalizer.normalize_person_name(value, reverse: true)
+          ::Legacy::Normalizer.normalize_person_name(value, reverse: true)
         end
       end
     end

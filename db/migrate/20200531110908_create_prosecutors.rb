@@ -4,6 +4,7 @@ class CreateProsecutors < ActiveRecord::Migration[6.0]
       t.references :genpro_gov_sk_prosecutors_list, null: false, foreign_key: true
 
       t.string :name, null: false
+      t.jsonb :declarations, null: true
 
       t.timestamps null: false
     end
