@@ -90,7 +90,7 @@ module GenproGovSk
           name: name,
           type: type_by(name),
           employees:
-            document.css('.tab-kontakt:nth-of-type(2) tr')[1..-1].map do |row|
+            document.css('.tab-kontakt:nth-of-type(2) tr')[1..-1].map.with_index do |row, rank|
               text = row.css('td').map { |e| normalize(e.text).presence }.compact.join('<>')
 
               next unless text.present?
@@ -113,6 +113,7 @@ module GenproGovSk
               {
                 name: suffix_to_position ? normalize(name.gsub(suffix_to_position, '')) : name,
                 position: normalize("#{position} #{suffix_to_position}"),
+                rank: rank + 1,
                 phone: phone
               }
             end.compact
@@ -141,7 +142,9 @@ module GenproGovSk
             address:
               document.css('.tab-kontakt:nth-of-type(1) tr:nth-of-type(1) td:nth-of-type(1) p').map do |e|
                 normalize(e.text)
-              end,
+              end[
+                1..-1
+              ].join(', '),
             phone:
               normalize(
                 document.css('.tab-kontakt:nth-of-type(1) tr:nth-of-type(1) td:nth-of-type(2) p:nth-of-type(1)').text

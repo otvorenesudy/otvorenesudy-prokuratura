@@ -25,14 +25,16 @@
 #  fk_rails_...  (office_id => offices.id)
 #  fk_rails_...  (prosecutor_id => prosecutors.id)
 #
-class Employee < ApplicationRecord
-  belongs_to :office
-  belongs_to :prosecutor, optional: true
+FactoryBot.define do
+  factory :employee do
+    office
 
-  validates :name, presence: true
-  validates :position, presence: true
-  validates :rank, presence: true, numericality: { greater_than: 0, only_integer: true }
-  validates :rank, uniqueness: { scope: %i[office_id disabled_at] }, unless: :disabled_at?
+    sequence(:name) { |n| "John Smith ##{n}" }
+    sequence(:position) { |n| "a position in the office ##{n}" }
+    sequence(:rank) { |n| n }
 
-  scope :active, -> { where(disabled_at: nil) }
+    trait :with_prosecutor do
+      prosecutor
+    end
+  end
 end

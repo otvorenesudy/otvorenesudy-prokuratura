@@ -43,6 +43,10 @@ class Office < ApplicationRecord
 
   validate :validate_registry, if: :registry?
 
+  def attorney_general
+    employees.active.order(rank: :asc).first
+  end
+
   private
 
   def validate_registry

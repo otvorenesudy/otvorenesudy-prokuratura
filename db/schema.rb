@@ -34,11 +34,14 @@ ActiveRecord::Schema.define(version: 2020_06_20_081502) do
     t.bigint 'prosecutor_id'
     t.string 'name', null: false
     t.string 'position', limit: 1024, null: false
+    t.integer 'rank', null: false
     t.string 'phone'
     t.datetime 'disabled_at'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index %w[name position], name: 'index_employees_on_name_and_position'
+    t.index %w[office_id disabled_at rank],
+            name: 'index_employees_on_office_id_and_disabled_at_and_rank', unique: true, where: '(disabled_at IS NULL)'
     t.index %w[office_id], name: 'index_employees_on_office_id'
     t.index %w[prosecutor_id], name: 'index_employees_on_prosecutor_id'
   end

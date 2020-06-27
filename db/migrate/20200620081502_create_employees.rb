@@ -6,6 +6,7 @@ class CreateEmployees < ActiveRecord::Migration[6.0]
 
       t.string :name, null: false
       t.string :position, null: false, limit: 1024
+      t.integer :rank, null: false
       t.string :phone, null: true
       t.datetime :disabled_at, null: true
 
@@ -13,5 +14,6 @@ class CreateEmployees < ActiveRecord::Migration[6.0]
     end
 
     add_index :employees, %i[name position]
+    add_index :employees, %i[office_id disabled_at rank], unique: true, where: 'disabled_at IS NULL'
   end
 end

@@ -47,3 +47,13 @@ en:
         offices: Public Prosecutor's Office
         criminality: Criminality
         search: Search
+
+  offices:
+    index:
+      title: Offices
+      list:
+        prosecutor_subtitle:
+          general_html: 'Attroney General is %{link}'
+          specialized_html: 'Specialized Attroney General is %{link}'
+          regional_html: 'Regional Attorney General is %{link}'
+          district_html: 'District Attorney General is %{link}'

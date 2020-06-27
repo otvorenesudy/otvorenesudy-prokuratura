@@ -25,14 +25,23 @@
 #  fk_rails_...  (office_id => offices.id)
 #  fk_rails_...  (prosecutor_id => prosecutors.id)
 #
-class Employee < ApplicationRecord
-  belongs_to :office
-  belongs_to :prosecutor, optional: true
+require 'rails_helper'
 
-  validates :name, presence: true
-  validates :position, presence: true
-  validates :rank, presence: true, numericality: { greater_than: 0, only_integer: true }
-  validates :rank, uniqueness: { scope: %i[office_id disabled_at] }, unless: :disabled_at?
+RSpec.describe Employee do
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_presence_of(:position) }
+  it { is_expected.to validate_presence_of(:rank) }
+  it { is_expected.to validate_numericality_of(:rank).is_greater_than(0).only_integer }
 
-  scope :active, -> { where(disabled_at: nil) }
+  context 'when active' do
+    subject { build(:employee, disabled_at: nil) }
+
+    it { is_expected.to validate_uniqueness_of(:rank).scoped_to(%i[office_id disabled_at]) }
+  end
+
+  context 'when disabled' do
+    subject { build(:employee, disabled_at: Time.zone.now) }
+
+    it { is_expected.not_to validate_uniqueness_of(:rank).scoped_to(%i[office_id disabled_at]) }
+  end
 end

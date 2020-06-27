@@ -1,0 +1,27 @@
+<div class="container mt-4 px-sm-0">
+  <div class="float-lg-left col-lg-3 mb-5 mb-lg-0 px-0 pr-lg-4">
+
+  </div>
+
+  <div class="class="float-lg-right col-lg-9 px-0"">
+    <h2 class="display-2 text-uppercase d-lg-none mb-3"><%= t '.offices' %></h2>
+    <ol class="search-result-list" start="1">
+      <% @offices.each do |office| %>
+        <li class="search-result-item">
+          <h4 class="search-result-title">
+            <%= link_to office.name, offices_path(office) %>
+            <small><%= office.address %></small>
+          </h4>
+
+          <div class="search-result-content">
+            <% if office.attorney_general.prosecutor.present? %>
+              <%= t ".list.prosecutor_subtitle.#{office.type}_html", link: link_to(office.attorney_general.prosecutor.name, '') %>
+            <% else %>
+              <%= t ".list.prosecutor_subtitle.#{office.type}_html", link: office.attorney_general.name %>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+</div>

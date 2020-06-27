@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web, at: '/sidekiq'
 
+  resources :offices, only: %i[index show]
+
   resource :static_page, only: [] do
     get :about
     get :faq

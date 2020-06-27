@@ -44,9 +44,11 @@ module GenproGovSk
             employee = office.employees.active.find_or_initialize_by(params.slice(:name, :position))
 
             employee.update!(params)
+
+            employee
           end
 
-        office.employees.active.where.not(id: employees).update_all(disabled_at: Time.zone.now)
+        office.employees.where.not(id: employees).update_all(disabled_at: Time.zone.now)
       end
     end
   end

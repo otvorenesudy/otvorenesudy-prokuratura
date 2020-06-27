@@ -31,6 +31,8 @@ FactoryBot.define do
   factory :office do
     association :'genpro_gov_sk_office'
 
+    type { :district }
+
     sequence(:name) { |n| "Office #{n}" }
     address { 'Hlavná 1, 123 45 Bratislava' }
     email { 'prokuratura@genpro.gov.sk' }

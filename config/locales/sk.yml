@@ -10,7 +10,7 @@ sk:
     header:
       prosecutors: Prokurátori
       offices: Prokuratúra
-      criminality: Kriminalita
+      criminality: Kriminalita v kocke
       search: Hľadaj
       otvorenesudy: Otvorené Súdy
       donate: Podporte
@@ -45,6 +45,16 @@ sk:
       squares:
         prosecutors: Prokurátori
         offices: Prokuratúra
-        criminality: Kriminalita
+        criminality: Kriminalita v kocke
         search: Hľadaj
 
+  offices:
+    index:
+      title: Prokuratúry
+
+      list:
+        prosecutor_subtitle:
+          general_html: 'Generálnym prokurátorom je %{link}'
+          specialized_html: 'Špeciálnym prokurátorom je %{link}'
+          regional_html: 'Krajským prokurátorom je %{link}'
+          district_html: 'Okresným prokurátorom je %{link}'
