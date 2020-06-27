@@ -14,6 +14,7 @@ class CreateOffices < ActiveRecord::Migration[6.0]
       t.references :genpro_gov_sk_office, null: false, foreign_key: true
 
       t.string :name, null: false
+      t.integer :type, null: true
       t.string :address, null: false, limit: 1024
       t.string :phone, null: false
       t.string :fax, null: true
@@ -25,5 +26,14 @@ class CreateOffices < ActiveRecord::Migration[6.0]
     end
 
     add_index :offices, :name, unique: true
+    add_index :offices, :type
+    add_index :offices,
+              :type,
+              name: :index_offices_on_unique_general_type, unique: true, where: "type = #{Office.types[:general]}"
+    add_index :offices,
+              :type,
+              name: :index_offices_on_unique_specialized_type,
+              unique: true,
+              where: "type = #{Office.types[:specialized]}"
   end
 end

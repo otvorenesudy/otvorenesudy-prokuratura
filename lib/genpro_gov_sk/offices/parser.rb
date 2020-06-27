@@ -84,8 +84,11 @@ module GenproGovSk
       def self.parse(html)
         document = Nokogiri.HTML(html)
 
+        name = normalize(document.css('.contentPage > h3').text)
+
         data = {
-          name: normalize(document.css('.contentPage > h3').text),
+          name: name,
+          type: type_by(name),
           employees:
             document.css('.tab-kontakt:nth-of-type(2) tr')[1..-1].map do |row|
               text = row.css('td').map { |e| normalize(e.text).presence }.compact.join('<>')
@@ -178,6 +181,13 @@ module GenproGovSk
           redundant_lines_range = 2..(2 + (lines - 7) - 1)
 
           document.css('.tab-kontakt:nth-of-type(1) tr')[redundant_lines_range].map(&:remove)
+        end
+
+        def type_by(name)
+          return :general if name.downcase =~ /generálna prokuratúra/
+          return :specialized if name.downcase =~ /úrad špeciálnej prokuratúry/
+          return :regional if name.downcase =~ /krajská/
+          return :district if name.downcase =~ /okresná/
         end
       end
     end

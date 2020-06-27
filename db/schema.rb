@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2020_06_20_081502) do
   create_table 'offices', force: :cascade do |t|
     t.bigint 'genpro_gov_sk_office_id', null: false
     t.string 'name', null: false
+    t.integer 'type'
     t.string 'address', limit: 1024, null: false
     t.string 'phone', null: false
     t.string 'fax'
@@ -74,6 +75,9 @@ ActiveRecord::Schema.define(version: 2020_06_20_081502) do
     t.datetime 'updated_at', precision: 6, null: false
     t.index %w[genpro_gov_sk_office_id], name: 'index_offices_on_genpro_gov_sk_office_id'
     t.index %w[name], name: 'index_offices_on_name', unique: true
+    t.index %w[type], name: 'index_offices_on_type'
+    t.index %w[type], name: 'index_offices_on_unique_general_type', unique: true, where: '(type = 0)'
+    t.index %w[type], name: 'index_offices_on_unique_specialized_type', unique: true, where: '(type = 1)'
   end
 
   create_table 'prosecutors', force: :cascade do |t|

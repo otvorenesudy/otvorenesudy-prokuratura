@@ -7,6 +7,7 @@ RSpec.describe GenproGovSk::Offices::Parser do
       data = described_class.parse(html)
 
       expect(data[:name]).to eq('Generálna prokuratúra Slovenskej republiky')
+      expect(data[:type]).to eql(:general)
       expect(data[:address]).to eq(['Generálna prokuratúra Slovenskej republiky', 'Štúrova 2', '812 85 Bratislava 1'])
       expect(data[:phone]).to eq('02/208 37 505, 595 32 505')
       expect(data[:email]).to eq('GPSR@genpro.gov.sk')
@@ -50,6 +51,7 @@ RSpec.describe GenproGovSk::Offices::Parser do
       data = described_class.parse(html)
 
       expect(data[:name]).to eq('Okresná prokuratúra Bratislava I')
+      expect(data[:type]).to eql(:district)
 
       expect(data[:employees][0][:name]).to eq('JUDr. Stanislav Lešo')
       expect(data[:employees][0][:position]).to eq('okresný prokurátor')

@@ -111,7 +111,7 @@ module GenproGovSk
             heading = table.css('tr.rowBlue_02 th').map { |th| th.text.downcase.strip.presence }.compact
             parser = parser_factory.call(heading)
 
-            return raise("No parser for #{heading}") unless parser
+            return ArgumentError.new("No parser for #{heading}") unless parser
 
             items = table.search('tr:not(.rowBlue_02)').map { |row| parser.call(row) }
 
