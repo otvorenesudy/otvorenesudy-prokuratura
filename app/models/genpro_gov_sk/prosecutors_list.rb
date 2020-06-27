@@ -33,21 +33,26 @@ module GenproGovSk
         time = Time.zone.now
         list = create!(digest: digest, file: file, data: data)
 
+        namesakes =
+          data.each.with_object(Hash.new(0)) { |value, hash| hash[value[:name]] += 0 }.select do |_, value|
+            value > 1
+          end.keys
+
+        data.each { |value| value[:namesake] = true if value[:name].in?(namesakes) }
+
         data.each do |value|
-          office = ::Office.find_by(name: value[:office])
+          offices = [::Office.find_by(name: value[:office])]
 
           prosecutor =
             ::Prosecutor.joins(:appointments).find_by(
-              name: value[:name], appointments: { type: :fixed, office_id: office.id, ended_at: nil }
+              name: value[:name], appointments: { type: :fixed, office_id: offices[0].id, ended_at: nil }
             )
 
           prosecutor = ::Prosecutor.create!(name: value[:name], genpro_gov_sk_prosecutors_list: list) unless prosecutor
 
-          appointment = prosecutor.appointments.current.fixed.find_or_initialize_by(office: office)
+          appointment = prosecutor.appointments.current.fixed.find_or_initialize_by(office: offices[0])
           appointment.update!(genpro_gov_sk_prosecutors_list: list, started_at: time) if appointment.new_record?
           prosecutor.appointments.current.fixed.where.not(id: appointment.id).update_all(ended_at: time)
-
-          office.employees.where(name: prosecutor.name).update_all(prosecutor_id: prosecutor.id)
 
           if value[:temporary_office] # TODO: handle string only if office does not exist
             office = ::Office.find_by(name: value[:temporary_office])
@@ -60,7 +65,13 @@ module GenproGovSk
             appointment.update!(genpro_gov_sk_prosecutors_list: list, started_at: time) if appointment.new_record?
             prosecutor.appointments.current.temporary.where.not(id: appointment.id).update_all(ended_at: time)
 
-            office.employees.where(name: prosecutor.name).update_all(prosecutor_id: prosecutor.id) if office
+            offices << office if office
+          end
+
+          if value[:namesake]
+            Employee.where(name: prosecutor.name, office: offices).update_all(prosecutor_id: prosecutor.id)
+          else
+            Employee.where(name: prosecutor.name).update_all(prosecutor_id: prosecutor.id)
           end
         end
       end
