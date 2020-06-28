@@ -1,4 +1,12 @@
 sk:
+  kaminari:
+    pagination:
+      first: "Prvá strana"
+      previous: "Predchádzajúca strana"
+      current: 'Aktuálna strana'
+      next: "Nasledujúca strana"
+      last: "Posledná strana"
+
   layouts:
     application:
       title: 'Otvorená Prokuratúra'
@@ -49,12 +57,28 @@ sk:
         search: Hľadaj
 
   offices:
+    types:
+      general: 'Generálna'
+      specialized: 'Špecializovaná'
+      regional: 'Krajská'
+      district: 'Okresná'
+
     index:
       title: Prokuratúry
 
       list:
         prosecutor_subtitle:
-          general_html: 'Generálnym prokurátorom je %{link}'
-          specialized_html: 'Špeciálnym prokurátorom je %{link}'
-          regional_html: 'Krajským prokurátorom je %{link}'
-          district_html: 'Okresným prokurátorom je %{link}'
+          general_html: 'Generálnym prokurátorom je %{link}.'
+          specialized_html: 'Špeciálnym prokurátorom je %{link}.'
+          regional_html: 'Krajským prokurátorom je %{link}.'
+          district_html: 'Okresným prokurátorom je %{link}.'
+
+      search:
+        placeholder: 'Názov prokuratúry alebo meno prokurátora'
+        type: Typ
+
+      employees_count:
+        zero: 'Na prokuratúre neevidujeme žiadnych vedúcich pracovníkov.'
+        one: 'Na prokuratúre evidujeme 1 vedúceho pracovníka.'
+        few: 'Na prokuratúre evidujeme %{count} vedúcich pracovníkov.'
+        other: 'Na prokuratúre evidujeme %{count} vedúcich pracovníkov.'

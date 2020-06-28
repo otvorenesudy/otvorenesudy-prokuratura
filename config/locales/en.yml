@@ -1,4 +1,12 @@
 en:
+  kaminari:
+    pagination:
+      first: "First page"
+      previous: "Previous page"
+      current: 'Current page'
+      next: "Next page"
+      last: "Last page"
+
   layouts:
     application:
       title: Otvorená Prokuratúra
@@ -51,9 +59,20 @@ en:
   offices:
     index:
       title: Offices
+
       list:
         prosecutor_subtitle:
-          general_html: 'Attroney General is %{link}'
-          specialized_html: 'Specialized Attroney General is %{link}'
-          regional_html: 'Regional Attorney General is %{link}'
-          district_html: 'District Attorney General is %{link}'
+          general_html: 'Attroney General is %{link}.'
+          specialized_html: 'Specialized Attroney General is %{link}.'
+          regional_html: 'Regional Attorney General is %{link}.'
+          district_html: 'District Attorney General is %{link}.'
+
+      search:
+        placeholder: "Name of the attrorney's office or name of the prosecutor"
+        type: Typ
+
+      employees_count:
+        zero: "We do not register any leading employee in this attorney's general office."
+        one: "We register 1 leading employee in this attorney's general office."
+        few: "We register %{count} leading employees in this attorney's general office."
+        other: "We register %{count} leading employees in this attorney's general office."

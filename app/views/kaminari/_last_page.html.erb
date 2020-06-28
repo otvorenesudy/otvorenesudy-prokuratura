@@ -1,0 +1,5 @@
+<% unless current_page.last? %>
+  <li class="page-item d-none">
+    <%= link_to t('kaminari.pagination.last'), url, class: 'page-link' %>
+  </li>
+<% end %>
