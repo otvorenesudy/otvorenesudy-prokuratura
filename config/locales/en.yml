@@ -85,12 +85,15 @@ en:
       search:
         placeholder: "Name of the attrorney's office or name of the prosecutor"
         sort: Sort
-        type: Type
-        no_types: No types found
-        city: City
-        no_cities: No cities found
         not_found: "No offices found (%{time} ms)"
         no_results: "No offices match the given search criteria."
+        type:
+          title: Type
+          not_found: No types found
+        city:
+          title: City
+          not_found: No cities found
+          placeholder: Name of a city
 
       employees_count:
         zero: "We do not register any leading employee in this attorney's general office."

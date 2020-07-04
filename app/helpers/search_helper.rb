@@ -1,6 +1,6 @@
 module SearchHelper
   def search_params(params, other)
-    params = params.to_h
+    params = params.to_h.with_indifferent_access
 
     other.each do |key, value|
       value = value.to_s
@@ -12,7 +12,7 @@ module SearchHelper
     params
   end
 
-  def search_params?(params, key, value)
+  def search_param?(params, key, value)
     return unless params[key]
 
     value = value.to_s

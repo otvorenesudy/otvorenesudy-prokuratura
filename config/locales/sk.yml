@@ -85,12 +85,15 @@ sk:
       search:
         placeholder: 'Názov prokuratúry alebo meno prokurátora'
         sort: Zoradiť
-        type: Typ
-        no_types: Nenájdené žiadne typy
-        city: Sídlo
-        no_cities: Nenájdené žiadne sídla
         not_found: "Nenájdené žiadne prokuratúry (%{time} ms)"
         no_results: "Vybraným vyhľadávacím kritériám nevyhovujú žiadne prokuratúry."
+        type:
+          title: Typ
+          not_found: Nenájdené žiadne typy
+        city:
+          title: Sídlo
+          not_found: Nenájdené žiadne sídla
+          placeholder: Názov sídla
 
       employees_count:
         zero: 'Na prokuratúre neevidujeme žiadnych vedúcich pracovníkov.'

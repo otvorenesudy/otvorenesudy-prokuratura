@@ -9,14 +9,14 @@
         <div class="col-lg-6 col-xl">
           <%= form_tag offices_path, method: :get, class: 'search-query-form' do %>
             <div class="input-group">
-              <%= search_field_tag :q, index_params[:q], class: 'form-control search-query-input', placeholder: t('.search.placeholder') %>
+              <%= search_field_tag :q, @search.params[:q], class: 'form-control search-query-input', placeholder: t('.search.placeholder') %>
               <div class="input-group-append">
-                <%= link_to icon_tag('times'), offices_path(index_params.except(:q)), class: 'btn search-query-reset' if index_params[:q].present? %>
+                <%= link_to icon_tag('times'), offices_path(@search.params.except(:q)), class: 'btn search-query-reset' if @search.params[:q].present? %>
                 <button type="submit" class="btn mt-1 search-query-submit"><%= icon_tag('search') %></button>
               </div>
             </div>
 
-            <% form_params index_params.except(:q, :page) do |name, value| %>
+            <% form_params @search.params.except(:q, :page) do |name, value| %>
               <%= hidden_field_tag name, value %>
             <% end %>
             <%= hidden_field_tag :l, I18n.locale %>
@@ -45,8 +45,8 @@
                     <a href="/courts?l=sk&amp;sort=decrees_count" class="dropdown-item">Počet rozhodnutí</a>
                 </div>
               </div>
-              <%= link_to icon_tag('arrow-up', size: 12), offices_path(index_params.merge(order: 'asc')), class: "btn btn-secondary#{' active' if index_params[:order] == 'asc'} d-flex align-items-center shadow-none border-left border-right border-top-0 border-bottom-0" %>
-              <%= link_to icon_tag('arrow-down', size: 12), offices_path(index_params.merge(order: 'desc')), class: "btn btn-secondary#{' active' if index_params[:order] == 'desc'} d-flex align-items-center shadow-none border-left border-right-0 border-top-0 border-bottom-0" %>
+              <%= link_to icon_tag('arrow-up', size: 12), offices_path(@search.params.merge(order: 'asc')), class: "btn btn-secondary#{' active' if @search.params[:order] == 'asc'} d-flex align-items-center shadow-none border-left border-right border-top-0 border-bottom-0" %>
+              <%= link_to icon_tag('arrow-down', size: 12), offices_path(@search.params.merge(order: 'desc')), class: "btn btn-secondary#{' active' if @search.params[:order] == 'desc'} d-flex align-items-center shadow-none border-left border-right-0 border-top-0 border-bottom-0" %>
             </div>
           </div>
         </div>
@@ -56,46 +56,38 @@
       <% time = Benchmark.realtime do %>
         <div class="facet" data-id="office-type">
           <h6 class="facet-title" data-toggle="collapse" data-target="#office-type-content">
-            <%= t '.search.type' %>
+            <%= t '.search.type.title' %>
           </h6>
 
           <div id="office-type-content" class="facet-content collapse show">
             <div class="facet-results">
-              <ul id="court-type-list" class="facet-list">
+              <ul id="office-type-list" class="facet-list">
                 <% if @search.facets_for(:type).each do |key, count| %>
                   <li class="facet-item">
-                    <%= link_to offices_path(search_params(index_params, type: key)), class: "facet-link#{' active' if search_params?(index_params, :type, key)}" do %>
+                    <%= link_to offices_path(search_params(@search.params, type: key)), class: "facet-link#{' active' if search_param?(@search.params, :type, key)}" do %>
                       <%= t("offices.types.#{key}") %>
                       <span class="facet-tag"><%= number_with_delimiter(count) %></span>
                     <% end %>
                   </li>
                 <% end.empty? %>
-                  <span class="text-muted"><%= t '.search.no_types' %></span>
+                  <li class="facet-item">
+                    <span class="text-muted"><%= t '.search.type.not_found' %></span>
+                  </li>
                 <% end %>
               </ul>
             </div>
           </div>
         </div>
 
-        <div class="facet" data-id="office-city">
+        <div class="facet" data-id="office-city" data-controller="suggest" data-url="<%= suggest_offices_path(@search.params.merge(facet: :city)) %>">
           <h6 class="facet-title" data-toggle="collapse" data-target="#office-city-content">
-            <%= t '.search.city' %>
+            <%= t '.search.city.title' %>
           </h6>
 
           <div id="office-city-content" class="facet-content collapse show">
             <div class="facet-results">
-              <ul id="court-type-list" class="facet-list">
-                <% if @search.facets_for(:city).first(10).each do |city, count| %>
-                  <li class="facet-item">
-                    <%= link_to offices_path(search_params(index_params, city: city)), class: "facet-link#{' active' if search_params?(index_params, :city, city)}" do %>
-                      <%= city %>
-                      <span class="facet-tag"><%= count %></span>
-                    <% end %>
-                  </li>
-                <% end.empty? %>
-                  <span class="text-muted"><%= t '.search.no_cities' %></span>
-                <% end %>
-              </ul>
+              <input class="facet-suggest ui-autocomplete-input" name="city" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.city.placeholder' %>" type="text" autocomplete="off">
+              <%= render 'city_results', values: @search.facets_for(:city), params: @search.params %>
             </div>
           </div>
         </div>

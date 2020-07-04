@@ -18,7 +18,9 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web, at: '/sidekiq'
 
-  resources :offices, only: %i[index show]
+  resources :offices, only: %i[index show] do
+    get :suggest, on: :collection
+  end
 
   resource :static_page, only: [] do
     get :about

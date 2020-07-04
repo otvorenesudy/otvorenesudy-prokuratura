@@ -11,7 +11,7 @@ class QueryFilter
         columns.map do |column|
           "
             #{column} LIKE lower(unaccent(:like)) OR
-            similarity(#{column}, lower(unaccent(:similarity))) > 0.5
+            similarity(#{column}, lower(unaccent(:similarity))) > 0.3
           "
         end.join(' OR '),
         like: "%#{params[:q]}%", similarity: params[:q]
