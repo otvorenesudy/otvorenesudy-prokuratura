@@ -16,6 +16,8 @@ class CreateOffices < ActiveRecord::Migration[6.0]
       t.string :name, null: false
       t.integer :type, null: true
       t.string :address, null: false, limit: 1024
+      t.string :zipcode, null: false
+      t.string :city, null: false
       t.string :phone, null: false
       t.string :fax, null: true
       t.string :email, null: true
@@ -35,5 +37,14 @@ class CreateOffices < ActiveRecord::Migration[6.0]
               name: :index_offices_on_unique_specialized_type,
               unique: true,
               where: "type = #{Office.types[:specialized]}"
+
+    %i[name address city].each do |column|
+      execute <<-SQL
+        CREATE INDEX index_offices_on_#{column}_using_gin ON offices
+        USING gin (lower(#{
+        column
+      }) gin_trgm_ops)
+      SQL
+    end
   end
 end

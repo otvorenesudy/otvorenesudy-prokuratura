@@ -69,7 +69,9 @@ en:
 
       search:
         placeholder: "Name of the attrorney's office or name of the prosecutor"
-        type: Typ
+        sort: Sort
+        type: Type
+        city: City
 
       employees_count:
         zero: "We do not register any leading employee in this attorney's general office."

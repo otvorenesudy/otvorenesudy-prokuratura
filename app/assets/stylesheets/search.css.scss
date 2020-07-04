@@ -8,6 +8,10 @@
     padding-bottom: 0;
     border-bottom: none;
   }
+
+  &.no-border {
+    border-bottom: none;
+  }
 }
 
 .facet-title {

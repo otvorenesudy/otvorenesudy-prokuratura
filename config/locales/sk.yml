@@ -75,7 +75,9 @@ sk:
 
       search:
         placeholder: 'Názov prokuratúry alebo meno prokurátora'
+        sort: Zoradiť
         type: Typ
+        city: Sídlo
 
       employees_count:
         zero: 'Na prokuratúre neevidujeme žiadnych vedúcich pracovníkov.'

@@ -138,13 +138,23 @@ module GenproGovSk
 
           remove_excessive_redundant_columns_from_first_contact_table(document)
 
+          location =
+            document.css('.tab-kontakt:nth-of-type(1) tr:nth-of-type(1) td:nth-of-type(1) p').map do |e|
+              normalize(e.text)
+            end[
+              1..-1
+            ].join(' ')
+
+          _, address, zipcode, city = *location.match(/\A(.+)(\d{3}[[:space:]]\d{2})[[:space:]]{0,}(.+)\z/)
+
+          address = normalize(address)
+          zipcode = normalize(zipcode)
+          city = normalize(city)
+
           data = {
-            address:
-              document.css('.tab-kontakt:nth-of-type(1) tr:nth-of-type(1) td:nth-of-type(1) p').map do |e|
-                normalize(e.text)
-              end[
-                1..-1
-              ].join(', '),
+            address: "#{address}, #{zipcode} #{city}",
+            zipcode: zipcode,
+            city: normalize(city.gsub(/\d/, '')),
             phone:
               normalize(
                 document.css('.tab-kontakt:nth-of-type(1) tr:nth-of-type(1) td:nth-of-type(2) p:nth-of-type(1)').text
