@@ -54,14 +54,14 @@
       -->
 
       <% time = Benchmark.realtime do %>
-        <div class="facet" data-id="office-type">
+        <div class="facet">
           <h6 class="facet-title" data-toggle="collapse" data-target="#office-type-content">
             <%= t '.search.type.title' %>
           </h6>
 
           <div id="office-type-content" class="facet-content collapse show">
             <div class="facet-results">
-              <ul id="office-type-list" class="facet-list">
+              <ul class="facet-list">
                 <% if @search.facets_for(:type).each do |key, count| %>
                   <li class="facet-item">
                     <%= link_to offices_path(search_params(@search.params, type: key)), class: "facet-link#{' active' if search_param?(@search.params, :type, key)}" do %>
@@ -79,7 +79,7 @@
           </div>
         </div>
 
-        <div class="facet" data-id="office-city" data-controller="suggest" data-url="<%= suggest_offices_path(@search.params.merge(facet: :city)) %>">
+        <div class="facet" data-controller="suggest" data-url="<%= suggest_offices_path(@search.params.merge(facet: :city)) %>">
           <h6 class="facet-title" data-toggle="collapse" data-target="#office-city-content">
             <%= t '.search.city.title' %>
           </h6>
@@ -88,6 +88,32 @@
             <div class="facet-results">
               <input class="facet-suggest ui-autocomplete-input" name="city" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.city.placeholder' %>" type="text" autocomplete="off">
               <%= render 'city_results', values: @search.facets_for(:city), params: @search.params %>
+            </div>
+          </div>
+        </div>
+
+        <div class="facet">
+          <h6 class="facet-title" data-toggle="collapse" data-target="#office-prosecutors-count-content">
+            <%= t '.search.prosecutors_count.title' %>
+          </h6>
+
+          <div id="office-prosecutors-count-content" class="facet-content collapse show">
+            <div class="facet-results">
+              <ul class="facet-list">
+                <% if @search.facets_for(:prosecutors_count).each do |key, count| %>
+                  <li class="facet-item">
+                    <%= link_to offices_path(search_params(@search.params, prosecutors_count: key)), class: "facet-link#{' active' if search_param?(@search.params, :prosecutors_count, key)}" do %>
+
+                      <%= t 'terms.prosecutor', count: key %>
+                      <span class="facet-tag"><%= number_with_delimiter(count) %></span>
+                    <% end %>
+                  </li>
+                <% end.empty? %>
+                  <li class="facet-item">
+                    <span class="text-muted"><%= t '.search.prosecutors_count.not_found' %></span>
+                  </li>
+                <% end %>
+              </ul>
             </div>
           </div>
         </div>
@@ -123,7 +149,7 @@
       <div class="d-flex flex-wrap align-items-center justify-content-between">
         <div class="small text-muted mr-3 mt-4">
           <% if @search.all.any? %>
-            <%= t 'search.found_html', count: "#{@search.paginated.offset_value + 1} &ndash; #{@search.paginated.offset_value + @search.paginated.count}".html_safe, total: I18n.t('offices.count', count: @search.paginated.total_count), time: time.to_i %>
+            <%= t 'layouts.search.found_html', count: "#{@search.paginated.offset_value + 1} &ndash; #{@search.paginated.offset_value + @search.paginated.count}".html_safe, total: I18n.t('offices.count', count: @search.paginated.total_count), time: time.to_i %>
           <% else %>
             <%= t '.search.not_found', time: number_with_delimiter(time.to_i) %>
           <% end %>

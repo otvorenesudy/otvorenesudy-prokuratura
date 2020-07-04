@@ -1,4 +1,4 @@
-<ul id="court-type-list" class="facet-list" data-target="suggest.results">
+<ul class="facet-list" data-target="suggest.results">
   <% if values.first(10).each do |city, count| %>
     <li class="facet-item">
       <%= link_to offices_path(search_params(params, city: city)), class: "facet-link#{' active' if search_param?(params, :city, city)}" do %>

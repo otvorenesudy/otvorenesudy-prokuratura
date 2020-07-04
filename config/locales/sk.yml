@@ -7,10 +7,17 @@ sk:
       next: "Nasledujúca strana"
       last: "Posledná strana"
 
-  search:
-    found_html: "%{count} z celkovo %{total} (%{time} ms)"
+  terms:
+    prosecutor:
+      zero: 'Žiadny prokurátor'
+      one: '1 prokurátor'
+      few: '%{count} prokurátori'
+      other: '%{count} prokurátorov'
 
   layouts:
+    search:
+      found_html: "%{count} z celkovo %{total} (%{time} ms)"
+
     application:
       title: 'Otvorená Prokuratúra'
       description: TODO
@@ -94,6 +101,9 @@ sk:
           title: Sídlo
           not_found: Nenájdené žiadne sídla
           placeholder: Názov sídla
+        prosecutors_count:
+          title: Počet prokurátorov
+          not_found: Nenájdení žiadni prokurátori
 
       employees_count:
         zero: 'Na prokuratúre neevidujeme žiadnych vedúcich pracovníkov.'

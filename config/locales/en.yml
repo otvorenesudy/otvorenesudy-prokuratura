@@ -7,10 +7,17 @@ en:
       next: "Next page"
       last: "Last page"
 
-  search:
-    found_html: "%{count} of total %{total} (%{time} ms)"
+  terms:
+    prosecutor:
+      zero: 'No prosecutor'
+      one: '1 prosecutor'
+      few: '%{count} prosecutors'
+      other: '%{count} prosecutors'
 
   layouts:
+    search:
+      found_html: "%{count} of total %{total} (%{time} ms)"
+
     application:
       title: Otvorená Prokuratúra
       description: TODO
@@ -94,6 +101,9 @@ en:
           title: City
           not_found: No cities found
           placeholder: Name of a city
+        prosecutors_count:
+          title: Amount of Prosecutors
+          not_found: No prosecutors found
 
       employees_count:
         zero: "We do not register any leading employee in this attorney's general office."

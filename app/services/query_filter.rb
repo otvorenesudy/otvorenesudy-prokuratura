@@ -20,7 +20,11 @@ class QueryFilter
       )
 
     relation.where(id: search.select("#{relation.table_name}_search.id")).reorder(
-      Arel.sql("array_position(ARRAY(#{search.select("#{relation.table_name}_search.id :: text").to_sql}), id :: text)")
+      Arel.sql(
+        "array_position(ARRAY(#{search.select("#{relation.table_name}_search.id :: text").to_sql}), #{
+          relation.table_name
+        }.id :: text)"
+      )
     )
   end
 end
