@@ -7,6 +7,9 @@ sk:
       next: "Nasledujúca strana"
       last: "Posledná strana"
 
+  search:
+    found_html: "%{count} z celkovo %{total} (%{time} ms)"
+
   layouts:
     application:
       title: 'Otvorená Prokuratúra'
@@ -63,6 +66,12 @@ sk:
       regional: 'Krajská'
       district: 'Okresná'
 
+    count:
+      zero: žiadna prokuratúra
+      one: 1 prokuratúra
+      few: '%{count} prokuratúry'
+      other: '%{count} prokuratúr'
+
     index:
       title: Prokuratúry
 
@@ -77,7 +86,11 @@ sk:
         placeholder: 'Názov prokuratúry alebo meno prokurátora'
         sort: Zoradiť
         type: Typ
+        no_types: Nenájdené žiadne typy
         city: Sídlo
+        no_cities: Nenájdené žiadne sídla
+        not_found: "Nenájdené žiadne prokuratúry (%{time} ms)"
+        no_results: "Vybraným vyhľadávacím kritériám nevyhovujú žiadne prokuratúry."
 
       employees_count:
         zero: 'Na prokuratúre neevidujeme žiadnych vedúcich pracovníkov.'

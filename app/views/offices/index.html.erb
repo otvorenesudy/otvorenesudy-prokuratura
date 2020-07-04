@@ -26,7 +26,7 @@
     </div>
 
     <div class="float-lg-left col-lg-3 mb-5 mb-lg-0 px-0 pr-lg-4">
-      <!-- 
+      <!--
       <div class="facet no-border" data-id="office-sort">
         <h6 class="facet-title" data-toggle="collapse" data-target="#office-sort-content">
           <%= t '.search.sort' %>
@@ -53,76 +53,96 @@
       </div>
       -->
 
-      <div class="facet" data-id="office-type">
-        <h6 class="facet-title" data-toggle="collapse" data-target="#office-type-content">
-          <%= t '.search.type' %>
-        </h6>
+      <% time = Benchmark.realtime do %>
+        <div class="facet" data-id="office-type">
+          <h6 class="facet-title" data-toggle="collapse" data-target="#office-type-content">
+            <%= t '.search.type' %>
+          </h6>
 
-        <div id="office-type-content" class="facet-content collapse show">
-          <div class="facet-results">
-            <ul id="court-type-list" class="facet-list">
-              <% @search.facets_for(:type).each do |key, count| %>
-                <li class="facet-item">
-                  <%= link_to offices_path(search_params(index_params, type: key)), class: "facet-link#{' active' if search_params?(index_params, :type, key)}" do %>
-                    <%= t("offices.types.#{key}") %>
-                    <span class="facet-tag"><%= number_with_delimiter(count) %></span>
-                  <% end %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="facet" data-id="office-city">
-        <h6 class="facet-title" data-toggle="collapse" data-target="#office-city-content">
-          <%= t '.search.city' %>
-        </h6>
-
-        <div id="office-city-content" class="facet-content collapse show">
-          <div class="facet-results">
-            <ul id="court-type-list" class="facet-list">
-              <% @search.facets_for(:city).first(10).each do |city, count| %>
-                <li class="facet-item">
-                  <%= link_to offices_path(search_params(index_params, city: city)), class: "facet-link#{' active' if search_params?(index_params, :city, city)}" do %>
-                    <%= city %>
-                    <span class="facet-tag"><%= count %></span>
-                  <% end %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="float-lg-right col-lg-9 px-0">
-      <ol class="search-result-list" start="1">
-        <% @search.paginated.each do |office| %>
-          <li class="search-result-item">
-            <h4 class="search-result-title">
-              <%= link_to office.name, offices_path(office) %>
-              <small><%= office.address %></small>
-            </h4>
-
-            <div class="search-result-content">
-              <% if office.attorney_general.prosecutor.present? %>
-                <%= t ".list.prosecutor_subtitle.#{office.type}_html", link: link_to(office.attorney_general.prosecutor.name, '') %>
-              <% else %>
-                <%= t ".list.prosecutor_subtitle.#{office.type}_html", link: office.attorney_general.name %>
-              <% end %>
-              <br>
-              <%= t '.employees_count', count: office.employees.active.count %>
+          <div id="office-type-content" class="facet-content collapse show">
+            <div class="facet-results">
+              <ul id="court-type-list" class="facet-list">
+                <% if @search.facets_for(:type).each do |key, count| %>
+                  <li class="facet-item">
+                    <%= link_to offices_path(search_params(index_params, type: key)), class: "facet-link#{' active' if search_params?(index_params, :type, key)}" do %>
+                      <%= t("offices.types.#{key}") %>
+                      <span class="facet-tag"><%= number_with_delimiter(count) %></span>
+                    <% end %>
+                  </li>
+                <% end.empty? %>
+                  <span class="text-muted"><%= t '.search.no_types' %></span>
+                <% end %>
+              </ul>
             </div>
-          </li>
-        <% end %>
-      </ol>
+          </div>
+        </div>
 
-      <% if @search.paginated.any? %>
-        <nav class="d-flex align-items-center justify-content-end mt-4">
-          <%= paginate @search.paginated %>
-        </nav>
-      <% end %>
+        <div class="facet" data-id="office-city">
+          <h6 class="facet-title" data-toggle="collapse" data-target="#office-city-content">
+            <%= t '.search.city' %>
+          </h6>
+
+          <div id="office-city-content" class="facet-content collapse show">
+            <div class="facet-results">
+              <ul id="court-type-list" class="facet-list">
+                <% if @search.facets_for(:city).first(10).each do |city, count| %>
+                  <li class="facet-item">
+                    <%= link_to offices_path(search_params(index_params, city: city)), class: "facet-link#{' active' if search_params?(index_params, :city, city)}" do %>
+                      <%= city %>
+                      <span class="facet-tag"><%= count %></span>
+                    <% end %>
+                  </li>
+                <% end.empty? %>
+                  <span class="text-muted"><%= t '.search.no_cities' %></span>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-lg-right col-lg-9 px-0">
+        <ol class="search-result-list" start="1">
+          <% if @search.paginated.each do |office| %>
+            <li class="search-result-item">
+              <h4 class="search-result-title">
+                <%= link_to office.name, offices_path(office) %>
+                <small><%= office.address %></small>
+              </h4>
+
+              <div class="search-result-content">
+                <% if office.attorney_general.prosecutor.present? %>
+                  <%= t ".list.prosecutor_subtitle.#{office.type}_html", link: link_to(office.attorney_general.prosecutor.name, '') %>
+                <% else %>
+                  <%= t ".list.prosecutor_subtitle.#{office.type}_html", link: office.attorney_general.name %>
+                <% end %>
+                <br>
+                <%= t '.employees_count', count: office.employees.active.count %>
+              </div>
+            </li>
+          <% end.empty? %>
+            <div class="alert alert-info mb-0" role="alert">
+              <%= t '.search.no_results' %>
+            </div>
+          <% end %>
+        </ol>
+      <% end * 1000 %>
+
+      <div class="d-flex flex-wrap align-items-center justify-content-between">
+        <div class="small text-muted mr-3 mt-4">
+          <% if @search.all.any? %>
+            <%= t 'search.found_html', count: "#{@search.paginated.offset_value + 1} &ndash; #{@search.paginated.offset_value + @search.paginated.count}".html_safe, total: I18n.t('offices.count', count: @search.paginated.total_count), time: time.to_i %>
+          <% else %>
+            <%= t '.search.not_found', time: number_with_delimiter(time.to_i) %>
+          <% end %>
+        </div>
+
+        <% if @search.paginated.any? %>
+          <nav class="d-flex align-items-center justify-content-end mt-4">
+            <%= paginate @search.paginated %>
+          </nav>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

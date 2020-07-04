@@ -7,6 +7,9 @@ en:
       next: "Next page"
       last: "Last page"
 
+  search:
+    found_html: "%{count} of total %{total} (%{time} ms)"
+
   layouts:
     application:
       title: Otvorená Prokuratúra
@@ -57,6 +60,18 @@ en:
         search: Search
 
   offices:
+    types:
+      general: 'General'
+      specialized: 'Specialized'
+      regional: 'Regional'
+      district: 'District'
+
+    count:
+      zero: no office
+      one: 1 office
+      few: '%{count} offices'
+      other: '%{count} offices'
+
     index:
       title: Offices
 
@@ -71,7 +86,11 @@ en:
         placeholder: "Name of the attrorney's office or name of the prosecutor"
         sort: Sort
         type: Type
+        no_types: No types found
         city: City
+        no_cities: No cities found
+        not_found: "No offices found (%{time} ms)"
+        no_results: "No offices match the given search criteria."
 
       employees_count:
         zero: "We do not register any leading employee in this attorney's general office."

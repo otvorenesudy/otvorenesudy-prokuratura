@@ -8,11 +8,14 @@ class Search
   end
 
   def all(except: [])
-    except = [*except]
+    @all ||=
+      begin
+        except = [*except]
 
-    filters.reject { |(key, _)| key.in?(except) }.inject(repository) do |relation, (key, filter)|
-      filter.filter(relation, params)
-    end
+        filters.reject { |(key, _)| key.in?(except) }.inject(repository) do |relation, (key, filter)|
+          filter.filter(relation, params)
+        end
+      end
   end
 
   def paginated

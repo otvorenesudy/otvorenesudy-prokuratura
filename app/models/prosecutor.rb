@@ -19,6 +19,8 @@
 #  fk_rails_...  (genpro_gov_sk_prosecutors_list_id => genpro_gov_sk_prosecutors_lists.id)
 #
 class Prosecutor < ApplicationRecord
+  include Searchable
+
   belongs_to :genpro_gov_sk_prosecutors_list, class_name: :'GenproGovSk::ProsecutorsList'
 
   has_many :appointments, dependent: :destroy

@@ -74,6 +74,9 @@ module GenproGovSk
             Employee.where(name: prosecutor.name).update_all(prosecutor_id: prosecutor.id)
           end
         end
+
+        ::Office.refresh_search_view
+        ::Prosecutor.refresh_search_view
       end
     end
   end

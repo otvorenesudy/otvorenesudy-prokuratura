@@ -50,6 +50,8 @@ module GenproGovSk
 
         office.employees.where.not(id: employees).update_all(disabled_at: Time.zone.now)
       end
+
+      ::Office.refresh_search_view
     end
   end
 end

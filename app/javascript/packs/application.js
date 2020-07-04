@@ -16,3 +16,21 @@ import "bootstrap/dist/js/bootstrap";
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+// Cookie consent
+window.addEventListener("load", () => {
+  window.cookieconsent.initialise({
+    palette: {
+      popup: {
+        background: "#8392ac",
+        text: "#fff",
+      },
+    },
+    content: {
+      message:
+        "Táto stránka využíva cookies. V prípade, že nesúhlasíte s ukladaním súborov cookies na Vašom zariadení, opustite túto stránku.",
+      dismiss: "Súhlasím",
+    },
+    showLink: false,
+  });
+});

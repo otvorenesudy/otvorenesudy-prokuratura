@@ -15,27 +15,17 @@ class OfficeSearch
 
   class QueryFilter
     def self.filter(relation, params)
-      return relation unless params[:q]
+      return relation if params[:q].blank?
 
-      query = ActiveRecord::Base.connection.quote(params[:q])
+      columns = %i[name address city employees]
 
-      columns = %i[offices.name offices.address offices.city]
-
-      relation.where(
-        columns.map do |column|
-          "
-            lower(#{column}) LIKE lower(:like) OR
-            similarity(lower(#{column}), lower(:similarity)) > 0.3
-          "
-        end.join(' OR '),
-        like: "%#{params[:q]}%", similarity: params[:q]
-      ).reorder(columns.map { |column| "similarity(lower(#{column}), lower(#{query}))" }.join(' + ') + ' DESC')
+      ::QueryFilter.filter(relation, params, columns: columns)
     end
   end
 
   class TypeFilter
     def self.filter(relation, params)
-      return relation unless params[:type]
+      return relation if params[:type].blank?
 
       relation.where(type: params[:type])
     end
@@ -47,7 +37,7 @@ class OfficeSearch
 
   class CityFilter
     def self.filter(relation, params)
-      return relation unless params[:city]
+      return relation if params[:city].blank?
 
       relation.where(city: params[:city])
     end

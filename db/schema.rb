@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_20_081502) do
+ActiveRecord::Schema.define(version: 2020_07_04_140315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pg_trgm'
   enable_extension 'plpgsql'
@@ -80,9 +80,6 @@ ActiveRecord::Schema.define(version: 2020_06_20_081502) do
     t.jsonb 'registry', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.index 'lower((address)::text) gin_trgm_ops', name: 'index_offices_on_address_using_gin', using: :gin
-    t.index 'lower((city)::text) gin_trgm_ops', name: 'index_offices_on_city_using_gin', using: :gin
-    t.index 'lower((name)::text) gin_trgm_ops', name: 'index_offices_on_name_using_gin', using: :gin
     t.index %w[genpro_gov_sk_office_id], name: 'index_offices_on_genpro_gov_sk_office_id'
     t.index %w[name], name: 'index_offices_on_name', unique: true
     t.index %w[type], name: 'index_offices_on_type'

@@ -19,11 +19,8 @@
 #
 # Indexes
 #
-#  index_offices_on_address_using_gin        (lower((address)::text) gin_trgm_ops) USING gin
-#  index_offices_on_city_using_gin           (lower((city)::text) gin_trgm_ops) USING gin
 #  index_offices_on_genpro_gov_sk_office_id  (genpro_gov_sk_office_id)
 #  index_offices_on_name                     (name) UNIQUE
-#  index_offices_on_name_using_gin           (lower((name)::text) gin_trgm_ops) USING gin
 #  index_offices_on_type                     (type)
 #  index_offices_on_unique_general_type      (type) UNIQUE WHERE (type = 0)
 #  index_offices_on_unique_specialized_type  (type) UNIQUE WHERE (type = 1)
