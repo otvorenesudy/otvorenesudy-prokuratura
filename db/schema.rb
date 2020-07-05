@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_140315) do
     t.bigint 'office_id', null: false
     t.bigint 'prosecutor_id'
     t.string 'name', null: false
+    t.string 'identifiable_name', null: false
     t.string 'position', limit: 1024, null: false
     t.integer 'rank', null: false
     t.string 'phone'
@@ -93,6 +94,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_140315) do
   create_table 'prosecutors', force: :cascade do |t|
     t.bigint 'genpro_gov_sk_prosecutors_list_id', null: false
     t.string 'name', null: false
+    t.string 'identifiable_name', null: false
     t.jsonb 'declarations'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false

@@ -1,0 +1,127 @@
+<div class="container mt-4 px-sm-0">
+  <div class="clearfix">
+    <div class="float-lg-right col-lg-12 mb-3 mb-lg-4 px-0">
+      <div class="row align-items-center justify-content-between">
+        <h1 class="col col-xl-4 display-2 text-truncate text-uppercase mr-sm-4 mb-3 pr-5">
+          <%= t '.title' %>
+        </h1>
+
+        <div class="col-lg-6 col-xl">
+          <%= form_tag prosecutors_path, method: :get, class: 'search-query-form' do %>
+            <div class="input-group">
+              <%= search_field_tag :q, @search.params[:q], class: 'form-control search-query-input', placeholder: t('.search.placeholder') %>
+              <div class="input-group-append">
+                <%= link_to icon_tag('times'), prosecutors_path(@search.params.except(:q)), class: 'btn search-query-reset' if @search.params[:q].present? %>
+                <button type="submit" class="btn mt-1 search-query-submit"><%= icon_tag('search') %></button>
+              </div>
+            </div>
+
+            <% form_params @search.params.except(:q, :page) do |name, value| %>
+              <%= hidden_field_tag name, value %>
+            <% end %>
+            <%= hidden_field_tag :l, I18n.locale %>
+            <%= hidden_field_tag :sort, :relevancy %>
+            <%= hidden_field_tag :order, :desc %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div id="map" class="w-100 mb-3 mb-lg-4" data-controller="map" data-json="<%= @search.all.as_map_json.to_json %>"></div>
+
+    <div class="float-lg-left col-lg-3 mb-5 mb-lg-0 px-0 pr-lg-4">
+      <div class="facet no-border" data-id="prosecutor-sort">
+        <h6 class="facet-title" data-toggle="collapse" data-target="#prosecutor-sort-content">
+          <%= t '.search.sort.title' %>
+        </h6>
+
+        <div id="prosecutor-sort-content" class="facet-content collapse show">
+          <div class="btn-toolbar w-100" role="toolbar">
+            <div class="btn-group btn-group-sm border mb-3 d-flex w-100" role="group">
+              <div class="btn-group btn-group-sm flex-grow-1 d-flex" role="group">
+                <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-left-0 border-right border-top-0 border-bottom-0 flex-grow-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%=  t ".search.sort.#{@search.params[:sort] || :default}" %>
+                </button>
+                <div class="dropdown-menu dropdown-menu-sm">
+                  <%= link_to t('.search.sort.default'), prosecutors_path(@search.params.merge(sort: nil)), class: 'dropdown-item' %>
+                  <%= link_to t('.search.sort.name'), prosecutors_path(@search.params.merge(sort: :name)), class: 'dropdown-item' %>
+                  <%= link_to t('.search.sort.type'), prosecutors_path(@search.params.merge(sort: :type)), class: 'dropdown-item' %>
+                  <% if @search.params[:q] %>
+                    <%= link_to t('.search.sort.relevancy'), prosecutors_path(@search.params.merge(sort: :relevancy)), class: 'dropdown-item' %>
+                  <% end %>
+                </div>
+              </div>
+              <%= link_to icon_tag('arrow-up', size: 12), prosecutors_path(@search.params.merge(order: 'asc')), class: "btn btn-secondary#{' active' if @search.params[:order] == 'asc'} d-flex align-items-center shadow-none border-left border-right border-top-0 border-bottom-0" %>
+              <%= link_to icon_tag('arrow-down', size: 12), prosecutors_path(@search.params.merge(order: 'desc')), class: "btn btn-secondary#{' active' if @search.params[:order] == 'desc'} d-flex align-items-center shadow-none border-left border-right-0 border-top-0 border-bottom-0" %>
+            </div>
+          </div>
+
+          <% if @search.params.any? %>
+            <div class="btn-group btn-group-sm border mr-2 mb-3 d-flex w-100" role="group">
+              <%= link_to t('layouts.search.reset'), prosecutors_path, class: 'btn btn-secondary btn-sm shadow-none border-0 w-100' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <% time = Benchmark.realtime do %>
+        <div class="facet">
+          <h6 class="facet-title" data-toggle="collapse" data-target="#prosecutor-type-content">
+            <%= t '.search.type.title' %>
+          </h6>
+
+          <div id="prosecutor-type-content" class="facet-content collapse show">
+            <div class="facet-results">
+              <ul class="facet-list">
+                <% if @search.facets_for(:type).each do |key, count| %>
+                  <li class="facet-item">
+                    <%= link_to prosecutors_path(search_params(@search.params, type: key)), class: "facet-link#{' active' if search_param?(@search.params, :type, key)}" do %>
+                      <%= t("offices.types.#{key}") %>
+                      <span class="facet-tag"><%= number_with_delimiter(count) %></span>
+                    <% end %>
+                  </li>
+                <% end.empty? %>
+                  <li class="facet-item">
+                    <span class="text-muted"><%= t '.search.type.not_found' %></span>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-lg-right col-lg-9 px-0">
+        <ol class="search-result-list" start="1">
+          <% if @search.paginated.each do |prosecutor| %>
+            <li class="search-result-item">
+              <h4 class="search-result-title">
+                <%= link_to prosecutor.name, prosecutors_path(prosecutor) %>
+              </h4>
+            </li>
+          <% end.empty? %>
+            <div class="alert alert-info mb-0" role="alert">
+              <%= t '.search.no_results' %>
+            </div>
+          <% end %>
+        </ol>
+      <% end * 1000 %>
+
+      <div class="d-flex flex-wrap align-items-center justify-content-between">
+        <div class="small text-muted mr-3 mt-4">
+          <% if @search.all.any? %>
+            <%= t 'layouts.search.found_html', count: "#{@search.paginated.offset_value + 1} &ndash; #{@search.paginated.offset_value + @search.paginated.count}".html_safe, total: I18n.t('prosecutors.count', count: @search.paginated.total_count), time: time.to_i %>
+          <% else %>
+            <%= t '.search.not_found', time: number_with_delimiter(time.to_i) %>
+          <% end %>
+        </div>
+
+        <% if @search.paginated.any? %>
+          <nav class="d-flex align-items-center justify-content-end mt-4">
+            <%= paginate @search.paginated %>
+          </nav>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

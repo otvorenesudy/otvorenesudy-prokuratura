@@ -38,11 +38,17 @@ module GenproGovSk
           office = OFFICE_MAP[office] || office
           temporary_office = OFFICE_MAP[temporary_office] || temporary_office
 
-          { number: number, name: name, office: office, temporary_office: temporary_office }
+          {
+            number: number,
+            name: name[:value],
+            identifiable_name: name.values_at(:first, :middle, :last).compact.join(' '),
+            office: office,
+            temporary_office: temporary_office
+          }
         end
 
         def parse_name(value)
-          ::Legacy::Normalizer.normalize_person_name(value, reverse: true)
+          ::Legacy::Normalizer.partition_person_name(value, reverse: true)
         end
       end
     end

@@ -68,7 +68,7 @@ sk:
         search: Hľadaj
 
   offices:
-    types:
+    types: &offices_types
       general: 'Generálna'
       specialized: 'Špecializovaná'
       regional: 'Krajská'
@@ -98,7 +98,6 @@ sk:
           relevancy: Podľa relevancie
           type: Podľa typu
           name: Podľa názvu
-          prosecutors_count: Počet prokurátorov
         not_found: "Nenájdené žiadne prokuratúry (%{time} ms)"
         no_results: "Vybraným vyhľadávacím kritériám nevyhovujú žiadne prokuratúry."
         type:
@@ -117,3 +116,36 @@ sk:
         one: 'Na prokuratúre evidujeme 1 vedúceho pracovníka.'
         few: 'Na prokuratúre evidujeme %{count} vedúcich pracovníkov.'
         other: 'Na prokuratúre evidujeme %{count} vedúcich pracovníkov.'
+
+  prosecutors:
+    types:
+      <<: &offices_types
+
+    count:
+      zero: žiadny prokurátor
+      one: 1 prokurátor
+      few: '%{count} prokurátori'
+      other: '%{count} prokurátorov'
+
+    index:
+      title: Prokurátori
+
+      list:
+        prosecutor_subtitle:
+          general_html: 'Generálnym prokurátorom je %{link}.'
+          specialized_html: 'Špeciálnym prokurátorom je %{link}.'
+          regional_html: 'Krajským prokurátorom je %{link}.'
+          district_html: 'Okresným prokurátorom je %{link}.'
+
+      search:
+        placeholder: 'Meno prokurátora, prokuratúry alebo slovo z majetkové priznania'
+        sort:
+          title: Zoradiť
+          default: Základné
+          relevancy: Podľa relevancie
+          name: Podľa mena
+        not_found: "Nenájdení žiadni prokurátori (%{time} ms)"
+        no_results: "Vybraným vyhľadávacím kritériám nevyhovujú žiadní prokurátori."
+        type:
+          title: Typ
+          not_found: Nenájdené žiadne typy

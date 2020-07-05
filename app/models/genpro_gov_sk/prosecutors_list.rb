@@ -34,21 +34,27 @@ module GenproGovSk
         list = create!(digest: digest, file: file, data: data)
 
         namesakes =
-          data.each.with_object(Hash.new(0)) { |value, hash| hash[value[:name]] += 0 }.select do |_, value|
-            value > 1
-          end.keys
+          data.each.with_object(Hash.new(0)) do |value, hash|
+            hash[value[:identifiable_name]] += 0
+          end.select { |_, value| value > 1 }.keys
 
-        data.each { |value| value[:namesake] = true if value[:name].in?(namesakes) }
+        data.each { |value| value[:namesake] = true if value[:identifiable_name].in?(namesakes) }
 
         data.each do |value|
           offices = [::Office.find_by(name: value[:office])]
 
           prosecutor =
             ::Prosecutor.joins(:appointments).find_by(
-              name: value[:name], appointments: { type: :fixed, office_id: offices[0].id, ended_at: nil }
+              identifiable_name: value[:identifiable_name],
+              appointments: { type: :fixed, office_id: offices[0].id, ended_at: nil }
             )
 
-          prosecutor = ::Prosecutor.create!(name: value[:name], genpro_gov_sk_prosecutors_list: list) unless prosecutor
+          unless prosecutor
+            prosecutor =
+              ::Prosecutor.create!(
+                name: value[:name], identifiable_name: value[:identifiable_name], genpro_gov_sk_prosecutors_list: list
+              )
+          end
 
           appointment = prosecutor.appointments.current.fixed.find_or_initialize_by(office: offices[0])
           appointment.update!(genpro_gov_sk_prosecutors_list: list, started_at: time) if appointment.new_record?
@@ -69,9 +75,11 @@ module GenproGovSk
           end
 
           if value[:namesake]
-            Employee.where(name: prosecutor.name, office: offices).update_all(prosecutor_id: prosecutor.id)
+            Employee.where(identifiable_name: prosecutor.identifiable_name, office: offices).update_all(
+              prosecutor_id: prosecutor.id
+            )
           else
-            Employee.where(name: prosecutor.name).update_all(prosecutor_id: prosecutor.id)
+            Employee.where(identifiable_name: prosecutor.identifiable_name).update_all(prosecutor_id: prosecutor.id)
           end
         end
 

@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     get :suggest, on: :collection
   end
 
+  resources :prosecutors, only: %i[index show]
+
   resource :static_page, only: [] do
     get :about
     get :faq

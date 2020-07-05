@@ -4,14 +4,14 @@ class OfficeSearch
   def initialize(params)
     @search =
       Search.new(
-        Office.order(id: :asc),
+        Office.all,
         params: params,
         filters: {
+          query: QueryFilter,
           type: TypeFilter,
           city: CityFilter,
           prosecutors_count: ProsecutorsCountFilter,
-          sort: SortFilter,
-          query: QueryFilter
+          sort: SortFilter
         }
       )
   end
@@ -68,7 +68,7 @@ class OfficeSearch
         id:
           relation.joins(:employees).merge(Employee.as_prosecutor).group(:id).having(
             "count(*) :: text = ANY(ARRAY[#{values.join(', ')}])"
-          ).select(:id).distinct
+          ).select(:id)
       )
     end
 

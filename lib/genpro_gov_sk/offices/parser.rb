@@ -110,8 +110,11 @@ module GenproGovSk
 
               _, suffix_to_position = *name.match(/(?<suffix>- (ne)?trestný úsek)\z/)
 
+              name = parse_name(suffix_to_position ? normalize(name.gsub(suffix_to_position, '')) : name)
+
               {
-                name: suffix_to_position ? normalize(name.gsub(suffix_to_position, '')) : name,
+                name: name[:value],
+                identifiable_name: name.values_at(:first, :middle, :last).compact.join(' '),
                 position: normalize("#{position} #{suffix_to_position}"),
                 rank: rank + 1,
                 phone: phone
@@ -204,6 +207,10 @@ module GenproGovSk
           return :specialized if name.downcase =~ /úrad špeciálnej prokuratúry/
           return :regional if name.downcase =~ /krajská/
           return :district if name.downcase =~ /okresná/
+        end
+
+        def parse_name(value)
+          ::Legacy::Normalizer.partition_person_name(value)
         end
       end
     end

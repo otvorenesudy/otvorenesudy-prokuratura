@@ -27,16 +27,11 @@ class QueryFilter
         )
     end
 
-    result = relation.where(id: search.select("#{relation.table_name}_search.id"))
+    ids = search.pluck("#{relation.table_name}_search.id")
+    result = relation.where(id: ids)
 
     return result unless order
 
-    result.reorder(
-      Arel.sql(
-        "array_position(ARRAY(#{search.select("#{relation.table_name}_search.id :: text").to_sql}), #{
-          relation.table_name
-        }.id :: text)"
-      )
-    )
+    result.reorder(Arel.sql("array_position(ARRAY[#{ids.join(', ')}] :: text[], #{relation.table_name}.id :: text)"))
   end
 end

@@ -1,6 +1,6 @@
-class OfficesController < ApplicationController
+class ProsecutorsController < ApplicationController
   def index
-    @search = OfficeSearch.new(index_params)
+    @search = ProsecutorSearch.new(index_params)
 
     @search.params[:sort] = nil if @search.params[:sort] == 'relevancy' && @search.params[:q].blank?
   end
@@ -8,7 +8,7 @@ class OfficesController < ApplicationController
   def suggest
     head 404 unless suggest_params[:facet].in?(%w[city])
 
-    @search = OfficeSearch.new(index_params)
+    @search = ProsecutorSearch.new(index_params)
 
     render(
       json: {
@@ -29,7 +29,7 @@ class OfficesController < ApplicationController
   helper_method :index_params
 
   def index_params
-    params.permit(:page, :sort, :order, :q, type: [], city: [], prosecutors_count: [])
+    params.permit(:page, :sort, :order, :q, type: [])
   end
 
   def suggest_params

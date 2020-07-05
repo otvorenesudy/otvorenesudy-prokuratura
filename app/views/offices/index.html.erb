@@ -46,8 +46,9 @@
                   <%= link_to t('.search.sort.default'), offices_path(@search.params.merge(sort: nil)), class: 'dropdown-item' %>
                   <%= link_to t('.search.sort.name'), offices_path(@search.params.merge(sort: :name)), class: 'dropdown-item' %>
                   <%= link_to t('.search.sort.type'), offices_path(@search.params.merge(sort: :type)), class: 'dropdown-item' %>
-                  <%= link_to t('.search.sort.relevancy'), offices_path(@search.params.merge(sort: :relevancy)), class: 'dropdown-item' %>
-                  <%= link_to t('.search.sort.prosecutors_count'), offices_path(@search.params.merge(sort: :prosecutors_count)), class: 'dropdown-item' %>
+                  <% if @search.params[:q] %>
+                    <%= link_to t('.search.sort.relevancy'), offices_path(@search.params.merge(sort: :relevancy)), class: 'dropdown-item' %>
+                  <% end %>
                 </div>
               </div>
               <%= link_to icon_tag('arrow-up', size: 12), offices_path(@search.params.merge(order: 'asc')), class: "btn btn-secondary#{' active' if @search.params[:order] == 'asc'} d-flex align-items-center shadow-none border-left border-right border-top-0 border-bottom-0" %>

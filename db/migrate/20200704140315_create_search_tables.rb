@@ -22,8 +22,13 @@ class CreateSearchTables < ActiveRecord::Migration[6.0]
       CREATE MATERIALIZED VIEW prosecutors_search
       AS
         SELECT
-          prosecutors.id
-        FROM prosecutors;
+          prosecutors.id,
+          lower(unaccent(prosecutors.name)) AS name,
+          lower(unaccent(offices.name)) AS office,
+          lower(unaccent(prosecutors.declarations :: text)) AS declarations
+        FROM prosecutors
+        JOIN appointments ON appointments.prosecutor_id = prosecutors.id
+        JOIN offices ON appointments.office_id = offices.id;
     SQL
   end
 

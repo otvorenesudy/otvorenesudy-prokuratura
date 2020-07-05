@@ -41,7 +41,7 @@ module GenproGovSk
 
         employees =
           data[:employees].map do |params|
-            employee = office.employees.active.find_or_initialize_by(params.slice(:name, :position))
+            employee = office.employees.active.find_or_initialize_by(params.slice(:identifiable_name, :position))
 
             employee.update!(params)
 
