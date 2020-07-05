@@ -2,6 +2,9 @@
 @import 'variables';
 
 @import 'bootstrap';
+@import 'leaflet.markercluster/dist/MarkerCluster';
+@import 'leaflet.markercluster/dist/MarkerCluster.Default';
+@import 'leaflet';
 @import 'components/*';
 @import 'utilities/*';
 

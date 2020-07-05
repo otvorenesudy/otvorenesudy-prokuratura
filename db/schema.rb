@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_140315) do
     t.string 'name', null: false
     t.integer 'type'
     t.string 'address', limit: 1024, null: false
+    t.string 'additional_address', limit: 1024
     t.string 'zipcode', null: false
     t.string 'city', null: false
     t.string 'phone', null: false
@@ -78,6 +79,8 @@ ActiveRecord::Schema.define(version: 2020_07_04_140315) do
     t.string 'email'
     t.string 'electronic_registry'
     t.jsonb 'registry', null: false
+    t.float 'latitude', null: false
+    t.float 'longitude', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index %w[genpro_gov_sk_office_id], name: 'index_offices_on_genpro_gov_sk_office_id'

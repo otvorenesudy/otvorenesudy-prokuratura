@@ -1,0 +1,16 @@
+.marker-cluster {
+  background-color: transparentize($red, 0.75) !important;
+
+  div {
+    background-color: transparentize(darken($red, 5%), 0.25) !important;
+  }
+
+  span {
+    color: $white;
+    font-size: $font-size-base;
+  }
+}
+
+.leaflet-popup-close-button {
+   display: none;
+}

@@ -16,6 +16,7 @@ class CreateOffices < ActiveRecord::Migration[6.0]
       t.string :name, null: false
       t.integer :type, null: true
       t.string :address, null: false, limit: 1024
+      t.string :additional_address, null: true, limit: 1024
       t.string :zipcode, null: false
       t.string :city, null: false
       t.string :phone, null: false
@@ -23,6 +24,8 @@ class CreateOffices < ActiveRecord::Migration[6.0]
       t.string :email, null: true
       t.string :electronic_registry, null: true
       t.jsonb :registry, null: false
+      t.float :latitude, null: false
+      t.float :longitude, null: false
 
       t.timestamps null: false
     end

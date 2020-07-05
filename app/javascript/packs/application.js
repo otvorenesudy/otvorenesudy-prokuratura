@@ -9,6 +9,10 @@ require("@rails/activestorage").start();
 require("channels");
 
 import "bootstrap/dist/js/bootstrap";
+import "leaflet";
+import "leaflet.snogylop";
+import "leaflet.markercluster";
+
 import "controllers";
 
 // Cookie consent

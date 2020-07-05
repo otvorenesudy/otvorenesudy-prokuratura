@@ -98,6 +98,7 @@ GEM
     factory_bot (5.2.0)
       activesupport (>= 4.2.0)
     ffi (1.13.0)
+    geocoder (1.6.3)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashdiff (1.0.1)
@@ -342,6 +343,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   curb
   factory_bot (~> 5.2.0)
+  geocoder (~> 1.6.3)
   jbuilder (~> 2.7)
   json-schema (~> 2.8.1)
   kaminari (~> 1.2.1)

@@ -143,16 +143,19 @@ module GenproGovSk
               normalize(e.text)
             end[
               1..-1
-            ].join(' ')
+            ]
 
-          _, address, zipcode, city = *location.match(/\A(.+)(\d{3}[[:space:]]\d{2})[[:space:]]{0,}(.+)\z/)
+          additional_address = normalize(location.delete_at(1)) if location.size == 3
+
+          _, address, zipcode, city = *location.join(' ').match(/\A(.+)(\d{3}[[:space:]]\d{2})[[:space:]]{0,}(.+)\z/)
 
           address = normalize(address)
           zipcode = normalize(zipcode)
           city = normalize(city)
 
           data = {
-            address: "#{address}, #{zipcode} #{city}",
+            address: address,
+            additional_address: additional_address,
             zipcode: zipcode,
             city: normalize(city.gsub(/\d/, '')),
             phone:

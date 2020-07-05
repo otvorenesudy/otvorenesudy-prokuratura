@@ -3,11 +3,14 @@
 # Table name: offices
 #
 #  id                      :bigint           not null, primary key
+#  additional_address      :string(1024)
 #  address                 :string(1024)     not null
 #  city                    :string           not null
 #  electronic_registry     :string
 #  email                   :string
 #  fax                     :string
+#  latitude                :float            not null
+#  longitude               :float            not null
 #  name                    :string           not null
 #  phone                   :string           not null
 #  registry                :jsonb            not null

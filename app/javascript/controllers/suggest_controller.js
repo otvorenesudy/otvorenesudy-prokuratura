@@ -1,6 +1,5 @@
 import { Controller } from "stimulus";
 import { debounce } from "lodash";
-import Rails from "@rails/ujs";
 
 export default class extends Controller {
   initialize() {
