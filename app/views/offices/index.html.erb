@@ -20,6 +20,8 @@
               <%= hidden_field_tag name, value %>
             <% end %>
             <%= hidden_field_tag :l, I18n.locale %>
+            <%= hidden_field_tag :sort, :relevancy %>
+            <%= hidden_field_tag :order, :desc %>
           <% end %>
         </div>
       </div>
@@ -28,10 +30,9 @@
     <div id="map" class="w-100 mb-3 mb-lg-4" data-controller="map" data-json="<%= @search.all.as_map_json.to_json %>"></div>
 
     <div class="float-lg-left col-lg-3 mb-5 mb-lg-0 px-0 pr-lg-4">
-      <!--
       <div class="facet no-border" data-id="office-sort">
         <h6 class="facet-title" data-toggle="collapse" data-target="#office-sort-content">
-          <%= t '.search.sort' %>
+          <%= t '.search.sort.title' %>
         </h6>
 
         <div id="office-sort-content" class="facet-content collapse show">
@@ -39,21 +40,28 @@
             <div class="btn-group btn-group-sm border mb-3 d-flex w-100" role="group">
               <div class="btn-group btn-group-sm flex-grow-1 d-flex" role="group">
                 <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-left-0 border-right border-top-0 border-bottom-0 flex-grow-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Počet sudcov
+                  <%=  t ".search.sort.#{@search.params[:sort] || :default}" %>
                 </button>
                 <div class="dropdown-menu dropdown-menu-sm">
-                    <a href="/courts?l=sk&amp;sort=judges_count" class="dropdown-item">Počet sudcov</a>
-                    <a href="/courts?l=sk&amp;sort=hearings_count" class="dropdown-item">Počet pojednávaní</a>
-                    <a href="/courts?l=sk&amp;sort=decrees_count" class="dropdown-item">Počet rozhodnutí</a>
+                  <%= link_to t('.search.sort.default'), offices_path(@search.params.merge(sort: nil)), class: 'dropdown-item' %>
+                  <%= link_to t('.search.sort.name'), offices_path(@search.params.merge(sort: :name)), class: 'dropdown-item' %>
+                  <%= link_to t('.search.sort.type'), offices_path(@search.params.merge(sort: :type)), class: 'dropdown-item' %>
+                  <%= link_to t('.search.sort.relevancy'), offices_path(@search.params.merge(sort: :relevancy)), class: 'dropdown-item' %>
+                  <%= link_to t('.search.sort.prosecutors_count'), offices_path(@search.params.merge(sort: :prosecutors_count)), class: 'dropdown-item' %>
                 </div>
               </div>
               <%= link_to icon_tag('arrow-up', size: 12), offices_path(@search.params.merge(order: 'asc')), class: "btn btn-secondary#{' active' if @search.params[:order] == 'asc'} d-flex align-items-center shadow-none border-left border-right border-top-0 border-bottom-0" %>
               <%= link_to icon_tag('arrow-down', size: 12), offices_path(@search.params.merge(order: 'desc')), class: "btn btn-secondary#{' active' if @search.params[:order] == 'desc'} d-flex align-items-center shadow-none border-left border-right-0 border-top-0 border-bottom-0" %>
             </div>
           </div>
+
+          <% if @search.params.any? %>
+            <div class="btn-group btn-group-sm border mr-2 mb-3 d-flex w-100" role="group">
+              <%= link_to t('layouts.search.reset'), offices_path, class: 'btn btn-secondary btn-sm shadow-none border-0 w-100' %>
+            </div>
+          <% end %>
         </div>
       </div>
-      -->
 
       <% time = Benchmark.realtime do %>
         <div class="facet">

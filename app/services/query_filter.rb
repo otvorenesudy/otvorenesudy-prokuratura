@@ -1,5 +1,5 @@
 class QueryFilter
-  def self.filter(relation, params, columns:)
+  def self.filter(relation, params, columns:, order: nil)
     return relation unless params[:q]
 
     model = relation.model
@@ -15,11 +15,23 @@ class QueryFilter
           "
         end.join(' OR '),
         like: "%#{params[:q]}%", similarity: params[:q]
-      ).reorder(
-        Arel.sql(columns.map { |column| "similarity(#{column}, lower(unaccent(#{query})))" }.join(' + ') + ' DESC')
       )
 
-    relation.where(id: search.select("#{relation.table_name}_search.id")).reorder(
+    if order
+      search =
+        search.reorder(
+          Arel.sql(
+            columns.map { |column| "similarity(#{column}, lower(unaccent(#{query})))" }.join(' + ') +
+              " #{order || 'DESC'}"
+          )
+        )
+    end
+
+    result = relation.where(id: search.select("#{relation.table_name}_search.id"))
+
+    return result unless order
+
+    result.reorder(
       Arel.sql(
         "array_position(ARRAY(#{search.select("#{relation.table_name}_search.id :: text").to_sql}), #{
           relation.table_name

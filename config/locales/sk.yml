@@ -17,6 +17,7 @@ sk:
   layouts:
     search:
       found_html: "%{count} z celkovo %{total} (%{time} ms)"
+      reset: "Zrušiť všetky kritériá"
 
     application:
       title: 'Otvorená Prokuratúra'
@@ -91,7 +92,13 @@ sk:
 
       search:
         placeholder: 'Názov prokuratúry alebo meno prokurátora'
-        sort: Zoradiť
+        sort:
+          title: Zoradiť
+          default: Základné
+          relevancy: Podľa relevancie
+          type: Podľa typu
+          name: Podľa názvu
+          prosecutors_count: Počet prokurátorov
         not_found: "Nenájdené žiadne prokuratúry (%{time} ms)"
         no_results: "Vybraným vyhľadávacím kritériám nevyhovujú žiadne prokuratúry."
         type:

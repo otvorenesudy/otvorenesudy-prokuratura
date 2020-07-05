@@ -31,10 +31,10 @@
   max-height: 163.33px;
 
   color: $white;
-  background: $blue;
+  background: $primary;
 
   @include hover-focus-active {
-    color: $navy;
+    color: $velvet;
     text-decoration: none;
   }
 
@@ -51,7 +51,7 @@
     top: map-get($spacers, 4);
     left: calc(50% - 30px);
 
-    color: $navy;
+    color: $velvet;
   }
 
   span {

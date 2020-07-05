@@ -17,6 +17,7 @@ en:
   layouts:
     search:
       found_html: "%{count} of total %{total} (%{time} ms)"
+      reset: "Remove all criteria"
 
     application:
       title: Otvorená Prokuratúra
@@ -91,7 +92,13 @@ en:
 
       search:
         placeholder: "Name of the attrorney's office or name of the prosecutor"
-        sort: Sort
+        sort:
+          title: Sort
+          default: Default
+          relevancy: By Relevancy
+          name: By Name
+          type: By Type
+          prosecutors_count: By Amount of Prosecutors
         not_found: "No offices found (%{time} ms)"
         no_results: "No offices match the given search criteria."
         type:

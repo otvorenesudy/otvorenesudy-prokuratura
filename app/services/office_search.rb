@@ -6,7 +6,13 @@ class OfficeSearch
       Search.new(
         Office.order(id: :asc),
         params: params,
-        filters: { type: TypeFilter, city: CityFilter, prosecutors_count: ProsecutorsCountFilter, query: QueryFilter }
+        filters: {
+          type: TypeFilter,
+          city: CityFilter,
+          prosecutors_count: ProsecutorsCountFilter,
+          sort: SortFilter,
+          query: QueryFilter
+        }
       )
   end
 
@@ -20,8 +26,9 @@ class OfficeSearch
       return relation if params[:q].blank?
 
       columns = %i[name address city employee]
+      order = params[:sort] == 'relevancy' && params[:order].in?(%w[asc desc]) ? params[:order].to_sym : nil
 
-      ::QueryFilter.filter(relation, params, columns: columns)
+      ::QueryFilter.filter(relation, params, columns: columns, order: order)
     end
   end
 
@@ -70,6 +77,19 @@ class OfficeSearch
         relation.joins(:employees).merge(Employee.as_prosecutor).group(:id).select('count(*) :: text as count'),
         :offices
       ).count
+    end
+  end
+
+  class SortFilter
+    def self.filter(relation, params)
+      order = params[:order] || 'asc'
+
+      return relation unless order.in?(%w[asc desc])
+
+      return relation.reorder(type: order == 'asc' ? 'desc' : 'asc') if params[:sort] == 'type'
+      return relation.reorder(name: order) if params[:sort] == 'name'
+
+      relation.order(id: order)
     end
   end
 end

@@ -82,6 +82,16 @@ a {
   }
 }
 
+// make navbar links follow the link color
+
+.navbar-nav .nav-link {
+  &:hover, &.active {
+    color: $link-hover-color !important;
+  }
+}
+
+
+
 // set display to block even for hidden tabs so charts do not lose responsiveness (zero height hides tab content)
 
 .tab-content > .tab-pane:not(.active) {

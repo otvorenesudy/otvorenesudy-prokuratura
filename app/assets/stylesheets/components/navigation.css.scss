@@ -3,7 +3,7 @@
     color: $navy;
 
     @include hover-focus {
-      color: $blue;
+      color: $orange;
       text-decoration: none;
     }
   }
@@ -14,7 +14,7 @@
     color: $navy;
 
     @include hover-focus {
-      color: $blue;
+      color: $orange;
       text-decoration: none;
     }
 
@@ -92,7 +92,7 @@
 }
 
 .navbar-brand {
-  @include color-variant($navy, $blue);
+  @include color-variant($navy, $orange);
 }
 
 .navbar-collapse {

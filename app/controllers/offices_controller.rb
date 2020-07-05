@@ -27,7 +27,7 @@ class OfficesController < ApplicationController
   helper_method :index_params
 
   def index_params
-    params.permit(:page, :order, :q, type: [], city: [], prosecutors_count: [])
+    params.permit(:page, :sort, :order, :q, type: [], city: [], prosecutors_count: [])
   end
 
   def suggest_params
