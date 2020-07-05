@@ -22,12 +22,12 @@ class Search
   def facets_for(key, suggest: nil)
     key = key.to_sym
 
-    filters[key].facets(all(except: key).reorder(''), suggest: suggest).tap do |facets|
-      if params[key].present? && suggest.nil?
-        values = (params[key] - facets.keys).each.with_object({}) { |value, hash| hash[value] = nil }
+    facets = filters[key].facets(all(except: key).reorder(''), suggest: suggest)
 
-        facets.merge!(values)
-      end
-    end
+    return facets if params[key].blank? || suggest.present?
+
+    values = (params[key] - facets.keys).each.with_object({}) { |value, hash| hash[value] = nil }
+
+    values.merge(facets)
   end
 end
