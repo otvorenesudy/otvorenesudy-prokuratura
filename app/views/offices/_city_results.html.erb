@@ -1,5 +1,5 @@
 <ul class="facet-list" data-target="suggest.results">
-  <% if values.first(10).each do |city, count| %>
+  <% if values.each do |city, count| %>
     <li class="facet-item">
       <%= link_to offices_path(search_params(params, city: city)), class: "facet-link#{' active' if search_param?(params, :city, city)}" do %>
         <%= city %>
@@ -8,7 +8,7 @@
     </li>
   <% end.empty? %>
     <li class="facet-item">
-      <span class="text-muted"><%= t 'offices.index.search.type.not_found' %></span>
+      <span class="text-muted"><%= t 'offices.index.search.city.not_found' %></span>
     </li>
   <% end %>
 </ul>

@@ -19,14 +19,15 @@ class Search
     all.page(params[:page] || 1).per(15)
   end
 
-  def facets_for(key, suggest: nil)
+  def facets_for(key, suggest: nil, limit: 10)
     key = key.to_sym
 
-    facets = filters[key].facets(all(except: key).reorder(''), suggest: suggest)
+    all = filters[key].facets(all(except: key).reorder(''), suggest: suggest)
+    facets = all.first(limit).to_h
 
     return facets if params[key].blank? || suggest.present?
 
-    values = (params[key] - facets.keys).each.with_object({}) { |value, hash| hash[value] = nil }
+    values = (params[key] - facets.keys).each.with_object({}) { |value, hash| hash[value] = all[value] || nil }
 
     values.merge(facets)
   end

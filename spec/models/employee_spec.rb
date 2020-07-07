@@ -2,17 +2,16 @@
 #
 # Table name: employees
 #
-#  id                :bigint           not null, primary key
-#  disabled_at       :datetime
-#  identifiable_name :string           not null
-#  name              :string           not null
-#  phone             :string
-#  position          :string(1024)     not null
-#  rank              :integer          not null
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  office_id         :bigint           not null
-#  prosecutor_id     :bigint
+#  id            :bigint           not null, primary key
+#  disabled_at   :datetime
+#  name          :string           not null
+#  phone         :string
+#  position      :string(1024)     not null
+#  rank          :integer          not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  office_id     :bigint           not null
+#  prosecutor_id :bigint
 #
 # Indexes
 #

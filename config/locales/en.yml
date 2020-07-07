@@ -1,4 +1,8 @@
 en:
+  numbers:
+    range:
+      separator: 'to'
+
   kaminari:
     pagination:
       first: "First page"
@@ -8,11 +12,23 @@ en:
       last: "Last page"
 
   terms:
-    prosecutor:
+    prosecutor_with_count: &prosecutors_with_count
+      zero: 'prosecutor'
+      one: 'prosecutor'
+      few: 'prosecutors'
+      other: 'prosecutors'
+
+    prosecutor_with_count: &prosecutors_with_count
       zero: 'No prosecutor'
       one: '1 prosecutor'
       few: '%{count} prosecutors'
       other: '%{count} prosecutors'
+
+    employees: &employees
+      zero: 'no leading employees'
+      one: '1 leading employee'
+      few: '%{count} leading employees'
+      other: '%{count} leading employees'
 
   layouts:
     search:
@@ -112,8 +128,14 @@ en:
           title: Amount of Prosecutors
           not_found: No prosecutors found
 
+        other: " %{count} leading employees in this attorney's general office."
+
+
+      register: "At this attorney's general office we register"
+
       employees_count:
-        zero: "We do not register any leading employee in this attorney's general office."
-        one: "We register 1 leading employee in this attorney's general office."
-        few: "We register %{count} leading employees in this attorney's general office."
-        other: "We register %{count} leading employees in this attorney's general office."
+        <<: &employees
+
+      prosecutors_count:
+        <<: &prosecutors_with_count
+

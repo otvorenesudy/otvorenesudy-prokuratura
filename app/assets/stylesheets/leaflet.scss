@@ -14,3 +14,11 @@
 .leaflet-popup-close-button {
    display: none;
 }
+
+.leaflet-container a {
+  color: $link-color;
+
+  &:hover,&.active {
+    color: $link-hover-color;
+  }
+}

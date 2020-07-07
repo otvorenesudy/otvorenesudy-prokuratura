@@ -112,13 +112,7 @@ module GenproGovSk
 
               name = parse_name(suffix_to_position ? normalize(name.gsub(suffix_to_position, '')) : name)
 
-              {
-                name: name[:value],
-                identifiable_name: name.values_at(:first, :middle, :last).compact.join(' '),
-                position: normalize("#{position} #{suffix_to_position}"),
-                rank: rank + 1,
-                phone: phone
-              }
+              { name: name, position: normalize("#{position} #{suffix_to_position}"), rank: rank + 1, phone: phone }
             end.compact
         }
 
@@ -210,7 +204,7 @@ module GenproGovSk
         end
 
         def parse_name(value)
-          ::Legacy::Normalizer.partition_person_name(value)
+          ::Legacy::Normalizer.normalize_person_name(value)
         end
       end
     end

@@ -1,4 +1,8 @@
 sk:
+  numbers:
+    range:
+      separator: 'až'
+
   kaminari:
     pagination:
       first: "Prvá strana"
@@ -9,6 +13,12 @@ sk:
 
   terms:
     prosecutor:
+      zero: 'prokurátor'
+      one: 'prokurátor'
+      few: 'prokurátori'
+      other: 'prokurátorov'
+
+    prosecutor_with_count:
       zero: 'Žiadny prokurátor'
       one: '1 prokurátor'
       few: '%{count} prokurátori'
@@ -111,11 +121,19 @@ sk:
           title: Počet prokurátorov
           not_found: Nenájdení žiadni prokurátori
 
+      register: 'Na prokuratúre evidujeme'
+
       employees_count:
-        zero: 'Na prokuratúre neevidujeme žiadnych vedúcich pracovníkov.'
-        one: 'Na prokuratúre evidujeme 1 vedúceho pracovníka.'
-        few: 'Na prokuratúre evidujeme %{count} vedúcich pracovníkov.'
-        other: 'Na prokuratúre evidujeme %{count} vedúcich pracovníkov.'
+        zero: 'žiadnych vedúcich pracovníkov'
+        one: '1 vedúceho pracovníka'
+        few: '%{count} vedúcich pracovníkov'
+        other: '%{count} vedúcich pracovníkov'
+
+      prosecutors_count:
+        zero: 'žiadnych prokurátorov'
+        one: '1 prokurátora'
+        few: '%{count} prokurátorov'
+        other: '%{count} prokurátorov'
 
   prosecutors:
     types:

@@ -40,6 +40,9 @@ class Office < ApplicationRecord
   belongs_to :genpro_gov_sk_office, class_name: :'GenproGovSk::Office'
 
   has_many :employees, dependent: :destroy
+  has_many :appointments, dependent: :destroy
+  has_many :active_appointments, -> { current }, class_name: :Appointment, dependent: :destroy
+  has_many :prosecutors, through: :active_appointments
 
   enum type: { general: 0, specialized: 1, regional: 2, district: 3 }
 
@@ -67,13 +70,14 @@ class Office < ApplicationRecord
   end
 
   def self.as_map_json
-    pluck(:name, :address, :additional_address, :zipcode, :city, :latitude, :longitude).map do |values|
+    pluck(:id, :name, :address, :additional_address, :zipcode, :city, :latitude, :longitude).map do |values|
       {
-        name: values[0],
-        coordinates: values[5..6],
+        url: Rails.application.routes.url_helpers.office_path(values[0]),
+        name: values[1],
+        coordinates: values[6..7],
         address: <<-TEXT
-          #{values[2] ? "#{values[1]} (#{values[2]})" : values[1]},
-          #{values[3]} #{values[4]}
+          #{values[3] ? "#{values[2]} (#{values[3]})" : values[2]},
+          #{values[4]} #{values[5]}
         TEXT
       }
     end

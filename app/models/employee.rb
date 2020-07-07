@@ -2,17 +2,16 @@
 #
 # Table name: employees
 #
-#  id                :bigint           not null, primary key
-#  disabled_at       :datetime
-#  identifiable_name :string           not null
-#  name              :string           not null
-#  phone             :string
-#  position          :string(1024)     not null
-#  rank              :integer          not null
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  office_id         :bigint           not null
-#  prosecutor_id     :bigint
+#  id            :bigint           not null, primary key
+#  disabled_at   :datetime
+#  name          :string           not null
+#  phone         :string
+#  position      :string(1024)     not null
+#  rank          :integer          not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  office_id     :bigint           not null
+#  prosecutor_id :bigint
 #
 # Indexes
 #
@@ -31,7 +30,6 @@ class Employee < ApplicationRecord
   belongs_to :prosecutor, optional: true
 
   validates :name, presence: true
-  validates :identifiable_name, presence: true
   validates :position, presence: true
   validates :rank, presence: true, numericality: { greater_than: 0, only_integer: true }
   validates :rank, uniqueness: { scope: %i[office_id disabled_at] }, unless: :disabled_at?

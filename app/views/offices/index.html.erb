@@ -115,7 +115,7 @@
                   <li class="facet-item">
                     <%= link_to offices_path(search_params(@search.params, prosecutors_count: key)), class: "facet-link#{' active' if search_param?(@search.params, :prosecutors_count, key)}" do %>
 
-                      <%= t 'terms.prosecutor', count: key %>
+                      <%= range_with_count(key, term_for_count: 'terms.prosecutor') %>
                       <span class="facet-tag"><%= number_with_delimiter(count) %></span>
                     <% end %>
                   </li>
@@ -148,7 +148,14 @@
                   <%= t ".list.prosecutor_subtitle.#{office.type}_html", link: office.attorney_general.name %>
                 <% end %>
                 <br>
-                <%= t '.employees_count', count: office.employees.active.count %>
+
+                <%= t '.register' %>
+                <%=
+                  [
+                    t('.prosecutors_count', count: office.prosecutors.count),
+                    t('.employees_count', count: office.employees.active.count)
+                  ].to_sentence
+                %>.
               </div>
             </li>
           <% end.empty? %>

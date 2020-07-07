@@ -62,21 +62,33 @@ class OfficeSearch
     def self.filter(relation, params)
       return relation if params[:prosecutors_count].blank?
 
-      values = params[:prosecutors_count].map { |count| ActiveRecord::Base.connection.quote(count) }
+      ranges =
+        params[:prosecutors_count].map do |value|
+          _, min, max = *value.match(/\A(\d+)\.\.(\d+)\z/)
+
+          "#{ActiveRecord::Base.connection.quote("[#{min}, #{max}]")} :: int4range"
+        end
 
       relation.where(
         id:
-          relation.joins(:employees).merge(Employee.as_prosecutor).group(:id).having(
-            "count(*) :: text = ANY(ARRAY[#{values.join(', ')}])"
-          ).select(:id)
+          relation.joins(:appointments).group(:id).having(ranges.map { |range| "#{range} @> count(*) :: int" }).select(
+            :id
+          )
       )
     end
 
     def self.facets(relation, suggest:)
-      Office.group(:count).order(count: :asc).from(
-        relation.joins(:employees).merge(Employee.as_prosecutor).group(:id).select('count(*) :: text as count'),
-        :offices
-      ).count
+      buckets = [1..5, 6..10, 11..20, 21..30, 31..Appointment.group(:office_id).order('count(*) DESC').count.first[1]]
+
+      facets =
+        Office.group(:prosecutors_count).order(prosecutors_count: :asc).from(
+          relation.joins(:appointments).group(:id).select('count(*) as prosecutors_count'),
+          :offices
+        ).count
+
+      buckets.each.with_object({}) do |(range, value), hash|
+        hash[range.to_s] = facets.values_at(*range.to_a).compact.sum
+      end
     end
   end
 

@@ -55,13 +55,12 @@ export default class extends Controller {
       spiderLegPolylineOptions: { weight: 1.5, color: "#fff", opacity: 0 },
     });
 
-    data.map(({ name, address, coordinates }) => {
+    data.map(({ name, url, address, coordinates }) => {
       const marker = new L.Marker(new L.LatLng(...coordinates), { icon });
 
-      marker.bindPopup(sanitize(`<b>${name}</b><br>${address}`));
+      marker.bindPopup(sanitize(`<a href="${url}"><b>${name}</b></a><br>${address}`));
 
       marker.on("mouseover", () => marker.openPopup());
-      marker.on("mouseout", () => marker.closePopup());
 
       markers.addLayer(marker);
     });

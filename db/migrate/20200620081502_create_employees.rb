@@ -5,7 +5,6 @@ class CreateEmployees < ActiveRecord::Migration[6.0]
       t.references :prosecutor, foreign_key: true, null: true
 
       t.string :name, null: false
-      t.string :identifiable_name, null: false
       t.string :position, null: false, limit: 1024
       t.integer :rank, null: false
       t.string :phone, null: true
