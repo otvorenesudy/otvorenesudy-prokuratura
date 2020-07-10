@@ -30,9 +30,9 @@ class ProsecutorSearch
     end
 
     def self.facets(relation, suggest:)
-      relation.joins(:offices).group('offices.type').count.each.with_object({}) do |(value, count), hash|
-        hash[Office.types.key(value)] = count
-      end
+      relation.joins(:offices).merge(Appointment.current).group('offices.type').distinct.count.each.with_object(
+        {}
+      ) { |(value, count), hash| hash[Office.types.key(value)] = count }
     end
   end
 

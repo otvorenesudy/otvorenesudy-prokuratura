@@ -82,7 +82,7 @@ class OfficeSearch
 
       facets =
         Office.group(:prosecutors_count).order(prosecutors_count: :asc).from(
-          relation.joins(:appointments).group(:id).select('count(*) as prosecutors_count'),
+          relation.joins(:appointments).merge(Appointment.current).group(:id).select('count(*) as prosecutors_count'),
           :offices
         ).count
 

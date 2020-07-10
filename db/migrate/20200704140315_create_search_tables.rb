@@ -10,7 +10,11 @@ class CreateSearchTables < ActiveRecord::Migration[6.0]
           lower(unaccent(offices.city)) AS city,
           lower(unaccent(employees.name)) AS employee
         FROM offices
-        JOIN employees ON employees.office_id = offices.id;
+        JOIN employees ON employees.office_id = offices.id
+        JOIN appointments ON
+          appointments.office_id = offices.id AND
+          appointments.ended_at IS NULL
+        JOIN prosecutors ON appointments.prosecutor_id = prosecutors.id;
 
       CREATE INDEX index_offices_search_on_name ON offices_search USING gin (name gin_trgm_ops);
       CREATE INDEX index_offices_search_on_address ON offices_search USING gin (address gin_trgm_ops);
@@ -27,7 +31,9 @@ class CreateSearchTables < ActiveRecord::Migration[6.0]
           lower(unaccent(offices.name)) AS office,
           lower(unaccent(prosecutors.declarations :: text)) AS declarations
         FROM prosecutors
-        JOIN appointments ON appointments.prosecutor_id = prosecutors.id
+        JOIN appointments ON
+          appointments.prosecutor_id = prosecutors.id AND
+          appointments.ended_at IS NULL
         JOIN offices ON appointments.office_id = offices.id;
     SQL
   end
