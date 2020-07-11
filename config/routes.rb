@@ -22,7 +22,9 @@ Rails.application.routes.draw do
     get :suggest, on: :collection
   end
 
-  resources :prosecutors, only: %i[index show]
+  resources :prosecutors, only: %i[index show] do
+    get :suggest, on: :collection
+  end
 
   resource :static_page, only: [] do
     get :about

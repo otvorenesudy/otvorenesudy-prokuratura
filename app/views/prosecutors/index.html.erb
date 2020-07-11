@@ -45,7 +45,6 @@
                 <div class="dropdown-menu dropdown-menu-sm">
                   <%= link_to t('.search.sort.default'), prosecutors_path(@search.params.merge(sort: nil)), class: 'dropdown-item' %>
                   <%= link_to t('.search.sort.name'), prosecutors_path(@search.params.merge(sort: :name)), class: 'dropdown-item' %>
-                  <%= link_to t('.search.sort.type'), prosecutors_path(@search.params.merge(sort: :type)), class: 'dropdown-item' %>
                   <% if @search.params[:q] %>
                     <%= link_to t('.search.sort.relevancy'), prosecutors_path(@search.params.merge(sort: :relevancy)), class: 'dropdown-item' %>
                   <% end %>
@@ -56,7 +55,7 @@
             </div>
           </div>
 
-          <% if @search.params.any? %>
+          <% if @search.params.any? { |_, v| v.present? } %>
             <div class="btn-group btn-group-sm border mr-2 mb-3 d-flex w-100" role="group">
               <%= link_to t('layouts.search.reset'), prosecutors_path, class: 'btn btn-secondary btn-sm shadow-none border-0 w-100' %>
             </div>
@@ -89,6 +88,19 @@
             </div>
           </div>
         </div>
+
+        <div class="facet" data-controller="suggest" data-url="<%= suggest_prosecutors_path(@search.params.merge(facet: :city)) %>">
+          <h6 class="facet-title" data-toggle="collapse" data-target="#prosecutor-city-content">
+            <%= t '.search.city.title' %>
+          </h6>
+
+          <div id="prosecutor-city-content" class="facet-content collapse show">
+            <div class="facet-results">
+              <input class="facet-suggest ui-autocomplete-input" name="city" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.city.placeholder' %>" type="text" autocomplete="off">
+              <%= render 'city_results', values: @search.facets_for(:city), params: @search.params %>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="float-lg-right col-lg-9 px-0">
@@ -96,8 +108,17 @@
           <% if @search.paginated.each do |prosecutor| %>
             <li class="search-result-item">
               <h4 class="search-result-title">
-                <%= link_to prosecutor.name, prosecutors_path(prosecutor) %>
+                <%= link_to prosecutor.name, prosecutor_path(prosecutor) %>
               </h4>
+
+              <div class="search-result-content">
+                <% prosecutor.offices.each do |office| %>
+                  <%= t '.list.office_html', link: link_to(office.name, office_path(office)) %>
+                  <br>
+
+                  <%= t '.list.declarations', count: prosecutor.declarations&.count || 0 %>
+                <% end %>
+              </div>
             </li>
           <% end.empty? %>
             <div class="alert alert-info mb-0" role="alert">

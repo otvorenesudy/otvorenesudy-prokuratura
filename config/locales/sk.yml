@@ -149,11 +149,12 @@ sk:
       title: Prokurátori
 
       list:
-        prosecutor_subtitle:
-          general_html: 'Generálnym prokurátorom je %{link}.'
-          specialized_html: 'Špeciálnym prokurátorom je %{link}.'
-          regional_html: 'Krajským prokurátorom je %{link}.'
-          district_html: 'Okresným prokurátorom je %{link}.'
+        office_html: 'Pôsobí na prokuratúre %{link}.'
+        declarations:
+          zero: 'Neevidujeme žiadne majetkové priznanie.'
+          one: 'Evidujeme 1 majetkové priznanie.'
+          few: "Evidujeme %{count} majetkové priznania."
+          other: "Evidujeme %{count} majetkových priznaní."
 
       search:
         placeholder: 'Meno prokurátora, prokuratúry alebo slovo z majetkové priznania'
@@ -167,3 +168,7 @@ sk:
         type:
           title: Typ
           not_found: Nenájdené žiadne typy
+        city:
+          title: Sídlo prokuratúry
+          not_found: Nenájdené žiadne sídla prokuratúr
+          placeholder: Názov sídla prokuratúry

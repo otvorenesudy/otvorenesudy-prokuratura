@@ -35,6 +35,7 @@ module GenproGovSk
           'poverený výkonom funkcie námestníka okresného prokurátora',
           'poverený výkonom funkcie okresného prokurátora',
           'poverený výkonom funkcie vedúceho oddelenia právneho zastupovania štátu pred súdmi a inými orgánmi',
+          'poverená výkonom funkcie riaditeľky osobného úradu',
           'prvá námestníčka generálneho prokurátora Slovenskej republiky',
           'riaditeľ medzinárodného odboru',
           'riaditeľ netrestného odboru',
@@ -104,7 +105,7 @@ module GenproGovSk
                   break position
                 end
 
-              raise StandardError.new("Unkown position for employee: #{text}") unless position
+              raise StandardError.new("Unkown position for employee: #{text}") if position.blank?
 
               name, phone = normalize(text).split('<>').map { |e| normalize(e) }
 

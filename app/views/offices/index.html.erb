@@ -22,8 +22,8 @@
               <%= hidden_field_tag name, value %>
             <% end %>
             <%= hidden_field_tag :l, I18n.locale %>
-            <%= hidden_field_tag :sort, :relevancy %>
-            <%= hidden_field_tag :order, :desc %>
+            <%= hidden_field_tag :sort, :relevancy if params[:sort].blank? %>
+            <%= hidden_field_tag :order, :desc if params[:order].blank? %>
           <% end %>
         </div>
       </div>
@@ -58,7 +58,7 @@
             </div>
           </div>
 
-          <% if @search.params.any? %>
+          <% if @search.params.any? { |_, v| v.present? } %>
             <div class="btn-group btn-group-sm border mr-2 mb-3 d-flex w-100" role="group">
               <%= link_to t('layouts.search.reset'), offices_path, class: 'btn btn-secondary btn-sm shadow-none border-0 w-100' %>
             </div>

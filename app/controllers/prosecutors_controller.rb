@@ -29,7 +29,7 @@ class ProsecutorsController < ApplicationController
   helper_method :index_params
 
   def index_params
-    params.permit(:page, :sort, :order, :q, type: [])
+    params.permit(:page, :sort, :order, :q, type: [], city: [])
   end
 
   def suggest_params

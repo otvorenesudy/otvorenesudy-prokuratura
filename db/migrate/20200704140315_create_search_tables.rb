@@ -29,7 +29,8 @@ class CreateSearchTables < ActiveRecord::Migration[6.0]
           prosecutors.id,
           lower(unaccent(prosecutors.name)) AS name,
           lower(unaccent(offices.name)) AS office,
-          lower(unaccent(prosecutors.declarations :: text)) AS declarations
+          lower(unaccent(prosecutors.declarations :: text)) AS declarations,
+          lower(unaccent(offices.city :: text)) AS city
         FROM prosecutors
         JOIN appointments ON
           appointments.prosecutor_id = prosecutors.id AND

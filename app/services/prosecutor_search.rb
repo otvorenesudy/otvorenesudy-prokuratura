@@ -3,7 +3,10 @@ class ProsecutorSearch
 
   def initialize(params)
     @search =
-      Search.new(Prosecutor, params: params, filters: { type: TypeFilter, sort: SortFilter, query: QueryFilter })
+      Search.new(
+        Prosecutor,
+        params: params, filters: { type: TypeFilter, city: CityFilter, sort: SortFilter, query: QueryFilter }
+      )
   end
 
   delegate :all, to: :search
@@ -30,9 +33,28 @@ class ProsecutorSearch
     end
 
     def self.facets(relation, suggest:)
-      relation.joins(:offices).merge(Appointment.current).group('offices.type').distinct.count.each.with_object(
-        {}
-      ) { |(value, count), hash| hash[Office.types.key(value)] = count }
+      relation.joins(:offices).group('offices.type').distinct.count.each.with_object({}) do |(value, count), hash|
+        hash[Office.types.key(value)] = count
+      end
+    end
+  end
+
+  class CityFilter
+    def self.filter(relation, params)
+      return relation if params[:city].blank?
+
+      relation.joins(:offices).where(offices: { city: params[:city] }).distinct
+    end
+
+    def self.facets(relation, suggest:)
+      relation = ::QueryFilter.filter(relation, { q: suggest }, columns: %i[city])
+
+      Prosecutor.from(
+        relation.joins(:offices).select(
+          'DISTINCT ON (prosecutors.id, offices.city) prosecutors.id AS id, offices.city AS city'
+        ),
+        :prosecutors
+      ).reorder(city: :asc).group(:city).count
     end
   end
 
