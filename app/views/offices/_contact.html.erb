@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-lg-7">
+    <h2 class="h4 text-uppercase mt-4"><%= t '.contact' %></h2>
+
+    <% if @office.phone %>
+      <div class="row align-items-center">
+        <div class="col-5 col-sm-4 col-md-3"><%= t '.phone' %>:</div>
+        <div class="col-7 col-sm-8 col-md-9"><%= phone_to @office.phone %></div>
+      </div>
+    <% end %>
+
+    <% if @office.fax %>
+      <div class="row align-items-center">
+        <div class="col-5 col-sm-4 col-md-3"><%= t '.fax' %>:</div>
+        <div class="col-7 col-sm-8 col-md-9"><%= phone_to @office.fax %></div>
+      </div>
+    <% end %>
+
+    <% if @office.email %>
+      <div class="row align-items-center">
+        <div class="col-5 col-sm-4 col-md-3">E-mail: </div>
+        <div class="col-7 col-sm-8 col-md-9"><%= email_to @office.email %></div>
+      </div>
+    <% end %>
+
+    <% if @office.electronic_registry %>
+      <div class="row align-items-center">
+        <div class="col-5 col-sm-4 col-md-3"><%= t '.electronic_registry' %>:</div>
+        <div class="col-7 col-sm-8 col-md-9">
+          <% if @office.electronic_registry.match(/@/) %>
+            <%= email_to @office.electronic_registry %>
+          <% else %>
+            <%= link_to(@office.electronic_registry, target: :_blank)  %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="bg-light border mt-4 p-3">
+      <h2 class="h4 text-uppercase m-1 mb-3"><%= t '.address' %></h2>
+      <address class="m-1 mt-3">
+        <%= @office.name %><br/>
+        <%= @office.address %><br/>
+        <%= @office.zipcode %> <%= @office.city %><br/>
+        <%= t '.country' %>
+      </address>
+    </div>
+  </div>
+</div>
+
+<hr class="my-4" />
+
+<div class="row">
+  <div class="col-lg-7">
+    <h2 class="h4 text-uppercase">
+      <%= t '.registry' %>
+    </h2>
+
+    <div class="row">
+      <div class="col-5 col-sm-4 col-md-3"><%= t '.phone' %></div>
+      <div class="col-7 col-sm-8 col-md-9"><%= @registry[:phone].present? ? phone_to(@registry[:phone]) : '&mdash;'.html_safe %></div>
+    </div>
+
+    <div class="row">
+      <div class="col-5 col-sm-4 col-md-3"><%= t '.note' %></div>
+      <div class="col-7 col-sm-8 col-md-9"><%= @registry[:note].present? ? @registry[:note] : '&mdash;'.html_safe %></div>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <table class="table mt-4 mt-lg-0 mb-0">
+      <thead>
+        <th class="py-2" colspan="2" scope="col"><%= t '.hours' %></th>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="w-30 py-1"><%= t('date.day_names')[1] %>:</td>
+          <td class="w-70 py-1"><%= @registry[:hours][:monday] %></td>
+        </tr>
+        <tr>
+          <td class="w-30 py-1"><%= t('date.day_names')[2] %>:</td>
+          <td class="w-70 py-1"><%= @registry[:hours][:tuesday] %></td>
+        </tr>
+        <tr>
+          <td class="w-30 py-1"><%= t('date.day_names')[3] %>:</td>
+          <td class="w-70 py-1"><%= @registry[:hours][:wednesday] %></td>
+        </tr>
+        <tr>
+          <td class="w-30 py-1"><%= t('date.day_names')[4] %>:</td>
+          <td class="w-70 py-1"><%= @registry[:hours][:thursday] %></td>
+        </tr>
+        <tr>
+          <td class="w-30 py-1"><%= t('date.day_names')[5] %>:</td>
+          <td class="w-70 py-1"><%= @registry[:hours][:friday] %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

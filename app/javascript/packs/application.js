@@ -14,6 +14,8 @@ import "leaflet.snogylop";
 import "leaflet.markercluster";
 
 import "controllers";
+import "./bootstrap";
+import "./fixes";
 
 // Cookie consent
 window.addEventListener("load", () => {

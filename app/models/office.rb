@@ -91,6 +91,7 @@ class Office < ApplicationRecord
       required: %i[phone hours],
       properties: {
         phone: { type: %i[string null] },
+        note: { type: %i[string null] },
         hours: {
           required: %i[monday tuesday wednesday thursday friday],
           properties: {

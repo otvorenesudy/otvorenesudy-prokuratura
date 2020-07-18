@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_140315) do
     t.bigint 'office_id', null: false
     t.bigint 'prosecutor_id'
     t.string 'name', null: false
+    t.jsonb 'name_parts', null: false
     t.string 'position', limit: 1024, null: false
     t.integer 'rank', null: false
     t.string 'phone'
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_140315) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index %w[name position], name: 'index_employees_on_name_and_position'
+    t.index %w[name_parts], name: 'index_employees_on_name_parts'
     t.index %w[office_id disabled_at rank],
             name: 'index_employees_on_office_id_and_disabled_at_and_rank', unique: true, where: '(disabled_at IS NULL)'
     t.index %w[office_id], name: 'index_employees_on_office_id'
@@ -93,11 +95,13 @@ ActiveRecord::Schema.define(version: 2020_07_04_140315) do
   create_table 'prosecutors', force: :cascade do |t|
     t.bigint 'genpro_gov_sk_prosecutors_list_id', null: false
     t.string 'name', null: false
+    t.jsonb 'name_parts', null: false
     t.jsonb 'declarations'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index %w[genpro_gov_sk_prosecutors_list_id], name: 'index_prosecutors_on_genpro_gov_sk_prosecutors_list_id'
     t.index %w[name], name: 'index_prosecutors_on_name'
+    t.index %w[name_parts], name: 'index_prosecutors_on_name_parts'
   end
 
   add_foreign_key 'appointments', 'genpro_gov_sk_prosecutors_lists'

@@ -1,0 +1,34 @@
+<% provide :title, @office.name %>
+
+<h1 class="text-uppercase my-4">
+  <%= yield :title %>
+  <small class="d-block h6 font-weight-bold mt-2 mb-0">
+    <%= @office.full_address %>
+  </small>
+</h1>
+
+<p>
+  <%= t "offices.index.list.prosecutor_subtitle.#{@office.type}_html", link: link_to(@office.attorney_general.prosecutor.name, '') %>
+</p>
+
+<p>
+  <%= t 'offices.index.register' %>
+  <%=
+    [
+      t('offices.index.prosecutors_count', count: @office.prosecutors.count),
+      t('offices.index.employees_count', count: @office.employees.active.count)
+    ].to_sentence
+  %>.
+</p>
+
+<ul class="nav nav-tabs mt-4" role="tablist">
+  <%= tab_link_tag t('.contact'), 'contact', class: 'active', tabindex: -1 %>
+  <%= tab_link_tag t('.prosecutors'), 'prosecutors' %>
+  <%= tab_link_tag t('.employees'), 'employees' %>
+</ul>
+
+<div class="tab-content">
+  <%= render_tab partial: 'contact', class: 'active' %>
+  <%= render_tab partial: 'prosecutors' %>
+  <%= render_tab partial: 'employees' %>
+</div>

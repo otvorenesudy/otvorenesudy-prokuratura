@@ -144,11 +144,7 @@
               </h4>
 
               <div class="search-result-content">
-                <% if office.attorney_general.prosecutor.present? %>
-                  <%= t ".list.prosecutor_subtitle.#{office.type}_html", link: link_to(office.attorney_general.prosecutor.name, '') %>
-                <% else %>
-                  <%= t ".list.prosecutor_subtitle.#{office.type}_html", link: office.attorney_general.name %>
-                <% end %>
+                <%= t ".list.prosecutor_subtitle.#{office.type}_html", link: link_to(office.attorney_general.prosecutor.name, '') %>
                 <br>
 
                 <%= t '.register' %>

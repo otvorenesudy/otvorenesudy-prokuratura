@@ -31,18 +31,24 @@ module GenproGovSk
 
           parts = line.split(/\s{3,}/)
 
-          name = parse_name(parts[0])
+          name_parts = parse_name(parts[0])
           office = parts[1].strip
           temporary_office = parts[2]&.strip
 
           office = OFFICE_MAP[office] || office
           temporary_office = OFFICE_MAP[temporary_office] || temporary_office
 
-          { number: number, name: name, office: office, temporary_office: temporary_office }
+          {
+            number: number,
+            name: name_parts[:value],
+            name_parts: name_parts.except(:value),
+            office: office,
+            temporary_office: temporary_office
+          }
         end
 
         def parse_name(value)
-          ::Legacy::Normalizer.normalize_person_name(value, reverse: true)
+          ::Legacy::Normalizer.partition_person_name(value, reverse: true)
         end
       end
     end

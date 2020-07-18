@@ -48,7 +48,14 @@ module GenproGovSk
               name: value[:name], appointments: { type: :fixed, office_id: offices[0].id, ended_at: nil }
             )
 
-          prosecutor = ::Prosecutor.create!(name: value[:name], genpro_gov_sk_prosecutors_list: list) unless prosecutor
+          unless prosecutor
+            prosecutor =
+              ::Prosecutor.create!(
+                name: value[:name], genpro_gov_sk_prosecutors_list: list, name_parts: value[:name_parts]
+              )
+          end
+
+          prosecutor.update!(name_parts: value[:name_parts])
 
           appointment = prosecutor.appointments.current.fixed.find_or_initialize_by(office: offices[0])
           appointment.update!(genpro_gov_sk_prosecutors_list: list, started_at: time) if appointment.new_record?

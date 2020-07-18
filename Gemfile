@@ -6,6 +6,7 @@ ruby '2.7.1'
 
 gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
 gem 'rails-i18n', '~> 6.0.0'
+gem 'i18n-tasks', '~> 0.9.31'
 gem 'puma', '~> 4.1'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 4.0'

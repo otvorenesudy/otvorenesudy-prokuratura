@@ -103,10 +103,21 @@ GEM
       activesupport (>= 4.2.0)
     hashdiff (1.0.1)
     hashery (2.1.2)
+    highline (2.0.3)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
+    i18n-tasks (0.9.31)
+      activesupport (>= 4.0.2)
+      ast (>= 2.1.0)
+      erubi
+      highline (>= 2.0.0)
+      i18n
+      parser (>= 2.2.3.0)
+      rails-i18n
+      rainbow (>= 2.2.2, < 4.0)
+      terminal-table (>= 1.5.1)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     json-schema (2.8.1)
@@ -294,6 +305,8 @@ GEM
     svgeez (3.1.0)
       listen (~> 3.2)
       mercenary (~> 0.4.0)
+    terminal-table (1.8.0)
+      unicode-display_width (~> 1.1, >= 1.1.1)
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -344,6 +357,7 @@ DEPENDENCIES
   curb
   factory_bot (~> 5.2.0)
   geocoder (~> 1.6.3)
+  i18n-tasks (~> 0.9.31)
   jbuilder (~> 2.7)
   json-schema (~> 2.8.1)
   kaminari (~> 1.2.1)

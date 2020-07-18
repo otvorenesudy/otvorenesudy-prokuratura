@@ -111,9 +111,15 @@ module GenproGovSk
 
               _, suffix_to_position = *name.match(/(?<suffix>- (ne)?trestný úsek)\z/)
 
-              name = parse_name(suffix_to_position ? normalize(name.gsub(suffix_to_position, '')) : name)
+              name_parts = parse_name(suffix_to_position ? normalize(name.gsub(suffix_to_position, '')) : name)
 
-              { name: name, position: normalize("#{position} #{suffix_to_position}"), rank: rank + 1, phone: phone }
+              {
+                name: name_parts[:value],
+                name_parts: name_parts.except(:value),
+                position: normalize("#{position} #{suffix_to_position}"),
+                rank: rank + 1,
+                phone: phone
+              }
             end.compact
         }
 
@@ -134,7 +140,7 @@ module GenproGovSk
           registry_phone =
             document.css('.tab-kontakt:nth-of-type(1) tr:nth-of-type(2) td:nth-of-type(1) p').text.match(/\((.+)\)/)
 
-          remove_excessive_redundant_columns_from_first_contact_table(document)
+          note = remove_excessive_redundant_columns_from_first_contact_table(document)
 
           location =
             document.css('.tab-kontakt:nth-of-type(1) tr:nth-of-type(1) td:nth-of-type(1) p').map do |e|
@@ -162,6 +168,7 @@ module GenproGovSk
               ),
             registry: {
               phone: registry_phone ? normalize(registry_phone[1]) : nil,
+              note: note,
               hours:
                 %i[monday tuesday wednesday thursday friday].map.with_index do |day, i|
                   {
@@ -181,9 +188,7 @@ module GenproGovSk
 
             next { fax: normalize(line.text) } if line.text.match(/fax:/)
 
-            if line.text.match(/elektronická podateľňa:/)
-              next { electronic_registry: normalize(line.css('a')[0][:href]) }
-            end
+            next { electronic_registry: normalize(line.css('a')[0].text) } if line.text.match(/elektronická podateľňa:/)
           end.compact.inject(:merge).merge(data)
         end
 
@@ -194,7 +199,12 @@ module GenproGovSk
 
           redundant_lines_range = 2..(2 + (lines - 7) - 1)
 
-          document.css('.tab-kontakt:nth-of-type(1) tr')[redundant_lines_range].map(&:remove)
+          nodes = document.css('.tab-kontakt:nth-of-type(1) tr')[redundant_lines_range]
+          text = nodes.map(&:text).join(' ')
+
+          nodes.map(&:remove)
+
+          normalize(text)
         end
 
         def type_by(name)
@@ -205,7 +215,7 @@ module GenproGovSk
         end
 
         def parse_name(value)
-          ::Legacy::Normalizer.normalize_person_name(value)
+          ::Legacy::Normalizer.partition_person_name(value)
         end
       end
     end
