@@ -19,16 +19,16 @@ sk:
       other: "%{count} vedúci zamestnanci"
 
     prosecutor:
-      zero: prosecutor
-      one: prosecutor
-      few: prosecutors
-      other: prosecutors
+      zero: prokurátor
+      one: prokurátor
+      few: prokurátori
+      other: prokurátorov
 
-    prosecutor_with_count:
-      zero: no proescutor
-      one: 1 prosecutor
-      few: "%{count} prosecutors"
-      other: "%{count} prosecutors"
+    prosecutor_with_count: &prosecutors_with_count
+      zero: žiadny prokurátor
+      one: 1 prokurátor
+      few: "%{count} prokurátori"
+      other: "%{count} prokurátorov"
 
   layouts:
     application:
@@ -38,71 +38,72 @@ sk:
       keywords: TODO
       title: Otvorená Prokuratúra
     footer:
-      about: About
-      analyses: Analyses
+      about: O projekte
+      analyses: Články
       api: API
-      contact: Contact
+      contact: Kontakt
       disclaimer:
-        correctness: Project uses only data provided by public institutions.
-        resources: Authors are not responsible for their accuracy.
-      donate: Donate
+        correctness: Za ich vecnú správnosť autori nenesú zodpovednosť.
+        resources: Projekt využíva výhradne dáta verejných inštitúcií.
+      donate: Podporte
       faq: FAQ
-      feedback: Found a bug?
-      privacy: Privacy Policy
+      feedback: Našli ste chybu?
+      privacy: Ochrana súkromia
       sme:
-        municipalities: Municipalities
-        price_of_state: Price of the State
-        procurements: Procurements
-        schools: Schools
-        universities: Universities
-      tos: Terms of Service
+        municipalities: Obce
+        price_of_state: Cena štátu
+        procurements: Verejné obstarávanie
+        schools: Školy
+        universities: Vysoké školy
+      tos: Podmienky používania
 
     header:
-      criminality: Criminality
-      donate: Donate
+      criminality: Kriminalita
+      donate: Podporte
       en: En
       english: English
       menu: Menu
-      offices: Attorney General Offices
-      otvorenesudy: Open Courts
-      prosecutors: Prosecutors
-      search: Search
+      offices: Prokuratúry
+      otvorenesudy: Otvorené Súdy
+      prosecutors: Prokurátori
+      search: Hľadaj
       sk: Sk
-      slovak: Slovak
+      slovak: Slovensky
 
     search:
-      found_html: "%{count} out of %{total} (%{time} ms)"
-      reset: Reset all search filters
+      found_html: "%{count} z celkovo %{total} (%{time} ms)"
+      reset: Zrusiť všetky kritéria
 
   offices:
+    types:
+      district: Okresná
+      general: Generálna
+      regional: Krajská
+      specialized: Špecializovaná
+
     contact:
-      address: Address
-      contact: Contant
-      country: Slovak Republic
-      electronic_registry: El. registry
+      address: Adresa
+      contact: Kontakt
+      country: Slovenská Republika
+      electronic_registry: El. podateľňa
       fax: Fax
-      hours: Business Hours
-      note: Note
-      phone: Tel. Number
+      hours: Otváracie hodiny
+      note: Poznámka
+      phone: Tel. číslo
       registry: Podateľňa
 
     count:
-      few: "%{count} prokuratúry"
-      one: 1 prokuratúra
-      other: "%{count} prokuratúr"
       zero: žiadna prokuratúra
-
-    employees:
-      explanation: Zoznam vedúcich pracovníkov, ktorých aktuálne evidujeme na prokuratúre
-      name: Meno
-      position: Pozícia
+      one: 1 prokuratúra
+      few: "%{count} prokuratúry"
+      other: "%{count} prokuratúr"
 
     index:
-      employees_count: &employees_count
-        few: "%{count} vedúcich pracovníkov"
-        one: 1 vedúceho pracovníka
-        other: "%{count} vedúcich pracovníkov"
+      employees_count:
         zero: žiadnych vedúcich pracovníkov
+        one: 1 vedúceho pracovníka
+        few: "%{count} vedúcich pracovníkov"
+        other: "%{count} vedúcich pracovníkov"
 
       list:
         prosecutor_subtitle:
@@ -111,11 +112,11 @@ sk:
           regional_html: Krajským prokurátorom je %{link}.
           specialized_html: Špeciálnym prokurátorom je %{link}.
 
-      prosecutors_count: &prosecutors_count
-        few: "%{count} prokurátorov"
-        one: 1 prokurátora
-        other: "%{count} prokurátorov"
+      prosecutors_count:
         zero: žiadnych prokurátorov
+        one: 1 prokurátora
+        few: "%{count} prokurátorov"
+        other: "%{count} prokurátorov"
 
       register: Na prokuratúre evidujeme
       search:
@@ -125,7 +126,6 @@ sk:
           title: Sídlo
         no_results: Vybraným vyhľadávacím kritériám nevyhovujú žiadne prokuratúry.
         not_found: Nenájdené žiadne prokuratúry (%{time} ms)
-        other: " %{count} leading employees in this attorney's general office."
         placeholder: Názov prokuratúry alebo meno prokurátora
         prosecutors_count:
           not_found: Nenájdení žiadni prokurátori
@@ -133,7 +133,6 @@ sk:
         sort:
           default: Základné
           name: Podľa názvu
-          prosecutors_count: By Amount of Prosecutors
           relevancy: Podľa relevancie
           title: Zoradiť
           type: Podľa typu
@@ -142,40 +141,37 @@ sk:
           title: Typ
       title: Prokuratúry
 
+    show:
+      contact: Kontakt
+      employees: Vedúci pracovníci
+      prosecutors: Prokurátori
+
     prosecutors:
       activity: Aktivita
       activity_help: Aktivita na prokuratúre
       explanation: Zoznam prokurátorov, ktorí aktuálne pôsobia na prokuratúre
       name: Meno prokurátora
       position: Odbor na prokuratúre
+      appointment:
+        fixed: Aktívny prokurátor na prokuratúre
+        temporary: Dočasne pridelený prokurátor na prokuratúre
 
-    show:
-      contact: Kontakt
-      employees: Vedúci pracovníci
-      prosecutors: Prokurátori
-
-    types:
-      district: Okresná
-      general: Generálna
-      regional: Krajská
-      specialized: Špecializovaná
+    employees:
+      explanation: Zoznam vedúcich pracovníkov, ktorých aktuálne evidujeme na prokuratúre
+      name: Meno
+      position: Pozícia
 
   prosecutors:
-    appointment:
-      fixed: Aktívny prokurátor na prokuratúre
-      temporary: Dočasne pridelený prokurátor na prokuratúre
     count:
-      few: "%{count} prokurátori"
-      one: 1 prokurátor
-      other: "%{count} prokurátorov"
-      zero: žiadny prokurátor
+      <<: &prosecutors_with_count
+
     index:
       list:
         declarations:
-          few: Evidujeme %{count} majetkové priznania.
-          one: Evidujeme 1 majetkové priznanie.
-          other: Evidujeme %{count} majetkových priznaní.
           zero: Neevidujeme žiadne majetkové priznanie.
+          one: Evidujeme 1 majetkové priznanie.
+          few: Evidujeme %{count} majetkové priznania.
+          other: Evidujeme %{count} majetkových priznaní.
         office_html: Pôsobí na prokuratúre %{link}.
       search:
         city:

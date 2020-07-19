@@ -1,23 +1,34 @@
 en:
+  kaminari:
+    pagination:
+      current: Current Page
+      first: First Page
+      last: Last Page
+      next: Next Page
+      previous: Previous Page
+
+  numbers:
+    range:
+      separator: up to
 
   terms:
-    employees:
-      zero: žiadny vedúci zamestnanci
-      one: 1 vedúci zamestnanec
-      few: "%{count} vedúdich zamestnancov"
-      other: "%{count} vedúci zamestnanci"
+    employees: &employees
+      zero: no leading employee
+      one: 1 leading employee
+      few: "%{count} leading employees"
+      other: "%{count} leading employees"
 
     prosecutor:
-      zero: prokurátor
-      few: prokurátori
-      one: prokurátor
-      other: prokurátorov
+      zero: prosecutor
+      one: prosecutor
+      few: prosecutors
+      other: prosecutors
 
-    prosecutor_with_count:
-      zero: Žiadny prokurátor
-      one: 1 prokurátor
-      few: "%{count} prokurátori"
-      other: "%{count} prokurátorov"
+    prosecutor_with_count: &prosecutors_with_count
+      zero: no prosecutor
+      one: 1 prosecutor
+      few: "%{count} prosecutors"
+      other: "%{count} prosecutors"
 
   layouts:
     application:
@@ -26,169 +37,158 @@ en:
       description: TODO
       keywords: TODO
       title: Otvorená Prokuratúra
-
     footer:
-      about: O projekte
-      analyses: Články
+      about: About
+      analyses: Analyses
       api: API
-      contact: Kontakt
+      contact: Contact
       disclaimer:
-        correctness: Za ich vecnú správnosť autori nenesú zodpovednosť.
-        resources: Projekt využíva výhradne dáta verejných inštitúcií.
-      donate: Podporte
+        resources: Project uses only data provided by public institutions.
+        correctness: Authors are not responsible for their accuracy.
+      donate: Donate
       faq: FAQ
-      feedback: Našli ste chybu?
-      privacy: Ochrana súkromia
+      feedback: Found a bug?
+      privacy: Privacy Policy
       sme:
-        municipalities: Obce
-        price_of_state: Cena štátu
-        procurements: Verejné obstarávanie
-        schools: Školy
-        universities: Vysoké školy
-      tos: Podmienky používania
+        municipalities: Municipalities
+        price_of_state: Price of the State
+        procurements: Public Procurements
+        schools: Schools
+        universities: Universities
+      tos: Terms of Service
 
     header:
-      criminality: Kriminalita v kocke
-      donate: Podporte
+      criminality: Criminality
+      donate: Donate
       en: En
       english: English
       menu: Menu
-      offices: Prokuratúra
-      otvorenesudy: Otvorené Súdy
-      prosecutors: Prokurátori
-      search: Hľadaj
+      offices: Attorney General Offices
+      otvorenesudy: Open Courts
+      prosecutors: Prosecutors
+      search: Search
       sk: Sk
-      slovak: Slovak
+      slovak: Slovensky
 
     search:
-      found_html: "%{count} z celkovo %{total} (%{time} ms)"
-      reset: Zrušiť všetky kritériá
+      found_html: "%{count} out of %{total} (%{time} ms)"
+      reset: Cancel all filters
 
   offices:
-    contact:
-      address: Adresa
-      contact: Kontakt
-      country: Slovenská Republika
-      electronic_registry: El. podateľňa
-      fax: Fax
-      hours: Úradné hodiny
-      note: Poznámka
-      phone: Tel. číslo
-      registry: Podateľňa
-
-    count:
-      few: "%{count} prokuratúry"
-      one: 1 prokuratúra
-      other: "%{count} prokuratúr"
-      zero: žiadna prokuratúra
-
-    employees:
-      explanation: Zoznam vedúcich pracovníkov, ktorých aktuálne evidujeme na prokuratúre
-      name: Meno
-      position: Pozícia
-
-    index:
-      employees_count: &employees_count
-        few: "%{count} vedúcich pracovníkov"
-        one: 1 vedúceho pracovníka
-        other: "%{count} vedúcich pracovníkov"
-        zero: žiadnych vedúcich pracovníkov
-
-      list:
-        prosecutor_subtitle:
-          district_html: Okresným prokurátorom je %{link}.
-          general_html: Generálnym prokurátorom je %{link}.
-          regional_html: Krajským prokurátorom je %{link}.
-          specialized_html: Špeciálnym prokurátorom je %{link}.
-
-      prosecutors_count: &prosecutors_count
-        few: "%{count} prokurátorov"
-        one: 1 prokurátora
-        other: "%{count} prokurátorov"
-        zero: žiadnych prokurátorov
-
-      register: Na prokuratúre evidujeme
-      search:
-        city:
-          not_found: Nenájdené žiadne sídla
-          placeholder: Názov sídla
-          title: Sídlo
-        no_results: Vybraným vyhľadávacím kritériám nevyhovujú žiadne prokuratúry.
-        not_found: Nenájdené žiadne prokuratúry (%{time} ms)
-        other: " %{count} leading employees in this attorney's general office."
-        placeholder: Názov prokuratúry alebo meno prokurátora
-        prosecutors_count:
-          not_found: Nenájdení žiadni prokurátori
-          title: Počet prokurátorov
-        sort:
-          default: Základné
-          name: Podľa názvu
-          prosecutors_count: By Amount of Prosecutors
-          relevancy: Podľa relevancie
-          title: Zoradiť
-          type: Podľa typu
-        type:
-          not_found: Nenájdené žiadne typy
-          title: Typ
-      title: Prokuratúry
-
-    prosecutors:
-      activity: Aktivita
-      activity_help: Aktivita na prokuratúre
-      explanation: Zoznam prokurátorov, ktorí aktuálne pôsobia na prokuratúre
-      name: Meno prokurátora
-      position: Odbor na prokuratúre
-
-    show:
-      contact: Kontakt
-      employees: Vedúci pracovníci
-      prosecutors: Prokurátori
-
     types:
       district: Okresná
       general: Generálna
       regional: Krajská
       specialized: Špecializovaná
 
-  prosecutors:
-    appointment:
-      fixed: Aktívny prokurátor na prokuratúre
-      temporary: Dočasne pridelený prokurátor na prokuratúre
+    contact:
+      address: Address
+      contact: Contant
+      country: Slovak Republic
+      electronic_registry: El. Registry
+      fax: Fax
+      hours: Business Hours
+      note: Note
+      phone: Phone Number
+      registry: Registry
+
     count:
-      few: "%{count} prokurátori"
-      one: 1 prokurátor
-      other: "%{count} prokurátorov"
-      zero: žiadny prokurátor
+      zero: no attorney general offices
+      one: 1 attorney general office
+      few: "%{count} attorney general offices"
+      other: "%{count} attorney general offices"
+
+    index:
+      employees_count:
+        <<: &employees
+
+      list:
+        prosecutor_subtitle:
+          district_html: District Attorney General is %{link}.
+          general_html: Attorney General is %{link}.
+          regional_html: Regional Attorney General is %{link}.
+          specialized_html: Specialized Attorney General is %{link}.
+
+        prosecutors_count:
+         <<: &prosecutors_count
+
+      register: At the Attorney General's office we register
+      search:
+        city:
+          not_found: No cities found
+          placeholder: Name of the city
+          title: City
+        no_results: No Attorney General offices found for given search filters.
+        not_found: No Attorney General offices found (%{time} ms)
+        placeholder: Name of the office or name of the prosecutor
+        prosecutors_count:
+          not_found: No prosecutors found
+          title: Amount of Prosecutors
+        sort:
+          default: Default
+          name: By Name
+          relevancy: By Relevancy
+          title: Sort
+          type: By Type
+        type:
+          not_found: No types found
+          title: Type
+      title: Attorney General offices
+
+    show:
+      contact: Contact
+      employees: Leading Employees
+      prosecutors: Prosecutors
+
+    prosecutors:
+      activity: Activity
+      activity_help: Activity at the Attorney General's Office
+      explanation: List of prosecutors currently appointed at the Attorney General's office
+      name: Name of the Prosecutor
+      position: Branch of Business
+      appointment:
+        fixed: Active prosecutor at the Attorney General's office
+        temporary: Temporarily appointed prosecutor at the Attorney General's office
+
+    employees:
+      explanation: List of leading employees we currently register at the attorney general's office
+      name: Name
+      position: Position
+
+  prosecutors:
+    count:
+      <<: &prosecutor_with_count
+
     index:
       list:
         declarations:
-          few: Evidujeme %{count} majetkové priznania.
-          one: Evidujeme 1 majetkové priznanie.
-          other: Evidujeme %{count} majetkových priznaní.
-          zero: Neevidujeme žiadne majetkové priznanie.
-        office_html: Pôsobí na prokuratúre %{link}.
+          zero: We register no estate declarations.
+          one: We register 1 estate declaration.
+          few: We register %{count} estate declarations.
+          other: We register %{count} estate declarations.
+        office_html: The prosecutor is appointed to %{link}.
       search:
         city:
-          not_found: Nenájdené žiadne sídla prokuratúr
-          placeholder: Názov sídla prokuratúry
-          title: Sídlo prokuratúry
-        no_results: Vybraným vyhľadávacím kritériám nevyhovujú žiadní prokurátori.
-        not_found: Nenájdení žiadni prokurátori (%{time} ms)
-        placeholder: Meno prokurátora, prokuratúry alebo slovo z majetkové priznania
+          not_found: No cities found
+          placeholder: City of the Attorney General's Office
+          title: City of Attorney General's Office
+        no_results: No prosecutors found for given search filters.
+        not_found: No prosecutors found (%{time} ms)
+        placeholder: Name of the prosecutor, mame of the Attorney General's office or any text from the estate declaration
         sort:
-          default: Základné
-          name: Podľa mena
-          relevancy: Podľa relevancie
-          title: Zoradiť
+          default: Default
+          name: By Name
+          relevancy: By Relevancy
+          title: Sort
         type:
-          not_found: Nenájdené žiadne typy
-          title: Typ
-      title: Prokurátori
+          not_found: No types found
+          title: Type
+      title: Prosecutors
 
   static_pages:
     home:
       squares:
-        criminality: Kriminalita v kocke
-        offices: Prokuratúra
-        prosecutors: Prokurátori
-        search: Hľadaj
+        criminality: Criminality
+        offices: Attorney General Offices
+        prosecutors: Prosecutors
+        search: Search
