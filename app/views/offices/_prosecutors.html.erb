@@ -19,10 +19,24 @@
       <% @office.appointments.current.order(id: :asc).each do |appointment| %>
         <tr>
           <td class="text-center">
-            <%= prosecutor_activity_icon_tag appointment, size: 12 %>
+            <%= prosecutor_activity_icon_tag appointment.type, size: 12 %>
           </td>
           <td data-value="<%= appointment.prosecutor.name_parts.values_at('last', 'first', 'middle').join(' ').strip %>">
             <%= link_to(appointment.prosecutor.name, appointment.prosecutor) %>
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+      <% end %>
+
+      <% @office.employees.where.not(prosecutor_id: nil).where.not(prosecutor: @office.prosecutors).order(id: :asc).each do |employee| %>
+        <tr>
+          <td class="text-center">
+            <%= prosecutor_activity_icon_tag 'fixed', size: 12 %>
+          </td>
+          <td data-value="<%= employee.prosecutor.name_parts.values_at('last', 'first', 'middle').join(' ').strip %>">
+            <%= link_to(employee.prosecutor.name, employee.prosecutor) %>
           </td>
           <td>
             TODO

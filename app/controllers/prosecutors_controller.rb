@@ -5,6 +5,11 @@ class ProsecutorsController < ApplicationController
     @search.params[:sort] = nil if @search.params[:sort] == 'relevancy' && @search.params[:q].blank?
   end
 
+  def show
+    @prosecutor = Prosecutor.find(params[:id])
+    @declarations = @prosecutor.declarations.reverse.map!(&:deep_symbolize_keys)
+  end
+
   def suggest
     head 404 unless suggest_params[:facet].in?(%w[city])
 

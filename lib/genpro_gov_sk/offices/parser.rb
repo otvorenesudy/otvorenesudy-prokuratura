@@ -11,6 +11,7 @@ module GenproGovSk
           'námestník krajskej prokurátorky, - trestný úsek',
           'námestník krajskej prokurátorky',
           'námestník krajského prokurátora - trestný úsek',
+          'námestník krajského prokurátora pre trestný úsek',
           'námestník krajského prokurátora',
           'námestník krajského prokurátora pre netrestný úsek,',
           'námestník krajského prokurátora, - netrestný úsek',

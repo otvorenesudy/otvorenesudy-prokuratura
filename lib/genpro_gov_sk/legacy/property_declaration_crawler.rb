@@ -23,7 +23,7 @@ module GenproGovSk
                 next if caption == 'Príjmy a iné pôžitky'
 
                 { category: table.at_css('caption').text.strip.presence, items: parse_items(table) }
-              end,
+              end.compact,
             incomes: parse_incomes(document),
             statements:
               document.css('#page > div.contentIntro > div.grid_9.contentPage > div > ol > li').map do |li|

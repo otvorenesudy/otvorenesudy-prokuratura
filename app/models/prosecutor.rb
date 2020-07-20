@@ -25,10 +25,14 @@ class Prosecutor < ApplicationRecord
 
   belongs_to :genpro_gov_sk_prosecutors_list, class_name: :'GenproGovSk::ProsecutorsList'
 
-  has_many :appointments, -> { current }, dependent: :destroy
+  has_many :appointments, -> { order(id: :asc) }, dependent: :destroy
   has_many :offices, through: :appointments
 
+  has_many :employments, class_name: :Employee, dependent: :nullify
+
   validates :name, presence: true
+
+  validate :validate_declarations, if: :declarations?
 
   def self.as_map_json
     attributes = %w[
@@ -53,5 +57,56 @@ class Prosecutor < ApplicationRecord
         TEXT
       }
     end
+  end
+
+  private
+
+  def validate_declarations
+    schema = {
+      type: :array,
+      items: {
+        type: :object,
+        required: %i[year lists incomes statements],
+        properties: {
+          year: { type: :number },
+          lists: {
+            type: :array,
+            items: {
+              type: :object,
+              required: %i[category items],
+              properties: {
+                category: { type: :string },
+                items: {
+                  type: :array,
+                  items: {
+                    type: :object,
+                    properties: {
+                      description: { type: %i[string null] },
+                      acquisition_date: { type: %i[string null] },
+                      acquisition_reason: { type: %i[string null] },
+                      procurement_price: { type: %i[string null] },
+                      price: { type: %i[string null] }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          incomes: {
+            type: %i[array null],
+            items: {
+              type: :object,
+              required: %i[description value],
+              properties: { description: { type: :string }, value: { type: %i[string null] } }
+            }
+          },
+          statements: { type: :array, iterm: { type: :string } }
+        }
+      }
+    }
+
+    return if JSON::Validator.validate(schema, declarations)
+
+    errors.add(:declarations, :invalid)
   end
 end

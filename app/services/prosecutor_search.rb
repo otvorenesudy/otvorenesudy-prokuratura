@@ -50,7 +50,7 @@ class ProsecutorSearch
       relation = ::QueryFilter.filter(relation, { q: suggest }, columns: %i[city])
 
       Prosecutor.from(
-        relation.joins(:offices).select(
+        relation.joins(:offices).except(:distinct).select(
           'DISTINCT ON (prosecutors.id, offices.city) prosecutors.id AS id, offices.city AS city'
         ),
         :prosecutors

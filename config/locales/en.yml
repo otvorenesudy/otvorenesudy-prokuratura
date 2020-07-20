@@ -76,10 +76,10 @@ en:
 
   offices:
     types:
-      district: Okresná
-      general: Generálna
-      regional: Krajská
-      specialized: Špecializovaná
+      district: District
+      general: General
+      regional: Regional
+      specialized: Specialized
 
     contact:
       address: Address
@@ -100,7 +100,7 @@ en:
 
     index:
       employees_count:
-        <<: &employees
+        <<: *employees
 
       list:
         prosecutor_subtitle:
@@ -109,8 +109,8 @@ en:
           regional_html: Regional Attorney General is %{link}.
           specialized_html: Specialized Attorney General is %{link}.
 
-        prosecutors_count:
-         <<: &prosecutors_count
+      prosecutors_count:
+        <<: *prosecutors_with_count
 
       register: At the Attorney General's office we register
       search:
@@ -146,9 +146,6 @@ en:
       explanation: List of prosecutors currently appointed at the Attorney General's office
       name: Name of the Prosecutor
       position: Branch of Business
-      appointment:
-        fixed: Active prosecutor at the Attorney General's office
-        temporary: Temporarily appointed prosecutor at the Attorney General's office
 
     employees:
       explanation: List of leading employees we currently register at the attorney general's office
@@ -157,7 +154,12 @@ en:
 
   prosecutors:
     count:
-      <<: &prosecutor_with_count
+      <<: *prosecutors_with_count
+
+    appointment:
+      fixed: Active prosecutor
+      temporary: Temporarily appointed prosecutor
+      inactive: "Neaktívny prokurátor od %{date}"
 
     index:
       list:
@@ -166,15 +168,16 @@ en:
           one: We register 1 estate declaration.
           few: We register %{count} estate declarations.
           other: We register %{count} estate declarations.
-        office_html: The prosecutor is appointed to %{link}.
+        office_fixed_html: The prosecutor is appointed to %{link}.
+        office_temporary_html: The prosecutor is temporarily appointed to %{link}.
       search:
         city:
           not_found: No cities found
-          placeholder: City of the Attorney General's Office
-          title: City of Attorney General's Office
+          placeholder: Name of the City
+          title: City
         no_results: No prosecutors found for given search filters.
         not_found: No prosecutors found (%{time} ms)
-        placeholder: Name of the prosecutor, mame of the Attorney General's office or any text from the estate declaration
+        placeholder: Name of the prosecutor, Attorney General's office or any text from the estate declaration
         sort:
           default: Default
           name: By Name
@@ -184,6 +187,22 @@ en:
           not_found: No types found
           title: Type
       title: Prosecutors
+
+    show:
+      employee_html: We register the prosecutor as <em>%{position}</em> at Attorney General's office %{link}.
+
+      declarations:
+        title: 'Estate Declarations'
+
+    declaration:
+      name: Name/Description
+      reason: Acquisition Reason
+      date: Acquisition Date
+      price: Price
+      procurement_price: Procurement Price
+      incomes: Incomes and Other Benefits
+      income_value: Income (in €)
+      statements: Statements
 
   static_pages:
     home:

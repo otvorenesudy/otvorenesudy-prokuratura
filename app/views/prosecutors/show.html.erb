@@ -1,0 +1,38 @@
+<% provide :title, @prosecutor.name %>
+
+<h1 class="text-uppercase my-4">
+  <%= yield :title %>
+
+  <% if @prosecutor.appointments.current.any? %>
+    <%= prosecutor_activity_icon_tag 'fixed', size: 20, placement: 'right' %>
+  <% else %>
+    <%= prosecutor_activity_icon_tag 'inactive', size: 20, placement: 'right', i18n: { date: @prosecutor.appointments.order(:ended_at).last.ended_at } %>
+  <% end %>
+</h1>
+
+<% @prosecutor.appointments.current.each do |appointment| %>
+  <p>
+    <%= t "prosecutors.index.list.office_#{appointment.type}_html", link: appointment.office ? link_to(appointment.office.name, office_path(appointment.office)) : appointment.place %>
+  </p>
+<% end %>
+
+<% @prosecutor.employments.each do |employment| %>
+<p>
+  <%= t '.employee_html', link: link_to(employment.office.name, office_path(employment.office)), position: employment.position %>
+</p>
+<% end %>
+
+
+<h3 class="mt-5"><%= t '.declarations.title' %></h3>
+
+<ul class="nav nav-tabs mt-4" role="tablist">
+  <% @declarations.each.with_index do |declaration, i| %>
+    <%= tab_link_tag declaration[:year], declaration[:year], class: i == 0 ? 'active' : nil, tabindex: i == 0 ? -1 : nil %>
+  <% end %>
+</ul>
+
+<div class="tab-content">
+  <% @declarations.each.with_index do |declaration, i| %>
+    <%= render_tab partial: 'declaration', tab: declaration[:year], locals: { declaration: declaration }, class: i == 0 ? 'active' : nil %>
+  <% end %>
+</div>

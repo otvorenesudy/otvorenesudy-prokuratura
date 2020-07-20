@@ -1,0 +1,74 @@
+<% declaration[:lists].each do |list| %>
+  <h6 class="mt-4 mb-3"><%= list[:category] %></h6>
+
+  <div class="table-responsive-md">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="text-left"><%= t '.name' %></th>
+          <th class="text-left"><%= t '.reason' %></th>
+          <th class="text-left"><%= t '.date' %></th>
+
+          <% if (show_procurement_price = list[:items].map { |e| e[:procurement_price] }.compact.any?) %>
+            <th class="text-left"><%= t '.procurement_price' %></th>
+          <% end %>
+
+          <% if (show_price = list[:items].map { |e| e[:price].presence }.compact.any?) %>
+            <th class="text-left"><%= t '.price' %></th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% list[:items].each do |item| %>
+          <tr>
+            <td><%= item[:description] %></td>
+            <td><%= item[:acquisition_reason] %></td>
+            <td><%= item[:acquisition_date] %></td>
+            <% if show_procurement_price %>
+              <td><%= item[:procurement_price] %></td>
+            <% end %>
+            <% if show_price %>
+              <td><%= item[:price] %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<% if declaration[:incomes].present? %>
+  <h6 class="mt-4 mb-3"><%= t '.incomes' %></h6>
+
+  <div class="table-responsive-md mb-4">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="text-left"><%= t '.name' %></th>
+          <th class="text-left"><%= t '.income_value' %></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% declaration[:incomes].each do |item| %>
+          <tr>
+            <td><%= item[:description] %></td>
+            <td><%= item[:value] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<% if declaration[:statements].present? %>
+  <h6 class="mt-4 mb-3"><%= t '.statements' %></h6>
+
+  <ul class="list-unstyled">
+    <% declaration[:statements].each do |statement| %>
+      <li><%= statement %></li>
+    <% end %>
+  </ul>
+<% end %>
+
