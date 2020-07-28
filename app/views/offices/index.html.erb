@@ -4,12 +4,12 @@
   <div class="clearfix">
     <div class="float-lg-right col-lg-12 mb-3 mb-lg-4 px-0">
       <div class="row align-items-center justify-content-between">
-        <h1 class="col col-xl-4 display-2 text-truncate text-uppercase mr-sm-4 mb-3 pr-5">
+        <h1 class="col col-xl-4 display-2 text-truncate text-uppercase mr-sm-4 mt-1 pr-5">
           <%= t '.title' %>
         </h1>
 
         <div class="col-lg-6 col-xl">
-          <%= form_tag offices_path, method: :get, class: 'search-query-form' do %>
+          <%= form_tag offices_path, method: :get, class: 'search-query-form mb-0' do %>
             <div class="input-group">
               <%= search_field_tag :q, @search.params[:q], class: 'form-control search-query-input', placeholder: t('.search.placeholder') %>
               <div class="input-group-append">
