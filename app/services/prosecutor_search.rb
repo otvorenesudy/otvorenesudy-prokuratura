@@ -5,7 +5,8 @@ class ProsecutorSearch
     @search =
       Search.new(
         Prosecutor,
-        params: params, filters: { type: TypeFilter, city: CityFilter, sort: SortFilter, query: QueryFilter }
+        params: params,
+        filters: { type: TypeFilter, city: CityFilter, office: OfficeFilter, sort: SortFilter, query: QueryFilter }
       )
   end
 
@@ -55,6 +56,25 @@ class ProsecutorSearch
         ),
         :prosecutors
       ).reorder(city: :asc).group(:city).count
+    end
+  end
+
+  class OfficeFilter
+    def self.filter(relation, params)
+      return relation if params[:office_id].blank?
+
+      relation.joins(:offices).where(offices: { name: params[:office] }).distinct
+    end
+
+    def self.facets(relation, suggest:)
+      relation = ::QueryFilter.filter(relation, { q: suggest }, columns: %i[office])
+
+      Prosecutor.from(
+        relation.joins(:offices).except(:distinct).select(
+          'DISTINCT ON (prosecutors.id, offices.name) prosecutors.id AS id, offices.name AS office'
+        ),
+        :prosecutors
+      ).reorder(office: :asc).group(:office).count
     end
   end
 

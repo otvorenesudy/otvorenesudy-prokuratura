@@ -175,6 +175,10 @@ en:
           not_found: No cities found
           placeholder: Name of the City
           title: City
+        office:
+          not_found: No offices found
+          placeholder: Name of the office
+          title: Attorney General Offices
         no_results: No prosecutors found for given search filters.
         not_found: No prosecutors found (%{time} ms)
         placeholder: Name of the prosecutor, Attorney General's office or any text from the estate declaration
@@ -193,6 +197,13 @@ en:
 
       declarations:
         title: 'Estate Declarations'
+
+      media:
+        title: 'Mentions in Media'
+        disclaimer: 'News articles above are automated search results for from Denník N and SME for the name of the prosecutor and therefore not all the results might be relevant.'
+        no_results: No relevant news articles found.
+        more_from_n: More from Dennik N
+        more_from_sme: More from SME
 
     declaration:
       name: Name/Description

@@ -11,7 +11,7 @@ class ProsecutorsController < ApplicationController
   end
 
   def suggest
-    head 404 unless suggest_params[:facet].in?(%w[city])
+    head 404 unless suggest_params[:facet].in?(%w[city office])
 
     @search = ProsecutorSearch.new(index_params)
 
@@ -34,7 +34,7 @@ class ProsecutorsController < ApplicationController
   helper_method :index_params
 
   def index_params
-    params.permit(:page, :sort, :order, :q, type: [], city: [])
+    params.permit(:page, :sort, :order, :q, type: [], city: [], office: [])
   end
 
   def suggest_params

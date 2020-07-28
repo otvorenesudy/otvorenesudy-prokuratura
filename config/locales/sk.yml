@@ -181,6 +181,10 @@ sk:
           not_found: Nenájdené žiadne sídla prokuratúr
           placeholder: Názov sídla prokuratúry
           title: Sídlo prokuratúry
+        office:
+          not_found: Nenájdené žiadne prokuratúry
+          placeholder: Meno prokuratúry
+          title: Prokuratúra
         no_results: Vybraným vyhľadávacím kritériám nevyhovujú žiadní prokurátori.
         not_found: Nenájdení žiadni prokurátori (%{time} ms)
         placeholder: Meno prokurátora, prokuratúry alebo slovo z majetkové priznania
@@ -199,6 +203,13 @@ sk:
 
       declarations:
         title: 'Majetkové priznania'
+
+      media:
+        title: Mediálne zmienky
+        disclaimer: Články sú získané z výsledkov vyhľadávania pre meno prokurátora z Denníka N a SME. Môže sa stať, že nie všetky výsledky sú úplne relevantné.
+        no_results: Nenájdené žiadne relevnantné články v médiách.
+        more_from_n: Viac z Denníka N
+        more_from_sme: Viac zo SME
 
     declaration:
       name: Názov/popis

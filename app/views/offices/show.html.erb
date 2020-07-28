@@ -8,7 +8,7 @@
 </h1>
 
 <p>
-  <%= t "offices.index.list.prosecutor_subtitle.#{@office.type}_html", link: link_to(@office.attorney_general.prosecutor.name, '') %>
+  <%= t "offices.index.list.prosecutor_subtitle.#{@office.type}_html", link: link_to(@office.attorney_general.prosecutor.name, prosecutor_path(@office.attorney_general)) %>
 </p>
 
 <p>

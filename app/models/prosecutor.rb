@@ -59,6 +59,10 @@ class Prosecutor < ApplicationRecord
     end
   end
 
+  def to_news_query
+    "\"#{name_parts.values_at('first', 'middle', 'last').compact.join(' ')}\""
+  end
+
   private
 
   def validate_declarations

@@ -1,26 +1,41 @@
 <% provide :title, @prosecutor.name %>
 
-<h1 class="text-uppercase my-4">
-  <%= yield :title %>
+<div class="row">
+  <div class="col-lg-7">
+    <h1 class="text-uppercase mb-4">
+      <%= yield :title %>
 
-  <% if @prosecutor.appointments.current.any? %>
-    <%= prosecutor_activity_icon_tag 'fixed', size: 20, placement: 'right' %>
-  <% else %>
-    <%= prosecutor_activity_icon_tag 'inactive', size: 20, placement: 'right', i18n: { date: @prosecutor.appointments.order(:ended_at).last.ended_at } %>
-  <% end %>
-</h1>
+      <% if @prosecutor.appointments.current.any? %>
+        <%= prosecutor_activity_icon_tag 'fixed', size: 20, placement: 'right' %>
+      <% else %>
+        <%= prosecutor_activity_icon_tag 'inactive', size: 20, placement: 'right', i18n: { date: @prosecutor.appointments.order(:ended_at).last.ended_at } %>
+      <% end %>
+    </h1>
 
-<% @prosecutor.appointments.current.each do |appointment| %>
-  <p>
-    <%= t "prosecutors.index.list.office_#{appointment.type}_html", link: appointment.office ? link_to(appointment.office.name, office_path(appointment.office)) : appointment.place %>
-  </p>
-<% end %>
+    <% @prosecutor.appointments.current.each do |appointment| %>
+      <p>
+        <%= t "prosecutors.index.list.office_#{appointment.type}_html", link: appointment.office ? link_to(appointment.office.name, office_path(appointment.office)) : appointment.place %>
+      </p>
+    <% end %>
 
-<% @prosecutor.employments.each do |employment| %>
-<p>
-  <%= t '.employee_html', link: link_to(employment.office.name, office_path(employment.office)), position: employment.position %>
-</p>
-<% end %>
+    <% @prosecutor.employments.each do |employment| %>
+    <p>
+      <%= t '.employee_html', link: link_to(employment.office.name, office_path(employment.office)), position: employment.position %>
+    </p>
+    <% end %>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="bg-light border p-3">
+      <ul class="mt-2 mb-2">
+        <li><a href="#media"><%= t '.media.title' %></a></li>
+        <li><a href="#media">Životopis</a></li>
+        <li><a href="#media">Motivačný list</a></li>
+        <li><a href="#media">Blízke osoby na prokuratúre</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 
 <h3 class="mt-5"><%= t '.declarations.title' %></h3>
@@ -31,8 +46,48 @@
   <% end %>
 </ul>
 
-<div class="tab-content">
+<div class="tab-content mb-5">
   <% @declarations.each.with_index do |declaration, i| %>
     <%= render_tab partial: 'declaration', tab: declaration[:year], locals: { declaration: declaration }, class: i == 0 ? 'active' : nil %>
   <% end %>
 </div>
+
+<h3 class="mt-5"><%= t '.media.title' %></h3>
+
+<% cache "prosecutors-show-#{@prosecutor.id}-media" do %>
+  <% News.search_by(@prosecutor.to_news_query).tap do |articles| %>
+    <ul id="media" class="list-unstyled mt-4">
+      <% articles.each do |article| %>
+        <li class="mb-3">
+          <a href="<%= article[:url] %>" target="_blank"><%= article[:title] %></a>
+          <br>
+          <span class="text-muted">
+            <%= article[:date] %>
+
+            <% if article[:author] %>
+              &middot; <%= article[:author] %>
+            <% end %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+
+    <% if articles.any? %>
+      <p>
+        <small class="text-muted">
+          <a href="<%= News::DennikN.search_url_for(@prosecutor.to_news_query) %>" target="_blank"><%= t '.media.more_from_n' %></a>
+          &middot;
+          <a href="<%= News::SME.search_url_for(@prosecutor.to_news_query) %>" target="_blank"><%= t '.media.more_from_sme' %></a>
+
+          &middot;
+
+          <%= t '.media.disclaimer' %>
+        </small>
+      </p>
+    <% else %>
+      <p class="text-muted">
+        <%= t '.media.no_results' %>
+      </p>
+    <% end %>
+  <% end %>
+<% end %>

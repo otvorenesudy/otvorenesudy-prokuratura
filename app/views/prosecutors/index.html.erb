@@ -101,6 +101,19 @@
             </div>
           </div>
         </div>
+
+        <div class="facet" data-controller="suggest" data-url="<%= suggest_prosecutors_path(@search.params.merge(facet: :office)) %>">
+          <h6 class="facet-title" data-toggle="collapse" data-target="#prosecutor-office-content">
+            <%= t '.search.office.title' %>
+          </h6>
+
+          <div id="prosecutor-office-content" class="facet-content collapse show">
+            <div class="facet-results">
+              <input class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.office.placeholder' %>" type="text" autocomplete="off">
+              <%= render 'office_results', values: @search.facets_for(:office), params: @search.params %>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="float-lg-right col-lg-9 px-0">
