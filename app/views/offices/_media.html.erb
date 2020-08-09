@@ -1,0 +1,37 @@
+<% cache "offices-show-#{@office.id}-media" do %>
+  <% News.search_by(@office.to_news_query).tap do |articles| %>
+    <ul id="media" class="list-unstyled mt-4">
+      <% articles.each do |article| %>
+        <li class="mb-3">
+          <a href="<%= article[:url] %>" target="_blank"><%= article[:title] %></a>
+          <br>
+          <span class="text-muted">
+            <%= article[:date] %>
+
+            <% if article[:author] %>
+              &middot; <%= article[:author] %>
+            <% end %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+
+    <% if articles.any? %>
+      <p>
+        <small class="text-muted">
+          <a href="<%= News::DennikN.search_url_for(@office.to_news_query) %>" target="_blank"><%= t 'offices.show.media.more_from_n' %></a>
+          &middot;
+          <a href="<%= News::SME.search_url_for(@office.to_news_query) %>" target="_blank"><%= t 'offices.show.media.more_from_sme' %></a>
+
+          &middot;
+
+          <%= t 'offices.show.media.disclaimer' %>
+        </small>
+      </p>
+    <% else %>
+      <p class="text-muted">
+        <%= t 'offices.show.media.no_results' %>
+      </p>
+    <% end %>
+  <% end %>
+<% end %>

@@ -50,15 +50,17 @@ export default class extends Controller {
 
     const data = JSON.parse(this.element.getAttribute("data-json"));
     const markers = new L.MarkerClusterGroup({
-      spiderfyOnMaxZoom: true,
+      spiderfyOnMaxZoom: this.element.getAttribute("data-search-on-cluster-opening") ? false : true,
       showCoverageOnHover: false,
       spiderLegPolylineOptions: { weight: 1.5, color: "#fff", opacity: 0 },
     });
 
-    data.map(({ name, url, address, coordinates }) => {
+    data.map((attributes) => {
+      const { name, url, address, coordinates, office } = attributes;
       const marker = new L.Marker(new L.LatLng(...coordinates), { icon });
 
       marker.bindPopup(sanitize(`<a href="${url}"><b>${name}</b></a><br>${address}`));
+      marker.attributes = attributes;
 
       marker.on("mouseover", () => marker.openPopup());
 
@@ -66,5 +68,20 @@ export default class extends Controller {
     });
 
     this.map.addLayer(markers);
+
+    markers.on("clusterclick", (cluster) => {
+      const locations = cluster.layer
+        .getAllChildMarkers()
+        .reduce((acc, e) => ({ ...acc, [e.getLatLng().lat]: 1, [e.getLatLng().lng]: 1 }), {});
+      const url = this.element.getAttribute("data-search-on-cluster-opening");
+
+      if (Object.keys(locations).length === 2 && url) {
+        Turbolinks.visit(
+          `${url.split("#")[0]}&${encodeURI("office[]")}=${
+            cluster.layer.getAllChildMarkers()[0].attributes.office
+          }#facets`
+        );
+      }
+    });
   }
 }

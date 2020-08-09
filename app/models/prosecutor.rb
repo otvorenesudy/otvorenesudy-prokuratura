@@ -44,6 +44,7 @@ class Prosecutor < ApplicationRecord
       offices.city
       offices.latitude
       offices.longitude
+      offices.name
     ]
 
     joins(:offices).pluck(attributes).map do |values|
@@ -51,6 +52,7 @@ class Prosecutor < ApplicationRecord
         url: Rails.application.routes.url_helpers.prosecutor_path(values[0]),
         name: values[1],
         coordinates: values[6..7],
+        office: values[8],
         address: <<-TEXT
           #{values[3] ? "#{values[2]} (#{values[3]})" : values[2]},
           #{values[4]} #{values[5]}

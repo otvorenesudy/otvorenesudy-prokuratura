@@ -69,6 +69,12 @@ class Office < ApplicationRecord
     "#{address}, #{zipcode} #{city}"
   end
 
+  def to_news_query
+    return '"Generálna prokuratúra"' if general?
+
+    "\"#{name}\""
+  end
+
   def self.as_map_json
     pluck(:id, :name, :address, :additional_address, :zipcode, :city, :latitude, :longitude).map do |values|
       {
