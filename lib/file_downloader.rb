@@ -2,7 +2,7 @@ require 'curb'
 require 'fileutils'
 
 class FileDownloader
-  def self.download(uri, directory:, &block)
+  def self.download(uri, directory: Rails.root.join('tmp'), &block)
     content = Curl.get(uri).body_str
     name = "file-downloader-tmp-file-#{Digest::SHA256.hexdigest(content)}"
     path = File.join(directory, name)
