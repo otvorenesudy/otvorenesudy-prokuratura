@@ -1,15 +1,25 @@
 module GenproGovSk
   module Criminality
-    def self.import
+    def self.import_structures
       urls = %w[
         https://www.genpro.gov.sk/extdoc/54953/Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+        https://www.genpro.gov.sk/extdoc/54820/Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+        https://www.genpro.gov.sk/extdoc/54483/2018_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+        https://www.genpro.gov.sk/extdoc/54488/2017_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+        https://www.genpro.gov.sk/extdoc/54487/2016_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+        https://www.genpro.gov.sk/extdoc/54486/2015_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+        https://www.genpro.gov.sk/extdoc/54485/2014_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+        https://www.genpro.gov.sk/extdoc/54395/2013_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+        https://www.genpro.gov.sk/extdoc/54394/2012_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+        https://www.genpro.gov.sk/extdoc/54393/2011_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+        https://www.genpro.gov.sk/extdoc/54392/2010_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
       ]
 
       urls.map do |url|
         FileDownloader.download(url) do |path|
           Parser.parse(File.read(path, encoding: 'Windows-1250').force_encoding('UTF-8'))
         end
-      end
+      end.flatten
     end
 
     OFFICES_MAP = {
@@ -84,6 +94,66 @@ module GenproGovSk
       '8810' => 'Okresná prokuratúra Spišská Nová Ves',
       '8811' => 'Okresná prokuratúra Trebišov',
       'KP KE' => 'Krajská prokuratúra Košice'
+    }
+
+    STRUCTURES_MAP = {
+      'V trestných registroch Pv/Kv/Gv napadlo spisov' => :incoming_cases,
+      'V trestných registroch Pv/Kv/Gv bolo vybavených spisov' => :closed_cases,
+      'Počet známych odstíhaných osôb (na prokuratúre skončené)' => :known_closed_prosecuted_people,
+      'Počet stíhaných známych osôb (na prokuratúre skončené)' => :known_closed_prosecuted_people,
+      'Počet obžalovaných osôb' => :prosecuted_people,
+      'Obžalovaní recidivisti' => :prosecuted_recidivists,
+      'Skladba odstíhaných osôb muži' => :men,
+      'Skladba odstíhaných osôb ženy' => :women,
+      'Skladba odstíhaných osôb mladiství' => :young,
+      'Skladba odstíhaných osôb cudzinci' => :foreigners,
+      'Skladba odstíhaných osôb vplyv alkoholu' => :alcohol_abuse,
+      'Skladba odstíhaných osôb vplyv inej návykovej látky' => :substance_abuse,
+      'Skladba stíhaných osôb muži' => :men,
+      'Skladba stíhaných osôb ženy' => :women,
+      'Skladba stíhaných osôb mladiství' => :young,
+      'Skladba stíhaných osôb cudzinci' => :foreigners,
+      'Skladba stíhaných osôb vplyv alkoholu' => :alcohol_abuse,
+      'Skladba stíhaných osôb vplyv inej návykovej látky' => :substance_abuse,
+      'Podmienečné zastavenie TS prokurátorom - spolu z toho obvineného' =>
+        :conditional_cessation_of_accused_by_prosecutor,
+      'Podmienečné zastavenie TS prokurátorom - spolu z toho spolupracujúceho obvineného' =>
+        :conditional_cessation_of_cooperating_accused_by_prosecutor,
+      'Podmienečné zastavenie TS - osvedčil sa - spolu z toho osvedčil sa obvinený' =>
+        :conditional_cessation_of_accused,
+      'Podmienečné zastavenie TS - osvedčil sa - spolu z toho osvedčil sa spolupracujúci obvinený' =>
+        :conditional_cessation_of_cooperating_accused,
+      'Schválenie zmieru' => :reconciliation_approval,
+      'Dohoda o vine a treste odoslaná na súd' => :guilt_and_punishment_aggreement,
+      'Dohoda o vine a treste' => :guilt_and_punishment_aggreement,
+      'Zastavenie trestného stíhania' => :cessation_of_prosecution,
+      'Zastavené trestné stíhanie' => :cessation_of_prosecution,
+      'Prerušenie trestného stíhania' => :suspension_of_prosecution,
+      'Prerušené trestné stíhanie' => :suspension_of_prosecution,
+      'Prerušenie trestného stíhania spolupracujúceho obvineného' => :suspension_of_prosecution_of_cooperating_accused,
+      'Postúpené trestné stíhanie' => :assignation_of_prosuction,
+      'Postúpenie trestného stíhania' => :assignation_of_prosuction,
+      'Právoplatné rozhodnutia súdu – spolu o odsúdení osôb' => :valid_court_decision_on_conviction_of_people,
+      'Právoplatné rozhodnutia súdu – spolu z odsúdených len schválenie dohody o vine a treste' =>
+        :valid_court_decision_only_convicted_with_guilt_and_punishment_aggreement,
+      'Právoplatné rozhodnutia súdu – spolu schválenie zmieru' => :valid_court_decision_on_reconciliation_approval,
+      'Počet oznámení súdu o odsúdení osôb' => :valid_court_decision_on_conviction_of_people,
+      'Počet oznámení súdu o schválení dohody o vine a treste' =>
+        :valid_court_decision_only_convicted_with_guilt_and_punishment_aggreement,
+      'Počet oznámení súdu o schválení zmieru' => :valid_court_decision_on_reconciliation_approval,
+      'Právoplatné rozhodnutia súdu – spolu zastavenie TS' => :valid_court_decision_on_cessation_of_prosecution,
+      'Právoplatné rozhodnutia súdu – spolu postúpenie TS' => :valid_court_decision_on_assignation_of_prosecution,
+      'Právoplatné rozhodnutia súdu – spolu oslobodenie' => :valid_court_decision_on_exemption,
+      'Právoplatné rozhodnutia súdu – spolu upustenie od potrestania' => :valid_court_decision_on_waiver_of_punishment,
+      'Právoplatné rozhodnutia súdu – spolu rozhodnutie "inak"' => :valid_other_court_decision,
+      'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia zastavením' =>
+        :prosecution_of_unknown_offender_ended_by_police_by_cessation,
+      'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia prerušením' =>
+        :prosecution_of_unknown_offender_ended_by_police_by_suspension,
+      'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia postúpením' =>
+        :prosecution_of_unknown_offender_ended_by_police_by_assignation,
+      'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia inak' =>
+        :prosecution_of_unknown_offender_ended_by_police_by_other_mean
     }
   end
 end
