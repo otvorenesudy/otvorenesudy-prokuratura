@@ -120,9 +120,15 @@ module GenproGovSk
       'Podmienečné zastavenie TS prokurátorom - spolu z toho spolupracujúceho obvineného' =>
         :conditional_cessation_of_cooperating_accused_by_prosecutor,
       'Podmienečné zastavenie TS - osvedčil sa - spolu z toho osvedčil sa obvinený' =>
-        :conditional_cessation_of_accused,
+        :conditional_cessation_of_accused_and_proven,
       'Podmienečné zastavenie TS - osvedčil sa - spolu z toho osvedčil sa spolupracujúci obvinený' =>
-        :conditional_cessation_of_cooperating_accused,
+        :conditional_cessation_of_cooperating_accused_and_proven,
+      'Podmienečné zastavenie TS prokurátorom' => :conditional_cessation_by_prosecutor,
+      'Podmienečné zastavenie TS spolupracujúceho obvineného prokurátorom' =>
+        :conditional_cessation_of_cooperating_accused_by_prosecutor,
+      'Podmienečné zastavenie TS prokurátorom - osvedčil sa' =>
+        :conditional_cessation_of_accused_and_proven_by_prosecutor,
+      'Podmienečné zastavenie TS súdom' => :conditional_cessation_by_court,
       'Schválenie zmieru' => :reconciliation_approval,
       'Dohoda o vine a treste odoslaná na súd' => :guilt_and_punishment_aggreement,
       'Dohoda o vine a treste' => :guilt_and_punishment_aggreement,
@@ -138,7 +144,10 @@ module GenproGovSk
         :valid_court_decision_only_convicted_with_guilt_and_punishment_aggreement,
       'Právoplatné rozhodnutia súdu – spolu schválenie zmieru' => :valid_court_decision_on_reconciliation_approval,
       'Počet oznámení súdu o odsúdení osôb' => :valid_court_decision_on_conviction_of_people,
+      'Počet oznámení o odsúdení osôb' => :valid_court_decision_on_conviction_of_people,
       'Počet oznámení súdu o schválení dohody o vine a treste' =>
+        :valid_court_decision_only_convicted_with_guilt_and_punishment_aggreement,
+      'Počet oznámení o schválení dohody o vine a treste súdom' =>
         :valid_court_decision_only_convicted_with_guilt_and_punishment_aggreement,
       'Počet oznámení súdu o schválení zmieru' => :valid_court_decision_on_reconciliation_approval,
       'Právoplatné rozhodnutia súdu – spolu zastavenie TS' => :valid_court_decision_on_cessation_of_prosecution,
