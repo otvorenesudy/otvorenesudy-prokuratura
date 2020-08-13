@@ -16,12 +16,7 @@ module GenproGovSk
 
             next if row[0].match(/Prehľad za OP Šaľa/)
 
-            data[:office] =
-              begin
-                ::Office.find_by!(name: normalize_office_name(value))
-              rescue StandardError
-                binding.pry
-              end
+            data[:office] = normalize_office_name(value)
           end
 
           data[:year] = row[0].match(/\d{4}/)[0].to_i if row[0]&.match(/obdobie/i)
