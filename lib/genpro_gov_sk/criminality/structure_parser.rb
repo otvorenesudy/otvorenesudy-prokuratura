@@ -2,7 +2,7 @@ require 'csv'
 
 module GenproGovSk
   module Criminality
-    class Parser
+    class StructureParser
       def self.parse(text)
         csv = CSV.parse(text, col_sep: ';')
         year = csv[0][0].match(/\d{2}.\d{2}.(\d{4})/)[1]

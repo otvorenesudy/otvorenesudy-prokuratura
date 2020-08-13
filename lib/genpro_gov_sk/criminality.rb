@@ -17,9 +17,22 @@ module GenproGovSk
 
       urls.map do |url|
         FileDownloader.download(url) do |path|
-          Parser.parse(File.read(path, encoding: 'Windows-1250').force_encoding('UTF-8'))
+          StructureParser.parse(File.read(path, encoding: 'Windows-1250').force_encoding('UTF-8'))
         end
       end.flatten
+    end
+
+    def self.import_paragraphs
+      path = Rails.root.join('data', 'genpro_gov_sk', 'criminality', 'paragraphs', '*.xls*')
+      data = []
+
+      Dir.glob(path) do |file|
+        data << ParagraphsParser.parse(file)
+
+        data.last[:file] = file
+      end
+
+      data
     end
 
     OFFICES_MAP = {

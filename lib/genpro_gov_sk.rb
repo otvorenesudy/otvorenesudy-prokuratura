@@ -11,5 +11,6 @@ module GenproGovSk
   require 'genpro_gov_sk/declarations'
 
   require 'genpro_gov_sk/criminality/structure_parser'
+  require 'genpro_gov_sk/criminality/paragraphs_parser'
   require 'genpro_gov_sk/criminality'
 end

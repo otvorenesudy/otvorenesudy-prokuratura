@@ -24,6 +24,8 @@ gem 'json-schema', '~> 2.8.1'
 gem 'sidekiq', '~> 6.0.7'
 gem 'kaminari', '~> 1.2.1'
 gem 'geocoder', '~> 1.6.3'
+gem 'roo', '~> 2.8.3'
+gem 'roo-xls', '~> 1.2.0'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
