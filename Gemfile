@@ -26,6 +26,7 @@ gem 'kaminari', '~> 1.2.1'
 gem 'geocoder', '~> 1.6.3'
 gem 'roo', '~> 2.8.3'
 gem 'roo-xls', '~> 1.2.0'
+gem 'parallel', '~> 1.19.1'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

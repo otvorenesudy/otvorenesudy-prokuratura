@@ -24,15 +24,54 @@ module GenproGovSk
 
     def self.import_paragraphs
       path = Rails.root.join('data', 'genpro_gov_sk', 'criminality', 'paragraphs', '*.xls*')
-      data = []
+      files = Dir.glob(path).to_a
 
-      Dir.glob(path) do |file|
-        data << ParagraphsParser.parse(file)
+      ActiveRecord::Base.connection.execute('DROP TABLE IF EXISTS genpro_gov_sk_paragraphs')
+      ActiveRecord::Base.connection.execute('CREATE TABLE genpro_gov_sk_paragraphs (data jsonb)')
 
-        data.last[:file] = file
+      Parallel.each(files, in_processes: 12) do |file|
+        result = ParagraphsParser.parse(file)
+
+        result[:file] = file
+
+        ActiveRecord::Base.connection.execute("INSERT INTO genpro_gov_sk_paragraphs VALUES ('#{result.to_json}')")
       end
 
+      data =
+        ActiveRecord::Base.connection.execute('SELECT data FROM genpro_gov_sk_paragraphs').to_a.map do |e|
+          JSON.parse(e['data'])
+        end
+
+      ActiveRecord::Base.connection.execute('DROP TABLE genpro_gov_sk_paragraphs')
+
       data
+    end
+
+    def self.paragraphs_map
+      @paragraphs_map ||=
+        %i[new old].each.with_object({ new: {}, old: {} }) do |key, hash|
+          csv =
+            CSV.open(
+              Rails.root.join('data', 'genpro_gov_sk', 'criminality', "paragraph-definitions-#{key}.csv"),
+              headers: true
+            )
+
+          csv.each do |row|
+            hash[key][row[2]] = {
+              chapter: row[0],
+              chapter_name: row[1]&.downcase&.capitalize,
+              paragraph: row[2],
+              paragraph_name:
+                (
+                  begin
+                    row[3].downcase.capitalize
+                  rescue StandardError
+                    binding.pry
+                  end
+                )
+            }
+          end
+        end
     end
 
     OFFICES_MAP = {
@@ -110,72 +149,114 @@ module GenproGovSk
     }
 
     STRUCTURES_MAP = {
-      'V trestných registroch Pv/Kv/Gv napadlo spisov' => :incoming_cases,
+      'Obžalovaní recidivisti' => :acccused_recidivists,
+      'Počet obžalovaných osôb' => :accused_people,
+      'Postúpenie trestného stíhania' => :assignation_of_prosuction,
+      'Postúpené trestné stíhanie' => :assignation_of_prosuction,
+      'Zastavené trestné stíhanie' => :cessation_of_prosecution,
+      'Zastavenie trestného stíhania' => :cessation_of_prosecution,
       'V trestných registroch Pv/Kv/Gv bolo vybavených spisov' => :closed_cases,
-      'Počet známych odstíhaných osôb (na prokuratúre skončené)' => :known_closed_prosecuted_people,
-      'Počet stíhaných známych osôb (na prokuratúre skončené)' => :known_closed_prosecuted_people,
-      'Počet obžalovaných osôb' => :prosecuted_people,
-      'Obžalovaní recidivisti' => :prosecuted_recidivists,
-      'Skladba odstíhaných osôb muži' => :men,
-      'Skladba odstíhaných osôb ženy' => :women,
-      'Skladba odstíhaných osôb mladiství' => :young,
-      'Skladba odstíhaných osôb cudzinci' => :foreigners,
-      'Skladba odstíhaných osôb vplyv alkoholu' => :alcohol_abuse,
-      'Skladba odstíhaných osôb vplyv inej návykovej látky' => :substance_abuse,
-      'Skladba stíhaných osôb muži' => :men,
-      'Skladba stíhaných osôb ženy' => :women,
-      'Skladba stíhaných osôb mladiství' => :young,
-      'Skladba stíhaných osôb cudzinci' => :foreigners,
-      'Skladba stíhaných osôb vplyv alkoholu' => :alcohol_abuse,
-      'Skladba stíhaných osôb vplyv inej návykovej látky' => :substance_abuse,
-      'Podmienečné zastavenie TS prokurátorom - spolu z toho obvineného' =>
-        :conditional_cessation_of_accused_by_prosecutor,
-      'Podmienečné zastavenie TS prokurátorom - spolu z toho spolupracujúceho obvineného' =>
-        :conditional_cessation_of_cooperating_accused_by_prosecutor,
+      'Podmienečné zastavenie TS súdom' => :conditional_cessation_by_court,
+      'Podmienečné zastavenie TS prokurátorom' => :conditional_cessation_by_prosecutor,
       'Podmienečné zastavenie TS - osvedčil sa - spolu z toho osvedčil sa obvinený' =>
         :conditional_cessation_of_accused_and_proven,
-      'Podmienečné zastavenie TS - osvedčil sa - spolu z toho osvedčil sa spolupracujúci obvinený' =>
-        :conditional_cessation_of_cooperating_accused_and_proven,
-      'Podmienečné zastavenie TS prokurátorom' => :conditional_cessation_by_prosecutor,
-      'Podmienečné zastavenie TS spolupracujúceho obvineného prokurátorom' =>
-        :conditional_cessation_of_cooperating_accused_by_prosecutor,
       'Podmienečné zastavenie TS prokurátorom - osvedčil sa' =>
         :conditional_cessation_of_accused_and_proven_by_prosecutor,
-      'Podmienečné zastavenie TS súdom' => :conditional_cessation_by_court,
-      'Schválenie zmieru' => :reconciliation_approval,
-      'Dohoda o vine a treste odoslaná na súd' => :guilt_and_punishment_aggreement,
+      'Podmienečné zastavenie TS prokurátorom - spolu z toho obvineného' =>
+        :conditional_cessation_of_accused_by_prosecutor,
+      'Podmienečné zastavenie TS - osvedčil sa - spolu z toho osvedčil sa spolupracujúci obvinený' =>
+        :conditional_cessation_of_cooperating_accused_and_proven,
+      'Podmienečné zastavenie TS prokurátorom - spolu z toho spolupracujúceho obvineného' =>
+        :conditional_cessation_of_cooperating_accused_by_prosecutor,
+      'Podmienečné zastavenie TS spolupracujúceho obvineného prokurátorom' =>
+        :conditional_cessation_of_cooperating_accused_by_prosecutor,
       'Dohoda o vine a treste' => :guilt_and_punishment_aggreement,
-      'Zastavenie trestného stíhania' => :cessation_of_prosecution,
-      'Zastavené trestné stíhanie' => :cessation_of_prosecution,
+      'Dohoda o vine a treste odoslaná na súd' => :guilt_and_punishment_aggreement,
+      'V trestných registroch Pv/Kv/Gv napadlo spisov' => :incoming_cases,
+      'Počet stíhaných známych osôb (na prokuratúre skončené)' => :known_closed_prosecuted_people,
+      'Počet známych odstíhaných osôb (na prokuratúre skončené)' => :known_closed_prosecuted_people,
+      'Skladba odstíhaných osôb vplyv alkoholu' => :prosecuted_alcohol_abuse,
+      'Skladba stíhaných osôb vplyv alkoholu' => :prosecuted_alcohol_abuse,
+      'Skladba odstíhaných osôb cudzinci' => :prosecuted_foreigners,
+      'Skladba stíhaných osôb cudzinci' => :prosecuted_foreigners,
+      'Skladba stíhaných osôb muži' => :prosecuted_men,
+      'Skladba odstíhaných osôb muži' => :prosecuted_men,
+      'Skladba odstíhaných osôb vplyv inej návykovej látky' => :prosecuted_substance_abuse,
+      'Skladba stíhaných osôb vplyv inej návykovej látky' => :prosecuted_substance_abuse,
+      'Skladba stíhaných osôb ženy' => :prosecuted_women,
+      'Skladba odstíhaných osôb ženy' => :prosecuted_women,
+      'Skladba odstíhaných osôb mladiství' => :prosecuted_young,
+      'Skladba stíhaných osôb mladiství' => :prosecuted_young,
+      'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia postúpením' =>
+        :prosecution_of_unknown_offender_ended_by_police_by_assignation,
+      'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia zastavením' =>
+        :prosecution_of_unknown_offender_ended_by_police_by_cessation,
+      'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia inak' =>
+        :prosecution_of_unknown_offender_ended_by_police_by_other_mean,
+      'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia prerušením' =>
+        :prosecution_of_unknown_offender_ended_by_police_by_suspension,
+      'Schválenie zmieru' => :reconciliation_approval,
       'Prerušenie trestného stíhania' => :suspension_of_prosecution,
       'Prerušené trestné stíhanie' => :suspension_of_prosecution,
       'Prerušenie trestného stíhania spolupracujúceho obvineného' => :suspension_of_prosecution_of_cooperating_accused,
-      'Postúpené trestné stíhanie' => :assignation_of_prosuction,
-      'Postúpenie trestného stíhania' => :assignation_of_prosuction,
+      'Právoplatné rozhodnutia súdu – spolu postúpenie TS' => :valid_court_decision_on_assignation_of_prosecution,
+      'Právoplatné rozhodnutia súdu – spolu zastavenie TS' => :valid_court_decision_on_cessation_of_prosecution,
       'Právoplatné rozhodnutia súdu – spolu o odsúdení osôb' => :valid_court_decision_on_conviction_of_people,
-      'Právoplatné rozhodnutia súdu – spolu z odsúdených len schválenie dohody o vine a treste' =>
-        :valid_court_decision_only_convicted_with_guilt_and_punishment_aggreement,
-      'Právoplatné rozhodnutia súdu – spolu schválenie zmieru' => :valid_court_decision_on_reconciliation_approval,
       'Počet oznámení súdu o odsúdení osôb' => :valid_court_decision_on_conviction_of_people,
       'Počet oznámení o odsúdení osôb' => :valid_court_decision_on_conviction_of_people,
+      'Právoplatné rozhodnutia súdu – spolu oslobodenie' => :valid_court_decision_on_exemption,
+      'Právoplatné rozhodnutia súdu – spolu schválenie zmieru' => :valid_court_decision_on_reconciliation_approval,
+      'Počet oznámení súdu o schválení zmieru' => :valid_court_decision_on_reconciliation_approval,
+      'Právoplatné rozhodnutia súdu – spolu upustenie od potrestania' => :valid_court_decision_on_waiver_of_punishment,
       'Počet oznámení súdu o schválení dohody o vine a treste' =>
+        :valid_court_decision_only_convicted_with_guilt_and_punishment_aggreement,
+      'Právoplatné rozhodnutia súdu – spolu z odsúdených len schválenie dohody o vine a treste' =>
         :valid_court_decision_only_convicted_with_guilt_and_punishment_aggreement,
       'Počet oznámení o schválení dohody o vine a treste súdom' =>
         :valid_court_decision_only_convicted_with_guilt_and_punishment_aggreement,
-      'Počet oznámení súdu o schválení zmieru' => :valid_court_decision_on_reconciliation_approval,
-      'Právoplatné rozhodnutia súdu – spolu zastavenie TS' => :valid_court_decision_on_cessation_of_prosecution,
-      'Právoplatné rozhodnutia súdu – spolu postúpenie TS' => :valid_court_decision_on_assignation_of_prosecution,
-      'Právoplatné rozhodnutia súdu – spolu oslobodenie' => :valid_court_decision_on_exemption,
-      'Právoplatné rozhodnutia súdu – spolu upustenie od potrestania' => :valid_court_decision_on_waiver_of_punishment,
-      'Právoplatné rozhodnutia súdu – spolu rozhodnutie "inak"' => :valid_other_court_decision,
-      'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia zastavením' =>
-        :prosecution_of_unknown_offender_ended_by_police_by_cessation,
-      'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia prerušením' =>
-        :prosecution_of_unknown_offender_ended_by_police_by_suspension,
-      'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia postúpením' =>
-        :prosecution_of_unknown_offender_ended_by_police_by_assignation,
-      'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia inak' =>
-        :prosecution_of_unknown_offender_ended_by_police_by_other_mean
+      "Právoplatné rozhodnutia súdu – spolu rozhodnutie \"inak\"" => :valid_other_court_decision
+    }
+
+    PARAGRAPHS_MAP = {
+      'Ukončené tr. stíhanie osôb' => :known_closed_prosecuted_people,
+      'Obžalovaných osôb' => :accused_people,
+      'Obžalovaných osôb - z toho muži' => :accused_women,
+      'Obžalovaných osôb - z toho ženy' => :accused_women,
+      'Obžalovaných osôb - ženy' => :accused_women,
+      'Obžalovaných osôb - vplyv alkoholu' => :accused_alcohol_abuse,
+      'Obžalovaných osôb - iné návykové látky' => :accused_substance_abuse,
+      'Obžalovaných osôb - recidivisti' => :accused_recidivists,
+      'Obžalovaných osôb - obzvlášť nebezpeční recidivisti' => :accused_dangerous_recidivists,
+      'Obžalovaných osôb - počet útokov pri tr. činoch' => :accused_people_for_attacks_in_crimes,
+      'Obžalovaných osôb - vek 14 - 15' => :accused_age_14_to_15,
+      'Obžalovaných osôb - vek 16 - 18' => :accused_age_16_to_18,
+      'Obžalovaných osôb - vek 19 - 21' => :accused_age_19_to_21,
+      'Obžalovaných osôb - vek 22 - 30' => :accused_age_22_to_30,
+      'Obžalovaných osôb - vek 31 - 40' => :accused_age_31_to_40,
+      'Obžalovaných osôb - vek 41 - 50' => :accused_age_41_to_50,
+      'Obžalovaných osôb - vek 41 - 50' => :accused_age_51_to_60,
+      'Obžalovaných osôb - vek 61 a viac' => :accused_age_61_and_more,
+      'Obžalovaných osôb - úmyselné tr. činy' => :accused_people_for_intentional_crimes,
+      'Obžalovaných osôb za úmyselné tr. činy' => :accused_people_for_intentional_crimes,
+      'Obžalovaných osôb - úmyselné tr. činy rovnakého druhu' => :accused_people_for_intentional_crimes_of_same_nature,
+      'Obžalovaných osôb za úmyselné tr. činy - úmyselné tr. činy rovnakého druhu' =>
+        :accused_people_for_intentional_crimes_of_same_nature,
+      'Obžalovaných osôb - dievčatá' => :accused_girls,
+      'Počet útokov pri tr. činoch' => :amount_of_attacks_in_crimes,
+      'Odstíhané známe osoby' => :prosecuted_men,
+      'Odstíhané známe osoby - muži' => :prosecuted_men,
+      'Odstíhané známe osoby - ženy' => :prosecuted_women,
+      'Odstíhané známe osoby - mladiství' => :prosecuted_young,
+      'Odstíhané známe osoby - vplyv alkoholu' => :prosecuted_alcohol_abuse,
+      'Odstíhané známe osoby - vplyv inej návykovej látky' => :prosecuted_substance_abuse,
+      'Odstíhané známe osoby - počet útokov pri tr. činoch' => :prosecuted_people_for_attacks_in_crimes,
+      'Odsúdených osôb' => :sentenced_people,
+      'Odsúdených osôb - ženy' => :sentenced_women,
+      'Odsúdených osôb - muži' => :sentenced_men,
+      'Odsúdených osôb - mladiství' => :sentenced_young,
+      'Oslobodených osôb' => :valid_court_decision_on_exemption,
+      'Počet oslobodených osôb' => :valid_court_decision_on_exemption,
+      'Dohoda o vine a treste' => :guilt_and_punishment_aggreement
     }
   end
 end

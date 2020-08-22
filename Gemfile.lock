@@ -373,6 +373,7 @@ DEPENDENCIES
   kaminari (~> 1.2.1)
   listen (~> 3.2.1)
   mechanize
+  parallel (~> 1.19.1)
   pdf-reader (~> 2.4.0)
   pg (~> 1.2.3)
   prettier

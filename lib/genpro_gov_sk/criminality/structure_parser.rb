@@ -17,13 +17,15 @@ module GenproGovSk
           data =
             csv.map do |row|
               last_title = row[0] if row[0]&.strip.presence
-              title = Normalizer.normalize_filter(row[0]&.strip.presence ? row[0] : [last_title, row[1]].join(' '))
+              title = normalize_filter(row[0]&.strip.presence ? row[0] : [last_title, row[1]].join(' '))
 
               filter = GenproGovSk::Criminality::STRUCTURES_MAP[title]
 
               next unless filter
 
-              count = Normalizer.parse_count(row[index])
+              count = parse_count(row[index])
+
+              next unless count
 
               { filters: [filter], count: count }
             end
@@ -32,16 +34,14 @@ module GenproGovSk
         end
       end
 
-      class Normalizer
-        def self.normalize_filter(value)
-          value.to_s.gsub(/[[:space:]]+/, ' ').strip
-        end
+      def self.normalize_filter(value)
+        value.to_s.gsub(/[[:space:]]+/, ' ').strip
+      end
 
-        def self.parse_count(value)
-          count = value.to_s.gsub(/[[:space:]]/, '')
+      def self.parse_count(value)
+        count = value.to_s.gsub(/[[:space:]]/, '')
 
-          count.presence ? Integer(count) : nil
-        end
+        count.presence ? Integer(count) : nil
       end
     end
   end
