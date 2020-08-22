@@ -14,7 +14,7 @@ module GenproGovSk
         offices.map do |name, index|
           last_title = nil
 
-          data =
+          statistics =
             csv.map do |row|
               last_title = row[0] if row[0]&.strip.presence
               title = normalize_filter(row[0]&.strip.presence ? row[0] : [last_title, row[1]].join(' '))
@@ -25,17 +25,15 @@ module GenproGovSk
 
               count = parse_count(row[index])
 
-              next unless count
-
               { filters: [filter], count: count }
-            end
+            end.compact
 
-          { name: name, year: year, data: data.compact }
+          { office: name, year: year, statistics: statistics }
         end
       end
 
       def self.normalize_filter(value)
-        value.to_s.gsub(/[[:space:]]+/, ' ').strip
+        value.to_s.gsub(/[[:space:]]+/, ' ').gsub(/odstíhaných/, 'stíhaných').strip
       end
 
       def self.parse_count(value)

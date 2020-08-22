@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_04_140315) do
+ActiveRecord::Schema.define(version: 2020_08_22_210209) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pg_trgm'
   enable_extension 'plpgsql'
@@ -104,6 +104,18 @@ ActiveRecord::Schema.define(version: 2020_07_04_140315) do
     t.index %w[name_parts], name: 'index_prosecutors_on_name_parts'
   end
 
+  create_table 'statistics', force: :cascade do |t|
+    t.bigint 'office_id', null: false
+    t.integer 'year', null: false
+    t.string 'filters', null: false, array: true
+    t.integer 'count', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index %w[filters], name: 'index_statistics_on_filters'
+    t.index %w[office_id], name: 'index_statistics_on_office_id'
+    t.index %w[year office_id filters], name: 'index_statistics_on_year_and_office_id_and_filters', unique: true
+  end
+
   add_foreign_key 'appointments', 'genpro_gov_sk_prosecutors_lists'
   add_foreign_key 'appointments', 'offices'
   add_foreign_key 'appointments', 'prosecutors'
@@ -111,4 +123,5 @@ ActiveRecord::Schema.define(version: 2020_07_04_140315) do
   add_foreign_key 'employees', 'prosecutors'
   add_foreign_key 'offices', 'genpro_gov_sk_offices'
   add_foreign_key 'prosecutors', 'genpro_gov_sk_prosecutors_lists'
+  add_foreign_key 'statistics', 'offices'
 end

@@ -1,8 +1,14 @@
 module GenproGovSk
   module Criminality
-    def self.import_structures
+    def self.import
+      statistics = [parse_structures, parse_paragraphs].flatten
+
+      ::Statistic.import_from(statistics)
+    end
+
+    def self.parse_structures
       urls = %w[
-        https://www.genpro.gov.sk/extdoc/54953/Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+        https://www.genpro.gov.sk/extdoc/54977/Struktura%20kriminality%20stihanych%20a%20obzalovanych%20osob
         https://www.genpro.gov.sk/extdoc/54820/Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
         https://www.genpro.gov.sk/extdoc/54483/2018_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
         https://www.genpro.gov.sk/extdoc/54488/2017_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
@@ -22,29 +28,11 @@ module GenproGovSk
       end.flatten
     end
 
-    def self.import_paragraphs
+    def self.parse_paragraphs
       path = Rails.root.join('data', 'genpro_gov_sk', 'criminality', 'paragraphs', '*.xls*')
       files = Dir.glob(path).to_a
 
-      ActiveRecord::Base.connection.execute('DROP TABLE IF EXISTS genpro_gov_sk_paragraphs')
-      ActiveRecord::Base.connection.execute('CREATE TABLE genpro_gov_sk_paragraphs (data jsonb)')
-
-      Parallel.each(files, in_processes: 12) do |file|
-        result = ParagraphsParser.parse(file)
-
-        result[:file] = file
-
-        ActiveRecord::Base.connection.execute("INSERT INTO genpro_gov_sk_paragraphs VALUES ('#{result.to_json}')")
-      end
-
-      data =
-        ActiveRecord::Base.connection.execute('SELECT data FROM genpro_gov_sk_paragraphs').to_a.map do |e|
-          JSON.parse(e['data'])
-        end
-
-      ActiveRecord::Base.connection.execute('DROP TABLE genpro_gov_sk_paragraphs')
-
-      data
+      files.map { |file| ParagraphsParser.parse(file).merge(file: file) }
     end
 
     def self.paragraphs_map
@@ -61,14 +49,7 @@ module GenproGovSk
               chapter: row[0],
               chapter_name: row[1]&.downcase&.capitalize,
               paragraph: row[2],
-              paragraph_name:
-                (
-                  begin
-                    row[3].downcase.capitalize
-                  rescue StandardError
-                    binding.pry
-                  end
-                )
+              paragraph_name: row[3].downcase.capitalize
             }
           end
         end
@@ -170,22 +151,16 @@ module GenproGovSk
         :conditional_cessation_of_cooperating_accused_by_prosecutor,
       'Podmienečné zastavenie TS spolupracujúceho obvineného prokurátorom' =>
         :conditional_cessation_of_cooperating_accused_by_prosecutor,
-      'Dohoda o vine a treste' => :guilt_and_punishment_aggreement,
-      'Dohoda o vine a treste odoslaná na súd' => :guilt_and_punishment_aggreement,
+      'Dohoda o vine a treste' => :guilt_and_punishment_agreement,
+      'Dohoda o vine a treste odoslaná na súd' => :guilt_and_punishment_agreement,
       'V trestných registroch Pv/Kv/Gv napadlo spisov' => :incoming_cases,
       'Počet stíhaných známych osôb (na prokuratúre skončené)' => :known_closed_prosecuted_people,
       'Počet známych odstíhaných osôb (na prokuratúre skončené)' => :known_closed_prosecuted_people,
-      'Skladba odstíhaných osôb vplyv alkoholu' => :prosecuted_alcohol_abuse,
       'Skladba stíhaných osôb vplyv alkoholu' => :prosecuted_alcohol_abuse,
-      'Skladba odstíhaných osôb cudzinci' => :prosecuted_foreigners,
       'Skladba stíhaných osôb cudzinci' => :prosecuted_foreigners,
       'Skladba stíhaných osôb muži' => :prosecuted_men,
-      'Skladba odstíhaných osôb muži' => :prosecuted_men,
-      'Skladba odstíhaných osôb vplyv inej návykovej látky' => :prosecuted_substance_abuse,
       'Skladba stíhaných osôb vplyv inej návykovej látky' => :prosecuted_substance_abuse,
       'Skladba stíhaných osôb ženy' => :prosecuted_women,
-      'Skladba odstíhaných osôb ženy' => :prosecuted_women,
-      'Skladba odstíhaných osôb mladiství' => :prosecuted_young,
       'Skladba stíhaných osôb mladiství' => :prosecuted_young,
       'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia postúpením' =>
         :prosecution_of_unknown_offender_ended_by_police_by_assignation,
@@ -209,37 +184,41 @@ module GenproGovSk
       'Počet oznámení súdu o schválení zmieru' => :valid_court_decision_on_reconciliation_approval,
       'Právoplatné rozhodnutia súdu – spolu upustenie od potrestania' => :valid_court_decision_on_waiver_of_punishment,
       'Počet oznámení súdu o schválení dohody o vine a treste' =>
-        :valid_court_decision_only_convicted_with_guilt_and_punishment_aggreement,
+        :valid_court_decision_only_convicted_with_guilt_and_punishment_agreement,
       'Právoplatné rozhodnutia súdu – spolu z odsúdených len schválenie dohody o vine a treste' =>
-        :valid_court_decision_only_convicted_with_guilt_and_punishment_aggreement,
+        :valid_court_decision_only_convicted_with_guilt_and_punishment_agreement,
       'Počet oznámení o schválení dohody o vine a treste súdom' =>
-        :valid_court_decision_only_convicted_with_guilt_and_punishment_aggreement,
+        :valid_court_decision_only_convicted_with_guilt_and_punishment_agreement,
       "Právoplatné rozhodnutia súdu – spolu rozhodnutie \"inak\"" => :valid_other_court_decision
     }
 
     PARAGRAPHS_MAP = {
       'Vek 14 - 15' => :accused_age_14_to_15,
       'Obžalovaných osôb - vek 14 - 15' => :accused_age_14_to_15,
-      'Vek 14 - 15 - dievčatá' => :accused_age_14_to_15_girls,
+      # 'Vek 14 - 15 - dievčatá' => :accused_age_14_to_15_girls,
+      'Vek 14 - 15 - chlapci' => :accused_age_14_to_15_boys,
       'Vek 16 - 18' => :accused_age_16_to_18,
       'Obžalovaných osôb - vek 16 - 18' => :accused_age_16_to_18,
-      'Vek 16 - 18 - dievčatá' => :accused_age_16_to_18,
+      # 'Vek 16 - 18 - dievčatá' => :accused_age_16_to_18_girls,
+      'Vek 16 - 18 - boys' => :accused_age_16_to_18_boys,
       'Obžalovaných osôb - vek 19 - 21' => :accused_age_19_to_21,
       'Vek 19 - 21' => :accused_age_19_to_21,
       'Vek 22 - 30' => :accused_age_22_to_30,
       'Obžalovaných osôb - vek 22 - 30' => :accused_age_22_to_30,
       'Obžalovaných osôb - vek 31 - 40' => :accused_age_31_to_40,
       'Vek 31 - 40' => :accused_age_31_to_40,
-      'Obžalovaných osôb - vek 41 - 50' => :accused_age_51_to_60,
-      'Vek 41 - 50' => :accused_age_51_to_60,
+      'Obžalovaných osôb - vek 41 - 50' => :accused_age_41_to_50,
+      'Vek 41 - 50' => :accused_age_41_to_50,
+      'Obžalovaných osôb - vek 51 - 60' => :accused_age_51_to_60,
+      'Vek 51 - 60' => :accused_age_51_to_60,
       'Obžalovaných osôb - vek 61 a viac' => :accused_age_61_and_more,
       'Vek 61 a viac' => :accused_age_61_and_more,
       'Obžalovaných osôb - vplyv alkoholu' => :accused_alcohol_abuse,
       'Obžalovaných osôb - obzvlášť nebezpeční recidivisti' => :accused_dangerous_recidivists,
       'Zvlášť nebezpeční recidivisti' => :accused_dangerous_recidivists,
-      'Obžalovaných osôb - dievčatá' => :accused_girls,
+      # 'Obžalovaných osôb - dievčatá' => :accused_girls,
       'Obžalovaných osôb - z toho muži' => :accused_men,
-      'Obžalovaných osôb' => :accused_people,
+      'Obžalovaných osôb' => :accused_all,
       'Obžalovaných osôb - počet útokov pri tr. činoch' => :accused_people_for_attacks_in_crimes,
       'Obžalovaných osôb za úmyselné tr. činy' => :accused_people_for_intentional_crimes,
       'Obžalovaných osôb - úmyselné tr. činy' => :accused_people_for_intentional_crimes,
@@ -249,9 +228,9 @@ module GenproGovSk
       'Obžalovaných osôb - recidivisti' => :accused_recidivists,
       'Recidivisti' => :accused_recidivists,
       'Obžalovaných osôb - iné návykové látky' => :accused_substance_abuse,
+      'Obžalovaných osôb - vplyv inej návykovej látky' => :accused_substance_abuse,
       'Obžalovaných osôb - z toho ženy' => :accused_women,
       'Obžalovaných osôb - ženy' => :accused_women,
-      'Počet útokov pri tr. činoch' => :amount_of_attacks_in_crimes,
       'Počet postúpených' => :assignation_of_prosuction,
       'Počet zastavených TS' => :cessation_of_prosecution,
       'Počet zastavených' => :cessation_of_prosecution,
@@ -261,13 +240,15 @@ module GenproGovSk
       'Podmienečné zastavenie TS - spolupracujúcich obvinených' =>
         :conditional_cessation_of_cooperating_accused_and_proven,
       'Podmienečné zastavenie TS - spolupracujúcich osôb' => :conditional_cessation_of_cooperating_accused_and_proven,
+      'Podmienečné zastavenie tr. stíhania - spolupracujúcich osôb' =>
+        :conditional_cessation_of_cooperating_accused_and_proven,
       'Počet podmienečne zastavených TS spoluprac. obvineného' =>
         :conditional_cessation_of_cooperating_accused_and_proven,
       'Počet podmienečne zastavených TS -TS spoluprac. obvineného' =>
         :conditional_cessation_of_cooperating_accused_and_proven,
-      'Počet schválených dohôd o vine a treste' => :guilt_and_punishment_aggreement,
-      'Počet schval. dohôd o vine a trest' => :guilt_and_punishment_aggreement,
-      'Dohoda o vine a treste' => :guilt_and_punishment_aggreement,
+      'Počet schválených dohôd o vine a treste' => :guilt_and_punishment_agreement,
+      'Počet schval. dohôd o vine a trest' => :guilt_and_punishment_agreement,
+      'Dohoda o vine a treste' => :guilt_and_punishment_agreement,
       'Ukončené tr. stíhanie osôb' => :known_closed_prosecuted_people,
       'Odstíhané známe osoby - vplyv alkoholu' => :prosecuted_alcohol_abuse,
       'Odstíhané známe osoby' => :prosecuted_all,
@@ -289,6 +270,7 @@ module GenproGovSk
       'Trest - Zákaz pobytu' => :punishment_prohibition_of_stay,
       'Tresty domáceho väzenia' => :punishment_under_home_arrest,
       'Tresty upustené' => :punishment_waived,
+      'Tresty vyhostenia' => :punishment_of_deportation,
       'Rozhodnutie o schválení zmieru a zastavení trestného stíhania' => :reconciliation_approval,
       'Schválenie zmieru' => :reconciliation_approval,
       'Počet schválených zmierov' => :reconciliation_approval,

@@ -42,14 +42,15 @@ module GenproGovSk
             # Type
             #
             data[:type] = :old if key.match(/podľa paragrafov trestného zákona do roku 2005/)
-
             data[:type] = :new if key.match(/podľa paragrafov trestného zákona od roku 2006/)
-
-            data[:type] = row[0].match(/Nie/) ? :new : :old if key.match(/Podľa TZ 2005/)
+            data[:type] = key.match(/Nie/) ? :new : :old if key.match(/Podľa TZ 2005/)
 
             # Statistics
             #
             next unless rows.index(row) > rows.index(columns)
+
+            data[:no_value_filters] ||= []
+            data[:unknown_filters] ||= []
 
             if key.starts_with?('-')
               key = "#{previous_key} #{key}"
@@ -57,13 +58,48 @@ module GenproGovSk
               previous_key = key
             end
 
-            data[:keys] ||= []
-            data[:keys] << key
+            filter = PARAGRAPHS_MAP[key]
+
+            next unless filter
+
+            paragraphs.each do |paragraph, index|
+              paragraph = "#{paragraph} [#{data[:type]}]"
+
+              count = parse_count(row[index])
+
+              data[:statistics] << { filters: [paragraph, filter], count: count }
+            end
           end
+
+        data[:statistics].each do |statistic|
+          paragraph, filter = *statistic[:filters]
+          count = statistic[:count]
+
+          calculate_complemental_count(
+            data,
+            paragraph: paragraph, filter: filter, count: count, from: 'girls', to: 'boys'
+          )
+          calculate_complemental_count(
+            data,
+            paragraph: paragraph, filter: filter, count: count, from: 'women', to: 'men'
+          )
+        end
 
         sheet.close
 
         data
+      end
+
+      def self.calculate_complemental_count(data, paragraph:, filter:, count:, from:, to:)
+        return unless filter.to_s.match(/_#{from}\z/)
+
+        base = filter.to_s.gsub(/_#{from}\z/, '').to_sym
+        all = :"#{base}_all"
+        sum = data[:statistics].find { |e| e[:filters] == [paragraph, all] }
+
+        return if !sum || !sum[:count] || data[:statistics].find { |e| e[:filters] == [paragraph, :"#{base}_#{to}"] }
+
+        data[:statistics] << { filters: [paragraph, :"#{base}_#{to}"], count: sum[:count] - (count || 0) }
       end
 
       def self.normalize_office_name(value)
@@ -86,7 +122,7 @@ module GenproGovSk
       def self.parse_count(value)
         count = value.to_s.gsub(/[[:space:]]/, '').gsub(/\..*\z/, '')
 
-        count.presence ? Integer(count) : nil
+        count.presence ? Integer(count.presence) : nil
       end
     end
   end
