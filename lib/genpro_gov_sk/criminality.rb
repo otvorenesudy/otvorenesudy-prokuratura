@@ -2,8 +2,19 @@ module GenproGovSk
   module Criminality
     def self.import
       statistics = [parse_structures, parse_paragraphs].flatten
+      records =
+        statistics.map do |attributes|
+          year = attributes[:year]
+          office = attributes[:office]
 
-      ::Statistic.import_from(statistics)
+          attributes[:statistics].map do |statistic|
+            next if statistic[:count].blank?
+
+            statistic.slice(:filters, :count).merge(office: office, year: year, file: attributes[:file])
+          end
+        end.flatten.compact
+
+      ::Statistic.import_from(records)
     end
 
     def self.parse_structures
@@ -30,9 +41,9 @@ module GenproGovSk
 
     def self.parse_paragraphs
       path = Rails.root.join('data', 'genpro_gov_sk', 'criminality', 'paragraphs', '*.xls*')
-      files = Dir.glob(path).to_a
+      files = Dir.glob(path).to_a.reject { |e| e.match(/obvod/) }
 
-      files.map { |file| ParagraphsParser.parse(file).merge(file: file) }
+      Parallel.map(files, in_processes: 12) { |file| ParagraphsParser.parse(file)&.merge(file: file) }.compact
     end
 
     def self.paragraphs_map
@@ -130,14 +141,16 @@ module GenproGovSk
     }
 
     STRUCTURES_MAP = {
-      'Obžalovaní recidivisti' => :acccused_recidivists,
-      'Počet obžalovaných osôb' => :accused_people,
+      'Obžalovaní recidivisti' => :accused_recidivists_all,
+      'Obžalovaní recidivisti recidivisti' => :accused_recidivists_only,
+      'Obžalovaní recidivisti obzvlášť nebezpeční recidivisti' => :accused_recidivists_dangerous,
+      'Počet obžalovaných osôb' => :accused_all,
       'Postúpenie trestného stíhania' => :assignation_of_prosuction,
       'Postúpené trestné stíhanie' => :assignation_of_prosuction,
       'Zastavené trestné stíhanie' => :cessation_of_prosecution,
       'Zastavenie trestného stíhania' => :cessation_of_prosecution,
       'V trestných registroch Pv/Kv/Gv bolo vybavených spisov' => :closed_cases,
-      'Podmienečné zastavenie TS súdom' => :conditional_cessation_by_court,
+      'Podmienečné zastavenie TS súdom' => :conditional_cessation,
       'Podmienečné zastavenie TS prokurátorom' => :conditional_cessation_by_prosecutor,
       'Podmienečné zastavenie TS - osvedčil sa - spolu z toho osvedčil sa obvinený' =>
         :conditional_cessation_of_accused_and_proven,
@@ -154,8 +167,8 @@ module GenproGovSk
       'Dohoda o vine a treste' => :guilt_and_punishment_agreement,
       'Dohoda o vine a treste odoslaná na súd' => :guilt_and_punishment_agreement,
       'V trestných registroch Pv/Kv/Gv napadlo spisov' => :incoming_cases,
-      'Počet stíhaných známych osôb (na prokuratúre skončené)' => :known_closed_prosecuted_people,
-      'Počet známych odstíhaných osôb (na prokuratúre skončené)' => :known_closed_prosecuted_people,
+      'Počet stíhaných známych osôb (na prokuratúre skončené)' => :prosecuted_all,
+      'Počet známych odstíhaných osôb (na prokuratúre skončené)' => :prosecuted_all,
       'Skladba stíhaných osôb vplyv alkoholu' => :prosecuted_alcohol_abuse,
       'Skladba stíhaných osôb cudzinci' => :prosecuted_foreigners,
       'Skladba stíhaných osôb muži' => :prosecuted_men,
@@ -193,30 +206,21 @@ module GenproGovSk
     }
 
     PARAGRAPHS_MAP = {
-      'Vek 14 - 15' => :accused_age_14_to_15,
-      'Obžalovaných osôb - vek 14 - 15' => :accused_age_14_to_15,
-      # 'Vek 14 - 15 - dievčatá' => :accused_age_14_to_15_girls,
+      'Vek 14 - 15' => :accused_age_14_to_15_all,
+      'Vek 14 - 15 - dievčatá' => :accused_age_14_to_15_girls,
       'Vek 14 - 15 - chlapci' => :accused_age_14_to_15_boys,
-      'Vek 16 - 18' => :accused_age_16_to_18,
-      'Obžalovaných osôb - vek 16 - 18' => :accused_age_16_to_18,
-      # 'Vek 16 - 18 - dievčatá' => :accused_age_16_to_18_girls,
-      'Vek 16 - 18 - boys' => :accused_age_16_to_18_boys,
-      'Obžalovaných osôb - vek 19 - 21' => :accused_age_19_to_21,
-      'Vek 19 - 21' => :accused_age_19_to_21,
-      'Vek 22 - 30' => :accused_age_22_to_30,
-      'Obžalovaných osôb - vek 22 - 30' => :accused_age_22_to_30,
-      'Obžalovaných osôb - vek 31 - 40' => :accused_age_31_to_40,
-      'Vek 31 - 40' => :accused_age_31_to_40,
-      'Obžalovaných osôb - vek 41 - 50' => :accused_age_41_to_50,
-      'Vek 41 - 50' => :accused_age_41_to_50,
-      'Obžalovaných osôb - vek 51 - 60' => :accused_age_51_to_60,
-      'Vek 51 - 60' => :accused_age_51_to_60,
-      'Obžalovaných osôb - vek 61 a viac' => :accused_age_61_and_more,
-      'Vek 61 a viac' => :accused_age_61_and_more,
+      'Vek 16 - 18' => :accused_age_16_to_18_all,
+      'Vek 16 - 18 - dievčatá' => :accused_age_16_to_18_girls,
+      'Vek 16 - 18 - chlapci' => :accused_age_16_to_18_boys,
+      'Vek 19 - 21' => :accused_age_19_to_21_all,
+      'Vek 22 - 30' => :accused_age_22_to_30_all,
+      'Vek 31 - 40' => :accused_age_31_to_40_all,
+      'Vek 41 - 50' => :accused_age_41_to_50_all,
+      'Vek 51 - 60' => :accused_age_51_to_60_all,
+      'Vek 61 a viac' => :accused_age_61_and_more_all,
       'Obžalovaných osôb - vplyv alkoholu' => :accused_alcohol_abuse,
-      'Obžalovaných osôb - obzvlášť nebezpeční recidivisti' => :accused_dangerous_recidivists,
-      'Zvlášť nebezpeční recidivisti' => :accused_dangerous_recidivists,
-      # 'Obžalovaných osôb - dievčatá' => :accused_girls,
+      'Obžalovaných osôb - obzvlášť nebezpeční recidivisti' => :accused_recidivists_dangerous,
+      'Zvlášť nebezpeční recidivisti' => :accused_recidivists_dangerous,
       'Obžalovaných osôb - z toho muži' => :accused_men,
       'Obžalovaných osôb' => :accused_all,
       'Obžalovaných osôb - počet útokov pri tr. činoch' => :accused_people_for_attacks_in_crimes,
@@ -225,8 +229,8 @@ module GenproGovSk
       'Obžalovaných osôb za úmyselné tr. činy - úmyselné tr. činy rovnakého druhu' =>
         :accused_people_for_intentional_crimes_of_same_nature,
       'Obžalovaných osôb - úmyselné tr. činy rovnakého druhu' => :accused_people_for_intentional_crimes_of_same_nature,
-      'Obžalovaných osôb - recidivisti' => :accused_recidivists,
-      'Recidivisti' => :accused_recidivists,
+      'Obžalovaných osôb - recidivisti' => :accused_recidivists_only,
+      'Recidivisti' => :accused_recidivists_only,
       'Obžalovaných osôb - iné návykové látky' => :accused_substance_abuse,
       'Obžalovaných osôb - vplyv inej návykovej látky' => :accused_substance_abuse,
       'Obžalovaných osôb - z toho ženy' => :accused_women,
@@ -234,14 +238,14 @@ module GenproGovSk
       'Počet postúpených' => :assignation_of_prosuction,
       'Počet zastavených TS' => :cessation_of_prosecution,
       'Počet zastavených' => :cessation_of_prosecution,
-      'Počet podmienečne zastavených TS' => :conditional_cessation_by_court,
-      'Podmienečné zastavenie TS' => :conditional_cessation_by_court,
-      'Podmienečné zastavenie tr. stíhania' => :conditional_cessation_by_court,
-      'Podmienečné zastavenie TS - spolupracujúcich obvinených' =>
-        :conditional_cessation_of_cooperating_accused_and_proven,
-      'Podmienečné zastavenie TS - spolupracujúcich osôb' => :conditional_cessation_of_cooperating_accused_and_proven,
-      'Podmienečné zastavenie tr. stíhania - spolupracujúcich osôb' =>
-        :conditional_cessation_of_cooperating_accused_and_proven,
+      'Počet podmienečne zastavených TS' => :conditional_cessation,
+      #'Podmienečné zastavenie TS' => :conditional_cessation,
+      #'Podmienečné zastavenie tr. stíhania' => :conditional_cessation,
+      #'Podmienečné zastavenie TS - spolupracujúcich obvinených' =>
+      #  :conditional_cessation_of_cooperating_accused_and_proven,
+      #'Podmienečné zastavenie TS - spolupracujúcich osôb' => :conditional_cessation_of_cooperating_accused_and_proven,
+      #'Podmienečné zastavenie tr. stíhania - spolupracujúcich osôb' =>
+      #  :conditional_cessation_of_cooperating_accused_and_proven,
       'Počet podmienečne zastavených TS spoluprac. obvineného' =>
         :conditional_cessation_of_cooperating_accused_and_proven,
       'Počet podmienečne zastavených TS -TS spoluprac. obvineného' =>

@@ -2,30 +2,18 @@ class Statistic < ApplicationRecord
   belongs_to :office
 
   validates :year, presence: true, numericality: { in: 2010..2020 }
-  validates :filters, presence: true
+  validates :filters, presence: true, uniqueness: { scope: %i[year office_id] }
   validates :count, presence: true, numericality: true
 
-  def self.import_from(statistics)
+  def self.import_from(records)
     Statistic.transaction do
-      Statistic.lock
       Statistic.delete_all
 
-      statistics.each do |attributes|
-        next if attributes[:statistics].blank?
+      offices = ::Office.pluck(:id, :name).each.with_object({}) { |(id, name), hash| hash[name] = id }
 
-        year = attributes[:year]
-        office = ::Office.find_by(name: attributes[:office])
+      records.each { |record| record[:office_id] = offices[record[:office]] }
 
-        attributes[:statistics].each do |statistic|
-          next if statistic[:count].blank?
-
-          begin
-            create!(statistic.slice(:filters, :count).merge(office: office, year: year))
-          rescue StandardError
-            binding.pry
-          end
-        end
-      end
+      Statistic.import(records.map { |e| e.slice(:year, :office_id, :filters, :count) })
     end
   end
 end

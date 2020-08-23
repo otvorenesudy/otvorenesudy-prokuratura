@@ -27,7 +27,7 @@ gem 'geocoder', '~> 1.6.3'
 gem 'roo', '~> 2.8.3'
 gem 'roo-xls', '~> 1.2.0'
 gem 'parallel', '~> 1.19.1'
-gem 'redis', '~> 4.2.1'
+gem 'activerecord-import', '~> 1.0.6'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

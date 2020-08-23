@@ -28,6 +28,12 @@ module GenproGovSk
               { filters: [filter], count: count }
             end.compact
 
+          %i[accused_recidivists_all].each do |filter|
+            count = statistics.find { |e| e[:filters] == [filter] }.try { |e| %i[count] }
+
+            calculate_sum_count(statistics, filter: filter, count: count)
+          end
+
           { office: name, year: year, statistics: statistics }
         end
       end
@@ -40,6 +46,18 @@ module GenproGovSk
         count = value.to_s.gsub(/[[:space:]]/, '')
 
         count.presence ? Integer(count) : nil
+      end
+
+      def self.calculate_sum_count(statistics, filter:, count:)
+        return if !filter.to_s.match(/_all\z/) || count
+
+        base = filter.to_s.gsub(/_all\z/, '').to_sym
+        children =
+          statistics.select { |e| e[:filters][0].match(/\A#{base}_\w+\z/) && e[:filters][0] != filter && e[:count] }
+
+        return if children.blank?
+
+        statistics << { filters: [filter], count: children.map { |e| e[:count] }.sum }
       end
     end
   end

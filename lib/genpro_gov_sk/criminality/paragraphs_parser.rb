@@ -17,7 +17,7 @@ module GenproGovSk
             end
           end
 
-        return {} if paragraphs.blank?
+        return if paragraphs.blank?
 
         data =
           rows.each.with_object({ statistics: [] }) do |row, data|
@@ -31,8 +31,8 @@ module GenproGovSk
             #
             data[:office] = OFFICES_MAP[key.match(/\d{4}/).to_a[0]] if key.match(/Prokuratúry/)
 
-            if key.match(/Prehľad za.* ((OP|KP).+)$/) && data[:office].nil?
-              _, value = *key&.match(/Prehľad za.* ((OP|KP).+)$/)
+            if key.match(/Prehľad za.* ((OP|KP|GP).+)$/) && data[:office].nil?
+              _, value = *key&.match(/Prehľad za.* ((OP|KP|GP).+)$/)
 
               next if key.match(/Prehľad za OP Šaľa/)
 
@@ -48,9 +48,6 @@ module GenproGovSk
             # Statistics
             #
             next unless rows.index(row) > rows.index(columns)
-
-            data[:no_value_filters] ||= []
-            data[:unknown_filters] ||= []
 
             if key.starts_with?('-')
               key = "#{previous_key} #{key}"
@@ -71,6 +68,8 @@ module GenproGovSk
             end
           end
 
+        return if data[:statistics].blank?
+
         data[:statistics].each do |statistic|
           paragraph, filter = *statistic[:filters]
           count = statistic[:count]
@@ -79,10 +78,19 @@ module GenproGovSk
             data,
             paragraph: paragraph, filter: filter, count: count, from: 'girls', to: 'boys'
           )
+
           calculate_complemental_count(
             data,
             paragraph: paragraph, filter: filter, count: count, from: 'women', to: 'men'
           )
+        end
+
+        %i[accused_recidivists_all].each do |filter|
+          data[:statistics].map { |e| e[:filters][0] }.uniq.each do |paragraph|
+            count = data[:statistics].find { |e| e[:filters] == [paragraph, filter] }.try { |e| e[:count] }
+
+            calculate_sum_count(data, paragraph: paragraph, filter: filter, count: count)
+          end
         end
 
         sheet.close
@@ -102,21 +110,39 @@ module GenproGovSk
         data[:statistics] << { filters: [paragraph, :"#{base}_#{to}"], count: sum[:count] - (count || 0) }
       end
 
+      def self.calculate_sum_count(data, paragraph:, filter:, count:)
+        return if !filter.to_s.match(/_all\z/) || count
+
+        base = filter.to_s.gsub(/_all\z/, '').to_sym
+        children =
+          data[:statistics].select do |e|
+            e[:filters][0] == paragraph && e[:filters][1].match(/\A#{base}_\w+\z/) && e[:filters][1] != filter &&
+              e[:count]
+          end
+
+        return if children.blank?
+
+        data[:statistics] << { filters: [paragraph, filter], count: children.map { |e| e[:count] }.sum }
+      end
+
       def self.normalize_office_name(value)
         value.gsub(/OP/, 'Okresná prokuratúra').gsub(/KP/, 'Krajská prokuratúra').gsub(/-/, ' - ').gsub(/1/, 'I').gsub(
           /2/,
           'II'
-        ).gsub(/3/, 'III').gsub(/4/, 'IV').gsub(/5/, 'V').gsub(%r{n\/}, 'nad ')
+        ).gsub(/3/, 'III').gsub(/4/, 'IV').gsub(/5/, 'V').gsub(%r{n\/}, 'nad ').gsub(
+          /GP SR/,
+          'Generálna prokuratúra Slovenskej republiky'
+        )
       end
 
       def self.normalize_key(value)
-        value.gsub(/(\A[[:space]]+|[[:space:]]+\z)/, '').gsub(/[[:space:]]+/, ' ').gsub(/\A[[:space]]-/, '-').gsub(
+        value.gsub(/(\A[[:space:]]+|[[:space:]]+\z)/, '').gsub(/[[:space:]]+/, ' ').gsub(/\A[[:space:]]-/, '-').gsub(
           /(z toho:)/,
           '-'
         ).gsub(/[[:space:]]+z toho/, '-').gsub(/–/, '-').gsub(/Obžalované osoby/, 'Obžalovaných osôb').gsub(
           /-{1,}/,
           '-'
-        )
+        ).gsub(/\A- vek/, 'Vek')
       end
 
       def self.parse_count(value)
