@@ -17,6 +17,8 @@ module GenproGovSk
 
           statistics =
             csv.map do |row|
+              next if row[0]&.strip.blank? && row[1]&.strip.blank?
+
               last_title = row[0] if row[0]&.strip.presence
               title = normalize_filter(row[0]&.strip.presence ? row[0] : [last_title, row[1]].join(' '))
 
@@ -34,7 +36,7 @@ module GenproGovSk
               { filters: [filter], count: count }
             end.compact
 
-          %i[accused_recidivists_all prosecution_of_unknown_offender_ended_by_police_all].each do |filter|
+          %i[accused_recidivists_all].each do |filter|
             count = statistics.find { |e| e[:filters] == [filter] }.try { |e| e[:count] }
 
             calculate_sum_count(statistics, filter: filter, count: count)

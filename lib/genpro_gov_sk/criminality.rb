@@ -185,7 +185,7 @@ module GenproGovSk
       'Skladba stíhaných osôb ženy' => :prosecuted_women,
       'Skladba stíhaných osôb mladiství' => :prosecuted_young,
       'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia' =>
-        :prosecution_of_unknown_offender_ended_by_police_all,
+        :prosecution_of_unknown_offender_ended_by_police,
       'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia postúpením' =>
         :prosecution_of_unknown_offender_ended_by_police_by_assignation,
       'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia zastavením' =>
@@ -254,7 +254,7 @@ module GenproGovSk
       'Obžalovaných osôb - z toho muži' => :accused_men,
       'Obžalovaných osôb' => :accused_all,
       'Obžalovaných osôb - počet útokov pri tr. činoch' => :accused_people_for_attacks_in_crimes,
-      'Počet útokov pri tr. činoch' => :accused_people_for_attacks_in_crimes,
+      #'Počet útokov pri tr. činoch' => :accused_people_for_attacks_in_crimes,
       'Obžalovaných osôb za úmyselné tr. činy' => :accused_people_for_intentional_crimes,
       'Obžalovaných osôb - úmyselné tr. činy' => :accused_people_for_intentional_crimes,
       'Obžalovaných osôb za úmyselné tr. činy - úmyselné tr. činy rovnakého druhu' =>

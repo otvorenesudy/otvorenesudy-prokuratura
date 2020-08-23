@@ -34,12 +34,10 @@ class Statistic < ApplicationRecord
 
       offices = ::Office.pluck(:id, :name).each.with_object({}) { |(id, name), hash| hash[name] = id }
 
-      records.each do |record|
-        record[:office_id] = offices[record[:office]] || (raise ArgumentError.new(record[:office]))
-      end
+      records.each { |record| record[:office_id] = offices[record[:office]] }
 
       Statistic.import(
-        records.map { |e| e.slice(:year, :office_id, :filters, :count) },
+        records.map { |e| e.slice(:year, :office_id, :filters, :count) }.uniq,
         in_batches: 10_000, validate: false
       )
     end
