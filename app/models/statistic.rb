@@ -13,7 +13,7 @@ class Statistic < ApplicationRecord
 
       records.each { |record| record[:office_id] = offices[record[:office]] }
 
-      Statistic.import(records.map { |e| e.slice(:year, :office_id, :filters, :count) })
+      Statistic.import(records.map { |e| e.slice(:year, :office_id, :filters, :count) }, in_batches: 10_000)
     end
   end
 end

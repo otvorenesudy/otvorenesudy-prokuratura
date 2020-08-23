@@ -6,6 +6,7 @@ module GenproGovSk
       def self.parse(text)
         csv = CSV.parse(text, col_sep: ';')
         year = csv[0][0].match(/\d{2}.\d{2}.(\d{4})/)[1]
+        unknown = []
         offices =
           GenproGovSk::Criminality::OFFICES_MAP.each.with_object({}) do |(key, name), hash|
             hash[name] = csv[0].index(key)
@@ -21,20 +22,23 @@ module GenproGovSk
 
               filter = GenproGovSk::Criminality::STRUCTURES_MAP[title]
 
-              next unless filter
+              unless filter
+                unknown << title
+                next
+              end
 
               count = parse_count(row[index])
 
               { filters: [filter], count: count }
             end.compact
 
-          %i[accused_recidivists_all].each do |filter|
+          %i[accused_recidivists_all prosecution_of_unknown_offender_ended_by_police_all].each do |filter|
             count = statistics.find { |e| e[:filters] == [filter] }.try { |e| %i[count] }
 
             calculate_sum_count(statistics, filter: filter, count: count)
           end
 
-          { office: name, year: year, statistics: statistics }
+          { office: name, year: year, statistics: statistics, unknown: unknown.uniq }
         end
       end
 

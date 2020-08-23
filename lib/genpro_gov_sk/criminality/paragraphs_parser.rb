@@ -8,7 +8,8 @@ module GenproGovSk
         sheet = xls.sheet(0)
         rows = sheet.to_a
         columns = rows.find { |e| e.any? { |e| e.to_s.match(/\A§\s{0,1}[0-9a-zA-Z]+\z/) } }
-        previous_key = ''
+        previous_title = ''
+        unknown = []
 
         paragraphs =
           if columns
@@ -21,43 +22,46 @@ module GenproGovSk
 
         data =
           rows.each.with_object({ statistics: [] }) do |row, data|
-            key = normalize_key(row[0].to_s.gsub(/(\A[[:space:]]|[[:space:]]\z)/, ''))
+            title = normalize_title(row[0].to_s.gsub(/(\A[[:space:]]|[[:space:]]\z)/, ''), row: row, rows: rows)
 
             # Year
             #
-            data[:year] = key.match(/\d{4}/)[0].to_i if key.match(/obdobie/i)
+            data[:year] = title.match(/\d{4}/)[0].to_i if title.match(/obdobie/i)
 
             # Office
             #
-            data[:office] = OFFICES_MAP[key.match(/\d{4}/).to_a[0]] if key.match(/Prokuratúry/)
+            data[:office] = OFFICES_MAP[title.match(/\d{4}/).to_a[0]] if title.match(/Prokuratúry/)
 
-            if key.match(/Prehľad za.* ((OP|KP|GP).+)$/) && data[:office].nil?
-              _, value = *key&.match(/Prehľad za.* ((OP|KP|GP).+)$/)
+            if title.match(/Prehľad za.* ((OP|KP|GP).+)$/) && data[:office].nil?
+              _, value = *title&.match(/Prehľad za.* ((OP|KP|GP).+)$/)
 
-              next if key.match(/Prehľad za OP Šaľa/)
+              next if title.match(/Prehľad za OP Šaľa/)
 
               data[:office] ||= normalize_office_name(value)
             end
 
             # Type
             #
-            data[:type] = :old if key.match(/podľa paragrafov trestného zákona do roku 2005/)
-            data[:type] = :new if key.match(/podľa paragrafov trestného zákona od roku 2006/)
-            data[:type] = key.match(/Nie/) ? :new : :old if key.match(/Podľa TZ 2005/)
+            data[:type] = :old if title.match(/podľa paragrafov trestného zákona do roku 2005/)
+            data[:type] = :new if title.match(/podľa paragrafov trestného zákona od roku 2006/)
+            data[:type] = title.match(/Nie/) ? :new : :old if title.match(/Podľa TZ 2005/)
 
             # Statistics
             #
             next unless rows.index(row) > rows.index(columns)
 
-            if key.starts_with?('-')
-              key = "#{previous_key} #{key}"
+            if title.starts_with?('-')
+              title = "#{previous_title} #{title}"
             else
-              previous_key = key
+              previous_title = title
             end
 
-            filter = PARAGRAPHS_MAP[key]
+            filter = PARAGRAPHS_MAP[title]
 
-            next unless filter
+            unless filter
+              unknown << title
+              next
+            end
 
             paragraphs.each do |paragraph, index|
               paragraph = "#{paragraph} [#{data[:type]}]"
@@ -95,7 +99,7 @@ module GenproGovSk
 
         sheet.close
 
-        data
+        data.merge(unknown: unknown)
       end
 
       def self.calculate_complemental_count(data, paragraph:, filter:, count:, from:, to:)
@@ -135,14 +139,21 @@ module GenproGovSk
         )
       end
 
-      def self.normalize_key(value)
-        value.gsub(/(\A[[:space:]]+|[[:space:]]+\z)/, '').gsub(/[[:space:]]+/, ' ').gsub(/\A[[:space:]]-/, '-').gsub(
-          /(z toho:)/,
-          '-'
-        ).gsub(/[[:space:]]+z toho/, '-').gsub(/–/, '-').gsub(/Obžalované osoby/, 'Obžalovaných osôb').gsub(
-          /-{1,}/,
-          '-'
-        ).gsub(/\A- vek/, 'Vek')
+      def self.normalize_title(value, row:, rows:)
+        title =
+          value.gsub(/\A[[:space:]]+/, '- ').gsub(/(\A[[:space:]]+|[[:space:]]+\z)/, '').gsub(/[[:space:]]+/, ' ').gsub(
+            /\A[[:space:]]-/,
+            '-'
+          ).gsub(/(z toho:)/, '-').gsub(/[[:space:]]+z toho/, '-').gsub(/–/, '-').gsub(
+            /Obžalované osoby/,
+            'Obžalovaných osôb'
+          ).gsub(/-{1,}/, '-')
+
+        if title.match(/- dievčatá/)
+          title = "#{normalize_title(rows[rows.index(row) - 1][0], row: row, rows: rows)} #{title}"
+        end
+
+        title
       end
 
       def self.parse_count(value)
