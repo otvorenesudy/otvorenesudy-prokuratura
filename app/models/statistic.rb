@@ -30,12 +30,18 @@ class Statistic < ApplicationRecord
   def self.import_from(records)
     Statistic.transaction do
       Statistic.delete_all
+      Statistic.lock
 
       offices = ::Office.pluck(:id, :name).each.with_object({}) { |(id, name), hash| hash[name] = id }
 
-      records.each { |record| record[:office_id] = offices[record[:office]] }
+      records.each do |record|
+        record[:office_id] = offices[record[:office]] || (raise ArgumentError.new(record[:office]))
+      end
 
-      Statistic.import(records.map { |e| e.slice(:year, :office_id, :filters, :count) }, in_batches: 10_000)
+      Statistic.import(
+        records.map { |e| e.slice(:year, :office_id, :filters, :count) },
+        in_batches: 10_000, validate: false
+      )
     end
   end
 end

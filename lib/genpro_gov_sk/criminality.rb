@@ -155,7 +155,7 @@ module GenproGovSk
       'Zastavené trestné stíhanie' => :cessation_of_prosecution,
       'Zastavenie trestného stíhania' => :cessation_of_prosecution,
       'V trestných registroch Pv/Kv/Gv bolo vybavených spisov' => :closed_cases,
-      'Podmienečné zastavenie TS súdom' => :conditional_cessation,
+      'Podmienečné zastavenie TS súdom' => :conditional_cessation_by_court,
       'Podmienečné zastavenie TS' => :conditional_cessation,
       'Podmienečné zastavenie TS prokurátorom' => :conditional_cessation_by_prosecutor,
       'Podmienečné zastavenie TS - osvedčil sa - spolu' => :conditional_cessation_of_accused_all,
@@ -202,7 +202,7 @@ module GenproGovSk
       'Právoplatné rozhodnutia súdu – spolu postúpenie TS' => :valid_court_decision_on_assignation_of_prosecution,
       'Právoplatné rozhodnutia súdu – spolu zastavenie TS' => :valid_court_decision_on_cessation_of_prosecution,
       'Právoplatné rozhodnutia súdu – spolu o odsúdení osôb' => :valid_court_decision_on_conviction_of_people,
-      'Právoplatné rozhodnutia súdu – spolu prerušenie TS' => :valid_court_decision_on_cessation_of_prosecution,
+      'Právoplatné rozhodnutia súdu – spolu prerušenie TS' => :valid_court_decision_on_suspension_of_prosecution,
       'Právoplatné rozhodnutia súdu – spolu podmienečné zastavenie TS spolupracujúceho obvineného' =>
         :valid_court_decision_on_conditional_cessation_of_prosecution_of_cooperating_accused,
       'Právoplatné rozhodnutia súdu – spolu podmienečné zastavenie TS' =>

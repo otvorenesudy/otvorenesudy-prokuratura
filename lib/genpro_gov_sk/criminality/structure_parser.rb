@@ -35,7 +35,7 @@ module GenproGovSk
             end.compact
 
           %i[accused_recidivists_all prosecution_of_unknown_offender_ended_by_police_all].each do |filter|
-            count = statistics.find { |e| e[:filters] == [filter] }.try { |e| %i[count] }
+            count = statistics.find { |e| e[:filters] == [filter] }.try { |e| e[:count] }
 
             calculate_sum_count(statistics, filter: filter, count: count)
           end
