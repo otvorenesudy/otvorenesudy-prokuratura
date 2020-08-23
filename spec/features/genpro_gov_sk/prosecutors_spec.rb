@@ -6,7 +6,6 @@ RSpec.describe 'GenproGovSk Prosecutors', type: :feature do
 
     GenproGovSk::Prosecutors.import
 
-    expect(GenproGovSk::Prosecutor.count).to eql(967)
     expect(::Prosecutor.count).to eql(967)
   end
 end
