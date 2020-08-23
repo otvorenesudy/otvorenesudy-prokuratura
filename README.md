@@ -27,8 +27,8 @@ Now import the data
 ```ruby
 GenproGovSk::Offices.import
 GenproGovSk::Prosecutors.import
-GenproGovSk::Declarations.import
-GenproGovSk::Criminality.import # enqueues Sidekiq jobs
+GenproGovSk::Declarations.import # make sure to run Sidekiq as Declarations are processed in jobs
+GenproGovSk::Criminality.import
 ```
 
 ## Contributing
