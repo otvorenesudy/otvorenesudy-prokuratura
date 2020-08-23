@@ -39,7 +39,11 @@ FactoryBot.define do
     type { :district }
 
     sequence(:name) { |n| "Office #{n}" }
-    address { 'Hlavná 1, 123 45 Bratislava' }
+    address { 'Hlavná 1' }
+    zipcode { '123 45' }
+    city { 'Bratislava' }
+    latitude { 41.11 }
+    longitude { 17.12 }
     email { 'prokuratura@genpro.gov.sk' }
     phone { '+421 123 456 789' }
 

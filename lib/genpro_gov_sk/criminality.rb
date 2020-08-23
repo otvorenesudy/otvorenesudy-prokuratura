@@ -7,6 +7,9 @@ module GenproGovSk
           year = attributes[:year]
           office = attributes[:office]
 
+          # TODO
+          # raise if attributes[:unknown].any?
+
           attributes[:statistics].map do |statistic|
             next if statistic[:count].blank?
 

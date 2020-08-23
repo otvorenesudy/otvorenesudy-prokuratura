@@ -32,6 +32,7 @@ FactoryBot.define do
     office
 
     sequence(:name) { |n| "John Smith ##{n}" }
+    name_parts { { value: name } }
     sequence(:position) { |n| "a position in the office ##{n}" }
     sequence(:rank) { |n| n }
 

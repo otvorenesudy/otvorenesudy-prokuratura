@@ -8,13 +8,16 @@ RSpec.describe GenproGovSk::Offices::Parser do
 
       expect(data[:name]).to eq('Generálna prokuratúra Slovenskej republiky')
       expect(data[:type]).to eql(:general)
-      expect(data[:address]).to eq('Štúrova 2, 812 85 Bratislava 1')
+      expect(data[:address]).to eq('Štúrova 2')
+      expect(data[:zipcode]).to eq('812 85')
+      expect(data[:city]).to eq('Bratislava')
       expect(data[:phone]).to eq('02/208 37 505, 595 32 505')
       expect(data[:email]).to eq('GPSR@genpro.gov.sk')
       expect(data[:electronic_registry]).to eq('https://www.slovensko.sk/sk/lokator-sluzieb')
       expect(data[:registry]).to eql(
         {
           phone: '02/208 37 768, 595 32 768',
+          note: nil,
           hours: {
             monday: '8:00 – 15:00',
             tuesday: '8:00 – 15:00',

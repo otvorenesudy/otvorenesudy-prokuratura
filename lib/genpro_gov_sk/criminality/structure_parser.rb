@@ -20,6 +20,8 @@ module GenproGovSk
               last_title = row[0] if row[0]&.strip.presence
               title = normalize_filter(row[0]&.strip.presence ? row[0] : [last_title, row[1]].join(' '))
 
+              next if ignore_title?(title)
+
               filter = GenproGovSk::Criminality::STRUCTURES_MAP[title]
 
               unless filter
@@ -62,6 +64,14 @@ module GenproGovSk
         return if children.blank?
 
         statistics << { filters: [filter], count: children.map { |e| e[:count] }.sum }
+      end
+
+      def self.ignore_title?(title)
+        return true if title.match(/Skladba trestných (pre)?činov/) && title.match(/(hlava|hláv)/)
+        return true if title.match(/\AZa obdobie:/)
+        return true if title.match(/\ASkladba stíhaných osôb\z/)
+        return true if title.match(/\APočet spáchaných trestných činov/)
+        return true if title.match(/\APočet spáchaných prečinov/)
       end
     end
   end

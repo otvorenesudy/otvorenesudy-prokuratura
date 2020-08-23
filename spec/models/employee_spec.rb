@@ -30,6 +30,8 @@
 require 'rails_helper'
 
 RSpec.describe Employee do
+  subject { build(:employee) }
+
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:position) }
   it { is_expected.to validate_presence_of(:rank) }

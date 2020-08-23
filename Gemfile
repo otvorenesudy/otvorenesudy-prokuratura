@@ -43,6 +43,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
   gem 'webmock', '~> 3.8.3'
+  gem 'database_cleaner-active_record'
 end
 
 group :development, :test do

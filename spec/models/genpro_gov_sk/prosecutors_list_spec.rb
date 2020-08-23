@@ -30,7 +30,15 @@ RSpec.describe GenproGovSk::ProsecutorsList, type: :model do
 
         expect {
           GenproGovSk::ProsecutorsList.import_from(
-            data: [{ id: '1', name: 'JUDr. John Smith', office: "Attorney General's Office" }], file: '123'
+            data: [
+              {
+                id: '1',
+                name: 'JUDr. John Smith',
+                name_parts: { value: 'JUDr. John Smith' },
+                office: "Attorney General's Office"
+              }
+            ],
+            file: '123'
           )
         }.to change { GenproGovSk::ProsecutorsList.where(digest: Digest::MD5.hexdigest('123')).count }.by(1)
 
@@ -53,13 +61,29 @@ RSpec.describe GenproGovSk::ProsecutorsList, type: :model do
 
         expect {
           GenproGovSk::ProsecutorsList.import_from(
-            data: [{ id: '1', name: 'JUDr. John Smith', office: "Attorney General's Office" }], file: '123'
+            data: [
+              {
+                id: '1',
+                name: 'JUDr. John Smith',
+                name_parts: { value: 'JUDr. John Smith' },
+                office: "Attorney General's Office"
+              }
+            ],
+            file: '123'
           )
         }.to change { GenproGovSk::ProsecutorsList.where(digest: Digest::MD5.hexdigest('123')).count }.by(1)
 
         expect {
           GenproGovSk::ProsecutorsList.import_from(
-            data: [{ id: '1', name: 'JUDr. John Smith', office: "Attorney General's Office", temporary_office: 'ABC' }],
+            data: [
+              {
+                id: '1',
+                name: 'JUDr. John Smith',
+                name_parts: { value: 'JUDr. John Smith' },
+                office: "Attorney General's Office",
+                temporary_office: 'ABC'
+              }
+            ],
             file: '1234'
           )
         }.to change { GenproGovSk::ProsecutorsList.where(digest: Digest::MD5.hexdigest('1234')).count }.by(1)
@@ -87,13 +111,22 @@ RSpec.describe GenproGovSk::ProsecutorsList, type: :model do
 
         expect {
           GenproGovSk::ProsecutorsList.import_from(
-            data: [{ id: '1', name: 'JUDr. John Smith', office: "Attorney General's Office" }], file: '123'
+            data: [
+              {
+                id: '1',
+                name: 'JUDr. John Smith',
+                name_parts: { value: 'JUDr. John Smith' },
+                office: "Attorney General's Office"
+              }
+            ],
+            file: '123'
           )
         }.to change { GenproGovSk::ProsecutorsList.where(digest: Digest::MD5.hexdigest('123')).count }.by(1)
 
         expect {
           GenproGovSk::ProsecutorsList.import_from(
-            data: [{ id: '1', name: 'JUDr. John Smith', office: 'ABC' }], file: '1234'
+            data: [{ id: '1', name: 'JUDr. John Smith', name_parts: { value: 'JUDr. John Smith' }, office: 'ABC' }],
+            file: '1234'
           )
         }.to change { GenproGovSk::ProsecutorsList.where(digest: Digest::MD5.hexdigest('1234')).count }.by(1)
 

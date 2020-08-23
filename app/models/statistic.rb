@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: statistics
+#
+#  id         :bigint           not null, primary key
+#  count      :integer          not null
+#  filters    :string           not null, is an Array
+#  year       :integer          not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  office_id  :bigint           not null
+#
+# Indexes
+#
+#  index_statistics_on_filters                         (filters)
+#  index_statistics_on_office_id                       (office_id)
+#  index_statistics_on_year_and_office_id_and_filters  (year,office_id,filters) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (office_id => offices.id)
+#
 class Statistic < ApplicationRecord
   belongs_to :office
 

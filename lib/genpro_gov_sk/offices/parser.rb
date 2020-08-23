@@ -54,6 +54,7 @@ module GenproGovSk
           'vedúca oddelenia služobných vzťahov prokurátorov, právnych čakateľov prokuratúry a zamestnancov prokuratúry',
           'vedúca oddelenia správnych činností',
           'vedúca oddelenia vzdelávania a ďalších činností',
+          'vedúca oddelenia financovania a kontroly',
           'vedúca oddelenia ústavného práva',
           'vedúca organizačno-kontrolného oddelenia',
           'vedúca referátu ochrany utajovaných skutočností',

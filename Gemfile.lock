@@ -92,6 +92,10 @@ GEM
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
     curb (0.9.10)
+    database_cleaner (1.8.5)
+    database_cleaner-active_record (1.8.0)
+      activerecord
+      database_cleaner (~> 1.8.0)
     diff-lcs (1.4.4)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -368,6 +372,7 @@ DEPENDENCIES
   bootstrap (~> 4.1.0)
   capybara (>= 2.15)
   curb
+  database_cleaner-active_record
   factory_bot (~> 5.2.0)
   geocoder (~> 1.6.3)
   i18n-tasks (~> 0.9.31)
