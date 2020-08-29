@@ -36,21 +36,16 @@ class CreateSearchTables < ActiveRecord::Migration[6.0]
           appointments.prosecutor_id = prosecutors.id AND
           appointments.ended_at IS NULL
         JOIN offices ON appointments.office_id = offices.id;
-    SQL
 
-    execute <<-SQL
-      CREATE MATERIALIZED VIEW statistics_search
-      AS
-        SELECT
-          lower(unaccent(offices.name)) AS office
-        FROM statistics
-        JOIN offices ON statistics.office_id = offices.id;
+      CREATE INDEX index_prosecutors_search_on_name ON prosecutors_search USING gin (name gin_trgm_ops);
+      CREATE INDEX index_prosecutors_search_on_office ON prosecutors_search USING gin (office gin_trgm_ops);
+      CREATE INDEX index_prosecutors_search_on_declarations ON prosecutors_search USING gin (declarations gin_trgm_ops);
+      CREATE INDEX index_prosecutors_search_on_city ON prosecutors_search USING gin (city gin_trgm_ops);
     SQL
   end
 
   def down
     execute 'DROP MATERIALIZED VIEW offices_search'
     execute 'DROP MATERIALIZED VIEW prosecutors_search'
-    execute 'DROP MATERIALIZED VIEW statistics_search'
   end
 end

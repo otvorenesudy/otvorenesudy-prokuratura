@@ -11,7 +11,9 @@ class Search
     except = [*except]
 
     filters.reject { |(key, _)| key.in?(except) }.inject(repository) do |relation, (key, filter)|
-      filter.filter(relation, params)
+      filter.filter(relation, params) if filter.respond_to?(:filter)
+
+      relation
     end
   end
 
@@ -23,7 +25,7 @@ class Search
     key = key.to_sym
 
     all = filters[key].facets(all(except: key).reorder(''), suggest: suggest)
-    facets = all.first(limit).to_h
+    facets = limit ? all.first(limit).to_h : all
 
     return facets if params[key].blank? || suggest.present?
 

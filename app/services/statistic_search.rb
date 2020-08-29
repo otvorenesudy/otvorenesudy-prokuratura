@@ -2,7 +2,11 @@ class StatisticSearch
   attr_reader :search
 
   def initialize(params)
-    @search = Search.new(Statistic.all, params: params, filters: { year: YearFilter })
+    @search =
+      Search.new(
+        Statistic.all,
+        params: params, filters: { year: YearFilter, office: OfficeFilter, accused: AccusedFilter }
+      )
   end
 
   delegate :all, to: :search
@@ -30,14 +34,18 @@ class StatisticSearch
     end
 
     def self.facets(relation, suggest:)
-      relation = ::QueryFilter.filter(relation, { q: suggest }, columns: %i[office])
+      offices = ::QueryFilter.filter(Office.all, { q: suggest }, columns: %i[name])
 
-      Prosecutor.from(
-        relation.joins(:offices).except(:distinct).select(
-          'DISTINCT ON (prosecutors.id, offices.name) prosecutors.id AS id, offices.name AS office'
-        ),
-        :prosecutors
-      ).reorder(office: :asc).group(:office).count
+      relation.where(office: offices).joins(:office).reorder('offices.name': :asc).group('offices.name').count.first(5)
+        .to_h
+    end
+  end
+
+  class AccusedFilter
+    def self.facets(relation, suggest:)
+      relation.where('statistics.filters && ARRAY[?] :: varchar[]', Statistic::GROUPS[:accused]).group(
+        'statistics.filters[1]'
+      ).count.sort_by { |e, _| Statistic::GROUPS[:accused].index(e.to_sym) }.to_h
     end
   end
 end

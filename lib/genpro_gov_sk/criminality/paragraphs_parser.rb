@@ -81,14 +81,14 @@ module GenproGovSk
 
               count = parse_count(row[index])
 
-              data[:statistics] << { filters: [paragraph, filter], count: count }
+              data[:statistics] << { filters: [filter, paragraph], count: count }
             end
           end
 
         return if data[:statistics].blank?
 
         data[:statistics].each do |statistic|
-          paragraph, filter = *statistic[:filters]
+          filter, paragraph = *statistic[:filters]
           count = statistic[:count]
 
           calculate_complemental_count(
@@ -103,8 +103,8 @@ module GenproGovSk
         end
 
         %i[accused_recidivists_all].each do |filter|
-          data[:statistics].map { |e| e[:filters][0] }.uniq.each do |paragraph|
-            count = data[:statistics].find { |e| e[:filters] == [paragraph, filter] }.try { |e| e[:count] }
+          data[:statistics].map { |e| e[:filters][1] }.uniq.each do |paragraph|
+            count = data[:statistics].find { |e| e[:filters] == [filter, paragraph] }.try { |e| e[:count] }
 
             calculate_sum_count(data, paragraph: paragraph, filter: filter, count: count)
           end
@@ -120,11 +120,11 @@ module GenproGovSk
 
         base = filter.to_s.gsub(/_#{from}\z/, '').to_sym
         all = :"#{base}_all"
-        sum = data[:statistics].find { |e| e[:filters] == [paragraph, all] }
+        sum = data[:statistics].find { |e| e[:filters] == [all, paragraph] }
 
-        return if !sum || !sum[:count] || data[:statistics].find { |e| e[:filters] == [paragraph, :"#{base}_#{to}"] }
+        return if !sum || !sum[:count] || data[:statistics].find { |e| e[:filters] == [:"#{base}_#{to}", paragraph] }
 
-        data[:statistics] << { filters: [paragraph, :"#{base}_#{to}"], count: sum[:count] - (count || 0) }
+        data[:statistics] << { filters: [:"#{base}_#{to}", paragraph], count: sum[:count] - (count || 0) }
       end
 
       def self.calculate_sum_count(data, paragraph:, filter:, count:)
@@ -133,13 +133,13 @@ module GenproGovSk
         base = filter.to_s.gsub(/_all\z/, '').to_sym
         children =
           data[:statistics].select do |e|
-            e[:filters][0] == paragraph && e[:filters][1].match(/\A#{base}_\w+\z/) && e[:filters][1] != filter &&
+            e[:filters][0].match(/\A#{base}_\w+\z/) && e[:filters][0] != filter && e[:filters][1] == paragraph &&
               e[:count]
           end
 
         return if children.blank?
 
-        data[:statistics] << { filters: [paragraph, filter], count: children.map { |e| e[:count] }.sum }
+        data[:statistics] << { filters: [filter, paragraph], count: children.map { |e| e[:count] }.sum }
       end
 
       def self.normalize_office_name(value)

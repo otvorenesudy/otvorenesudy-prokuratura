@@ -6,7 +6,7 @@ class StatisticsController < ApplicationController
   def suggest
     head 404 unless suggest_params[:facet].in?(%w[office])
 
-    @search = StatisticsSearch.new(index_params)
+    @search = StatisticSearch.new(index_params)
 
     render(
       json: {
@@ -24,7 +24,13 @@ class StatisticsController < ApplicationController
 
   private
 
+  helper_method :index_params
+
   def index_params
     params.permit(year: [])
+  end
+
+  def suggest_params
+    params.permit(:facet, :suggest)
   end
 end

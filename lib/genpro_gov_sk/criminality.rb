@@ -261,7 +261,6 @@ module GenproGovSk
       'Zvlášť nebezpeční recidivisti' => :accused_recidivists_dangerous,
       'Obžalovaných osôb - z toho muži' => :accused_men,
       'Obžalovaných osôb' => :accused_all,
-      'Obžalovaných osôb - počet útokov pri tr. činoch' => :accused_people_for_attacks_in_crimes,
       'Obžalovaných osôb za úmyselné tr. činy' => :accused_people_for_intentional_crimes,
       'Obžalovaných osôb - úmyselné tr. činy' => :accused_people_for_intentional_crimes,
       'Obžalovaných osôb za úmyselné tr. činy - úmyselné tr. činy rovnakého druhu' =>
@@ -285,7 +284,7 @@ module GenproGovSk
       'Odstíhané známe osoby - vplyv alkoholu' => :prosecuted_alcohol_abuse,
       'Odstíhané známe osoby' => :prosecuted_all,
       'Odstíhané známe osoby - muži' => :prosecuted_men,
-      'Odstíhané známe osoby - počet útokov pri tr. činoch' => :prosecuted_people_for_attacks_in_crimes,
+      # 'Odstíhané známe osoby - počet útokov pri tr. činoch' => :prosecuted_people_for_attacks_in_crimes,
       'Odstíhané známe osoby - vplyv inej návykovej látky' => :prosecuted_substance_abuse,
       'Odstíhané známe osoby - ženy' => :prosecuted_women,
       'Odstíhané známe osoby - mladiství' => :prosecuted_young,

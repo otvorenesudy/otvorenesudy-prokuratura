@@ -30,6 +30,95 @@ sk:
       few: "%{count} prokurátori"
       other: "%{count} prokurátorov"
 
+  models:
+    statistic:
+      filters:
+        accused_age_14_to_15_all: Vek od 14 do 15 rokov
+        accused_age_14_to_15_boys: Chlapci od 14 do 15 rokov
+        accused_age_14_to_15_girls: Dievčatá od 14 o 15 rokov
+        accused_age_16_to_18_all: Vek od 16 do 18 rokov
+        accused_age_16_to_18_boys: Chlapci od 16 do 18 rokov
+        accused_age_16_to_18_girls: Dievčatá od 16 o 18 rokov
+        accused_age_19_to_21_all: Vek od 19 do 21 rokov
+        accused_age_22_to_30_all: Vek od 22 do 30 rokov
+        accused_age_31_to_40_all: Vek od 31 do 40 rokov
+        accused_age_41_to_50_all: Vek od 41 do 50 rokov
+        accused_age_51_to_60_all: Vek od 51 do 60 rokov
+        accused_age_61_and_more_all: Vek od 61 a viac
+        accused_alcohol_abuse: Vply alkoholu
+        accused_all: Všetci
+        accused_by_paragraph_204: Skrátané vyšetrovanie podľa §204 Tr. por.
+        accused_men: Muži
+        accused_people_for_intentional_crimes: Pre umyselné trestné činy
+        accused_people_for_intentional_crimes_of_same_nature: Pre úmyselné trestné činy rovnakého druhu
+        accused_recidivists_all: Všetci recidivisti
+        accused_recidivists_dangerous: Obzvlášť nebezpeční recidivisti
+        accused_recidivists_only: Len recidivisti
+        accused_substance_abuse: Vplyv inej návykovej látky
+        accused_women: Ženy
+        assignation_of_prosuction: Postúpenie trestného stíhania
+        cessation_of_prosecution: Zastavenie trestného stíhania
+        closed_cases: Vybavených spisov v trestných registroch Pv/Kv/Gv
+        conditional_cessation_by_court: Podmienečné zastavenie TS súdom
+        conditional_cessation_by_prosecutor: Podmienečné zastavenie TS prokurátorom
+        conditional_cessation_by_prosecutor_all: Všetky podmienečné zastavenia TS prokurátorom
+        conditional_cessation_of_accused_all: Podmienečné zastavenie TS - osvedčil sa
+        conditional_cessation_of_accused_and_proven: Podmienečné zastavenie TS, pričom osvedčil sa obvinený
+        conditional_cessation_of_accused_and_proven_by_prosecutor: Podmienečné zastavenie TS prokurátorom, kde sa osvedčil obvindený
+        conditional_cessation_of_accused_by_prosecutor: Podmienečné zastavenie TS obvineného prokurátorom
+        conditional_cessation_of_cooperating_accused_and_proven: Podmienečné zastavenie TS, kde sa osvedčil spolupracujúci obvinený
+        conditional_cessation_of_cooperating_accused_by_prosecutor: Podmienečné zastavenie TS spolupracujúceho obvineného prokurátorom
+        convicted_all: Všetci
+        convicted_men: Muži
+        convicted_women: Ženy
+        convicted_young: Mladiství
+        exemption: Oslobodené osôby
+        guilt_and_sentence_agreement: Dohoda o vine a treste
+        incoming_cases: Všetky spisy, ktoré napadli registroch Pv/Kv/Gv
+        judged_all: Súdené osôby
+        prosecuted_alcohol_abuse: Vplyv alkoholu
+        prosecuted_all: Všetci
+        prosecuted_foreigners: Cudzinci
+        prosecuted_men: Muži
+        prosecuted_substance_abuse: Vplyv inej návykovej látky
+        prosecuted_women: Ženy
+        prosecuted_young: Mladiství
+        prosecution_of_unknown_offender_ended_by_police: Neznámi páchatelia
+        prosecution_of_unknown_offender_ended_by_police_by_assignation: Neznámi páchatelia postúpením
+        prosecution_of_unknown_offender_ended_by_police_by_cessation: Neznámi páchatelia zastavením
+        prosecution_of_unknown_offender_ended_by_police_by_other_mean: Neznámi páchatelia inak
+        prosecution_of_unknown_offender_ended_by_police_by_suspension: Neznámi páchatelia prerušením
+        protective_measures_imposed: Uložené ochranné opatrenia
+        reconciliation_approval: Schválenie zmieru
+        sentence_by_os_47_2_tz: Podľa §47/2 T.z.
+        sentence_financial: Peňažný
+        sentence_nepo: NEPO
+        sentence_of_compulsary_labor: Povinná práca
+        sentence_of_deportation: Vyhostenie
+        sentence_of_forfeiture_of_possesion: Prepadnutie veci
+        sentence_of_forfeiture_of_property: Prepadnutie majetku
+        sentence_other: Iné
+        sentence_po: PO
+        sentence_prohibition_of_movement: Zákaz pohybu
+        sentence_prohibition_of_practice: Zákaz činnosti
+        sentence_prohibition_of_stay: Zákaz pobytu
+        sentence_under_home_arrest: Domáce väzenie
+        sentence_waived: Odpustené
+        suspension_of_prosecution: Prerušenie trestného stíhania
+        suspension_of_prosecution_of_cooperating_accused: Prerušenie trestného stíhania spolupracujúceho obvineného
+        valid_court_decision_all: Všetky právoplatné rozhodnutia súdu
+        valid_court_decision_on_assignation_of_prosecution: Právoplatné rozhodnutia súdu – postúpenie TS
+        valid_court_decision_on_cessation_of_prosecution: Právoplatné rozhodnutia súdu – zastavenie TS
+        valid_court_decision_on_conditional_cessation_of_prosecution: Právoplatné rozhodnutia súdu – podmienečné zastavenie TS
+        valid_court_decision_on_conditional_cessation_of_prosecution_of_cooperating_accused: Právoplatné rozhodnutia súdu – podmienečné zastavenie TS spolupracujúceho obvineného
+        valid_court_decision_on_conviction_of_people: Právoplatné rozhodnutia súdu – o odsúdení osôb
+        valid_court_decision_on_exemption: Právoplatné rozhodnutia súdu – oslobodenie
+        valid_court_decision_on_reconciliation_approval: Právoplatné rozhodnutia súdu – schválenie zmieru
+        valid_court_decision_on_suspension_of_prosecution: Právoplatné rozhodnutia súdu – prerušenie TS
+        valid_court_decision_on_waiver_of_sentence: Právoplatné rozhodnutia súdu – upustenie od potrestania
+        valid_court_decision_only_convicted_with_guilt_and_sentence_agreement: Právoplatné rozhodnutia súdu - schválenie dohody o vine a treste
+        valid_other_court_decision: Právoplatné rozhodnutia súdu – iné
+
   layouts:
     application:
       authors: TODO
@@ -235,11 +324,18 @@ sk:
         year:
           title: Rok
           not_found: Neboli nájdené žiadne roky
+        office:
+          not_found: Nenájdené žiadne prokuratúry
+          placeholder: Meno prokuratúry
+          title: Prokuratúra
+        accused:
+          title: Obžalovaní
+          not_found: Nenájedené žiadne štatistiky pre obžalovaných
 
   static_pages:
     home:
       squares:
-        criminality: Kriminalita v kocke
+        criminality: Kriminalita
         offices: Prokuratúra
         prosecutors: Prokurátori
         search: Hľadaj
