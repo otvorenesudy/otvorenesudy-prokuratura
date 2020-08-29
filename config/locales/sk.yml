@@ -228,6 +228,14 @@ sk:
       income_value: Príjem (v €)
       statements: Vyhlásenia
 
+  statistics:
+    index:
+      title: Kriminalita
+      search:
+        year:
+          title: Rok
+          not_found: Neboli nájdené žiadne roky
+
   static_pages:
     home:
       squares:

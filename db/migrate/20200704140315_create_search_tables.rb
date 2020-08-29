@@ -37,10 +37,20 @@ class CreateSearchTables < ActiveRecord::Migration[6.0]
           appointments.ended_at IS NULL
         JOIN offices ON appointments.office_id = offices.id;
     SQL
+
+    execute <<-SQL
+      CREATE MATERIALIZED VIEW statistics_search
+      AS
+        SELECT
+          lower(unaccent(offices.name)) AS office
+        FROM statistics
+        JOIN offices ON statistics.office_id = offices.id;
+    SQL
   end
 
   def down
     execute 'DROP MATERIALIZED VIEW offices_search'
     execute 'DROP MATERIALIZED VIEW prosecutors_search'
+    execute 'DROP MATERIALIZED VIEW statistics_search'
   end
 end

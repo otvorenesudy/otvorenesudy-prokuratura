@@ -21,6 +21,8 @@
 #  fk_rails_...  (office_id => offices.id)
 #
 class Statistic < ApplicationRecord
+  include Searchable
+
   belongs_to :office
 
   validates :year, presence: true, numericality: { in: 2010..2020 }
@@ -41,5 +43,7 @@ class Statistic < ApplicationRecord
         in_batches: 10_000, validate: false
       )
     end
+
+    Statistic.refresh_search_view
   end
 end

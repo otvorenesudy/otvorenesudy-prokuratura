@@ -6,7 +6,7 @@ class OfficesController < ApplicationController
   end
 
   def show
-    @office = Office.find(params[:id])
+    @office = Office.active.find(params[:id])
     @registry = @office.registry.deep_symbolize_keys
   end
 

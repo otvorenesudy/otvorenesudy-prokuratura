@@ -26,6 +26,10 @@ Rails.application.routes.draw do
     get :suggest, on: :collection
   end
 
+  resources :statistics, only: :index, path: :criminality do
+    get :suggest, on: :collection
+  end
+
   resource :static_page, only: [] do
     get :about
     get :faq

@@ -1,0 +1,48 @@
+<div class="container px-sm-0">
+  <div class="clearfix">
+    <div id="facets" class="float-lg-left col-lg-3 mb-5 mb-lg-0 px-0 pr-lg-4">
+      <div class="facet">
+        <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-year-content">
+          <%= t '.search.year.title' %>
+        </h6>
+
+        <div id="statistic-year-content" class="facet-content collapse show">
+          <div class="facet-results">
+            <ul class="facet-list">
+              <% if @search.facets_for(:year).each do |key, count| %>
+                <li class="facet-item">
+                  <%= link_to statistics_path(search_params(@search.params, year: key)), class: "facet-link#{' active' if search_param?(@search.params, :year, key)}" do %>
+                    <%= key %>
+                    <span class="facet-tag"><%= number_with_delimiter(count) %></span>
+                  <% end %>
+                </li>
+              <% end.empty? %>
+                <li class="facet-item">
+                  <span class="text-muted"><%= t '.search.year.not_found' %></span>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+     <div class="facet" data-controller="suggest" data-url="<%= suggest_statistics_path(@search.params.merge(facet: :office)) %>">
+        <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-office-content">
+          <%= t '.search.office.title' %>
+        </h6>
+
+        <div id="statistic-office-content" class="facet-content collapse show">
+          <div class="facet-results">
+            <input class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.office.placeholder' %>" type="text" autocomplete="off">
+            <%= render 'office_results', values: @search.facets_for(:office), params: @search.params %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="float-lg-right col-lg-9 px-0">
+      <h1 class="display-2 text-truncate text-uppercase mr-sm-4 mt-1 pr-5">
+        <%= t '.title' %>
+      </h1>
+    </div>
+  </div>
+</div>

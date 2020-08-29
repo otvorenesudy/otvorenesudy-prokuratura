@@ -21,19 +21,26 @@ module GenproGovSk
     end
 
     def self.parse_structures
-      urls = %w[
-        https://www.genpro.gov.sk/extdoc/54977/Struktura%20kriminality%20stihanych%20a%20obzalovanych%20osob
-        https://www.genpro.gov.sk/extdoc/54820/Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-        https://www.genpro.gov.sk/extdoc/54483/2018_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-        https://www.genpro.gov.sk/extdoc/54488/2017_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-        https://www.genpro.gov.sk/extdoc/54487/2016_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-        https://www.genpro.gov.sk/extdoc/54486/2015_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-        https://www.genpro.gov.sk/extdoc/54485/2014_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-        https://www.genpro.gov.sk/extdoc/54395/2013_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-        https://www.genpro.gov.sk/extdoc/54394/2012_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-        https://www.genpro.gov.sk/extdoc/54393/2011_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-        https://www.genpro.gov.sk/extdoc/54392/2010_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-      ]
+      html =
+        Curl.get(
+          'https://www.genpro.gov.sk/statistiky/statisticky-prehlad-trestnej-a-netrestnej-cinnosti-za-rok-2020-3a68.html'
+        ).body_str
+      url = Nokogiri.HTML(html).css('a:contains("Štruktúra kriminality stíhaných a obžalovaných osôb")')[0][:href]
+      urls = ["https://www.genpro.gov.sk#{url}"]
+
+      urls +=
+        %w[
+          https://www.genpro.gov.sk/extdoc/54820/Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+          https://www.genpro.gov.sk/extdoc/54483/2018_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+          https://www.genpro.gov.sk/extdoc/54488/2017_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+          https://www.genpro.gov.sk/extdoc/54487/2016_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+          https://www.genpro.gov.sk/extdoc/54486/2015_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+          https://www.genpro.gov.sk/extdoc/54485/2014_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+          https://www.genpro.gov.sk/extdoc/54395/2013_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+          https://www.genpro.gov.sk/extdoc/54394/2012_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+          https://www.genpro.gov.sk/extdoc/54393/2011_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+          https://www.genpro.gov.sk/extdoc/54392/2010_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+        ]
 
       urls.map do |url|
         FileDownloader.download(url) do |path|
@@ -157,6 +164,7 @@ module GenproGovSk
       'V trestných registroch Pv/Kv/Gv bolo vybavených spisov' => :closed_cases,
       'Podmienečné zastavenie TS súdom' => :conditional_cessation_by_court,
       'Podmienečné zastavenie TS' => :conditional_cessation,
+      # TODO: verify THIS
       'Podmienečné zastavenie TS prokurátorom' => :conditional_cessation_by_prosecutor,
       'Podmienečné zastavenie TS - osvedčil sa - spolu' => :conditional_cessation_of_accused_all,
       'Podmienečné zastavenie TS - osvedčil sa - spolu z toho osvedčil sa obvinený' =>
@@ -172,8 +180,8 @@ module GenproGovSk
         :conditional_cessation_of_cooperating_accused_by_prosecutor,
       'Podmienečné zastavenie TS spolupracujúceho obvineného prokurátorom' =>
         :conditional_cessation_of_cooperating_accused_by_prosecutor,
-      'Dohoda o vine a treste' => :guilt_and_punishment_agreement,
-      'Dohoda o vine a treste odoslaná na súd' => :guilt_and_punishment_agreement,
+      'Dohoda o vine a treste' => :guilt_and_sentence_agreement,
+      'Dohoda o vine a treste odoslaná na súd' => :guilt_and_sentence_agreement,
       'V trestných registroch Pv/Kv/Gv napadlo spisov' => :incoming_cases,
       'Počet stíhaných známych osôb (na prokuratúre skončené)' => :prosecuted_all,
       'Počet známych odstíhaných osôb (na prokuratúre skončené)' => :prosecuted_all,
@@ -213,17 +221,17 @@ module GenproGovSk
       'Právoplatné rozhodnutia súdu – spolu oslobodenie' => :valid_court_decision_on_exemption,
       'Právoplatné rozhodnutia súdu – spolu schválenie zmieru' => :valid_court_decision_on_reconciliation_approval,
       'Počet oznámení súdu o schválení zmieru' => :valid_court_decision_on_reconciliation_approval,
-      'Právoplatné rozhodnutia súdu – spolu upustenie od potrestania' => :valid_court_decision_on_waiver_of_punishment,
+      'Právoplatné rozhodnutia súdu – spolu upustenie od potrestania' => :valid_court_decision_on_waiver_of_sentence,
       'Počet oznámení súdu o schválení dohody o vine a treste' =>
-        :valid_court_decision_only_convicted_with_guilt_and_punishment_agreement,
+        :valid_court_decision_only_convicted_with_guilt_and_sentence_agreement,
       'Právoplatné rozhodnutia súdu – spolu z odsúdených len schválenie dohody o vine a treste' =>
-        :valid_court_decision_only_convicted_with_guilt_and_punishment_agreement,
+        :valid_court_decision_only_convicted_with_guilt_and_sentence_agreement,
       'Počet oznámení o schválení dohody o vine a treste súdom' =>
-        :valid_court_decision_only_convicted_with_guilt_and_punishment_agreement,
+        :valid_court_decision_only_convicted_with_guilt_and_sentence_agreement,
       "Právoplatné rozhodnutia súdu – spolu rozhodnutie \"inak\"" => :valid_other_court_decision
     }
 
-    PARAGRAPHS_MAP = {
+    PARAGRAPHS_BY_ACCUSED_AND_PROSECUTED_MAP = {
       'Vek 14 - 15' => :accused_age_14_to_15_all,
       'Vek 14 - 15 - dievčatá' => :accused_age_14_to_15_girls,
       'Vek 14 - 15 - chlapci' => :accused_age_14_to_15_boys,
@@ -254,7 +262,6 @@ module GenproGovSk
       'Obžalovaných osôb - z toho muži' => :accused_men,
       'Obžalovaných osôb' => :accused_all,
       'Obžalovaných osôb - počet útokov pri tr. činoch' => :accused_people_for_attacks_in_crimes,
-      #'Počet útokov pri tr. činoch' => :accused_people_for_attacks_in_crimes,
       'Obžalovaných osôb za úmyselné tr. činy' => :accused_people_for_intentional_crimes,
       'Obžalovaných osôb - úmyselné tr. činy' => :accused_people_for_intentional_crimes,
       'Obžalovaných osôb za úmyselné tr. činy - úmyselné tr. činy rovnakého druhu' =>
@@ -266,25 +273,15 @@ module GenproGovSk
       'Obžalovaných osôb - vplyv inej návykovej látky' => :accused_substance_abuse,
       'Obžalovaných osôb - z toho ženy' => :accused_women,
       'Obžalovaných osôb - ženy' => :accused_women,
-      'Počet postúpených' => :assignation_of_prosuction,
-      'Počet zastavených TS' => :cessation_of_prosecution,
-      'Počet zastavených' => :cessation_of_prosecution,
-      'Počet podmienečne zastavených TS' => :conditional_cessation,
-      #'Podmienečné zastavenie TS' => :conditional_cessation,
-      #'Podmienečné zastavenie tr. stíhania' => :conditional_cessation,
-      #'Podmienečné zastavenie TS - spolupracujúcich obvinených' =>
-      #  :conditional_cessation_of_cooperating_accused_and_proven,
-      #'Podmienečné zastavenie TS - spolupracujúcich osôb' => :conditional_cessation_of_cooperating_accused_and_proven,
-      #'Podmienečné zastavenie tr. stíhania - spolupracujúcich osôb' =>
-      #  :conditional_cessation_of_cooperating_accused_and_proven,
-      'Počet podmienečne zastavených TS spoluprac. obvineného' =>
-        :conditional_cessation_of_cooperating_accused_and_proven,
-      'Počet podmienečne zastavených TS -TS spoluprac. obvineného' =>
-        :conditional_cessation_of_cooperating_accused_and_proven,
-      'Počet schválených dohôd o vine a treste' => :guilt_and_punishment_agreement,
-      'Počet schval. dohôd o vine a trest' => :guilt_and_punishment_agreement,
-      # 'Dohoda o vine a treste' => :guilt_and_punishment_agreement,
-      'Ukončené tr. stíhanie osôb' => :known_closed_prosecuted_people,
+      'Podmienečné zastavenie TS' => :conditional_cessation_by_prosecutor,
+      'Podmienečné zastavenie tr. stíhania' => :conditional_cessation_by_prosecutor,
+      'Podmienečné zastavenie TS - spolupracujúcich obvinených' =>
+        :conditional_cessation_of_accused_and_proven_by_prosecutor,
+      'Podmienečné zastavenie TS - spolupracujúcich osôb' =>
+        :conditional_cessation_of_cooperating_accused_by_prosecutor,
+      'Podmienečné zastavenie tr. stíhania - spolupracujúcich osôb' =>
+        :conditional_cessation_of_cooperating_accused_by_prosecutor,
+      'Dohoda o vine a treste' => :guilt_and_sentence_agreement,
       'Odstíhané známe osoby - vplyv alkoholu' => :prosecuted_alcohol_abuse,
       'Odstíhané známe osoby' => :prosecuted_all,
       'Odstíhané známe osoby - muži' => :prosecuted_men,
@@ -292,33 +289,55 @@ module GenproGovSk
       'Odstíhané známe osoby - vplyv inej návykovej látky' => :prosecuted_substance_abuse,
       'Odstíhané známe osoby - ženy' => :prosecuted_women,
       'Odstíhané známe osoby - mladiství' => :prosecuted_young,
-      'Tresty OS podľa §47/2 T.z.' => :punishment_by_os_47_2_tz,
-      'Trest - Peňažný' => :punishment_financial,
-      'Tresty NEPO' => :punishment_nepo,
-      'Tresty povinnej práce' => :punishment_of_compulsary_labor,
-      'Tresty prepadnutia veci' => :punishment_of_forfeiture_of_possesion,
-      'Tresty prepadnutia majetku' => :punishment_of_forfeiture_of_property,
-      'Iné tresty' => :punishment_other,
-      'Tresty PO' => :punishment_po,
-      'Trest - Zákaz pohybu' => :punishment_prohibition_of_movement,
-      'Trest - Zákaz činnosti' => :punishment_prohibition_of_practice,
-      'Trest - Zákaz pobytu' => :punishment_prohibition_of_stay,
-      'Tresty domáceho väzenia' => :punishment_under_home_arrest,
-      'Tresty upustené' => :punishment_waived,
-      'Tresty vyhostenia' => :punishment_of_deportation,
-      #'Rozhodnutie o schválení zmieru a zastavení trestného stíhania' => :reconciliation_approval,
-      #'Schválenie zmieru' => :reconciliation_approval,
-      'Počet schválených zmierov' => :reconciliation_approval,
-      'Odsúdených osôb' => :sentenced_all,
-      'Odsúdených osôb - muži' => :sentenced_men,
-      'Odsúdených osôb - ženy' => :sentenced_women,
-      'Odsúdených osôb - mladiství' => :sentenced_young,
-      'Počet prerušených' => :suspension_of_prosecution,
-      'Počet prerušených TS' => :suspension_of_prosecution,
+      'Rozhodnutie o schválení zmieru a zastavení trestného stíhania' => :reconciliation_approval,
+      'Schválenie zmieru' => :reconciliation_approval,
       'Oslobodených osôb' => :exemption,
-      'Počet oslobodených osôb' => :exemption,
-      'Počet upustení od potrestania' => :waiver_of_punishment,
-      'Počet inak skončených' => :other_mean_of_resolution
+      'Ukončené tr. stíhanie osôb' => :prosecuted_all,
+      'Ukončené tr. stíhanie osôb - ženy' => :prosecuted_women,
+      'Ukončené tr. stíhanie osôb - mladiství' => :prosecuted_young,
+      'Ukončené tr. stíhanie osôb - vplyv alkoholu' => :prosecuted_alcohol_abuse,
+      'Ukončené tr. stíhanie osôb - iné návykové látky' => :prosecuted_substance_abuse
+    }
+
+    PARAGRAPHS_BY_CONVICTED_MAP = {
+      'Súdených osôb' => :judged_all,
+      'Oslobodených osôb' => :exempt_all,
+      'Odsúdených osôb' => :convicted_all,
+      'Odsúdených osôb - muži' => :convicted_men,
+      'Odsúdených osôb - ženy' => :convicted_women,
+      'Odsúdených osôb - mladiství' => :convicted_young,
+      'Tresty OS podľa §47/2 T.z.' => :sentence_by_os_47_2_tz,
+      'Trest - Peňažný' => :sentence_financial,
+      'Tresty NEPO' => :sentence_nepo,
+      'Tresty povinnej práce' => :sentence_of_compulsary_labor,
+      'Tresty prepadnutia veci' => :sentence_of_forfeiture_of_possesion,
+      'Tresty prepadnutia majetku' => :sentence_of_forfeiture_of_property,
+      'Iné tresty' => :sentence_other,
+      'Tresty PO' => :sentence_po,
+      'Trest - Zákaz pohybu' => :sentence_prohibition_of_movement,
+      'Trest - Zákaz činnosti' => :sentence_prohibition_of_practice,
+      'Trest - Zákaz pobytu' => :sentence_prohibition_of_stay,
+      'Tresty domáceho väzenia' => :sentence_under_home_arrest,
+      'Tresty upustené' => :sentence_waived,
+      'Tresty vyhostenia' => :sentence_of_deportation,
+      'Uložené ochranné opatrenia' => :protective_measures_imposed,
+      'Počet schval. dohôd o vine a trest' => :valid_court_decision_only_convicted_with_guilt_and_sentence_agreement,
+      'Počet schválených dohôd o vine a treste' =>
+        :valid_court_decision_only_convicted_with_guilt_and_sentence_agreement,
+      'Počet podmienečne zastavených TS' => :valid_court_decision_on_conditional_cessation_of_prosecution,
+      'Počet podmienečne zastavených TS spoluprac. obvineného' =>
+        :valid_court_decision_on_conditional_cessation_of_prosecution_of_cooperating_accused,
+      'Počet podmienečne zastavených TS -TS spoluprac. obvineného' =>
+        :valid_court_decision_on_conditional_cessation_of_prosecution_of_cooperating_accused,
+      'Počet schválených zmierov' => :valid_court_decision_on_reconciliation_approval,
+      'Počet zastavených TS' => :valid_court_decision_on_cessation_of_prosecution,
+      'Počet zastavených' => :valid_court_decision_on_cessation_of_prosecution,
+      'Počet prerušených' => :valid_court_decision_on_suspension_of_prosecution,
+      'Počet prerušených TS' => :valid_court_decision_on_suspension_of_prosecution,
+      'Počet postúpených' => :valid_court_decision_on_assignation_of_prosecution,
+      'Počet oslobodených osôb' => :valid_court_decision_on_exemption,
+      'Počet upustení od potrestania' => :valid_court_decision_on_waiver_of_sentence,
+      'Počet inak skončených' => :valid_other_court_decision
     }
   end
 end

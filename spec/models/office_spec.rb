@@ -6,6 +6,7 @@
 #  additional_address      :string(1024)
 #  address                 :string(1024)     not null
 #  city                    :string           not null
+#  destroyed_at            :datetime
 #  electronic_registry     :string
 #  email                   :string
 #  fax                     :string
@@ -18,10 +19,11 @@
 #  zipcode                 :string           not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  genpro_gov_sk_office_id :bigint           not null
+#  genpro_gov_sk_office_id :bigint
 #
 # Indexes
 #
+#  index_offices_on_destroyed_at             (destroyed_at)
 #  index_offices_on_genpro_gov_sk_office_id  (genpro_gov_sk_office_id)
 #  index_offices_on_name                     (name) UNIQUE
 #  index_offices_on_type                     (type)

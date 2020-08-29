@@ -11,7 +11,7 @@ class CreateOffices < ActiveRecord::Migration[6.0]
     add_index :genpro_gov_sk_offices, :digest, unique: true
 
     create_table :offices do |t|
-      t.references :genpro_gov_sk_office, null: false, foreign_key: true
+      t.references :genpro_gov_sk_office, null: true, foreign_key: true
 
       t.string :name, null: false
       t.integer :type, null: true
@@ -26,6 +26,7 @@ class CreateOffices < ActiveRecord::Migration[6.0]
       t.jsonb :registry, null: false
       t.float :latitude, null: false
       t.float :longitude, null: false
+      t.datetime :destroyed_at, null: true
 
       t.timestamps null: false
     end
@@ -40,5 +41,7 @@ class CreateOffices < ActiveRecord::Migration[6.0]
               name: :index_offices_on_unique_specialized_type,
               unique: true,
               where: "type = #{Office.types[:specialized]}"
+
+    add_index :offices, :destroyed_at
   end
 end

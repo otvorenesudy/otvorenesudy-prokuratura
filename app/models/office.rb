@@ -6,6 +6,7 @@
 #  additional_address      :string(1024)
 #  address                 :string(1024)     not null
 #  city                    :string           not null
+#  destroyed_at            :datetime
 #  electronic_registry     :string
 #  email                   :string
 #  fax                     :string
@@ -18,10 +19,11 @@
 #  zipcode                 :string           not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  genpro_gov_sk_office_id :bigint           not null
+#  genpro_gov_sk_office_id :bigint
 #
 # Indexes
 #
+#  index_offices_on_destroyed_at             (destroyed_at)
 #  index_offices_on_genpro_gov_sk_office_id  (genpro_gov_sk_office_id)
 #  index_offices_on_name                     (name) UNIQUE
 #  index_offices_on_type                     (type)
@@ -37,7 +39,7 @@ class Office < ApplicationRecord
 
   self.inheritance_column = :_type_disabled
 
-  belongs_to :genpro_gov_sk_office, class_name: :'GenproGovSk::Office'
+  belongs_to :genpro_gov_sk_office, class_name: :'GenproGovSk::Office', optional: true
 
   has_many :employees, dependent: :destroy
   has_many :appointments, dependent: :destroy
@@ -58,6 +60,8 @@ class Office < ApplicationRecord
   validate :validate_registry, if: :registry?
 
   before_validation :geocode, if: -> { address.present? && city.present? && (address_changed? || city_changed?) }
+
+  scope :active, -> { where(destroyed_at: nil) }
 
   def attorney_general
     employees.active.order(rank: :asc).first

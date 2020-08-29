@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_22_210209) do
+ActiveRecord::Schema.define(version: 2020_07_04_140315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pg_trgm'
   enable_extension 'plpgsql'
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2020_08_22_210209) do
   end
 
   create_table 'offices', force: :cascade do |t|
-    t.bigint 'genpro_gov_sk_office_id', null: false
+    t.bigint 'genpro_gov_sk_office_id'
     t.string 'name', null: false
     t.integer 'type'
     t.string 'address', limit: 1024, null: false
@@ -83,8 +83,10 @@ ActiveRecord::Schema.define(version: 2020_08_22_210209) do
     t.jsonb 'registry', null: false
     t.float 'latitude', null: false
     t.float 'longitude', null: false
+    t.datetime 'destroyed_at'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.index %w[destroyed_at], name: 'index_offices_on_destroyed_at'
     t.index %w[genpro_gov_sk_office_id], name: 'index_offices_on_genpro_gov_sk_office_id'
     t.index %w[name], name: 'index_offices_on_name', unique: true
     t.index %w[type], name: 'index_offices_on_type'

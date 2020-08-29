@@ -27,7 +27,8 @@ class Search
 
     return facets if params[key].blank? || suggest.present?
 
-    values = (params[key] - facets.keys).each.with_object({}) { |value, hash| hash[value] = all[value] || nil }
+    values =
+      (params[key] - facets.keys.map(&:to_s)).each.with_object({}) { |value, hash| hash[value] = all[value] || nil }
 
     values.merge(facets)
   end

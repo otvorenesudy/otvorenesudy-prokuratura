@@ -4,8 +4,6 @@
 [![Code Climate](https://codeclimate.com/github/otvorenesudy/otvorenesudy-api/badges/gpa.svg)](https://codeclimate.com/github/otvorenesudy/otvorenesudy-api)
 [![Test Coverage](https://codeclimate.com/github/otvorenesudy/otvorenesudy-api/badges/coverage.svg)](https://codeclimate.com/github/otvorenesudy/otvorenesudy-api/coverage)
 
-RESTful APIs and crawlers for public data of the [Open Courts](https://github.com/otvorenesudy) project
-
 Public data project aimed at making information about public prosecutors such as their assignations and property declarations, and annual data about criminality from [General Prosecutors Office of the Slovak Republic](https://www.genpro.gov.sk) more publicly available.
 
 ## Requirements
@@ -27,8 +25,10 @@ Now import the data
 ```ruby
 GenproGovSk::Offices.import
 GenproGovSk::Prosecutors.import
-GenproGovSk::Declarations.import # make sure to run Sidekiq as Declarations are processed in jobs
-GenproGovSk::Criminality.import
+GenproGovSk::Declarations.import
+
+# Runs 12 separate processes to levarage all your cores. Adjust for less if needed.
+GenproGovSk::Criminality.import # make sure to run Sidekiq as Declarations are processed in jobs
 ```
 
 ## Contributing

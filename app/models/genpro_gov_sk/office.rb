@@ -29,7 +29,6 @@ module GenproGovSk
 
       ActiveRecord::Base.transaction do
         genpro_gov_sk_office.lock!
-
         genpro_gov_sk_office.update!(data: data)
 
         office = ::Office.find_or_initialize_by(genpro_gov_sk_office: genpro_gov_sk_office)

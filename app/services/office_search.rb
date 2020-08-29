@@ -4,7 +4,7 @@ class OfficeSearch
   def initialize(params)
     @search =
       Search.new(
-        Office.all,
+        Office.active.all,
         params: params,
         filters: {
           query: QueryFilter,

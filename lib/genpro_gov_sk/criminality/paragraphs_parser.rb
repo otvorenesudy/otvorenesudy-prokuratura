@@ -24,6 +24,16 @@ module GenproGovSk
           rows.each.with_object({ statistics: [] }) do |row, data|
             title = normalize_title(row[0].to_s.gsub(/(\A[[:space:]]|[[:space:]]\z)/, ''), row: row, rows: rows)
 
+            # Report Type
+            #
+            if title.match(
+                 /(Odsúdené osoby za trestné činy|Odsúdené osoby pre prečiny, zločiny|Prehľad o osobách odsúdených pre trestné činy)/
+               )
+              data[:report] = :convicted
+            end
+
+            data[:report] = :accused_and_prosecuted if title.match(/Prehľad o stíhaných a obžalovaných osobách/)
+
             # Year
             #
             data[:year] = title.match(/\d{4}/)[0].to_i if title.match(/obdobie/i)
@@ -34,8 +44,6 @@ module GenproGovSk
 
             if title.match(/Prehľad za.* ((OP|KP|GP).+)$/) && data[:office].nil?
               _, value = *title&.match(/Prehľad za.* ((OP|KP|GP).+)$/)
-
-              next if title.match(/Prehľad za OP Šaľa/)
 
               data[:office] ||= normalize_office_name(value)
             end
@@ -48,7 +56,8 @@ module GenproGovSk
 
             # Statistics
             #
-            next unless rows.index(row) > rows.index(columns)
+            next if rows.index(row) <= rows.index(columns)
+            return if data[:report].blank?
 
             if title.starts_with?('-')
               title = "#{previous_title} #{title}"
@@ -56,7 +65,11 @@ module GenproGovSk
               previous_title = title
             end
 
-            filter = PARAGRAPHS_MAP[title]
+            map = {
+              accused_and_prosecuted: PARAGRAPHS_BY_ACCUSED_AND_PROSECUTED_MAP, convicted: PARAGRAPHS_BY_CONVICTED_MAP
+            }
+
+            filter = map[data[:report]][title]
 
             unless filter
               unknown << title
