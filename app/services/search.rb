@@ -11,7 +11,7 @@ class Search
     except = [*except]
 
     filters.reject { |(key, _)| key.in?(except) }.inject(repository) do |relation, (key, filter)|
-      filter.filter(relation, params) if filter.respond_to?(:filter)
+      next filter.filter(relation, params) if filter.respond_to?(:filter)
 
       relation
     end

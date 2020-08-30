@@ -12,7 +12,7 @@
 #
 # Indexes
 #
-#  index_statistics_on_filters                         (filters)
+#  index_statistics_on_filters                         (filters) USING gin
 #  index_statistics_on_office_id                       (office_id)
 #  index_statistics_on_year_and_office_id_and_filters  (year,office_id,filters) UNIQUE
 #
@@ -41,8 +41,6 @@ class Statistic < ApplicationRecord
         in_batches: 10_000, validate: false
       )
     end
-
-    Statistic.refresh_search_view
   end
 
   GROUPS = {
@@ -72,17 +70,21 @@ class Statistic < ApplicationRecord
       accused_people_for_intentional_crimes_of_same_nature
     ],
     prosecuted: %i[
-      prosecuted_alcohol_abuse
       prosecuted_all
-      prosecuted_foreigners
       prosecuted_men
-      prosecuted_substance_abuse
       prosecuted_women
       prosecuted_young
+      prosecuted_foreigners
+      prosecuted_alcohol_abuse
+      prosecuted_substance_abuse
     ],
     convicted: %i[convicted_all convicted_men convicted_women convicted_young],
     closure: %i[
       assignation_of_prosuction
+      guilt_and_sentence_agreement
+      reconciliation_approval
+      suspension_of_prosecution
+      suspension_of_prosecution_of_cooperating_accused
       cessation_of_prosecution
       conditional_cessation_by_court
       conditional_cessation_by_prosecutor
@@ -93,10 +95,6 @@ class Statistic < ApplicationRecord
       conditional_cessation_of_accused_by_prosecutor
       conditional_cessation_of_cooperating_accused_and_proven
       conditional_cessation_of_cooperating_accused_by_prosecutor
-      guilt_and_sentence_agreement
-      reconciliation_approval
-      suspension_of_prosecution
-      suspension_of_prosecution_of_cooperating_accused
       valid_court_decision_all
       valid_court_decision_on_assignation_of_prosecution
       valid_court_decision_on_cessation_of_prosecution
@@ -114,8 +112,25 @@ class Statistic < ApplicationRecord
       prosecution_of_unknown_offender_ended_by_police
       prosecution_of_unknown_offender_ended_by_police_by_assignation
       prosecution_of_unknown_offender_ended_by_police_by_cessation
-      prosecution_of_unknown_offender_ended_by_police_by_other_mean
       prosecution_of_unknown_offender_ended_by_police_by_suspension
-    ]
+      prosecution_of_unknown_offender_ended_by_police_by_other_mean
+    ],
+    sentence: %i[
+      sentence_by_os_47_2_tz
+      sentence_financial
+      sentence_nepo
+      sentence_of_compulsary_labor
+      sentence_of_forfeiture_of_possesion
+      sentence_of_forfeiture_of_property
+      sentence_other
+      sentence_po
+      sentence_prohibition_of_movement
+      sentence_prohibition_of_practice
+      sentence_prohibition_of_stay
+      sentence_under_home_arrest
+      sentence_waived
+      sentence_of_deportation
+    ],
+    other: %i[judged_all closed_cases incoming_cases exemption protective_measures_imposed]
   }.freeze
 end

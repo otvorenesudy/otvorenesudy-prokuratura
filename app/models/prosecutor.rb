@@ -47,7 +47,7 @@ class Prosecutor < ApplicationRecord
       offices.name
     ]
 
-    joins(:offices).pluck(attributes).map do |values|
+    joins(:offices).pluck(Arel.sql(attributes.join(', '))).map do |values|
       {
         url: Rails.application.routes.url_helpers.prosecutor_path(values[0]),
         name: values[1],

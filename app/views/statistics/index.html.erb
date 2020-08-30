@@ -8,24 +8,22 @@
 
         <div id="statistic-year-content" class="facet-content collapse show">
           <div class="facet-results">
-            <ul class="facet-list">
-              <% if @search.facets_for(:year).each do |key, count| %>
+            <% if @search.facets_for(:year).tap do |facets| %>
+              <%= collapsible_facet_results(facets) do |key, _| %>
                 <li class="facet-item">
                   <%= link_to statistics_path(search_params(@search.params, year: key)), class: "facet-link#{' active' if search_param?(@search.params, :year, key)}" do %>
                     <%= key %>
                   <% end %>
                 </li>
-              <% end.empty? %>
-                <li class="facet-item">
-                  <span class="text-muted"><%= t '.search.year.not_found' %></span>
-                </li>
               <% end %>
-            </ul>
+            <% end.empty? %>
+              <span class="text-muted"><%= t '.search.year.not_found' %></span>
+            <% end %>
           </div>
         </div>
       </div>
 
-      <div class="facet" data-controller="suggest" data-url="<%= suggest_statistics_path(@search.params.merge(facet: :office)) %>">
+      <div class="facet" data-controller="suggest">
         <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-office-content">
           <%= t '.search.office.title' %>
         </h6>
@@ -38,34 +36,41 @@
         </div>
       </div>
 
-      <div class="facet">
-        <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-accused-content">
-          <%= t '.search.accused.title' %>
-        </h6>
+      <% Statistic::GROUPS.each do |group, filters| %>
+        <% filters.select { |filter| @search.has_statistic_filter?(filter) }.tap do |facets| %>
+          <% if facets.any? %>
+            <div class="facet">
+              <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-<%= group %>-content">
+                <%= t ".search.#{group}.title" %>
+              </h6>
 
-        <div id="statistic-accused-content" class="facet-content collapse show">
-          <div class="facet-results">
-            <ul class="facet-list">
-              <% if @search.facets_for(:accused, limit: nil).each do |key, count| %>
-                <li class="facet-item">
-                  <%= link_to statistics_path(search_params(@search.params, filters: key)), class: "facet-link#{' active' if search_param?(@search.params, :filters, key)}" do %>
-                    <%= t "models.statistic.filters.#{key}" %>
+              <div id="statistic-<%= group %>-content" class="facet-content collapse show">
+                <div class="facet-results">
+                  <%= collapsible_facet_results(facets) do |key| %>
+                    <li class="facet-item">
+                      <%= link_to statistics_path(search_params(@search.params, filters: key)), class: "facet-link#{' active' if search_param?(@search.params, :filters, key)}" do %>
+                        <%= trim(t("models.statistic.filters.#{key}"), length: 30) %>
+                      <% end %>
+                    </li>
                   <% end %>
-                </li>
-              <% end.empty? %>
-                <li class="facet-item">
-                  <span class="text-muted"><%= t '.search.accused.not_found' %></span>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
     </div>
     <div class="float-lg-right col-lg-9 px-0">
       <h1 class="display-2 text-truncate text-uppercase mr-sm-4 mt-1 pr-5">
         <%= t '.title' %>
+
+        <br>
+        <small class="text-muted">Prehľad pre štatistiku Odsúdené osoby &ndash; Muži</small>
       </h1>
+
+      <div id="chart" class="mt-5" data-controller="chart" data-json="<%= @search.data.to_json %>">
+
+      </div>
     </div>
   </div>
 </div>

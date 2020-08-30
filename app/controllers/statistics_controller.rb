@@ -27,7 +27,7 @@ class StatisticsController < ApplicationController
   helper_method :index_params
 
   def index_params
-    params.permit(year: [])
+    params.permit(year: [], office: [], filters: [])
   end
 
   def suggest_params

@@ -50,12 +50,22 @@
 }
 
 .facet-results-continuation {
-  @include color-variant($navy, $blue);
+  @include color-variant($gray, $navy);
 
   display: inline-block;
 
   &:not(.collapsed) {
     margin-top: map-get($spacers, 2);
+
+    .more {
+      display: none;
+    }
+  }
+
+  &.collapsed {
+    .less {
+      display: none;
+    }
   }
 }
 

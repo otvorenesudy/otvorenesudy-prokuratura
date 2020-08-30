@@ -51,7 +51,7 @@ class ProsecutorSearch
       relation = ::QueryFilter.filter(relation, { q: suggest }, columns: %i[city])
 
       Prosecutor.from(
-        relation.joins(:offices).except(:distinct).select(
+        relation.joins(:offices).except(:distinct, :order).select(
           'DISTINCT ON (prosecutors.id, offices.city) prosecutors.id AS id, offices.city AS city'
         ),
         :prosecutors
@@ -61,7 +61,7 @@ class ProsecutorSearch
 
   class OfficeFilter
     def self.filter(relation, params)
-      return relation if params[:office_id].blank?
+      return relation if params[:office].blank?
 
       relation.joins(:offices).where(offices: { name: params[:office] }).distinct
     end
@@ -70,7 +70,7 @@ class ProsecutorSearch
       relation = ::QueryFilter.filter(relation, { q: suggest }, columns: %i[office])
 
       Prosecutor.from(
-        relation.joins(:offices).except(:distinct).select(
+        relation.joins(:offices).except(:distinct, :order).select(
           'DISTINCT ON (prosecutors.id, offices.name) prosecutors.id AS id, offices.name AS office'
         ),
         :prosecutors

@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_140315) do
     t.integer 'count', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.index %w[filters], name: 'index_statistics_on_filters'
+    t.index %w[filters], name: 'index_statistics_on_filters', using: :gin
     t.index %w[office_id], name: 'index_statistics_on_office_id'
     t.index %w[year office_id filters], name: 'index_statistics_on_year_and_office_id_and_filters', unique: true
   end

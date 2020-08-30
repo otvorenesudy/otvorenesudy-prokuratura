@@ -18,5 +18,8 @@ export default class extends Controller {
     const response = await (await fetch(`${this.url}&suggest=${this.query}`)).json();
 
     this.targets.find("results").innerHTML = response.html;
+
+    const event = new Event("suggest:changed");
+    document.dispatchEvent(event);
   }
 }

@@ -1,8 +1,8 @@
 <ul class="facet-list" data-target="suggest.results">
-  <% if values.each do |name, count| %>
+  <% if values.each do |name, _| %>
     <li class="facet-item">
       <%= link_to statistics_path(search_params(params, office: name)), class: "facet-link#{' active' if search_param?(params, :office, name)}" do %>
-        <%= name %>
+        <%= trim(name, length: 32) %>
       <% end %>
     </li>
   <% end.empty? %>

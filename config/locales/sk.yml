@@ -163,6 +163,11 @@ sk:
       found_html: "%{count} z celkovo %{total} (%{time} ms)"
       reset: Zrusiť všetky kritéria
 
+  facets:
+    collapsible_results:
+      show_more: Zobraziť viac
+      show_less: Zobraziť menej
+
   offices:
     types:
       district: Okresná
@@ -329,8 +334,26 @@ sk:
           placeholder: Meno prokuratúry
           title: Prokuratúra
         accused:
-          title: Obžalovaní
-          not_found: Nenájedené žiadne štatistiky pre obžalovaných
+          title: Obžalované osoby
+          not_found: Nenájedené žiadne ďalšie štatistiky pre obžalované osoby
+        prosecuted:
+          title: Odstíhané osoby
+          not_found: Nenájedené žiadne ďalšie štatistiky pre ostíhané osoby
+        convicted:
+          title: Odsúdené osoby
+          not_found: Nenájedené žiadne ďalšie štatistiky pre odsúdené osoby
+        closure:
+          title: Spôsoby ukončenia
+          not_found: Nenájedené žiadne ďalšie spôsoby ukončenia
+        prosecution_by_police:
+          title: Trestných stíhania ukončené na polícii – neznámi páchatelia
+          not_found: Nenájedené žiadne trestné stíhania ukončené na polícii
+        sentence:
+          title: Tresty
+          not_found: Nenájedené žiadne ďalšie štatistiky pre tresty
+        other:
+          title: Ostatné
+          not_found: Nenájedené žiadne ďalšie štatistiky
 
   static_pages:
     home:

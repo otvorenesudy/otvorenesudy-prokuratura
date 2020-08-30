@@ -8,7 +8,7 @@ class CreateStatistics < ActiveRecord::Migration[6.0]
       t.timestamps null: false
     end
 
-    add_index :statistics, :filters
+    add_index :statistics, :filters, using: :gin
     add_index :statistics, %i[year office_id filters], unique: true
   end
 end

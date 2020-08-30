@@ -1,0 +1,18 @@
+<ul class="facet-list">
+  <% visible.each do |value| %>
+    <%= capture(value, &renderer) %>
+  <% end %>
+</ul>
+
+<% if hidden.present? %>
+  <ul id="<%= id %>" class="facet-list collapse">
+    <% hidden.each do |value| %>
+      <%= capture(value, &renderer) %>
+    <% end %>
+  </ul>
+
+  <a href="#" class="facet-results-continuation collapsed" data-toggle="collapse" data-target="#<%= id %>" aria-controls=<%= id %> aria-expanded="false">
+    <span class="more"><%= t '.show_more' %></span>
+    <span class="less"><%= t '.show_less' %></span>
+  </a>
+<% end %>
