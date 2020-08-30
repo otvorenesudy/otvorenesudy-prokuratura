@@ -72,10 +72,10 @@ sk:
         convicted_men: Muži
         convicted_women: Ženy
         convicted_young: Mladiství
-        exemption: Oslobodené osôby
+        exemption: Oslobodené osoby
         guilt_and_sentence_agreement: Dohoda o vine a treste
         incoming_cases: Všetky spisy, ktoré napadli registroch Pv/Kv/Gv
-        judged_all: Súdené osôby
+        judged_all: Súdené osoby
         prosecuted_alcohol_abuse: Vplyv alkoholu
         prosecuted_all: Všetci
         prosecuted_foreigners: Cudzinci
@@ -325,10 +325,16 @@ sk:
   statistics:
     index:
       title: Kriminalita
+      subtitle: "Prehľad podľa štatistiky %{filter}"
+      subtitle_with_paragraph: 'Prehľad podľa štatistiky %{filter} podľa paragrafu ${paragraph}'
+      subtitle_with_paragraphs: 'Prehľad podľa štatistiky %{filter} podľa paragrafov ${paragraphs}'
       search:
         year:
           title: Rok
           not_found: Neboli nájdené žiadne roky
+        office_type:
+          not_found: Nenájdené žiadne typy
+          title: Typ prokuratúry
         office:
           not_found: Nenájdené žiadne prokuratúry
           placeholder: Meno prokuratúry
@@ -346,7 +352,7 @@ sk:
           title: Spôsoby ukončenia
           not_found: Nenájedené žiadne ďalšie spôsoby ukončenia
         prosecution_by_police:
-          title: Trestných stíhania ukončené na polícii – neznámi páchatelia
+          title: Trestných stíhania ukončené na polícii
           not_found: Nenájedené žiadne trestné stíhania ukončené na polícii
         sentence:
           title: Tresty

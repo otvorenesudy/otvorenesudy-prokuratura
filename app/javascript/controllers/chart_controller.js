@@ -3,12 +3,9 @@ import Highcharts from "highcharts";
 
 export default class extends Controller {
   initialize() {
-    const data = JSON.parse(this.element.getAttribute("data-json"));
-    const categories = Object.keys(
-      data.reduce((acc, data) => [...acc, ...data.years], []).reduce((acc, year) => ({ ...acc, [year]: 1 }), {})
-    );
+    const { years: categories, data } = JSON.parse(this.element.getAttribute("data-json"));
 
-    Highcharts.chart("chart", {
+    this.chart = Highcharts.chart(this.element.getElementsByClassName("chart")[0], {
       credits: {
         enabled: false,
       },
@@ -16,7 +13,7 @@ export default class extends Controller {
       chart: {
         type: "areaspline",
         backgroundColor: "transparent",
-        height: 750,
+        height: 500,
       },
 
       title: {
@@ -47,14 +44,16 @@ export default class extends Controller {
       },
 
       legend: {
-        align: "center",
-        verticalAlign: "bottom",
-        x: 0,
-        y: 0,
-        maxHeight: 1,
+        enabled: false,
       },
 
       series: data,
     });
+
+    setTimeout(() => this.chart.setSize(this.element.offsetWidth), 0);
+
+    (window.onresize = () => {
+      this.chart.setSize(this.element.offsetWidth);
+    })();
   }
 }

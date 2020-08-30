@@ -1,6 +1,7 @@
 class StatisticsController < ApplicationController
   def index
     @search = StatisticSearch.new(index_params)
+    @data = @search.data
   end
 
   def suggest
@@ -27,7 +28,7 @@ class StatisticsController < ApplicationController
   helper_method :index_params
 
   def index_params
-    params.permit(year: [], office: [], filters: [])
+    params.permit(year: [], office: [], filters: [], office_type: [])
   end
 
   def suggest_params

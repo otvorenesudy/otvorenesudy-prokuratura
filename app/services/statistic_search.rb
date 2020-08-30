@@ -1,13 +1,15 @@
 class StatisticSearch
-  attr_reader :search, :params
+  attr_reader :search, :params, :current_statistic_filters, :default_statistic_filter
 
   def initialize(params)
     @params = params
-
+    @default_statistic_filter = :judged_all
+    @current_statistic_filters = params[:filters] || [@default_statistic_filter]
     @search =
       Search.new(
         Statistic.all,
-        params: params, filters: { year: YearFilter, office: OfficeFilter, filters: FiltersFilter }
+        params: params,
+        filters: { year: YearFilter, office: OfficeFilter, office_type: OfficeTypeFilter, filters: FiltersFilter }
       )
   end
 
@@ -16,23 +18,30 @@ class StatisticSearch
   delegate :facets_for, to: :search
 
   def data
+    relation =
+      params[:filters].present? ? @search.all : @search.all.where('statistics.filters[1] = ?', default_statistic_filter)
+
     sums =
-      @search.all.where('array_length(statistics.filters, 1) = 1').joins(:office).order(:year, :'offices.name').group(
+      relation.where('array_length(statistics.filters, 1) = 1').joins(:office).order(:year, :'offices.name').group(
         :year,
         :'offices.name'
       ).sum(:count)
 
     sums_by_paragraphs =
-      @search.all.joins(:office).where('array_length(statistics.filters, 1) > 1').group(:year, :'offices.name').order(
+      relation.joins(:office).where('array_length(statistics.filters, 1) > 1').group(:year, :'offices.name').order(
         :year,
         :'offices.name'
       ).sum(:count)
 
-    sums_by_paragraphs.merge(sums).group_by { |(_, office), _| office }.map do |office, data|
-      data = data.sort_by { |e| e[0][0] }
+    all = sums_by_paragraphs.merge(sums)
+    years = all.keys.map(&:first).uniq.sort
+    groupped =
+      all.each.with_object({}) do |((year, office), count), hash|
+        hash[office] ||= {}
+        hash[office][year] = count
+      end
 
-      { name: office, data: data.map { |e| e[1] }, years: data.map { |e| e[0][0] } }
-    end
+    { years: years, data: groupped.map { |office, values| { name: office, data: years.map { |e| values[e] } } } }
   end
 
   def has_statistic_filter?(value)
@@ -64,6 +73,20 @@ class StatisticSearch
       offices = ::QueryFilter.filter(Office.all, { q: suggest }, columns: %i[name])
 
       relation.where(office: offices).joins(:office).reorder('offices.name': :asc).group('offices.name').count
+    end
+  end
+
+  class OfficeTypeFilter
+    def self.filter(relation, params)
+      return relation if params[:office_type].blank?
+
+      relation.joins(:office).where(offices: { type: params[:office_type] })
+    end
+
+    def self.facets(relation, suggest:)
+      relation.joins(:office).reorder('offices.type' => :asc).group('offices.type').count.each.with_object(
+        {}
+      ) { |(value, count), hash| hash[Office.types.key(value)] = count }
     end
   end
 

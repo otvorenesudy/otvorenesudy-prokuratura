@@ -23,7 +23,31 @@
         </div>
       </div>
 
-      <div class="facet" data-controller="suggest">
+      <div class="facet">
+        <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-office-type-content">
+          <%= t '.search.office_type.title' %>
+        </h6>
+
+        <div id="statistic-office-type-content" class="facet-content collapse show">
+          <div class="facet-results">
+            <ul class="facet-list">
+              <% if @search.facets_for(:office_type).each do |key, _| %>
+                <li class="facet-item">
+                  <%= link_to statistics_path(search_params(@search.params, office_type: key)), class: "facet-link#{' active' if search_param?(@search.params, :office_type, key)}" do %>
+                    <%= t("offices.types.#{key}") %>
+                  <% end %>
+                </li>
+              <% end.empty? %>
+                <li class="facet-item">
+                  <span class="text-muted"><%= t '.search.office_type.not_found' %></span>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="facet" data-controller="suggest" data-url="<%= suggest_statistics_path(@search.params.merge(facet: :office)) %>">
         <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-office-content">
           <%= t '.search.office.title' %>
         </h6>
@@ -61,15 +85,52 @@
       <% end %>
     </div>
     <div class="float-lg-right col-lg-9 px-0">
-      <h1 class="display-2 text-truncate text-uppercase mr-sm-4 mt-1 pr-5">
-        <%= t '.title' %>
+      <div class="d-flex flex-wrap align-items-center justify-content-between">
+        <h1 class="display-2 text-truncate text-uppercase mr-sm-4 mt-1 pr-5">
+          <%= t '.title' %>
+        </h1>
 
-        <br>
-        <small class="text-muted">Prehľad pre štatistiku Odsúdené osoby &ndash; Muži</small>
-      </h1>
+        <div class="btn-toolbar" role="toolbar">
+          <% if @search.params.any? { |_, v| v.present? } %>
+            <div class="btn-group btn-group-sm border mb-3" role="group">
+              <%= link_to t('layouts.search.reset'), statistics_path, class: 'btn btn-secondary btn-sm shadow-none border-0 w-100', 'data-turbolinks': false %>
+            </div>
+          <% end %>
+        </div>
 
-      <div id="chart" class="mt-5" data-controller="chart" data-json="<%= @search.data.to_json %>">
+        <div class="w-100" data-controller="chart" data-json="<%= @data.to_json %>">
+          <h1 class="text-uppercase">
+            <small class="text-muted">
+              <%= statistics_subtitle(@search.current_statistic_filters) %>
+            </small>
+          </h1>
 
+          <div class="mt-5 chart"></div>
+
+          <div class="mt-5" data-controller="table">
+            <%= table_tag class: 'table-responsive-md table table-sm' do %>
+              <thead>
+                <tr>
+                  <%= table_header_tag t('.search.office.title'), class: 'text-left', sorter: 'text' %>
+                  <% @data[:years].each do |year| %>
+                    <%= table_header_tag year, class: 'text-left', sorter: 'number' %>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% @data[:data].each do |value| %>
+                  <tr>
+                    <th class="text-left" scope="row"><%= minified_office_name(value[:name]) %></th>
+
+                    <% value[:data].each do |count| %>
+                      <td data-value="<%= count %>"><%= number_with_delimiter(count) %></td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tbody>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
