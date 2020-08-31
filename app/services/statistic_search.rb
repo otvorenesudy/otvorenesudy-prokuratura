@@ -1,15 +1,24 @@
 class StatisticSearch
-  attr_reader :search, :params, :current_statistic_filters, :default_statistic_filter
+  attr_reader :search, :params, :current_statistic_filters, :default_statistic_filter, :current_statistic_paragraphs
 
   def initialize(params)
     @params = params
     @default_statistic_filter = :judged_all
     @current_statistic_filters = params[:filters] || [@default_statistic_filter]
+    @current_statistic_paragraphs = [params[:paragraph_old], params[:paragraph_new]].flatten.compact
     @search =
       Search.new(
         Statistic.all,
         params: params,
-        filters: { year: YearFilter, office: OfficeFilter, office_type: OfficeTypeFilter, filters: FiltersFilter }
+        filters: {
+          year: YearFilter,
+          office: OfficeFilter,
+          office_type: OfficeTypeFilter,
+          filters: FiltersFilter,
+          paragraph: ParagraphFilter,
+          paragraph_old: ParagraphFacet.new(:old),
+          paragraph_new: ParagraphFacet.new(:new)
+        }
       )
   end
 
@@ -36,8 +45,7 @@ class StatisticSearch
     years = all.keys.map(&:first).uniq.sort
     groupped =
       all.each.with_object({}) do |((year, office), count), hash|
-        hash[office] ||= {}
-        hash[office][year] = count
+        hash[office] = (hash[office] || {}).merge(year => count)
       end
 
     { years: years, data: groupped.map { |office, values| { name: office, data: years.map { |e| values[e] } } } }
@@ -98,10 +106,36 @@ class StatisticSearch
       return relation unless params[:filters].present?
 
       relation = relation.where('statistics.filters[1] = ?', params[:filters][0])
+    end
+  end
 
-      return relation unless params[:filters][1]
+  class ParagraphFilter
+    def self.filter(relation, params)
+      return relation if params[:paragraph_old].blank? && params[:paragraph_new].blank?
 
-      relation.where('statistics.filters[2] = ?', params[:filters][1])
+      paragraphs = (params[:paragraph_old] || []) + (params[:paragraph_new] || [])
+
+      relation.where('statistics.filters[2] = ANY(ARRAY[?])', paragraphs)
+    end
+  end
+
+  class ParagraphFacet
+    attr_accessor :type
+
+    def initialize(type)
+      @type = type
+    end
+
+    def except
+      %i[paragraph_old paragraph_new paragraph]
+    end
+
+    def facets(relation, suggest:)
+      paragraphs = ::QueryFilter.filter(Paragraph.where(type: type).all, { q: suggest }, columns: %i[name])
+      order = paragraphs.pluck(:value)
+
+      relation.where('statistics.filters[2] IN (?)', paragraphs.select(:value)).group('statistics.filters[2]').count
+        .map { |value, count| [value, count] }.sort_by { |(name, _)| order.index(name) }.to_h
     end
   end
 end

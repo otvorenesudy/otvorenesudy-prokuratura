@@ -1,0 +1,13 @@
+<ul class="facet-list" data-target="suggest.results">
+  <% if values.each do |value, _| %>
+    <li class="facet-item">
+      <%= link_to statistics_path(search_params(params, :"paragraph_#{type}" => value)), class: "facet-link#{' active' if search_param?(params, :"paragraph_#{type}", value)}" do %>
+        <%= trim(Paragraph.name_of(value), length: 32) %>
+      <% end %>
+    </li>
+  <% end.empty? %>
+    <li class="facet-item">
+      <span class="text-muted"><%= t 'statistics.index.search.paragraph.not_found' %></span>
+    </li>
+  <% end %>
+</ul>

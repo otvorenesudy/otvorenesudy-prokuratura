@@ -6,13 +6,28 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Office.create!(
-  destroyed_at: Time.zone.now,
-  # TODO: official date was when?
-  name: 'Okresná prokuratúra Šaľa',
-  address: 'N/A',
-  zipcode: '927 01',
-  city: 'Šaľa',
-  phone: 'N/A',
-  registry: { phone: 'N/A', hours: { monday: 'N/A', tuesday: 'N/A', wednesday: 'N/A', thursday: 'N/A', friday: 'N/A' } }
-)
+office =
+  Office.find_or_create_by!(
+    name: 'Okresná prokuratúra Šaľa',
+    address: 'N/A',
+    zipcode: '927 01',
+    city: 'Šaľa',
+    phone: 'N/A',
+    registry: {
+      phone: 'N/A', hours: { monday: 'N/A', tuesday: 'N/A', wednesday: 'N/A', thursday: 'N/A', friday: 'N/A' }
+    }
+  )
+
+# TODO: official date was when?
+office.update!(destroyed_at: Time.zone.now)
+
+Dir[Rails.root.join('data/genpro_gov_sk/criminality/paragraph-definitions-*')].each do |path|
+  _, type = *path.match(/(old|new).csv/)
+
+  CSV.open(path, headers: true).each do |row|
+    value = "#{row[2].strip} [#{type}]"
+    name = "#{row[2].strip} – #{row[3].strip}"
+
+    Paragraph.find_or_create_by!(name: name, value: value, type: type)
+  end
+end

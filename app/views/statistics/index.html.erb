@@ -73,7 +73,7 @@
                   <div class="facet-results">
                     <%= collapsible_facet_results(facets) do |key| %>
                       <li class="facet-item">
-                        <%= link_to statistics_path(search_params(@search.params, filters: key)), class: "facet-link#{' active' if search_param?(@search.params, :filters, key)}" do %>
+                        <%= link_to statistics_path(search_params(@search.params, filters: key).merge(paragraph_old: nil, paragraph_new: nil)), class: "facet-link#{' active' if search_param?(@search.params, :filters, key)}" do %>
                           <%= trim(t("models.statistic.filters.#{key}"), length: 30) %>
                         <% end %>
                       </li>
@@ -82,6 +82,23 @@
                 </div>
               </div>
             <% end %>
+          <% end %>
+        <% end %>
+
+        <% if index_params[:filters] && index_params[:filters]&.size > 0 %>
+          <% [:old, :new].each do |type| %>
+            <div class="facet" data-controller="suggest" data-url="<%= suggest_statistics_path(@search.params.merge(facet: :"paragraph_#{type}")) %>">
+              <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-paragraph-<%= type %>-content">
+                <%= t ".search.paragraph_#{type}.title" %>
+              </h6>
+
+              <div id="statistic-paragraph-<%= type %>-content" class="facet-content collapse show">
+                <div class="facet-results">
+                  <input class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
+                  <%= render "paragraph_#{type}_results", values: @search.facets_for(:"paragraph_#{type}"), params: @search.params %>
+                </div>
+              </div>
+            </div>
           <% end %>
         <% end %>
       </div>
@@ -110,7 +127,7 @@
         <div class="w-100" data-controller="chart" data-json="<%= @data.to_json %>">
           <h1 class="text-uppercase">
             <small class="text-muted">
-              <%= statistics_subtitle(@search.current_statistic_filters) %>
+              <%= statistics_subtitle(@search.current_statistic_filters, @search.current_statistic_paragraphs) %>
             </small>
           </h1>
 

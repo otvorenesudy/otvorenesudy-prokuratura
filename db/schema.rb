@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_04_140315) do
+ActiveRecord::Schema.define(version: 2020_08_31_151843) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pg_trgm'
   enable_extension 'plpgsql'
@@ -92,6 +92,15 @@ ActiveRecord::Schema.define(version: 2020_07_04_140315) do
     t.index %w[type], name: 'index_offices_on_type'
     t.index %w[type], name: 'index_offices_on_unique_general_type', unique: true, where: '(type = 0)'
     t.index %w[type], name: 'index_offices_on_unique_specialized_type', unique: true, where: '(type = 1)'
+  end
+
+  create_table 'paragraphs', force: :cascade do |t|
+    t.integer 'type', null: false
+    t.string 'name', null: false
+    t.string 'value', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index %w[value], name: 'index_paragraphs_on_value', unique: true
   end
 
   create_table 'prosecutors', force: :cascade do |t|

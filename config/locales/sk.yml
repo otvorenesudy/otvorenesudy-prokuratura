@@ -332,8 +332,7 @@ sk:
     index:
       title: Kriminalita
       subtitle: "Prehľad podľa štatistiky %{filter}"
-      subtitle_with_paragraph: 'Prehľad podľa štatistiky %{filter} podľa paragrafu ${paragraph}'
-      subtitle_with_paragraphs: 'Prehľad podľa štatistiky %{filter} podľa paragrafov ${paragraphs}'
+      subtitle_with_paragraphs: 'Prehľad podľa štatistiky %{filter} ako súčet zvolených paragrafov'
       enlarge_chart: Zväčšiť graf
       shrink_chart: Zmenšiť graf
       search:
@@ -368,6 +367,13 @@ sk:
         other:
           title: Ostatné
           not_found: Nenájedené žiadne ďalšie štatistiky
+        paragraph_old:
+          title: Paragrafy podľa trestného zákona do roku 2005
+        paragraph_new:
+          title: Paragrafy podľa trestného zákona od roku 2006
+        paragraph:
+          placeholder: Názov paragrafu
+          not_found: Neboli nájdené žiadne paragrafy
 
   static_pages:
     home:

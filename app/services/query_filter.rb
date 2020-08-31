@@ -1,5 +1,5 @@
 class QueryFilter
-  def self.filter(relation, params, columns:, order: false)
+  def self.filter(relation, params, columns:)
     return relation unless params[:q].present?
 
     model = relation.model

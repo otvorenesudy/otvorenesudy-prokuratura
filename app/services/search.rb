@@ -24,7 +24,9 @@ class Search
   def facets_for(key, suggest: nil, limit: 10)
     key = key.to_sym
 
-    all = filters[key].facets(all(except: key).reorder(''), suggest: suggest)
+    except = filters[key].try(:except) || key
+
+    all = filters[key].facets(all(except: except).reorder(''), suggest: suggest)
     facets = limit ? all.first(limit).to_h : all
 
     return facets if params[key].blank? || suggest.present?

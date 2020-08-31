@@ -86,9 +86,7 @@ class OfficeSearch
           :offices
         ).count
 
-      buckets.each.with_object({}) do |(range, value), hash|
-        hash[range.to_s] = facets.values_at(*range.to_a).compact.sum
-      end
+      buckets.map { |range, value| [range.to_s, facets.values_at(*range.to_a).compact.sum] }.to_h
     end
   end
 

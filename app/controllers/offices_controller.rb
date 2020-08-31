@@ -11,7 +11,7 @@ class OfficesController < ApplicationController
   end
 
   def suggest
-    head 404 unless suggest_params[:facet].in?(%w[city])
+    return head 404 unless suggest_params[:facet].in?(%w[city])
 
     @search = OfficeSearch.new(index_params)
 
