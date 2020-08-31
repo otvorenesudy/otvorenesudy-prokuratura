@@ -56,16 +56,6 @@
 
   &:not(.collapsed) {
     margin-top: map-get($spacers, 2);
-
-    .more {
-      display: none;
-    }
-  }
-
-  &.collapsed {
-    .less {
-      display: none;
-    }
   }
 }
 

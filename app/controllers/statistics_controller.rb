@@ -1,7 +1,7 @@
 class StatisticsController < ApplicationController
   def index
     @search = StatisticSearch.new(index_params)
-    @data = @search.data
+    @time = Benchmark.realtime { @data = @search.data } * 1000
   end
 
   def suggest

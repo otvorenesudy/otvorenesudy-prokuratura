@@ -48,14 +48,9 @@ class ProsecutorSearch
     end
 
     def self.facets(relation, suggest:)
-      relation = ::QueryFilter.filter(relation, { q: suggest }, columns: %i[city])
+      offices = ::QueryFilter.filter(Office.all, { q: suggest }, columns: %i[city])
 
-      Prosecutor.from(
-        relation.joins(:offices).except(:distinct, :order).select(
-          'DISTINCT ON (prosecutors.id, offices.city) prosecutors.id AS id, offices.city AS city'
-        ),
-        :prosecutors
-      ).reorder(city: :asc).group(:city).count
+      relation.joins(:offices).merge(offices).reorder('offices.city': :asc).group('offices.city').count
     end
   end
 
@@ -67,14 +62,9 @@ class ProsecutorSearch
     end
 
     def self.facets(relation, suggest:)
-      relation = ::QueryFilter.filter(relation, { q: suggest }, columns: %i[office])
+      offices = ::QueryFilter.filter(Office.all, { q: suggest }, columns: %i[name])
 
-      Prosecutor.from(
-        relation.joins(:offices).except(:distinct, :order).select(
-          'DISTINCT ON (prosecutors.id, offices.name) prosecutors.id AS id, offices.name AS office'
-        ),
-        :prosecutors
-      ).reorder(office: :asc).group(:office).count
+      relation.joins(:offices).merge(offices).reorder('offices.name': :asc).group('offices.name').count
     end
   end
 

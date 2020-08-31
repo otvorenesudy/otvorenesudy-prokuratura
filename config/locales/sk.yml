@@ -161,7 +161,7 @@ sk:
 
     search:
       found_html: "%{count} z celkovo %{total} (%{time} ms)"
-      reset: Zrusiť všetky kritéria
+      reset: Zrušiť všetky kritéria
 
   facets:
     collapsible_results:
@@ -323,11 +323,19 @@ sk:
       statements: Vyhlásenia
 
   statistics:
+    count:
+      zero: 0 štatistík
+      one: 1 štatistika
+      few: '%{count} štatistík'
+      other: '%{count} štatistík'
+
     index:
       title: Kriminalita
       subtitle: "Prehľad podľa štatistiky %{filter}"
       subtitle_with_paragraph: 'Prehľad podľa štatistiky %{filter} podľa paragrafu ${paragraph}'
       subtitle_with_paragraphs: 'Prehľad podľa štatistiky %{filter} podľa paragrafov ${paragraphs}'
+      enlarge_chart: Zväčšiť graf
+      shrink_chart: Zmenšiť graf
       search:
         year:
           title: Rok

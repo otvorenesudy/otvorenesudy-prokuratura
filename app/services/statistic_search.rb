@@ -18,8 +18,7 @@ class StatisticSearch
   delegate :facets_for, to: :search
 
   def data
-    relation =
-      params[:filters].present? ? @search.all : @search.all.where('statistics.filters[1] = ?', default_statistic_filter)
+    relation = current
 
     sums =
       relation.where('array_length(statistics.filters, 1) = 1').joins(:office).order(:year, :'offices.name').group(
@@ -42,6 +41,10 @@ class StatisticSearch
       end
 
     { years: years, data: groupped.map { |office, values| { name: office, data: years.map { |e| values[e] } } } }
+  end
+
+  def current
+    params[:filters].present? ? @search.all : @search.all.where('statistics.filters[1] = ?', default_statistic_filter)
   end
 
   def has_statistic_filter?(value)

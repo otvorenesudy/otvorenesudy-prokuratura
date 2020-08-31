@@ -1,0 +1,13 @@
+[data-toggle="collapse"] {
+  &:not(.collapsed) {
+    .show {
+      display: none;
+    }
+  }
+
+  &.collapsed {
+    .hide {
+      display: none;
+    }
+  }
+}
