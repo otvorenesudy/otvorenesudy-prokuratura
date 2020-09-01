@@ -61,8 +61,8 @@
           </div>
         </div>
 
-        <% Statistic::GROUPS.each do |group, filters| %>
-          <% filters.select { |filter| @search.has_statistic_filter?(filter) }.tap do |facets| %>
+        <% Statistic::GROUPS.each do |group, metrics| %>
+          <% metrics.select { |metric| @search.has_metric?(metric) }.tap do |facets| %>
             <% if facets.any? %>
               <div class="facet">
                 <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-<%= group %>-content">
@@ -73,8 +73,8 @@
                   <div class="facet-results">
                     <%= collapsible_facet_results(facets) do |key| %>
                       <li class="facet-item">
-                        <%= link_to statistics_path(search_params(@search.params, filters: key).merge(paragraph_old: nil, paragraph_new: nil)), class: "facet-link#{' active' if search_param?(@search.params, :filters, key)}" do %>
-                          <%= trim(t("models.statistic.filters.#{key}"), length: 30) %>
+                        <%= link_to statistics_path(search_params(@search.params, metric: key).merge(paragraph_old: nil, paragraph_new: nil)), class: "facet-link#{' active' if search_param?(@search.params, :metric, key)}" do %>
+                          <%= trim(t("models.statistic.metrics.#{key}"), length: 30) %>
                         <% end %>
                       </li>
                     <% end %>
@@ -85,7 +85,7 @@
           <% end %>
         <% end %>
 
-        <% if index_params[:filters] && index_params[:filters]&.size > 0 %>
+        <% if index_params[:metric].present? %>
           <% [:old, :new].each do |type| %>
             <div class="facet" data-controller="suggest" data-url="<%= suggest_statistics_path(@search.params.merge(facet: :"paragraph_#{type}")) %>">
               <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-paragraph-<%= type %>-content">
@@ -127,7 +127,7 @@
         <div class="w-100" data-controller="chart" data-json="<%= @data.to_json %>">
           <h1 class="text-uppercase">
             <small class="text-muted">
-              <%= statistics_subtitle(@search.current_statistic_filters, @search.current_statistic_paragraphs) %>
+              <%= statistics_subtitle(@search.current_statistic_metric, @search.current_statistic_paragraphs) %>
             </small>
           </h1>
 

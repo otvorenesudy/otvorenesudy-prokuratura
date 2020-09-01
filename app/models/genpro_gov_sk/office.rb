@@ -29,6 +29,7 @@ module GenproGovSk
 
       ActiveRecord::Base.transaction do
         genpro_gov_sk_office.lock!
+
         genpro_gov_sk_office.update!(data: data)
 
         office = ::Office.find_or_initialize_by(genpro_gov_sk_office: genpro_gov_sk_office)
@@ -49,8 +50,6 @@ module GenproGovSk
 
         office.employees.where.not(id: employees).update_all(disabled_at: Time.zone.now)
       end
-
-      ::Office.refresh_search_view
     end
   end
 end

@@ -4,7 +4,8 @@
 #
 #  id         :bigint           not null, primary key
 #  count      :integer          not null
-#  filters    :string           not null, is an Array
+#  metric     :string           not null
+#  paragraph  :string
 #  year       :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -12,9 +13,8 @@
 #
 # Indexes
 #
-#  index_statistics_on_filters                         (filters) USING gin
-#  index_statistics_on_office_id                       (office_id)
-#  index_statistics_on_year_and_office_id_and_filters  (year,office_id,filters) UNIQUE
+#  index_statistics_on_office_id                                    (office_id)
+#  index_statistics_on_year_and_office_id_and_metric_and_paragraph  (year,office_id,metric,paragraph) UNIQUE
 #
 # Foreign Keys
 #
@@ -24,7 +24,7 @@ class Statistic < ApplicationRecord
   belongs_to :office
 
   validates :year, presence: true, numericality: { in: 2010..2020 }
-  validates :filters, presence: true, uniqueness: { scope: %i[year office_id] }
+  validates :metric, presence: true, uniqueness: { scope: %i[year office_id paragraph] }
   validates :count, presence: true, numericality: true
 
   def self.import_from(records)
@@ -37,7 +37,7 @@ class Statistic < ApplicationRecord
       records.each { |record| record[:office_id] = offices[record[:office]] }
 
       Statistic.import(
-        records.map { |e| e.slice(:year, :office_id, :filters, :count) }.uniq,
+        records.map { |e| { paragraph: nil }.merge(e.slice(:year, :office_id, :metric, :paragraph, :count)) }.uniq,
         in_batches: 10_000, validate: false
       )
     end

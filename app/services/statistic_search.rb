@@ -1,10 +1,10 @@
 class StatisticSearch
-  attr_reader :search, :params, :current_statistic_filters, :default_statistic_filter, :current_statistic_paragraphs
+  attr_reader :search, :params, :current_statistic_metric, :default_statistic_metric, :current_statistic_paragraphs
 
   def initialize(params)
     @params = params
-    @default_statistic_filter = :judged_all
-    @current_statistic_filters = params[:filters] || [@default_statistic_filter]
+    @default_statistic_metric = :judged_all
+    @current_statistic_metric = params[:metric]&.first || @default_statistic_metric
     @current_statistic_paragraphs = [params[:paragraph_old], params[:paragraph_new]].flatten.compact
     @search =
       Search.new(
@@ -14,7 +14,7 @@ class StatisticSearch
           year: YearFilter,
           office: OfficeFilter,
           office_type: OfficeTypeFilter,
-          filters: FiltersFilter,
+          metric: MetricFilter,
           paragraph: ParagraphFilter,
           paragraph_old: ParagraphFacet.new(:old),
           paragraph_new: ParagraphFacet.new(:new)
@@ -30,16 +30,14 @@ class StatisticSearch
     relation = current
 
     sums =
-      relation.where('array_length(statistics.filters, 1) = 1').joins(:office).order(:year, :'offices.name').group(
-        :year,
-        :'offices.name'
-      ).sum(:count)
+      relation.where(paragraph: nil).joins(:office).order(:year, :'offices.name').group(:year, :'offices.name').sum(
+        :count
+      )
 
     sums_by_paragraphs =
-      relation.joins(:office).where('array_length(statistics.filters, 1) > 1').group(:year, :'offices.name').order(
-        :year,
-        :'offices.name'
-      ).sum(:count)
+      relation.joins(:office).where.not(paragraph: nil).group(:year, :'offices.name').order(:year, :'offices.name').sum(
+        :count
+      )
 
     all = sums_by_paragraphs.merge(sums)
     years = all.keys.map(&:first).uniq.sort
@@ -52,13 +50,13 @@ class StatisticSearch
   end
 
   def current
-    params[:filters].present? ? @search.all : @search.all.where('statistics.filters[1] = ?', default_statistic_filter)
+    params[:metric].present? ? @search.all : @search.all.where('statistics.metric = ?', default_statistic_metric)
   end
 
-  def has_statistic_filter?(value)
-    @statistic_filters ||= @search.all.pluck(Arel.sql('DISTINCT statistics.filters[1] AS filter')).map(&:to_sym)
+  def has_metric?(value)
+    @metrics ||= @search.all.pluck(Arel.sql('DISTINCT statistics.metric')).map(&:to_sym)
 
-    value.in?(@statistic_filters)
+    value.in?(@metrics)
   end
 
   class YearFilter
@@ -101,11 +99,11 @@ class StatisticSearch
     end
   end
 
-  class FiltersFilter
+  class MetricFilter
     def self.filter(relation, params)
-      return relation unless params[:filters].present?
+      return relation unless params[:metric].present?
 
-      relation = relation.where('statistics.filters[1] = ?', params[:filters][0])
+      relation = relation.where(metric: params[:metric][0])
     end
   end
 
@@ -115,7 +113,7 @@ class StatisticSearch
 
       paragraphs = (params[:paragraph_old] || []) + (params[:paragraph_new] || [])
 
-      relation.where('statistics.filters[2] = ANY(ARRAY[?])', paragraphs)
+      relation.where(paragraph: paragraphs)
     end
   end
 
@@ -134,8 +132,9 @@ class StatisticSearch
       paragraphs = ::QueryFilter.filter(Paragraph.where(type: type).all, { q: suggest }, columns: %i[name])
       order = paragraphs.pluck(:value)
 
-      relation.where('statistics.filters[2] IN (?)', paragraphs.select(:value)).group('statistics.filters[2]').count
-        .map { |value, count| [value, count] }.sort_by { |(name, _)| order.index(name) }.to_h
+      relation.where(paragraph: paragraphs.select(:value)).group(:paragraph).count.map do |value, count|
+        [value, count]
+      end.sort_by { |(name, _)| order.index(name) }.to_h
     end
   end
 end

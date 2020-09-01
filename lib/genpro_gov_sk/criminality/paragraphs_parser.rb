@@ -69,9 +69,9 @@ module GenproGovSk
               accused_and_prosecuted: PARAGRAPHS_BY_ACCUSED_AND_PROSECUTED_MAP, convicted: PARAGRAPHS_BY_CONVICTED_MAP
             }
 
-            filter = map[data[:report]][title]
+            metric = map[data[:report]][title]
 
-            unless filter
+            unless metric
               unknown << title
               next
             end
@@ -81,32 +81,34 @@ module GenproGovSk
 
               count = parse_count(row[index])
 
-              data[:statistics] << { filters: [filter, paragraph], count: count }
+              data[:statistics] << { metric: metric, paragraph: paragraph, count: count }
             end
           end
 
         return if data[:statistics].blank?
 
         data[:statistics].each do |statistic|
-          filter, paragraph = *statistic[:filters]
+          metric = statistic[:metric]
+          paragraph = statistic[:paragraph]
           count = statistic[:count]
 
           calculate_complemental_count(
             data,
-            paragraph: paragraph, filter: filter, count: count, from: 'girls', to: 'boys'
+            paragraph: paragraph, metric: metric, count: count, from: 'girls', to: 'boys'
           )
 
           calculate_complemental_count(
             data,
-            paragraph: paragraph, filter: filter, count: count, from: 'women', to: 'men'
+            paragraph: paragraph, metric: metric, count: count, from: 'women', to: 'men'
           )
         end
 
-        %i[accused_recidivists_all].each do |filter|
-          data[:statistics].map { |e| e[:filters][1] }.uniq.each do |paragraph|
-            count = data[:statistics].find { |e| e[:filters] == [filter, paragraph] }.try { |e| e[:count] }
+        %i[accused_recidivists_all].each do |metric|
+          data[:statistics].map { |e| e[:paragraph] }.uniq.each do |paragraph|
+            count =
+              data[:statistics].find { |e| e[:metric] == metric && e[:paragraph] == paragraph }.try { |e| e[:count] }
 
-            calculate_sum_count(data, paragraph: paragraph, filter: filter, count: count)
+            calculate_sum_count(data, paragraph: paragraph, metric: metric, count: count)
           end
         end
 
@@ -115,31 +117,33 @@ module GenproGovSk
         data.merge(unknown: unknown)
       end
 
-      def self.calculate_complemental_count(data, paragraph:, filter:, count:, from:, to:)
-        return unless filter.to_s.match(/_#{from}\z/)
+      def self.calculate_complemental_count(data, paragraph:, metric:, count:, from:, to:)
+        return unless metric.to_s.match(/_#{from}\z/)
 
-        base = filter.to_s.gsub(/_#{from}\z/, '').to_sym
+        base = metric.to_s.gsub(/_#{from}\z/, '').to_sym
         all = :"#{base}_all"
-        sum = data[:statistics].find { |e| e[:filters] == [all, paragraph] }
+        sum = data[:statistics].find { |e| e[:metric] == all && e[:paragraph] == paragraph }
 
-        return if !sum || !sum[:count] || data[:statistics].find { |e| e[:filters] == [:"#{base}_#{to}", paragraph] }
+        if !sum || !sum[:count] ||
+             data[:statistics].find { |e| e[:metric] == :"#{base}_#{to}" && e[:paragraph] == paragraph }
+          return
+        end
 
-        data[:statistics] << { filters: [:"#{base}_#{to}", paragraph], count: sum[:count] - (count || 0) }
+        data[:statistics] << { metric: :"#{base}_#{to}", paragraph: paragraph, count: sum[:count] - (count || 0) }
       end
 
-      def self.calculate_sum_count(data, paragraph:, filter:, count:)
-        return if !filter.to_s.match(/_all\z/) || count
+      def self.calculate_sum_count(data, paragraph:, metric:, count:)
+        return if !metric.to_s.match(/_all\z/) || count
 
-        base = filter.to_s.gsub(/_all\z/, '').to_sym
+        base = metric.to_s.gsub(/_all\z/, '').to_sym
         children =
           data[:statistics].select do |e|
-            e[:filters][0].match(/\A#{base}_\w+\z/) && e[:filters][0] != filter && e[:filters][1] == paragraph &&
-              e[:count]
+            e[:metric].match(/\A#{base}_\w+\z/) && e[:metric] != metric && e[:paragraph] == paragraph && e[:count]
           end
 
         return if children.blank?
 
-        data[:statistics] << { filters: [filter, paragraph], count: children.map { |e| e[:count] }.sum }
+        data[:statistics] << { metric: metric, paragraph: paragraph, count: children.map { |e| e[:count] }.sum }
       end
 
       def self.normalize_office_name(value)

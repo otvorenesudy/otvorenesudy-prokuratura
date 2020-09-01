@@ -118,13 +118,14 @@ ActiveRecord::Schema.define(version: 2020_08_31_151843) do
   create_table 'statistics', force: :cascade do |t|
     t.bigint 'office_id', null: false
     t.integer 'year', null: false
-    t.string 'filters', null: false, array: true
+    t.string 'metric', null: false
+    t.string 'paragraph'
     t.integer 'count', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.index %w[filters], name: 'index_statistics_on_filters', using: :gin
     t.index %w[office_id], name: 'index_statistics_on_office_id'
-    t.index %w[year office_id filters], name: 'index_statistics_on_year_and_office_id_and_filters', unique: true
+    t.index %w[year office_id metric paragraph],
+            name: 'index_statistics_on_year_and_office_id_and_metric_and_paragraph', unique: true
   end
 
   add_foreign_key 'appointments', 'genpro_gov_sk_prosecutors_lists'

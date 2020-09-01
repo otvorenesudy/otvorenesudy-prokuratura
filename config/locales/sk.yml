@@ -32,7 +32,7 @@ sk:
 
   models:
     statistic:
-      filters:
+      metrics:
         accused_age_14_to_15_all: Vek od 14 do 15 rokov
         accused_age_14_to_15_boys: Chlapci od 14 do 15 rokov
         accused_age_14_to_15_girls: Dievčatá od 14 o 15 rokov
@@ -331,8 +331,8 @@ sk:
 
     index:
       title: Kriminalita
-      subtitle: "Prehľad podľa štatistiky %{filter}"
-      subtitle_with_paragraphs: 'Prehľad podľa štatistiky %{filter} ako súčet zvolených paragrafov'
+      subtitle: "Prehľad podľa štatistiky %{metric}"
+      subtitle_with_paragraphs: 'Prehľad podľa štatistiky %{metric} ako súčet zvolených paragrafov'
       enlarge_chart: Zväčšiť graf
       shrink_chart: Zmenšiť graf
       search:

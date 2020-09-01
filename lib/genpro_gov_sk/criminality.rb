@@ -13,7 +13,7 @@ module GenproGovSk
           attributes[:statistics].map do |statistic|
             next if statistic[:count].blank?
 
-            statistic.slice(:filters, :count).merge(office: office, year: year, file: attributes[:file])
+            statistic.slice(:metric, :paragraph, :count).merge(office: office, year: year, file: attributes[:file])
           end
         end.flatten.compact
 

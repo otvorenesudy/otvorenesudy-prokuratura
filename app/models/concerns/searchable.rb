@@ -1,7 +1,7 @@
 module Searchable
   extend ActiveSupport::Concern
 
-  included { after_save { self.class.refresh_search_view } }
+  included { after_commit { self.class.refresh_search_view } }
 
   class_methods do
     def refresh_search_view
