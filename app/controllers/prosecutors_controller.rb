@@ -7,7 +7,8 @@ class ProsecutorsController < ApplicationController
 
   def show
     @prosecutor = Prosecutor.find(params[:id])
-    @declarations = @prosecutor.declarations.reverse.map!(&:deep_symbolize_keys)
+
+    @declarations = @prosecutor.declarations.reverse.map!(&:deep_symbolize_keys) if @prosecutor.declarations
   end
 
   def suggest

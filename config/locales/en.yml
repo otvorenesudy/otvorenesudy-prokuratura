@@ -203,7 +203,7 @@ en:
       employee_html: We register the prosecutor as <em>%{position}</em> at Attorney General's office %{link}.
 
       declarations:
-        title: 'Estate Declarations'
+        title: 'Estate Declaration of %{year}'
 
       media:
         title: 'Mentions in Media'

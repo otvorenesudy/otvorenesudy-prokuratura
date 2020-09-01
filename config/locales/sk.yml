@@ -243,7 +243,7 @@ sk:
       media:
         title: Mediálne zmienky
         disclaimer: Články sú získané z výsledkov vyhľadávania pre meno prokuratúry z Denníka N a SME. Môže sa stať, že nie všetky výsledky sú úplne relevantné.
-        no_results: Nenájdené žiadne relevnantné články v médiách.
+        no_results: Nenájdené žiadne relevantné články v médiách.
         more_from_n: Viac z Denníka N
         more_from_sme: Viac zo SME
 
@@ -303,12 +303,12 @@ sk:
       employee_html: Prokurátora evidujeme v pozícii <em>%{position}</em> na prokuratúre %{link}.
 
       declarations:
-        title: 'Majetkové priznania'
+        title: 'Majetkové priznanie za rok %{year}'
 
       media:
         title: Mediálne zmienky
         disclaimer: Články sú získané z výsledkov vyhľadávania pre meno prokurátora z Denníka N a SME. Môže sa stať, že nie všetky výsledky sú úplne relevantné.
-        no_results: Nenájdené žiadne relevnantné články v médiách.
+        no_results: Nenájdené žiadne relevantné články v médiách.
         more_from_n: Viac z Denníka N
         more_from_sme: Viac zo SME
 
