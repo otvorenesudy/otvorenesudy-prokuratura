@@ -22,7 +22,7 @@ class ProsecutorSearch
       columns = %i[name office declarations]
       order = params[:sort] == 'relevancy' && params[:order].in?(%w[asc desc]) ? params[:order].to_sym : nil
 
-      ::QueryFilter.filter(relation, params, columns: columns, order: order)
+      ::QueryFilter.filter(relation, params, columns: columns)
     end
   end
 
@@ -73,7 +73,6 @@ class ProsecutorSearch
       order = params[:order] || 'asc'
 
       return relation unless order.in?(%w[asc desc])
-
       return relation.reorder(type: order == 'asc' ? 'desc' : 'asc') if params[:sort] == 'type'
       return relation.reorder(name: order) if params[:sort] == 'name'
 
