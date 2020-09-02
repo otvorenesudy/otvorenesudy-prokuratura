@@ -62,6 +62,8 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     afm (0.2.2)
+    airbrussh (1.4.0)
+      sshkit (>= 1.6.1, != 1.7.0)
     annotate (3.1.1)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
@@ -76,6 +78,27 @@ GEM
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
     builder (3.2.4)
+    capistrano (3.14.1)
+      airbrussh (>= 1.0.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 1.9.0)
+    capistrano-bundler (2.0.1)
+      capistrano (~> 3.1)
+    capistrano-git (0.0.2)
+      capistrano_colors (= 0.5.5)
+    capistrano-passenger (0.2.0)
+      capistrano (~> 3.0)
+    capistrano-rails (1.6.1)
+      capistrano (~> 3.1)
+      capistrano-bundler (>= 1.1, < 3)
+    capistrano-rbenv (2.2.0)
+      capistrano (~> 3.1)
+      sshkit (~> 1.3)
+    capistrano-sidekiq (1.0.2)
+      capistrano (>= 3.9.0)
+      sidekiq (>= 3.4)
+    capistrano_colors (0.5.5)
     capybara (3.33.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -85,6 +108,7 @@ GEM
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
     childprocess (3.0.0)
+    chronic (0.10.2)
     coderay (1.1.3)
     concurrent-ruby (1.1.7)
     connection_pool (2.2.3)
@@ -92,6 +116,7 @@ GEM
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
     curb (0.9.10)
+    dalli (2.7.10)
     database_cleaner (1.8.5)
     database_cleaner-active_record (1.8.0)
       activerecord
@@ -172,6 +197,9 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.0)
       connection_pool (~> 2.2)
+    net-scp (3.0.0)
+      net-ssh (>= 2.6.5, < 7.0.0)
+    net-ssh (6.1.0)
     nio4r (2.5.2)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
@@ -318,6 +346,9 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sshkit (1.21.0)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
     svgeez (3.2.0)
       listen (~> 3.2)
       mercenary (~> 0.4.0)
@@ -358,6 +389,8 @@ GEM
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.4.0)
@@ -370,8 +403,16 @@ DEPENDENCIES
   annotate
   bootsnap (>= 1.4.2)
   bootstrap (~> 4.1.0)
+  capistrano
+  capistrano-bundler
+  capistrano-git
+  capistrano-passenger
+  capistrano-rails
+  capistrano-rbenv
+  capistrano-sidekiq
   capybara (>= 2.15)
   curb
+  dalli (~> 2.7.10)
   database_cleaner-active_record
   factory_bot (~> 5.2.0)
   geocoder (~> 1.6.3)
@@ -408,6 +449,7 @@ DEPENDENCIES
   webdrivers
   webmock (~> 3.8.3)
   webpacker (~> 4.0)
+  whenever (~> 1.0.0)
 
 RUBY VERSION
    ruby 2.7.1p83

@@ -28,6 +28,8 @@ gem 'roo', '~> 2.8.3'
 gem 'roo-xls', '~> 1.2.0'
 gem 'parallel', '~> 1.19.1'
 gem 'activerecord-import', '~> 1.0.6'
+gem 'whenever', '~> 1.0.0'
+gem 'dalli', '~> 2.7.10'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
@@ -36,6 +38,14 @@ group :development do
   gem 'spring', '~> 2.1.0'
   gem 'spring-watcher-listen', '~> 2.0.1'
   gem 'annotate'
+
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-git'
+  gem 'capistrano-passenger'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-sidekiq'
 end
 
 group :test do
