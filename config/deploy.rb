@@ -23,8 +23,6 @@ set :keep_releases, 2
 set :ssh_options, { forward_agent: true }
 
 namespace :deploy do
-  before 'deploy:assets:precompile', 'deploy:yarn_install'
-
   after 'deploy:publishing', 'deploy:restart'
   after 'finishing', 'deploy:cleanup'
 
@@ -51,17 +49,6 @@ namespace :deploy do
           execute :rake, 'db:create'
           execute :rake, 'db:migrate'
           execute :rake, 'db:seed'
-        end
-      end
-    end
-  end
-
-  namespace :deploy do
-    desc 'Run rake yarn:install'
-    task :yarn_install do
-      on roles(:web) do
-        within release_path do
-          execute("cd #{release_path} && yarn install")
         end
       end
     end
