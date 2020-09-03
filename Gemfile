@@ -21,7 +21,7 @@ gem 'svgeez', '~> 3.0'
 gem 'pg', '~> 1.2.3'
 gem 'pdf-reader', '~> 2.4.0'
 gem 'json-schema', '~> 2.8.1'
-gem 'sidekiq', '~> 6.1.1'
+gem 'sidekiq', '~> 5.2.9'
 gem 'kaminari', '~> 1.2.1'
 gem 'geocoder', '~> 1.6.3'
 gem 'roo', '~> 2.8.3'
@@ -46,7 +46,7 @@ group :development do
   gem 'capistrano-passenger'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
-  gem 'capistrano-sidekiq', github: 'seuros/capistrano-sidekiq'
+  gem 'capistrano-sidekiq', '~> 1.0.3'
 end
 
 group :test do
