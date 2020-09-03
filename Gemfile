@@ -48,8 +48,6 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano-sidekiq', '~> 1.0.3'
-
-  gem 'bump', github: 'pavolzbell/bump'
 end
 
 group :test do
