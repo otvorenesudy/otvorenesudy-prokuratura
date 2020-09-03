@@ -1,11 +1,11 @@
-module OpenCourts
-  module Prokuratura
-    module VERSION
-      MAJOR = 0
-      MINOR = 0
-      PATCH = 1
+module OpenCourts::Prokuratura
+  module VERSION
+    MAJOR = 0
+    MINOR = 0
+    PATCH = 2
 
-      STRING = [MAJOR, MINOR, PATCH].compact * '.'
-    end
+    PRE = nil
+
+    STRING = [MAJOR, MINOR, PATCH, PRE].compact * '.'
   end
 end
