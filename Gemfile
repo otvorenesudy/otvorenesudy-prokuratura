@@ -32,6 +32,7 @@ gem 'whenever', '~> 1.0.0'
 gem 'dalli', '~> 2.7.10'
 gem 'bootsnap', '>= 1.4.2'
 gem 'rollbar', '~> 3.0.0'
+gem 'skylight', '~> 4.3.1'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
