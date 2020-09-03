@@ -26,3 +26,5 @@ test:
 production:
   <<: *default
   database: otvorenesudy_prokuratura_production
+  username: <%= ENV['OPENCOURTS_PROKURATURA_DATABASE_USER'] %>
+  password: <%= ENV['OPENCOURTS_PROKURATURA_DATABASE_PASSWORD'] %>
