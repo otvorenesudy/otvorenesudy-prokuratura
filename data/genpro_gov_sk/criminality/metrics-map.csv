@@ -1,156 +1,156 @@
-Názov nášho atribútu,Názov atribútu z dát Generálnej prokuratúry,Typ súboru
-accused_age_14_to_15_all,Obžalovaných osôb - vek 14 - 15,Prehľad o stíhaných a obžalovaných osobách
-,Vek 14 - 15,Prehľad o stíhaných a obžalovaných osobách
-accused_age_14_to_15_boys,Obžalovaných osôb - vek 14 - 15 - chlapci,Prehľad o stíhaných a obžalovaných osobách
-,Vek 14 - 15 - chlapci,Prehľad o stíhaných a obžalovaných osobách
-accused_age_14_to_15_girls,Obžalovaných osôb - vek 14 - 15 - dievčatá,Prehľad o stíhaných a obžalovaných osobách
-,Vek 14 - 15 - dievčatá,Prehľad o stíhaných a obžalovaných osobách
-accused_age_16_to_18_all,Obžalovaných osôb - vek 16 - 18,Prehľad o stíhaných a obžalovaných osobách
-,Vek 16 - 18,Prehľad o stíhaných a obžalovaných osobách
-accused_age_16_to_18_boys,Obžalovaných osôb - vek 16 - 18 - chlapci,Prehľad o stíhaných a obžalovaných osobách
-,Vek 16 - 18 - chlapci,Prehľad o stíhaných a obžalovaných osobách
-accused_age_16_to_18_girls,Obžalovaných osôb - vek 16 - 18 - dievčatá,Prehľad o stíhaných a obžalovaných osobách
-,Vek 16 - 18 - dievčatá,Prehľad o stíhaných a obžalovaných osobách
-accused_age_19_to_21_all,Obžalovaných osôb - vek 19 - 21,Prehľad o stíhaných a obžalovaných osobách
-,Vek 19 - 21,Prehľad o stíhaných a obžalovaných osobách
-accused_age_22_to_30_all,Obžalovaných osôb - vek 22 - 30,Prehľad o stíhaných a obžalovaných osobách
-,Vek 22 - 30,Prehľad o stíhaných a obžalovaných osobách
-accused_age_31_to_40_all,Obžalovaných osôb - vek 31 - 40,Prehľad o stíhaných a obžalovaných osobách
-,Vek 31 - 40,Prehľad o stíhaných a obžalovaných osobách
-accused_age_41_to_50_all,Obžalovaných osôb - vek 41 - 50,Prehľad o stíhaných a obžalovaných osobách
-,Vek 41 - 50,Prehľad o stíhaných a obžalovaných osobách
-accused_age_51_to_60_all,Obžalovaných osôb - vek 51 - 60,Prehľad o stíhaných a obžalovaných osobách
-,Vek 51 - 60,Prehľad o stíhaných a obžalovaných osobách
-accused_age_61_and_more_all,Obžalovaných osôb - vek 61 a viac,Prehľad o stíhaných a obžalovaných osobách
-,Vek 61 a viac,Prehľad o stíhaných a obžalovaných osobách
-accused_alcohol_abuse,Obžalovaných osôb - vplyv alkoholu,Prehľad o stíhaných a obžalovaných osobách
-accused_all,Obžalovaných osôb,Prehľad o stíhaných a obžalovaných osobách
-,Počet obžalovaných osôb,Štruktúry
-accused_by_paragraph_204,Počet obžalovaných osôb - z toho skrátené vyšetrovanie podľa §204 Tr.por.,Štruktúry
-,Počet obžalovaných osôb z toho skrátené vyšetrovanie podľa § 204 Tr.por.,Štruktúry
-accused_men,Obžalovaných osôb - z toho muži,Prehľad o stíhaných a obžalovaných osobách
-accused_people_for_intentional_crimes,Obžalovaných osôb - úmyselné tr. činy,Prehľad o stíhaných a obžalovaných osobách
-,Obžalovaných osôb za úmyselné tr. činy,Prehľad o stíhaných a obžalovaných osobách
-accused_people_for_intentional_crimes_of_same_nature,Obžalovaných osôb - úmyselné tr. činy rovnakého druhu,Prehľad o stíhaných a obžalovaných osobách
-,Obžalovaných osôb za úmyselné tr. činy - úmyselné tr. činy rovnakého druhu,Prehľad o stíhaných a obžalovaných osobách
-accused_recidivists_all,Obžalovaní recidivisti,Štruktúry
-accused_recidivists_dangerous,Obžalovaní recidivisti obzvlášť nebezpeční recidivisti,Štruktúry
-,Obžalovaných osôb - obzvlášť nebezpeční recidivisti,Prehľad o stíhaných a obžalovaných osobách
-,Zvlášť nebezpeční recidivisti,Prehľad o stíhaných a obžalovaných osobách
-accused_recidivists_only,Obžalovaní recidivisti recidivisti,Štruktúry
-,Obžalovaných osôb - recidivisti,Prehľad o stíhaných a obžalovaných osobách
-,Recidivisti,Prehľad o stíhaných a obžalovaných osobách
-accused_substance_abuse,Obžalovaných osôb - iné návykové látky,Prehľad o stíhaných a obžalovaných osobách
-,Obžalovaných osôb - vplyv inej návykovej látky,Prehľad o stíhaných a obžalovaných osobách
-accused_women,Obžalovaných osôb - z toho ženy,Prehľad o stíhaných a obžalovaných osobách
-,Obžalovaných osôb - ženy,Prehľad o stíhaných a obžalovaných osobách
-assignation_of_prosuction,Postúpenie trestného stíhania,Štruktúry
-,Postúpené trestné stíhanie,Štruktúry
-cessation_of_prosecution,Zastavenie trestného stíhania,Štruktúry
-,Zastavené trestné stíhanie,Štruktúry
-closed_cases,V trestných registroch Pv/Kv/Gv bolo vybavených spisov,Štruktúry
-conditional_cessation,Podmienečné zastavenie TS,Štruktúry
-conditional_cessation_by_court,Podmienečné zastavenie TS súdom,Štruktúry
-conditional_cessation_by_prosecutor,Podmienečné zastavenie TS,Prehľad o stíhaných a obžalovaných osobách
-,Podmienečné zastavenie TS prokurátorom,Štruktúry
-,Podmienečné zastavenie tr. stíhania,Prehľad o stíhaných a obžalovaných osobách
-conditional_cessation_by_prosecutor_all,Podmienečné zastavenie TS prokurátorom - spolu,Štruktúry
-conditional_cessation_of_accused_all,Podmienečné zastavenie TS - osvedčil sa - spolu,Štruktúry
-conditional_cessation_of_accused_and_proven,Podmienečné zastavenie TS - osvedčil sa - spolu z toho osvedčil sa obvinený,Štruktúry
-conditional_cessation_of_accused_and_proven_by_prosecutor,Podmienečné zastavenie TS - spolupracujúcich obvinených,Prehľad o stíhaných a obžalovaných osobách
-,Podmienečné zastavenie TS prokurátorom - osvedčil sa,Štruktúry
-conditional_cessation_of_accused_by_prosecutor,Podmienečné zastavenie TS prokurátorom - spolu z toho obvineného,Štruktúry
-conditional_cessation_of_cooperating_accused_and_proven,Podmienečné zastavenie TS - osvedčil sa - spolu z toho osvedčil sa spolupracujúci obvinený,Štruktúry
-conditional_cessation_of_cooperating_accused_by_prosecutor,Podmienečné zastavenie TS - spolupracujúcich osôb,Prehľad o stíhaných a obžalovaných osobách
-,Podmienečné zastavenie TS prokurátorom - spolu z toho spolupracujúceho obvineného,Štruktúry
-,Podmienečné zastavenie TS spolupracujúceho obvineného prokurátorom,Štruktúry
-,Podmienečné zastavenie tr. stíhania - spolupracujúcich osôb,Prehľad o stíhaných a obžalovaných osobách
-convicted_all,Odsúdených osôb,Prehľad o osobách odsúdených pre trestné činy
-convicted_men,Odsúdených osôb - muži,Prehľad o osobách odsúdených pre trestné činy
-convicted_women,Odsúdených osôb - ženy,Prehľad o osobách odsúdených pre trestné činy
-convicted_young,Odsúdených osôb - mladiství,Prehľad o osobách odsúdených pre trestné činy
-exempt_all,Oslobodených osôb,Prehľad o osobách odsúdených pre trestné činy
-exemption,Oslobodených osôb,Prehľad o stíhaných a obžalovaných osobách
-guilt_and_sentence_agreement,Dohoda o vine a treste,Štruktúry
-,Dohoda o vine a treste,Prehľad o stíhaných a obžalovaných osobách
-,Dohoda o vine a treste odoslaná na súd,Štruktúry
-incoming_cases,V trestných registroch Pv/Kv/Gv napadlo spisov,Štruktúry
-judged_all,Súdených osôb,Prehľad o osobách odsúdených pre trestné činy
-prosecuted_alcohol_abuse,Odstíhané známe osoby - vplyv alkoholu,Prehľad o stíhaných a obžalovaných osobách
-,Skladba stíhaných osôb vplyv alkoholu,Štruktúry
-,Ukončené tr. stíhanie osôb - vplyv alkoholu,Prehľad o stíhaných a obžalovaných osobách
-prosecuted_all,Odstíhané známe osoby,Prehľad o stíhaných a obžalovaných osobách
-,Počet stíhaných známych osôb (na prokuratúre skončené),Štruktúry
-,Počet známych odstíhaných osôb (na prokuratúre skončené),Štruktúry
-,Počet známych stíhaných osôb (na prokuratúre skončené),Štruktúry
-,Ukončené tr. stíhanie osôb,Prehľad o stíhaných a obžalovaných osobách
-prosecuted_foreigners,Skladba stíhaných osôb cudzinci,Štruktúry
-prosecuted_men,Odstíhané známe osoby - muži,Prehľad o stíhaných a obžalovaných osobách
-,Skladba stíhaných osôb muži,Štruktúry
-prosecuted_substance_abuse,Odstíhané známe osoby - vplyv inej návykovej látky,Prehľad o stíhaných a obžalovaných osobách
-,Skladba stíhaných osôb vplyv inej návykovej látky,Štruktúry
-,Ukončené tr. stíhanie osôb - iné návykové látky,Prehľad o stíhaných a obžalovaných osobách
-prosecuted_women,Odstíhané známe osoby - ženy,Prehľad o stíhaných a obžalovaných osobách
-,Skladba stíhaných osôb ženy,Štruktúry
-,Ukončené tr. stíhanie osôb - ženy,Prehľad o stíhaných a obžalovaných osobách
-prosecuted_young,Odstíhané známe osoby - mladiství,Prehľad o stíhaných a obžalovaných osobách
-,Skladba stíhaných osôb mladiství,Štruktúry
-,Ukončené tr. stíhanie osôb - mladiství,Prehľad o stíhaných a obžalovaných osobách
-prosecution_of_unknown_offender_ended_by_police,Počet trestných stíhaní ukončených na polícii – neznámi páchatelia,Štruktúry
-prosecution_of_unknown_offender_ended_by_police_by_assignation,Počet trestných stíhaní ukončených na polícii – neznámi páchatelia postúpením,Štruktúry
-prosecution_of_unknown_offender_ended_by_police_by_cessation,Počet trestných stíhaní ukončených na polícii – neznámi páchatelia zastavením,Štruktúry
-prosecution_of_unknown_offender_ended_by_police_by_other_mean,Počet trestných stíhaní ukončených na polícii – neznámi páchatelia inak,Štruktúry
-prosecution_of_unknown_offender_ended_by_police_by_suspension,Počet trestných stíhaní ukončených na polícii – neznámi páchatelia prerušením,Štruktúry
-protective_measures_imposed,Uložené ochranné opatrenia,Prehľad o osobách odsúdených pre trestné činy
-reconciliation_approval,Rozhodnutie o schválení zmieru a zastavení trestného stíhania,Prehľad o stíhaných a obžalovaných osobách
-,Schválenie zmieru,Štruktúry
-,Schválenie zmieru,Prehľad o stíhaných a obžalovaných osobách
-sentence_by_os_47_2_tz,Tresty OS podľa §47/2 T.z.,Prehľad o osobách odsúdených pre trestné činy
-sentence_financial,Trest - Peňažný,Prehľad o osobách odsúdených pre trestné činy
-sentence_nepo,Tresty NEPO,Prehľad o osobách odsúdených pre trestné činy
-sentence_of_compulsary_labor,Tresty povinnej práce,Prehľad o osobách odsúdených pre trestné činy
-sentence_of_deportation,Tresty vyhostenia,Prehľad o osobách odsúdených pre trestné činy
-sentence_of_forfeiture_of_possesion,Tresty prepadnutia veci,Prehľad o osobách odsúdených pre trestné činy
-sentence_of_forfeiture_of_property,Tresty prepadnutia majetku,Prehľad o osobách odsúdených pre trestné činy
-sentence_other,Iné tresty,Prehľad o osobách odsúdených pre trestné činy
-sentence_po,Tresty PO,Prehľad o osobách odsúdených pre trestné činy
-sentence_prohibition_of_movement,Trest - Zákaz pohybu,Prehľad o osobách odsúdených pre trestné činy
-sentence_prohibition_of_practice,Trest - Zákaz činnosti,Prehľad o osobách odsúdených pre trestné činy
-sentence_prohibition_of_stay,Trest - Zákaz pobytu,Prehľad o osobách odsúdených pre trestné činy
-sentence_under_home_arrest,Tresty domáceho väzenia,Prehľad o osobách odsúdených pre trestné činy
-sentence_waived,Tresty upustené,Prehľad o osobách odsúdených pre trestné činy
-suspension_of_prosecution,Prerušenie trestného stíhania,Štruktúry
-,Prerušené trestné stíhanie,Štruktúry
-suspension_of_prosecution_of_cooperating_accused,Prerušenie trestného stíhania spolupracujúceho obvineného,Štruktúry
-valid_court_decision_all,Počet oznámení súdu,Štruktúry
-,Právoplatné rozhodnutia súdu – spolu,Štruktúry
-valid_court_decision_on_assignation_of_prosecution,Počet postúpených,Prehľad o osobách odsúdených pre trestné činy
-,Právoplatné rozhodnutia súdu – spolu postúpenie TS,Štruktúry
-valid_court_decision_on_cessation_of_prosecution,Počet zastavených,Prehľad o osobách odsúdených pre trestné činy
-,Počet zastavených TS,Prehľad o osobách odsúdených pre trestné činy
-,Právoplatné rozhodnutia súdu – spolu zastavenie TS,Štruktúry
-valid_court_decision_on_conditional_cessation_of_prosecution,Počet podmienečne zastavených TS,Prehľad o osobách odsúdených pre trestné činy
-,Právoplatné rozhodnutia súdu – spolu podmienečné zastavenie TS,Štruktúry
-valid_court_decision_on_conditional_cessation_of_prosecution_of_cooperating_accused,Počet podmienečne zastavených TS -TS spoluprac. obvineného,Prehľad o osobách odsúdených pre trestné činy
-,Počet podmienečne zastavených TS spoluprac. obvineného,Prehľad o osobách odsúdených pre trestné činy
-,Právoplatné rozhodnutia súdu – spolu podmienečné zastavenie TS spolupracujúceho obvineného,Štruktúry
-valid_court_decision_on_conviction_of_people,Počet oznámení o odsúdení osôb,Štruktúry
-,Počet oznámení súdu o odsúdení osôb,Štruktúry
-,Právoplatné rozhodnutia súdu – spolu o odsúdení osôb,Štruktúry
-valid_court_decision_on_exemption,Počet oslobodených osôb,Prehľad o osobách odsúdených pre trestné činy
-,Právoplatné rozhodnutia súdu – spolu oslobodenie,Štruktúry
-valid_court_decision_on_reconciliation_approval,Počet oznámení súdu o schválení zmieru,Štruktúry
-,Počet schválených zmierov,Prehľad o osobách odsúdených pre trestné činy
-,Právoplatné rozhodnutia súdu – spolu schválenie zmieru,Štruktúry
-valid_court_decision_on_suspension_of_prosecution,Počet prerušených,Prehľad o osobách odsúdených pre trestné činy
-,Počet prerušených TS,Prehľad o osobách odsúdených pre trestné činy
-,Právoplatné rozhodnutia súdu – spolu prerušenie TS,Štruktúry
-valid_court_decision_on_waiver_of_sentence,Počet upustení od potrestania,Prehľad o osobách odsúdených pre trestné činy
-,Právoplatné rozhodnutia súdu – spolu upustenie od potrestania,Štruktúry
-valid_court_decision_only_convicted_with_guilt_and_sentence_agreement,Počet oznámení o schválení dohody o vine a treste súdom,Štruktúry
-,Počet oznámení súdu o schválení dohody o vine a treste,Štruktúry
-,Počet schval. dohôd o vine a trest,Prehľad o osobách odsúdených pre trestné činy
-,Počet schválených dohôd o vine a treste,Prehľad o osobách odsúdených pre trestné činy
-,Právoplatné rozhodnutia súdu – spolu z odsúdených len schválenie dohody o vine a treste,Štruktúry
-valid_other_court_decision,Počet inak skončených,Prehľad o osobách odsúdených pre trestné činy
-,"Právoplatné rozhodnutia súdu – spolu rozhodnutie ""inak""",Štruktúry
+Symbol nášho atribútu,Názov nášho atribútu,Názov atribútu z dát Generálnej prokuratúry,Typ súboru
+accused_age_14_to_15_all,Vek od 14 do 15 rokov,Vek 14 - 15,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - vek 14 - 15,Prehľad o stíhaných a obžalovaných osobách
+accused_age_14_to_15_boys,Chlapci od 14 do 15 rokov,Vek 14 - 15 - chlapci,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - vek 14 - 15 - chlapci,Prehľad o stíhaných a obžalovaných osobách
+accused_age_14_to_15_girls,Dievčatá od 14 o 15 rokov,Vek 14 - 15 - dievčatá,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - vek 14 - 15 - dievčatá,Prehľad o stíhaných a obžalovaných osobách
+accused_age_16_to_18_all,Vek od 16 do 18 rokov,Vek 16 - 18,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - vek 16 - 18,Prehľad o stíhaných a obžalovaných osobách
+accused_age_16_to_18_boys,Chlapci od 16 do 18 rokov,Vek 16 - 18 - chlapci,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - vek 16 - 18 - chlapci,Prehľad o stíhaných a obžalovaných osobách
+accused_age_16_to_18_girls,Dievčatá od 16 o 18 rokov,Vek 16 - 18 - dievčatá,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - vek 16 - 18 - dievčatá,Prehľad o stíhaných a obžalovaných osobách
+accused_age_19_to_21_all,Vek od 19 do 21 rokov,Vek 19 - 21,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - vek 19 - 21,Prehľad o stíhaných a obžalovaných osobách
+accused_age_22_to_30_all,Vek od 22 do 30 rokov,Vek 22 - 30,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - vek 22 - 30,Prehľad o stíhaných a obžalovaných osobách
+accused_age_31_to_40_all,Vek od 31 do 40 rokov,Vek 31 - 40,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - vek 31 - 40,Prehľad o stíhaných a obžalovaných osobách
+accused_age_41_to_50_all,Vek od 41 do 50 rokov,Vek 41 - 50,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - vek 41 - 50,Prehľad o stíhaných a obžalovaných osobách
+accused_age_51_to_60_all,Vek od 51 do 60 rokov,Vek 51 - 60,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - vek 51 - 60,Prehľad o stíhaných a obžalovaných osobách
+accused_age_61_and_more_all,Vek od 61 a viac,Vek 61 a viac,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - vek 61 a viac,Prehľad o stíhaných a obžalovaných osobách
+accused_alcohol_abuse,Vply alkoholu,Obžalovaných osôb - vplyv alkoholu,Prehľad o stíhaných a obžalovaných osobách
+accused_all,Všetci,Počet obžalovaných osôb,Štruktúry
+,,Obžalovaných osôb,Prehľad o stíhaných a obžalovaných osobách
+accused_by_paragraph_204,Skrátané vyšetrovanie podľa §204 Tr. por.,Počet obžalovaných osôb - z toho skrátené vyšetrovanie podľa §204 Tr.por.,Štruktúry
+,,Počet obžalovaných osôb z toho skrátené vyšetrovanie podľa § 204 Tr.por.,Štruktúry
+accused_men,Muži,Obžalovaných osôb - z toho muži,Prehľad o stíhaných a obžalovaných osobách
+accused_people_for_intentional_crimes,Pre umyselné trestné činy,Obžalovaných osôb za úmyselné tr. činy,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - úmyselné tr. činy,Prehľad o stíhaných a obžalovaných osobách
+accused_people_for_intentional_crimes_of_same_nature,Pre úmyselné trestné činy rovnakého druhu,Obžalovaných osôb za úmyselné tr. činy - úmyselné tr. činy rovnakého druhu,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - úmyselné tr. činy rovnakého druhu,Prehľad o stíhaných a obžalovaných osobách
+accused_recidivists_all,Všetci recidivisti,Obžalovaní recidivisti,Štruktúry
+accused_recidivists_dangerous,Obzvlášť nebezpeční recidivisti,Obžalovaní recidivisti obzvlášť nebezpeční recidivisti,Štruktúry
+,,Obžalovaných osôb - obzvlášť nebezpeční recidivisti,Prehľad o stíhaných a obžalovaných osobách
+,,Zvlášť nebezpeční recidivisti,Prehľad o stíhaných a obžalovaných osobách
+accused_recidivists_only,Len recidivisti,Obžalovaní recidivisti recidivisti,Štruktúry
+,,Obžalovaných osôb - recidivisti,Prehľad o stíhaných a obžalovaných osobách
+,,Recidivisti,Prehľad o stíhaných a obžalovaných osobách
+accused_substance_abuse,Vplyv inej návykovej látky,Obžalovaných osôb - iné návykové látky,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - vplyv inej návykovej látky,Prehľad o stíhaných a obžalovaných osobách
+accused_women,Ženy,Obžalovaných osôb - z toho ženy,Prehľad o stíhaných a obžalovaných osobách
+,,Obžalovaných osôb - ženy,Prehľad o stíhaných a obžalovaných osobách
+assignation_of_prosuction,Postúpenie trestného stíhania,Postúpenie trestného stíhania,Štruktúry
+,,Postúpené trestné stíhanie,Štruktúry
+cessation_of_prosecution,Zastavenie trestného stíhania,Zastavené trestné stíhanie,Štruktúry
+,,Zastavenie trestného stíhania,Štruktúry
+closed_cases,Vybavených spisov v trestných registroch Pv/Kv/Gv,V trestných registroch Pv/Kv/Gv bolo vybavených spisov,Štruktúry
+conditional_cessation,translation missing: sk.models.statistic.metrics.conditional_cessation,Podmienečné zastavenie TS,Štruktúry
+conditional_cessation_by_court,Podmienečné zastavenie TS súdom,Podmienečné zastavenie TS súdom,Štruktúry
+conditional_cessation_by_prosecutor,Podmienečné zastavenie TS prokurátorom,Podmienečné zastavenie TS prokurátorom,Štruktúry
+,,Podmienečné zastavenie TS,Prehľad o stíhaných a obžalovaných osobách
+,,Podmienečné zastavenie tr. stíhania,Prehľad o stíhaných a obžalovaných osobách
+conditional_cessation_by_prosecutor_all,Všetky podmienečné zastavenia TS prokurátorom,Podmienečné zastavenie TS prokurátorom - spolu,Štruktúry
+conditional_cessation_of_accused_all,Podmienečné zastavenie TS - osvedčil sa,Podmienečné zastavenie TS - osvedčil sa - spolu,Štruktúry
+conditional_cessation_of_accused_and_proven,"Podmienečné zastavenie TS, pričom osvedčil sa obvinený",Podmienečné zastavenie TS - osvedčil sa - spolu z toho osvedčil sa obvinený,Štruktúry
+conditional_cessation_of_accused_and_proven_by_prosecutor,"Podmienečné zastavenie TS prokurátorom, kde sa osvedčil obvindený",Podmienečné zastavenie TS prokurátorom - osvedčil sa,Štruktúry
+,,Podmienečné zastavenie TS - spolupracujúcich obvinených,Prehľad o stíhaných a obžalovaných osobách
+conditional_cessation_of_accused_by_prosecutor,Podmienečné zastavenie TS obvineného prokurátorom,Podmienečné zastavenie TS prokurátorom - spolu z toho obvineného,Štruktúry
+conditional_cessation_of_cooperating_accused_and_proven,"Podmienečné zastavenie TS, kde sa osvedčil spolupracujúci obvinený",Podmienečné zastavenie TS - osvedčil sa - spolu z toho osvedčil sa spolupracujúci obvinený,Štruktúry
+conditional_cessation_of_cooperating_accused_by_prosecutor,Podmienečné zastavenie TS spolupracujúceho obvineného prokurátorom,Podmienečné zastavenie TS prokurátorom - spolu z toho spolupracujúceho obvineného,Štruktúry
+,,Podmienečné zastavenie TS spolupracujúceho obvineného prokurátorom,Štruktúry
+,,Podmienečné zastavenie TS - spolupracujúcich osôb,Prehľad o stíhaných a obžalovaných osobách
+,,Podmienečné zastavenie tr. stíhania - spolupracujúcich osôb,Prehľad o stíhaných a obžalovaných osobách
+convicted_all,Všetci,Odsúdených osôb,Prehľad o osobách odsúdených pre trestné činy
+convicted_men,Muži,Odsúdených osôb - muži,Prehľad o osobách odsúdených pre trestné činy
+convicted_women,Ženy,Odsúdených osôb - ženy,Prehľad o osobách odsúdených pre trestné činy
+convicted_young,Mladiství,Odsúdených osôb - mladiství,Prehľad o osobách odsúdených pre trestné činy
+exempt_all,translation missing: sk.models.statistic.metrics.exempt_all,Oslobodených osôb,Prehľad o osobách odsúdených pre trestné činy
+exemption,Oslobodené osoby,Oslobodených osôb,Prehľad o stíhaných a obžalovaných osobách
+guilt_and_sentence_agreement,Dohoda o vine a treste,Dohoda o vine a treste,Štruktúry
+,,Dohoda o vine a treste odoslaná na súd,Štruktúry
+,,Dohoda o vine a treste,Prehľad o stíhaných a obžalovaných osobách
+incoming_cases,"Všetky spisy, ktoré napadli registroch Pv/Kv/Gv",V trestných registroch Pv/Kv/Gv napadlo spisov,Štruktúry
+judged_all,Súdené osoby,Súdených osôb,Prehľad o osobách odsúdených pre trestné činy
+prosecuted_alcohol_abuse,Vplyv alkoholu,Skladba stíhaných osôb vplyv alkoholu,Štruktúry
+,,Odstíhané známe osoby - vplyv alkoholu,Prehľad o stíhaných a obžalovaných osobách
+,,Ukončené tr. stíhanie osôb - vplyv alkoholu,Prehľad o stíhaných a obžalovaných osobách
+prosecuted_all,Všetci,Počet stíhaných známych osôb (na prokuratúre skončené),Štruktúry
+,,Počet známych odstíhaných osôb (na prokuratúre skončené),Štruktúry
+,,Počet známych stíhaných osôb (na prokuratúre skončené),Štruktúry
+,,Odstíhané známe osoby,Prehľad o stíhaných a obžalovaných osobách
+,,Ukončené tr. stíhanie osôb,Prehľad o stíhaných a obžalovaných osobách
+prosecuted_foreigners,Cudzinci,Skladba stíhaných osôb cudzinci,Štruktúry
+prosecuted_men,Muži,Skladba stíhaných osôb muži,Štruktúry
+,,Odstíhané známe osoby - muži,Prehľad o stíhaných a obžalovaných osobách
+prosecuted_substance_abuse,Vplyv inej návykovej látky,Skladba stíhaných osôb vplyv inej návykovej látky,Štruktúry
+,,Odstíhané známe osoby - vplyv inej návykovej látky,Prehľad o stíhaných a obžalovaných osobách
+,,Ukončené tr. stíhanie osôb - iné návykové látky,Prehľad o stíhaných a obžalovaných osobách
+prosecuted_women,Ženy,Skladba stíhaných osôb ženy,Štruktúry
+,,Odstíhané známe osoby - ženy,Prehľad o stíhaných a obžalovaných osobách
+,,Ukončené tr. stíhanie osôb - ženy,Prehľad o stíhaných a obžalovaných osobách
+prosecuted_young,Mladiství,Skladba stíhaných osôb mladiství,Štruktúry
+,,Odstíhané známe osoby - mladiství,Prehľad o stíhaných a obžalovaných osobách
+,,Ukončené tr. stíhanie osôb - mladiství,Prehľad o stíhaných a obžalovaných osobách
+prosecution_of_unknown_offender_ended_by_police,Neznámi páchatelia,Počet trestných stíhaní ukončených na polícii – neznámi páchatelia,Štruktúry
+prosecution_of_unknown_offender_ended_by_police_by_assignation,Neznámi páchatelia postúpením,Počet trestných stíhaní ukončených na polícii – neznámi páchatelia postúpením,Štruktúry
+prosecution_of_unknown_offender_ended_by_police_by_cessation,Neznámi páchatelia zastavením,Počet trestných stíhaní ukončených na polícii – neznámi páchatelia zastavením,Štruktúry
+prosecution_of_unknown_offender_ended_by_police_by_other_mean,Neznámi páchatelia inak,Počet trestných stíhaní ukončených na polícii – neznámi páchatelia inak,Štruktúry
+prosecution_of_unknown_offender_ended_by_police_by_suspension,Neznámi páchatelia prerušením,Počet trestných stíhaní ukončených na polícii – neznámi páchatelia prerušením,Štruktúry
+protective_measures_imposed,Uložené ochranné opatrenia,Uložené ochranné opatrenia,Prehľad o osobách odsúdených pre trestné činy
+reconciliation_approval,Schválenie zmieru,Schválenie zmieru,Štruktúry
+,,Rozhodnutie o schválení zmieru a zastavení trestného stíhania,Prehľad o stíhaných a obžalovaných osobách
+,,Schválenie zmieru,Prehľad o stíhaných a obžalovaných osobách
+sentence_by_os_47_2_tz,Podľa §47/2 T.z.,Tresty OS podľa §47/2 T.z.,Prehľad o osobách odsúdených pre trestné činy
+sentence_financial,Peňažný,Trest - Peňažný,Prehľad o osobách odsúdených pre trestné činy
+sentence_nepo,NEPO,Tresty NEPO,Prehľad o osobách odsúdených pre trestné činy
+sentence_of_compulsary_labor,Povinná práca,Tresty povinnej práce,Prehľad o osobách odsúdených pre trestné činy
+sentence_of_deportation,Vyhostenie,Tresty vyhostenia,Prehľad o osobách odsúdených pre trestné činy
+sentence_of_forfeiture_of_possesion,Prepadnutie veci,Tresty prepadnutia veci,Prehľad o osobách odsúdených pre trestné činy
+sentence_of_forfeiture_of_property,Prepadnutie majetku,Tresty prepadnutia majetku,Prehľad o osobách odsúdených pre trestné činy
+sentence_other,Iné,Iné tresty,Prehľad o osobách odsúdených pre trestné činy
+sentence_po,PO,Tresty PO,Prehľad o osobách odsúdených pre trestné činy
+sentence_prohibition_of_movement,Zákaz pohybu,Trest - Zákaz pohybu,Prehľad o osobách odsúdených pre trestné činy
+sentence_prohibition_of_practice,Zákaz činnosti,Trest - Zákaz činnosti,Prehľad o osobách odsúdených pre trestné činy
+sentence_prohibition_of_stay,Zákaz pobytu,Trest - Zákaz pobytu,Prehľad o osobách odsúdených pre trestné činy
+sentence_under_home_arrest,Domáce väzenie,Tresty domáceho väzenia,Prehľad o osobách odsúdených pre trestné činy
+sentence_waived,Odpustené,Tresty upustené,Prehľad o osobách odsúdených pre trestné činy
+suspension_of_prosecution,Prerušenie trestného stíhania,Prerušenie trestného stíhania,Štruktúry
+,,Prerušené trestné stíhanie,Štruktúry
+suspension_of_prosecution_of_cooperating_accused,Prerušenie trestného stíhania spolupracujúceho obvineného,Prerušenie trestného stíhania spolupracujúceho obvineného,Štruktúry
+valid_court_decision_all,Všetky právoplatné rozhodnutia súdu,Právoplatné rozhodnutia súdu – spolu,Štruktúry
+,,Počet oznámení súdu,Štruktúry
+valid_court_decision_on_assignation_of_prosecution,Právoplatné rozhodnutia súdu – postúpenie TS,Právoplatné rozhodnutia súdu – spolu postúpenie TS,Štruktúry
+,,Počet postúpených,Prehľad o osobách odsúdených pre trestné činy
+valid_court_decision_on_cessation_of_prosecution,Právoplatné rozhodnutia súdu – zastavenie TS,Právoplatné rozhodnutia súdu – spolu zastavenie TS,Štruktúry
+,,Počet zastavených TS,Prehľad o osobách odsúdených pre trestné činy
+,,Počet zastavených,Prehľad o osobách odsúdených pre trestné činy
+valid_court_decision_on_conditional_cessation_of_prosecution,Právoplatné rozhodnutia súdu – podmienečné zastavenie TS,Právoplatné rozhodnutia súdu – spolu podmienečné zastavenie TS,Štruktúry
+,,Počet podmienečne zastavených TS,Prehľad o osobách odsúdených pre trestné činy
+valid_court_decision_on_conditional_cessation_of_prosecution_of_cooperating_accused,Právoplatné rozhodnutia súdu – podmienečné zastavenie TS spolupracujúceho obvineného,Právoplatné rozhodnutia súdu – spolu podmienečné zastavenie TS spolupracujúceho obvineného,Štruktúry
+,,Počet podmienečne zastavených TS spoluprac. obvineného,Prehľad o osobách odsúdených pre trestné činy
+,,Počet podmienečne zastavených TS -TS spoluprac. obvineného,Prehľad o osobách odsúdených pre trestné činy
+valid_court_decision_on_conviction_of_people,Právoplatné rozhodnutia súdu – o odsúdení osôb,Právoplatné rozhodnutia súdu – spolu o odsúdení osôb,Štruktúry
+,,Počet oznámení súdu o odsúdení osôb,Štruktúry
+,,Počet oznámení o odsúdení osôb,Štruktúry
+valid_court_decision_on_exemption,Právoplatné rozhodnutia súdu – oslobodenie,Právoplatné rozhodnutia súdu – spolu oslobodenie,Štruktúry
+,,Počet oslobodených osôb,Prehľad o osobách odsúdených pre trestné činy
+valid_court_decision_on_reconciliation_approval,Právoplatné rozhodnutia súdu – schválenie zmieru,Právoplatné rozhodnutia súdu – spolu schválenie zmieru,Štruktúry
+,,Počet oznámení súdu o schválení zmieru,Štruktúry
+,,Počet schválených zmierov,Prehľad o osobách odsúdených pre trestné činy
+valid_court_decision_on_suspension_of_prosecution,Právoplatné rozhodnutia súdu – prerušenie TS,Právoplatné rozhodnutia súdu – spolu prerušenie TS,Štruktúry
+,,Počet prerušených,Prehľad o osobách odsúdených pre trestné činy
+,,Počet prerušených TS,Prehľad o osobách odsúdených pre trestné činy
+valid_court_decision_on_waiver_of_sentence,Právoplatné rozhodnutia súdu – upustenie od potrestania,Právoplatné rozhodnutia súdu – spolu upustenie od potrestania,Štruktúry
+,,Počet upustení od potrestania,Prehľad o osobách odsúdených pre trestné činy
+valid_court_decision_only_convicted_with_guilt_and_sentence_agreement,Právoplatné rozhodnutia súdu - schválenie dohody o vine a treste,Počet oznámení súdu o schválení dohody o vine a treste,Štruktúry
+,,Právoplatné rozhodnutia súdu – spolu z odsúdených len schválenie dohody o vine a treste,Štruktúry
+,,Počet oznámení o schválení dohody o vine a treste súdom,Štruktúry
+,,Počet schval. dohôd o vine a trest,Prehľad o osobách odsúdených pre trestné činy
+,,Počet schválených dohôd o vine a treste,Prehľad o osobách odsúdených pre trestné činy
+valid_other_court_decision,Právoplatné rozhodnutia súdu – iné,"Právoplatné rozhodnutia súdu – spolu rozhodnutie ""inak""",Štruktúry
+,,Počet inak skončených,Prehľad o osobách odsúdených pre trestné činy

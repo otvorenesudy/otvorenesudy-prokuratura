@@ -84,17 +84,19 @@ module GenproGovSk
       }
 
       CSV.open(Rails.root.join('data', 'genpro_gov_sk', 'criminality', 'metrics-map.csv'), 'w') do |csv|
-        csv << ['Názov nášho atribútu', 'Názov atribútu z dát Generálnej prokuratúry', 'Typ súboru']
+        csv <<
+          ['Symbol nášho atribútu', 'Názov nášho atribútu', 'Názov atribútu z dát Generálnej prokuratúry', 'Typ súboru']
 
         sources.values.map(&:values).flatten.uniq.sort.each.with_object({}) do |metric, hash|
           rows =
             sources.each.with_object([]) do |(key, source), array|
               values = source.select { |_, e| e == metric }.map(&:first)
 
-              values.each { |value| array << [nil, value, key] }
+              values.each { |value| array << [nil, nil, value, key] }
             end.sort_by { |e| e[1] }
 
           rows[0][0] = metric
+          rows[0][1] = I18n.t("models.statistic.metrics.#{metric}")
 
           rows.each { |row| csv << row }
         end

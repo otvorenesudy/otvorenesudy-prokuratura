@@ -377,6 +377,17 @@ sk:
 
   static_pages:
     home:
+      feature:
+        headline: "Viac transparentnosti"
+        footline: "do slovenského súdnictva"
+        project: "Otvorené Súdy"
+        list_html: "%{project} prinášajú:"
+        items:
+          - "všetky zverejnené rozhodnutia na jednom mieste,"
+          - "priebeh konania na jeden klik,"
+          - "zoznam sudcov a prehľad ich činnosti,"
+          - "archiváciu súdnych pojednávaní."
+
       squares:
         criminality: Kriminalita
         offices: Prokuratúra

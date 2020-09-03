@@ -1,5 +1,5 @@
 .feature {
-  background: $input-bg;
+  background: lighten($orange, 50%);
 
   ol {
     @include media-breakpoint-up(sm) {
@@ -7,6 +7,10 @@
       background-size: 90px;
       padding-left: 62px;
     }
+  }
+
+  .text-info {
+    color: $velvet !important;
   }
 
   li {
