@@ -96,7 +96,12 @@ module GenproGovSk
             end.sort_by { |e| e[1] }
 
           rows[0][0] = metric
-          rows[0][1] = I18n.t("models.statistic.metrics.#{metric}")
+
+          title = Statistic::GROUPS.find { |group, values| metric.in?(values) }
+
+          rows[0][1] =
+            (title ? "#{I18n.t("statistics.index.search.#{title[0]}.title")} - " : '') +
+              I18n.t("models.statistic.metrics.#{metric}")
 
           rows.each { |row| csv << row }
         end

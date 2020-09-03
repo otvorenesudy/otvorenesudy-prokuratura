@@ -28,6 +28,8 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+    <script>window.GOOGLE_ANALYTICS_TRACKING_ID = "<%= Rails.application.credentials.dig(:google, :analytics, :tracking_id) %>";</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= Rails.application.credentials.dig(:google, :analytics, :tracking_id) %>"></script>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
   </head>

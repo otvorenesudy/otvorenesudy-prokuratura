@@ -9,8 +9,8 @@ default: &default
   pool: 5
   timeout: 5000
   encoding: unicode
-  username: <%= Rails.application.credentials.postgresql_username %>
-  password: <%= Rails.application.credentials.postgresql_password %>
+  username: <%= Rails.application.credentials.postgresql[:username] %>
+  password: <%= Rails.application.credentials.postgresql[:password] %>
 
 development:
   <<: *default

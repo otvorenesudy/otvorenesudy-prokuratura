@@ -158,7 +158,7 @@ $btn-font-weight:                      $font-weight-bold;
 
 $input-bg:                             #e9f2f9;
 $input-color:                          $body-color;
-$input-border-color:                   #9cc4e3;
+$input-border-color:                   lighten($orange, 30%) ; // #9cc4e3;
 $input-border-width:                   0;
 
 $input-focus-bg:                       $input-bg;
