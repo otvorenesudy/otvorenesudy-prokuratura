@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+ruby '2.7.1'
+
 gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'i18n-tasks', '~> 0.9.31'
@@ -28,10 +30,10 @@ gem 'parallel', '~> 1.19.1'
 gem 'activerecord-import', '~> 1.0.6'
 gem 'whenever', '~> 1.0.0'
 gem 'dalli', '~> 2.7.10'
+gem 'bootsnap', '>= 1.4.2'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
-  gem 'bootsnap', '>= 1.4.2'
   gem 'listen', '~> 3.2.1'
   gem 'spring', '~> 2.1.0'
   gem 'spring-watcher-listen', '~> 2.0.1'

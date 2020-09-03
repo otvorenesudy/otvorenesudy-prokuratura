@@ -76,6 +76,31 @@ module GenproGovSk
         end
     end
 
+    def self.generate_and_save_metrics_map
+      sources = {
+        'Štruktúry' => STRUCTURES_MAP,
+        'Prehľad o osobách odsúdených pre trestné činy' => PARAGRAPHS_BY_CONVICTED_MAP,
+        'Prehľad o stíhaných a obžalovaných osobách' => PARAGRAPHS_BY_ACCUSED_AND_PROSECUTED_MAP
+      }
+
+      CSV.open(Rails.root.join('data', 'genpro_gov_sk', 'criminality', 'metrics-map.csv'), 'w') do |csv|
+        csv << ['Názov nášho atribútu', 'Názov atribútu z dát Generálnej prokuratúry', 'Typ súboru']
+
+        sources.values.map(&:values).flatten.uniq.sort.each.with_object({}) do |metric, hash|
+          rows =
+            sources.each.with_object([]) do |(key, source), array|
+              values = source.select { |_, e| e == metric }.map(&:first)
+
+              values.each { |value| array << [nil, value, key] }
+            end.sort_by { |e| e[1] }
+
+          rows[0][0] = metric
+
+          rows.each { |row| csv << row }
+        end
+      end
+    end
+
     OFFICES_MAP = {
       '1000' => 'Generálna prokuratúra Slovenskej republiky',
       '1100' => 'Krajská prokuratúra Bratislava',
