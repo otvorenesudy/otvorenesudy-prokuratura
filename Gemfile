@@ -31,6 +31,7 @@ gem 'activerecord-import', '~> 1.0.6'
 gem 'whenever', '~> 1.0.0'
 gem 'dalli', '~> 2.7.10'
 gem 'bootsnap', '>= 1.4.2'
+gem 'rollbar', '~> 3.0.0'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
