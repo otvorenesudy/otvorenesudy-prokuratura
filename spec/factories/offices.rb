@@ -23,6 +23,7 @@
 #
 # Indexes
 #
+#  index_offices_on_city                     (city)
 #  index_offices_on_destroyed_at             (destroyed_at)
 #  index_offices_on_genpro_gov_sk_office_id  (genpro_gov_sk_office_id)
 #  index_offices_on_name                     (name) UNIQUE

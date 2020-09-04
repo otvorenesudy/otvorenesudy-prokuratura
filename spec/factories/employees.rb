@@ -16,11 +16,13 @@
 #
 # Indexes
 #
+#  index_employees_on_name                                (name)
 #  index_employees_on_name_and_position                   (name,position)
 #  index_employees_on_name_parts                          (name_parts)
 #  index_employees_on_office_id                           (office_id)
 #  index_employees_on_office_id_and_disabled_at_and_rank  (office_id,disabled_at,rank) UNIQUE WHERE (disabled_at IS NULL)
 #  index_employees_on_prosecutor_id                       (prosecutor_id)
+#  index_employees_on_rank                                (rank)
 #
 # Foreign Keys
 #

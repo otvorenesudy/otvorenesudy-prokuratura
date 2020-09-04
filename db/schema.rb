@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_31_151843) do
+ActiveRecord::Schema.define(version: 2020_09_04_115350) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pg_trgm'
   enable_extension 'plpgsql'
@@ -43,11 +43,13 @@ ActiveRecord::Schema.define(version: 2020_08_31_151843) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index %w[name position], name: 'index_employees_on_name_and_position'
+    t.index %w[name], name: 'index_employees_on_name'
     t.index %w[name_parts], name: 'index_employees_on_name_parts'
     t.index %w[office_id disabled_at rank],
             name: 'index_employees_on_office_id_and_disabled_at_and_rank', unique: true, where: '(disabled_at IS NULL)'
     t.index %w[office_id], name: 'index_employees_on_office_id'
     t.index %w[prosecutor_id], name: 'index_employees_on_prosecutor_id'
+    t.index %w[rank], name: 'index_employees_on_rank'
   end
 
   create_table 'genpro_gov_sk_offices', force: :cascade do |t|
@@ -86,6 +88,7 @@ ActiveRecord::Schema.define(version: 2020_08_31_151843) do
     t.datetime 'destroyed_at'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.index %w[city], name: 'index_offices_on_city'
     t.index %w[destroyed_at], name: 'index_offices_on_destroyed_at'
     t.index %w[genpro_gov_sk_office_id], name: 'index_offices_on_genpro_gov_sk_office_id'
     t.index %w[name], name: 'index_offices_on_name', unique: true
@@ -123,9 +126,12 @@ ActiveRecord::Schema.define(version: 2020_08_31_151843) do
     t.integer 'count', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.index %w[metric], name: 'index_statistics_on_metric'
     t.index %w[office_id], name: 'index_statistics_on_office_id'
+    t.index %w[paragraph], name: 'index_statistics_on_paragraph'
     t.index %w[year office_id metric paragraph],
             name: 'index_statistics_on_year_and_office_id_and_metric_and_paragraph', unique: true
+    t.index %w[year], name: 'index_statistics_on_year'
   end
 
   add_foreign_key 'appointments', 'genpro_gov_sk_prosecutors_lists'
