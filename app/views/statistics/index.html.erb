@@ -161,7 +161,7 @@
 
           <div class="d-flex flex-wrap align-items-center justify-content-between">
             <div class="small text-muted mr-3 mt-3">
-              <%= t 'layouts.search.found_html', count: number_with_delimiter(@search.current.count), total: I18n.t('statistics.count', count: number_with_delimiter(Statistic.count)), time: (@time + facets_time).to_i %>
+              <%= t 'layouts.search.found_html', count: number_with_delimiter(@search.current.count), total: I18n.t('statistics.count', count: number_with_delimiter(@count)), time: (@time + facets_time).to_i %>
             </div>
           </div>
         </div>

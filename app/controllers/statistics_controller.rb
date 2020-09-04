@@ -2,6 +2,7 @@ class StatisticsController < ApplicationController
   def index
     @search = StatisticSearch.new(index_params)
     @time = Benchmark.realtime { @data = @search.data } * 1000
+    @count = Rails.cache.fetch('statistics_count', expires_in: 1.day) { Statistic.count }
   end
 
   def suggest
