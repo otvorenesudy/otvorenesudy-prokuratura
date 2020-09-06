@@ -27,6 +27,11 @@ module OpenCourts
       config.i18n.available_locales = %i[en sk]
       config.i18n.default_locale = Rails.env.test? ? :en : :sk
       config.i18n.fallbacks = true
+
+      # X-XSS header is already defined by nginx
+      config.action_dispatch.default_headers = {
+        'X-Frame-Options' => 'SAMEORIGIN', 'X-Content-Type-Options' => 'nosniff'
+      }
     end
   end
 end
