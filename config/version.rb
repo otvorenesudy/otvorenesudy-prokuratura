@@ -3,7 +3,7 @@ module OpenCourts
     module VERSION
       MAJOR = 0
       MINOR = 0
-      PATCH = 7
+      PATCH = 8
 
       PRE = nil
 
