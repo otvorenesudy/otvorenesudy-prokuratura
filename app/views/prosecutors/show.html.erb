@@ -41,7 +41,7 @@
 
 <ul class="nav nav-tabs mt-4" role="tablist">
   <% @declarations.each.with_index do |declaration, i| %>
-    <%= tab_link_tag declaration[:year], declaration[:year], class: i == 0 ? 'active' : nil, tabindex: i == 0 ? -1 : nil, 'data-active-title': t('.declarations.title', year: declaration[:year])  %>
+    <%= tab_link_tag i == 0 ? t('.declarations.title', year: declaration[:year]) : declaration[:year], declaration[:year], class: i == 0 ? 'active' : nil, tabindex: i == 0 ? -1 : nil %>
   <% end %>
 
   <%= tab_link_tag t('.media.title'), 'media', tabindex: nil %>
