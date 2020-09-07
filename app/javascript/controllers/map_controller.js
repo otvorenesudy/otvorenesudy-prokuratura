@@ -7,6 +7,7 @@ export default class extends Controller {
       zoomSnap: 0.05,
       zoomControl: false,
       scrollZoomControl: false,
+      minZoom: 7.5,
     });
 
     this.map.addLayer(
@@ -29,11 +30,15 @@ export default class extends Controller {
         fillColor: "#ac3e53",
         color: "#ac3e53",
       },
+      definesBounds: true,
     }).addTo(this.map);
 
     (window.onresize = () => {
       group.eachLayer((layer) => {
-        this.map.fitBounds(layer.getBounds());
+        if (layer.options.definesBounds) {
+          this.map.fitBounds(layer.getBounds());
+          this.map.setMaxBounds(group.getBounds());
+        }
       });
     })();
   }

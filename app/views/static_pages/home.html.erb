@@ -33,28 +33,11 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-12 col-lg-7 col-xl-6" >
-    <div class="feature h-100 p-4" style="max-height: 360px"> <!-- TODO: fix -->
-      <h1 class="text-info mb-4">
-        <%= t('.feature.headline') %><br/><%= t('.feature.footline') %>
-      </h1>
-      <h4 class="mb-3">
-        <%= t('.feature.list_html', project: content_tag(:span, t('.feature.project'), class: 'text-uppercase').html_safe) %>
-      </h4>
-      <div class="d-flex align-items-center">
-        <ol class="list-unstyled mb-0">
-          <% t('.feature.items').each do |item| %>
-            <li><%= item %></li>
-          <% end %>
-        </ol>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-lg-5 col-xl-6 mt-4 mt-lg-0">
+  <div class="col-12">
     <div class="row font-weight-bold text-center text-uppercase">
       <%= link_to icon_tag('prosecutors', size: 60) + content_tag(:span, t('.squares.prosecutors')), prosecutors_path, class: 'square mx-3 mb-4' %>
       <%= link_to icon_tag('general-office', size: 60) + content_tag(:span, t('.squares.offices')), offices_path, class: 'square mx-3 mb-4' %>
-      <div class="d-block d-md-block d-lg-block w-100"></div>
+      <div class="d-block d-md-block d-lg-none w-100"></div>
       <%= link_to icon_tag('criminality', size: 60) + content_tag(:span, t('.squares.criminality')), statistics_path, class: 'square mx-3 mb-4' %>
       <%= link_to icon_tag('magnifier', size: 60) + content_tag(:span, t('.squares.search')), '', class: 'square mx-3 mb-4' %>
     </div>

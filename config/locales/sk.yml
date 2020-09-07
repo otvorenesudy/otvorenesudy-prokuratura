@@ -45,7 +45,7 @@ sk:
         accused_age_41_to_50_all: Vek od 41 do 50 rokov
         accused_age_51_to_60_all: Vek od 51 do 60 rokov
         accused_age_61_and_more_all: Vek od 61 a viac
-        accused_alcohol_abuse: Vply alkoholu
+        accused_alcohol_abuse: Vplyv alkoholu
         accused_all: Všetci
         accused_by_paragraph_204: Skrátané vyšetrovanie podľa §204 Tr. por.
         accused_men: Muži
@@ -377,17 +377,6 @@ sk:
 
   static_pages:
     home:
-      feature:
-        headline: "Viac transparentnosti"
-        footline: "do slovenského súdnictva"
-        project: "Otvorené Súdy"
-        list_html: "%{project} prinášajú:"
-        items:
-          - "všetky zverejnené rozhodnutia na jednom mieste,"
-          - "priebeh konania na jeden klik,"
-          - "zoznam sudcov a prehľad ich činnosti,"
-          - "archiváciu súdnych pojednávaní."
-
       squares:
         criminality: Kriminalita
         offices: Prokuratúra
