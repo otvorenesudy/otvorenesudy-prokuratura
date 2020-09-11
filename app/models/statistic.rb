@@ -83,6 +83,7 @@ class Statistic < ApplicationRecord
     ],
     convicted: %i[convicted_all convicted_men convicted_women convicted_young],
     closure: %i[
+      _closure_all
       assignation_of_prosuction
       guilt_and_sentence_agreement
       reconciliation_approval
@@ -119,6 +120,7 @@ class Statistic < ApplicationRecord
       prosecution_of_unknown_offender_ended_by_police_by_other_mean
     ],
     sentence: %i[
+      _sentence_all
       sentence_by_os_47_2_tz
       sentence_financial
       sentence_nepo

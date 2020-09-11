@@ -24,7 +24,7 @@
       margin-right: map-get($spacers, 3);
 
       &::after {
-        color: $orange;
+        color: $info;
         content: "\00b7";
         font-weight: $font-weight-bold;
         position: absolute;

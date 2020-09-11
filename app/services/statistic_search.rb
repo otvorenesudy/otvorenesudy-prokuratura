@@ -3,7 +3,8 @@ class StatisticSearch
 
   def initialize(params)
     @params = params
-    @default_statistic_metric = :judged_all
+    @default_statistic_metric =
+      params[:paragraph_old].present? || params[:paragraph_new].present? ? :_sentence_all : :judged_all # TODO: different default than :judge_all
     @current_statistic_metric = params[:metric]&.first || @default_statistic_metric
     @current_statistic_paragraphs = [params[:paragraph_old], params[:paragraph_new]].flatten.compact
     @search =
@@ -46,11 +47,24 @@ class StatisticSearch
         hash[office] = (hash[office] || {}).merge(year => count)
       end
 
+    if params[:office].blank?
+      groupped =
+        groupped.each.with_object({}) do |(office, years), hash|
+          years.each do |year, count|
+            hash[office] = (hash[office] || {}).merge(year => count)
+
+            hash[I18n.t('statistics.index.search.office.all')] ||= {}
+            hash[I18n.t('statistics.index.search.office.all')][year] =
+              (hash[I18n.t('statistics.index.search.office.all')][year] || 0) + count
+          end
+        end
+    end
+
     { years: years, data: groupped.map { |office, values| { name: office, data: years.map { |e| values[e] } } } }
   end
 
   def current
-    params[:metric].present? ? @search.all : @search.all.where('statistics.metric = ?', default_statistic_metric)
+    params[:metric].present? ? @search.all : MetricFilter.filter(@search.all, { metric: [default_statistic_metric] })
   end
 
   def has_metric?(value)
@@ -103,7 +117,10 @@ class StatisticSearch
     def self.filter(relation, params)
       return relation unless params[:metric].present?
 
-      relation = relation.where(metric: params[:metric][0])
+      metric = params[:metric].first
+      metric = metric.match(/^_(sentence|closure)/) ? Statistic::GROUPS[$1.to_sym] : metric
+
+      relation = relation.where(metric: metric)
     end
   end
 

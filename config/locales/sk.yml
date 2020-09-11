@@ -118,6 +118,8 @@ sk:
         valid_court_decision_on_waiver_of_sentence: Právoplatné rozhodnutia súdu – upustenie od potrestania
         valid_court_decision_only_convicted_with_guilt_and_sentence_agreement: Právoplatné rozhodnutia súdu - schválenie dohody o vine a treste
         valid_other_court_decision: Právoplatné rozhodnutia súdu – iné
+        _closure_all: Všetky
+        _sentence_all: Všetky
 
   layouts:
     application:
@@ -331,7 +333,7 @@ sk:
 
     index:
       title: Kriminalita
-      subtitle: "Prehľad podľa štatistiky %{metric}"
+      subtitle: "Prehľad podľa štatistiky – %{metric}"
       subtitle_with_paragraphs: 'Prehľad podľa štatistiky %{metric} ako súčet zvolených paragrafov'
       enlarge_chart: Zväčšiť graf
       shrink_chart: Zmenšiť graf
@@ -339,6 +341,7 @@ sk:
         year:
           title: Rok
           not_found: Neboli nájdené žiadne roky
+          all: Všetky roky
         office_type:
           not_found: Nenájdené žiadne typy
           title: Typ prokuratúry
@@ -346,6 +349,7 @@ sk:
           not_found: Nenájdené žiadne prokuratúry
           placeholder: Meno prokuratúry
           title: Prokuratúra
+          all: Celá SR
         accused:
           title: Obžalované osoby
           not_found: Nenájedené žiadne ďalšie štatistiky pre obžalované osoby
@@ -358,6 +362,7 @@ sk:
         closure:
           title: Spôsoby ukončenia
           not_found: Nenájedené žiadne ďalšie spôsoby ukončenia
+          all: Všetky spôsoby ukončenia
         prosecution_by_police:
           title: Trestných stíhania ukončené na polícii
           not_found: Nenájedené žiadne trestné stíhania ukončené na polícii
@@ -367,10 +372,12 @@ sk:
         other:
           title: Ostatné
           not_found: Nenájedené žiadne ďalšie štatistiky
+        paragraphs:
+          all: Všetky paragrafy
         paragraph_old:
-          title: Paragrafy podľa trestného zákona do roku 2005
+          title: Trestné činy do roku 2005
         paragraph_new:
-          title: Paragrafy podľa trestného zákona od roku 2006
+          title: Trestné činy od roku 2006
         paragraph:
           placeholder: Názov paragrafu
           not_found: Neboli nájdené žiadne paragrafy

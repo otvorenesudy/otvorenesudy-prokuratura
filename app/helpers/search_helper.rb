@@ -3,6 +3,8 @@ module SearchHelper
     params = params.to_h.with_indifferent_access
 
     other.each do |key, value|
+      next params[key] = nil if value.nil?
+
       value = value.to_s
       values = [*params[key]].compact
 

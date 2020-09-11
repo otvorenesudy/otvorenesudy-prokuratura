@@ -37,7 +37,7 @@ class News
 
   class SME
     def self.search_url_for(query)
-      URI.encode("https://www.sme.sk/search?q=#{query}&period=90&order=relevance")
+      URI.encode("https://www.sme.sk/search?q=#{query}&period=all&order=relevance")
     end
 
     def self.search(query)

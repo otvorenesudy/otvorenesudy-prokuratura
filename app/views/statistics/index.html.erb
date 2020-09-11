@@ -11,6 +11,14 @@
 
           <div id="statistic-year-content" class="facet-content collapse show">
             <div class="facet-results">
+              <ul class="facet-list">
+                <li class="facet-item">
+                  <%= link_to statistics_path(search_params(@search.params, year: nil)), class: "facet-link#{' active' if @search.params[:year].blank?}" do %>
+                    <%= t('.search.year.all') %>
+                  <% end %>
+                </li>
+              </ul>
+
               <% if @search.facets_for(:year).tap do |facets| %>
                 <%= collapsible_facet_results(facets) do |key, _| %>
                   <li class="facet-item">
@@ -58,10 +66,44 @@
           <div id="statistic-office-content" class="facet-content collapse show">
             <div class="facet-results">
               <input class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.office.placeholder' %>" type="text" autocomplete="off">
+              <ul class="facet-list">
+                <li class="facet-item">
+                  <%= link_to statistics_path(search_params(@search.params, office: nil)), class: "facet-link#{' active' if @search.params[:office].blank?}" do %>
+                    <%= t('.search.office.all') %>
+                  <% end %>
+                </li>
+              </ul>
+
               <%= render 'office_results', values: @search.facets_for(:office), params: @search.params %>
             </div>
           </div>
         </div>
+
+        <% [:new, :old].each do |type| %>
+          <div class="facet" data-controller="suggest" data-url="<%= suggest_statistics_path(@search.params.merge(facet: :"paragraph_#{type}")) %>">
+            <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-paragraph-<%= type %>-content">
+              <%= t ".search.paragraph_#{type}.title" %>
+            </h6>
+
+            <div id="statistic-paragraph-<%= type %>-content" class="facet-content collapse show">
+              <div class="facet-results">
+                <input class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
+
+                <% if @search.facets_for(:"paragraph_#{type}").any? %>
+                  <ul class="facet-list">
+                    <li class="facet-item">
+                      <%= link_to statistics_path(search_params(@search.params, :"paragraph_#{type}" => nil)), class: "facet-link#{' active' if @search.params[:"paragraph_#{type}"].blank?}" do %>
+                        <%= t('.search.paragraphs.all') %>
+                      <% end %>
+                    </li>
+                  </ul>
+                <% end %>
+
+                <%= render "paragraph_#{type}_results", values: @search.facets_for(:"paragraph_#{type}"), params: @search.params %>
+              </div>
+            </div>
+          </div>
+        <% end %>
 
         <% Statistic::GROUPS.each do |group, metrics| %>
           <% metrics.select { |metric| @search.has_metric?(metric) }.tap do |facets| %>
@@ -75,7 +117,7 @@
                   <div class="facet-results">
                     <%= collapsible_facet_results(facets) do |key| %>
                       <li class="facet-item">
-                        <%= link_to statistics_path(search_params(@search.params, metric: key).merge(paragraph_old: nil, paragraph_new: nil)), class: "facet-link#{' active' if search_param?(@search.params, :metric, key)}" do %>
+                        <%= link_to statistics_path(search_params(@search.params, metric: key)), class: "facet-link#{' active' if search_param?(@search.params, :metric, key)}" do %>
                           <%= trim(t("models.statistic.metrics.#{key}"), length: 30) %>
                         <% end %>
                       </li>
@@ -84,23 +126,6 @@
                 </div>
               </div>
             <% end %>
-          <% end %>
-        <% end %>
-
-        <% if index_params[:metric].present? %>
-          <% [:old, :new].each do |type| %>
-            <div class="facet" data-controller="suggest" data-url="<%= suggest_statistics_path(@search.params.merge(facet: :"paragraph_#{type}")) %>">
-              <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-paragraph-<%= type %>-content">
-                <%= t ".search.paragraph_#{type}.title" %>
-              </h6>
-
-              <div id="statistic-paragraph-<%= type %>-content" class="facet-content collapse show">
-                <div class="facet-results">
-                  <input class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
-                  <%= render "paragraph_#{type}_results", values: @search.facets_for(:"paragraph_#{type}"), params: @search.params %>
-                </div>
-              </div>
-            </div>
           <% end %>
         <% end %>
       </div>
@@ -126,7 +151,7 @@
           </div>
         </div>
 
-        <div class="w-100" data-controller="chart" data-json="<%= @data.to_json %>">
+        <div class="w-100" data-controller="chart" data-json="<%= @data.to_json %>" data-selected-offices="<%= (@search.params[:office].presence || [I18n.t('statistics.index.search.office.all')]).to_json %>">
           <h1 class="text-uppercase">
             <small class="text-muted">
               <%= statistics_subtitle(@search.current_statistic_metric, @search.current_statistic_paragraphs) %>
@@ -148,7 +173,9 @@
               <tbody>
                 <% @data[:data].each do |value| %>
                   <tr>
-                    <th class="text-left" scope="row"><%= minified_office_name(value[:name]) %></th>
+                    <th class="text-left" scope="row" data-value="<% value[:name] == I18n.t('statistics.index.search.office.all') ? 'a' : value[:name] %>">
+                      <%= minified_office_name(value[:name]) %>
+                    </th>
 
                     <% value[:data].each do |count| %>
                       <td data-value="<%= count %>"><%= number_with_delimiter(count) %></td>
