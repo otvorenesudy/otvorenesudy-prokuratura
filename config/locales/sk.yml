@@ -364,7 +364,7 @@ sk:
           not_found: Nenájedené žiadne ďalšie spôsoby ukončenia
           all: Všetky spôsoby ukončenia
         prosecution_by_police:
-          title: Trestných stíhania ukončené na polícii
+          title: Trestné stíhania ukončené na polícii
           not_found: Nenájedené žiadne trestné stíhania ukončené na polícii
         sentence:
           title: Tresty

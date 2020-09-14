@@ -58,7 +58,7 @@ en:
       tos: Terms of Service
 
     header:
-      criminality: Criminality
+      criminality: Crime Stats
       donate: Donate
       en: En
       english: English
@@ -225,7 +225,7 @@ en:
   static_pages:
     home:
       squares:
-        criminality: Criminality
+        criminality: Crime Stats
         offices: Prosecutors' Offices
         prosecutors: Prosecutors
         search: Search
