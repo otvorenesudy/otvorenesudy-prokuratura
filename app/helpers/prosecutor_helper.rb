@@ -20,4 +20,12 @@ module ProsecutorHelper
 
     tooltip_tag icon_tag(n, size: options.delete(:size)), I18n.t(t, i18n_options), options
   end
+
+  def prosecutor_declaration_date(value)
+    begin
+      I18n.l(Time.parse(value).to_date)
+    rescue StandardError
+      value
+    end
+  end
 end

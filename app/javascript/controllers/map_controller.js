@@ -10,13 +10,6 @@ export default class extends Controller {
       minZoom: 7.5,
     });
 
-    this.map.addLayer(
-      new L.tileLayer("https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png", {
-        attribution:
-          '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-      })
-    );
-
     await this._addGeoJSON();
     this._addMarkers();
   }
@@ -27,11 +20,20 @@ export default class extends Controller {
     const group = L.geoJSON(data, {
       invert: true,
       style: {
-        fillColor: "#ac3e53",
+        fillColor: "#fff",
         color: "#ac3e53",
+        opacity: 1,
+        fillOpacity: 1,
       },
       definesBounds: true,
     }).addTo(this.map);
+
+    this.map.addLayer(
+      new L.tileLayer("https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png", {
+        attribution:
+          '&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org" target="_blank">OpenStreetMap</a> contributors',
+      })
+    );
 
     (window.onresize = () => {
       group.eachLayer((layer) => {
@@ -75,18 +77,9 @@ export default class extends Controller {
     this.map.addLayer(markers);
 
     markers.on("clusterclick", (cluster) => {
-      const locations = cluster.layer
-        .getAllChildMarkers()
-        .reduce((acc, e) => ({ ...acc, [e.getLatLng().lat]: 1, [e.getLatLng().lng]: 1 }), {});
-      const url = this.element.getAttribute("data-search-on-cluster-opening");
+      const bounds = cluster.layer.getBounds().pad(0.5);
 
-      if (Object.keys(locations).length === 2 && url) {
-        Turbolinks.visit(
-          `${url.split("#")[0]}&${encodeURI("office[]")}=${
-            cluster.layer.getAllChildMarkers()[0].attributes.office
-          }#facets`
-        );
-      }
+      this.map.fitBounds(bounds);
     });
   }
 }

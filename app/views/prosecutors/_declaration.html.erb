@@ -24,7 +24,7 @@
           <tr>
             <td><%= item[:description] %></td>
             <td><%= item[:acquisition_reason] %></td>
-            <td><%= item[:acquisition_date] %></td>
+            <td><%= prosecutor_declaration_date(item[:acquisition_date]) %></td>
             <% if show_procurement_price %>
               <td><%= item[:procurement_price] %></td>
             <% end %>

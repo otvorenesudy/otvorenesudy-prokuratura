@@ -290,7 +290,7 @@ sk:
           title: Prokuratúra
         no_results: Vybraným vyhľadávacím kritériám nevyhovujú žiadní prokurátori.
         not_found: Nenájdení žiadni prokurátori (%{time} ms)
-        placeholder: Meno prokurátora, prokuratúry alebo slovo z majetkové priznania
+        placeholder: Meno prokurátora alebo prokuratúry
         sort:
           default: Základné
           name: Podľa mena

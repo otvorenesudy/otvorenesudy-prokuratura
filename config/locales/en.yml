@@ -63,7 +63,7 @@ en:
       en: En
       english: English
       menu: Menu
-      offices: Attorney General Offices
+      offices: Prosectors' Offices
       otvorenesudy: Open Courts
       prosecutors: Prosecutors
       search: Search
@@ -112,14 +112,14 @@ en:
       prosecutors_count:
         <<: *prosecutors_with_count
 
-      register: At the Attorney General's office we register
+      register: At the prosecutor's office we register
       search:
         city:
           not_found: No cities found
           placeholder: Name of the city
           title: City
-        no_results: No Attorney General offices found for given search filters.
-        not_found: No Attorney General offices found (%{time} ms)
+        no_results: No prosecutors' offices found for given search filters.
+        not_found: No prosecutors' offices found (%{time} ms)
         placeholder: Name of the office or name of the prosecutor
         prosecutors_count:
           not_found: No prosecutors found
@@ -133,7 +133,7 @@ en:
         type:
           not_found: No types found
           title: Type
-      title: Attorney General offices
+      title: Prosecutors' Offices
 
     show:
       contact: Contact
@@ -142,15 +142,15 @@ en:
 
       media:
         title: 'Mentions in Media'
-        disclaimer: "News articles above are automated search results for from Denník N and SME for the name of the Attorney General's office and therefore not all the results might be relevant."
+        disclaimer: "News articles above are automated search results for from Denník N and SME for the name of the prosecutors' office and therefore not all the results might be relevant."
         no_results: No relevant news articles found.
         more_from_n: More from Dennik N
         more_from_sme: More from SME
 
     prosecutors:
       activity: Activity
-      activity_help: Activity at the Attorney General's Office
-      explanation: List of prosecutors currently appointed at the Attorney General's office
+      activity_help: Activity at the Prosecutors' Office
+      explanation: List of prosecutors currently appointed at the Prosecutors' Office
       name: Name of the Prosecutor
       position: Branch of Business
 
@@ -171,10 +171,10 @@ en:
     index:
       list:
         declarations:
-          zero: We register no estate declarations.
-          one: We register 1 estate declaration.
-          few: We register %{count} estate declarations.
-          other: We register %{count} estate declarations.
+          zero: We register no asset declarations.
+          one: We register 1 asset declaration.
+          few: We register %{count} asset declarations.
+          other: We register %{count} asset declarations.
         office_fixed_html: The prosecutor is appointed to %{link}.
         office_temporary_html: The prosecutor is temporarily appointed to %{link}.
       search:
@@ -185,10 +185,10 @@ en:
         office:
           not_found: No offices found
           placeholder: Name of the office
-          title: Attorney General Offices
+          title: Prosecutors' Offices
         no_results: No prosecutors found for given search filters.
         not_found: No prosecutors found (%{time} ms)
-        placeholder: Name of the prosecutor, Attorney General's office or any text from the estate declaration
+        placeholder: Name of the prosecutor or prosecutors' office
         sort:
           default: Default
           name: By Name
@@ -200,7 +200,7 @@ en:
       title: Prosecutors
 
     show:
-      employee_html: We register the prosecutor as <em>%{position}</em> at Attorney General's office %{link}.
+      employee_html: We register the prosecutor as <em>%{position}</em> at the prosecutors' office %{link}.
 
       declarations:
         title: 'Estate Declaration of %{year}'
@@ -226,6 +226,6 @@ en:
     home:
       squares:
         criminality: Criminality
-        offices: Attorney General Offices
+        offices: Prosecutors' Offices
         prosecutors: Prosecutors
         search: Search

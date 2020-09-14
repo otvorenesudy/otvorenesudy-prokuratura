@@ -19,7 +19,7 @@ class ProsecutorSearch
     def self.filter(relation, params)
       return relation if params[:q].blank?
 
-      columns = %i[name office declarations]
+      columns = %i[name office]
       order = params[:sort] == 'relevancy' && params[:order].in?(%w[asc desc]) ? params[:order].to_sym : nil
 
       ::QueryFilter.filter(relation, params, columns: columns)
