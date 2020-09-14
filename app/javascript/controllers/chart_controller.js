@@ -50,23 +50,36 @@ export default class extends Controller {
   }
 
   lineChartOptions(data) {
-    const series = data.map((value, i) => {
-      return {
-        ...value,
-        fillColor: {
-          linearGradient: {
-            x1: 1,
-            y1: 0,
-            x2: 1,
-            y2: 1,
-          },
-          stops: [
-            [0, Highcharts.Color(this.colors[i]).setOpacity(0.15).get("rgba")],
-            [1, Highcharts.Color(this.colors[i]).setOpacity(0).get("rgba")],
-          ],
-        },
-      };
-    });
+    const series =
+      data.length > this.colors.length
+        ? data
+        : data.map((value, i) => {
+            return {
+              ...value,
+              fillColor: {
+                linearGradient: {
+                  x1: 1,
+                  y1: 0,
+                  x2: 1,
+                  y2: 1,
+                },
+                stops: [
+                  [
+                    0,
+                    Highcharts.Color(this.colors[i % this.colors.length])
+                      .setOpacity(0.15)
+                      .get("rgba"),
+                  ],
+                  [
+                    1,
+                    Highcharts.Color(this.colors[i % this.colors.length])
+                      .setOpacity(0)
+                      .get("rgba"),
+                  ],
+                ],
+              },
+            };
+          });
 
     return {
       series,
@@ -104,9 +117,19 @@ export default class extends Controller {
             y2: 1,
           },
           stops: [
-            [0, Highcharts.Color(this.colors[i]).get("rgba")],
-            [0.75, Highcharts.Color(this.colors[i]).setOpacity(0.65).get("rgba")],
-            [1, Highcharts.Color(this.colors[i]).setOpacity(0.35).get("rgba")],
+            [0, Highcharts.Color(this.colors[i % this.colors.length]).get("rgba")],
+            [
+              0.75,
+              Highcharts.Color(this.colors[i % this.colors.length])
+                .setOpacity(0.65)
+                .get("rgba"),
+            ],
+            [
+              1,
+              Highcharts.Color(this.colors[i % this.colors.length])
+                .setOpacity(0.35)
+                .get("rgba"),
+            ],
           ],
         },
       };

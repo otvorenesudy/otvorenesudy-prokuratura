@@ -8,9 +8,9 @@ class Search
   end
 
   def all(except: [])
-    except = [*except]
+    except = [*except].map(&:to_sym)
 
-    filters.reject { |(key, _)| key.in?(except) }.inject(repository) do |relation, (key, filter)|
+    filters.reject { |(key, _)| key.to_sym.in?(except) }.inject(repository) do |relation, (key, filter)|
       next filter.filter(relation, params) if filter.respond_to?(:filter)
 
       relation

@@ -1,5 +1,5 @@
 module SearchHelper
-  def search_params(params, other)
+  def search_params(params, other, replace: false)
     params = params.to_h.with_indifferent_access
 
     other.each do |key, value|
@@ -7,6 +7,8 @@ module SearchHelper
 
       value = value.to_s
       values = [*params[key]].compact
+
+      next params[key] = [value] if replace
 
       params[key] = value.in?(values) ? values - [value] : [*values, value]
     end

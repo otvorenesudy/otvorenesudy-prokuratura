@@ -117,7 +117,7 @@
                   <div class="facet-results">
                     <%= collapsible_facet_results(facets) do |key| %>
                       <li class="facet-item">
-                        <%= link_to statistics_path(search_params(@search.params, metric: key)), class: "facet-link#{' active' if search_param?(@search.params, :metric, key)}" do %>
+                        <%= link_to statistics_path(search_params(@search.params, { metric: key }, replace: true)), class: "facet-link#{' active' if search_param?(@search.params, :metric, key)}" do %>
                           <%= trim(t("models.statistic.metrics.#{key}"), length: 30) %>
                         <% end %>
                       </li>
@@ -151,7 +151,7 @@
           </div>
         </div>
 
-        <div class="w-100" data-controller="chart" data-json="<%= @data.to_json %>" data-selected-offices="<%= (@search.params[:office].presence || [I18n.t('statistics.index.search.office.all')]).to_json %>">
+        <div class="w-100" data-controller="chart" data-json="<%= @data.to_json %>" data-selected-offices="<%= (@search.params.values_at(:office, :office_type).flatten.compact.blank? ? [@search.office_aggregate_key] : @search.data_by_office[:data].map { |e| e[:name] }.uniq).to_json %>">
           <h1 class="text-uppercase">
             <small class="text-muted">
               <%= statistics_subtitle(@search.current_statistic_metric, @search.current_statistic_paragraphs) %>
@@ -173,12 +173,12 @@
               <tbody>
                 <% @data[:data].each do |value| %>
                   <tr>
-                    <th class="text-left" scope="row" data-value="<% value[:name] == I18n.t('statistics.index.search.office.all') ? 'a' : value[:name] %>">
+                    <th class="text-left" scope="row" data-value="<% value[:name] == @search.office_aggregate_key ? 'a' : value[:name] %>">
                       <%= minified_office_name(value[:name]) %>
                     </th>
 
                     <% value[:data].each do |count| %>
-                      <td data-value="<%= count %>"><%= number_with_delimiter(count) %></td>
+                      <td  data-value="<%= count %>"><%= trim(number_with_delimiter(count), length: 5) %></td>
                     <% end %>
                   </tr>
                 <% end %>
