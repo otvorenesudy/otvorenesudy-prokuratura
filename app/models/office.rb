@@ -80,6 +80,10 @@ class Office < ApplicationRecord
     "\"#{name}\""
   end
 
+  def news
+    Rails.cache.fetch("office-#{id}-news", expires_in: 12.hours) { News.search_by(to_news_query) }
+  end
+
   def self.as_map_json
     pluck(:id, :name, :address, :additional_address, :zipcode, :city, :latitude, :longitude).map do |values|
       {

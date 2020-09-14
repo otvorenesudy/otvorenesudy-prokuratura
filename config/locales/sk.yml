@@ -30,6 +30,18 @@ sk:
       few: "%{count} prokurátori"
       other: "%{count} prokurátorov"
 
+    declaration:
+      zero: žiadne majetkové priznanie.
+      one: 1 majetkové priznanie.
+      few: '%{count} majetkové priznania'
+      other: '%{count} majetkových priznaní'
+
+    news:
+      zero: žiadne zmienky v novinách
+      one: 1 zmienku v novinách
+      few: "%{count} zmienky v novinách"
+      other: "%{count} zmienok v novinách"
+
   models:
     statistic:
       metrics:
@@ -272,11 +284,7 @@ sk:
 
     index:
       list:
-        declarations:
-          zero: Neevidujeme žiadne majetkové priznanie.
-          one: Evidujeme 1 majetkové priznanie.
-          few: Evidujeme %{count} majetkové priznania.
-          other: Evidujeme %{count} majetkových priznaní.
+        register: Evidujeme
         office_fixed_html: Pôsobí na prokuratúre %{link}.
         office_temporary_html: Pôsobí ako dočasne pridelený prokurátor na %{link}.
       search:

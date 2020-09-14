@@ -130,7 +130,13 @@
                   <br>
                 <% end %>
 
-                <%= t '.list.declarations', count: prosecutor.declarations&.count || 0 %>
+                <%= t '.list.register' %>
+                <%=
+                  [
+                    t('terms.declaration', count: prosecutor.declarations&.count || 0),
+                    prosecutor.news.any? ? t('terms.news', count: prosecutor.news.count) : nil
+                  ].compact.to_sentence
+                %>.
               </div>
             </li>
           <% end.empty? %>

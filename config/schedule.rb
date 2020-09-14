@@ -34,3 +34,7 @@ end
 every :day, at: '6:00am' do
   runner 'GenproGovSk::Declarations.import'
 end
+
+every 6.hours do
+  runner '::Prosecutor.find_each(&:news)'
+end

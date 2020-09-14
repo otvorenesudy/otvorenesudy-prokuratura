@@ -34,6 +34,14 @@ class Prosecutor < ApplicationRecord
 
   validate :validate_declarations, if: :declarations?
 
+  def to_news_query
+    "\"#{name_parts.values_at('first', 'middle', 'last').compact.join(' ')}\""
+  end
+
+  def news
+    Rails.cache.fetch("prosecutor-#{id}-news", expires_in: 12.hours) { News.search_by(to_news_query) }
+  end
+
   def self.as_map_json
     attributes = %w[
       prosecutors.id
@@ -59,10 +67,6 @@ class Prosecutor < ApplicationRecord
         TEXT
       }
     end
-  end
-
-  def to_news_query
-    "\"#{name_parts.values_at('first', 'middle', 'last').compact.join(' ')}\""
   end
 
   private

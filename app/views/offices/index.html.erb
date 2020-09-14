@@ -151,8 +151,9 @@
                 <%=
                   [
                     t('.prosecutors_count', count: office.prosecutors.count),
-                    t('.employees_count', count: office.employees.active.count)
-                  ].to_sentence
+                    t('.employees_count', count: office.employees.active.count),
+                    office.news.any? ? t('terms.news', count: office.news.count) : nil
+                  ].compact.to_sentence
                 %>.
               </div>
             </li>
