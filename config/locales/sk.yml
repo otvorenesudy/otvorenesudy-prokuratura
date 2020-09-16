@@ -283,6 +283,8 @@ sk:
       inactive: "Neaktívny prokurátor od %{date}"
 
     index:
+      redirecting_to_prosecutors_list: Za pár sekúnd vás presmerujeme na zoznam prokurátorov z danej prokuratúry …
+
       list:
         register: Evidujeme
         office_fixed_html: Pôsobí na prokuratúre %{link}.

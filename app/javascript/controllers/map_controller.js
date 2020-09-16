@@ -80,6 +80,28 @@ export default class extends Controller {
       const bounds = cluster.layer.getBounds().pad(0.5);
 
       this.map.fitBounds(bounds);
+
+      const locations = cluster.layer
+        .getAllChildMarkers()
+        .reduce((acc, e) => ({ ...acc, [e.getLatLng().lat]: 1, [e.getLatLng().lng]: 1 }), {});
+      const url = this.element.getAttribute("data-search-on-cluster-opening");
+
+      if (Object.keys(locations).length === 2 && url) {
+        L.popup()
+          .setLatLng({ lat: Object.keys(locations)[0], lng: Object.keys(locations)[1] })
+          .setContent(sanitize(`<p>${this.element.getAttribute("data-search-on-cluster-opening-message")}</p>`))
+          .openOn(this.map);
+
+        setTimeout(
+          () =>
+            Turbolinks.visit(
+              `${url.split("#")[0]}&${encodeURI("office[]")}=${
+                cluster.layer.getAllChildMarkers()[0].attributes.office
+              }#facets`
+            ),
+          2000
+        );
+      }
     });
   }
 }
