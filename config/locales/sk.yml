@@ -39,8 +39,8 @@ sk:
     news:
       zero: žiadne zmienky v novinách
       one: 1 zmienku v novinách
-      few: "%{count} zmienky v novinách"
-      other: "%{count} zmienok v novinách"
+      few: '%{count} zmienky v novinách'
+      other: '%{count} zmienok v novinách'
 
   models:
     statistic:

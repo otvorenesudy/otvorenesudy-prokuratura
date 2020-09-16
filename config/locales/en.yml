@@ -30,6 +30,106 @@ en:
       few: "%{count} prosecutors"
       other: "%{count} prosecutors"
 
+    declaration:
+      zero: no asset declarations.
+      one: 1 asset declaration.
+      few: '%{count} asset declarations'
+      other: '%{count} assets declarations'
+
+    news:
+      zero: no mentions in the media
+      one: 1 mention in the media
+      few: '%{count} mentions in the media'
+      other: '%{count} mentions in the media'
+
+  models:
+    statistics:
+      metrics:
+        accused_Age_14_to_15_all: All age from 14 to 15 years
+        accused_Age_14_to_15_boys: Boys from 14 to 15 years
+        accused_Age_14_to_15_girls: Girls from 14 to 15 years
+        accused_Age_16_to_18_all: Age from 16 to 18 years
+        accused_Age_16_to_18_boys: Boys from 16 to 18 years
+        accused_Age_16_to_18_girls: Girls from 16 to 18 years
+        accused_Age_19_to_21_all: Age from 19 to 21 years
+        accused_Age_22_to_30_all: Age from 22 to 30 years
+        accused_Age_31_to_40_all: Age from 31 to 40 years
+        accused_Age_41_to_50_all: Age from 41 to 50 years
+        accused_Age_51_to_60_all: Age from 51 to 60 years
+        accused_Age_61_and_more_all: Age from 61 and more
+        accused_alcohol_abuse: Alcohol Abuse
+        accused_all: All
+        accused_by_paragraph_204: Shorten investigation according to §204 of the Penal code
+        accused_men: Men
+        accused_people_for_intentional_crimes: For intentional crimes
+        accused_people_for_intentional_crimes_of_same_nature: For intentional crimes of same nature
+        accused_recidivists_all: All recidivists
+        accused_recidivists_dangerous: Especially dangerous recidivists
+        accused_recidivists_only: Only recidivists
+        accused_substance_abuse: Influence of other addictive substance
+        accused_women: Women
+        assignation_of_prosecution: Assignation of Criminal Prosecution
+        cessation_of_prosecution: Cessation of Criminal Prosecution
+        closed_cases: Closed cases in criminal records Pv/Kv/Gv
+        conditional_cessation_by_court: Conditional Cessation of prosecution by court
+        conditional_cessation_by_prosecutor: Conditional Cessation of prosecution by prosecutor
+        conditional_cessation_by_prosecutor_all: Conditional Cessation of prosecution by prosecutor - All
+        conditional_cessation_of_accused_all: Conditional Cessation of Prosecution - accused - All
+        conditional_cessation_of_accused_and_proven: Conditional Cessation of Prosecution, the accused proved himself
+        conditional_cessation_of_accused_and_proven_by_prosecutor: Conditional Cessation of Prosecution by prosecutor, the accused proved himself
+        conditional_cessation_of_accused_by_prosecutor: Conditional Cessation of Prosecution by prosecutor
+        conditional_cessation_of_cooperating_accused_and_proven: Conditional Cessation of Prosecution where cooperating accused proved himself
+        conditional_cessation_of_cooperating_accused_by_prosecutor: Conditional Cessation of Prosecution by Prosecutor where cooperating accused proved himself
+        convicted_all: All
+        convicted_men: Men
+        convicted_women: Women
+        convicted_young: Young
+        exemption: Exemption Persons
+        guilt_and_sentence_agreement: Agreement on Guilt and Puhishment
+        incoming_cases: All incoming cases which were attacked in registries Pv/Kv/Gv
+        judged_all: Judged persons
+        prosecuted_all: All
+        prosecuted_foreigners: Foreigners
+        prosecuted_men: Men
+        prosecuted_substance_abuse: Influence of other addictive substance
+        prosecuted_women: Women
+        prosecuted_young: Young
+        prosecution_of_unknown_offender_ended_by_police: Unknown offenders
+        prosecution_of_unknown_offender_ended_by_police_by_assignation: Unknown Offender by Assignation
+        prosecution_of_unknown_offender_ended_by_police_by_cessation: Unknown Offender by Cessation
+        prosecution_of_unknown_offender_ended_by_police_by_other_mean: Unknown Offender by Other Mean
+        prosecution_of_unknown_offender_ended_by_police_by_suspension: Unknown Offender by Suspension
+        protective_measures_imposed: Imposed Protective Measures
+        reconciliation_approval: Approval of Reconciliation
+        sentence_by_os_47_2_tz: Sentence by §47/2 T.z.
+        sentence_financial: Financial
+        sentence_nepo: Without Suspension
+        sentence_of_compulsary_labor: Compulsary Labor
+        sentence_of_deportation: Deportation
+        sentence_of_forfeiture_of_possesion: Forfeiture of possesion
+        sentence_of_forfeiture_of_property: Forfeiture of property
+        sentence_other: Other
+        sentence_po: With Suspension
+        sentence_prohibition_of_movement: Prohibition of Movement
+        sentence_prohibition_of_practice: Prohibition of Practice
+        sentence_prohibition_of_stay: Prohibition of Stay
+        sentence_under_home_arrest: Home Arrest
+        sentence_waived: Waived
+        suspension_of_prosecution: Suspension of Prosecution
+        suspension_of_prosecution_of_cooperating_accused:Suspension of Prosecution of Cooperatin Accused
+        valid_court_decision_all: Valid court decisions - All
+        valid_court_decision_on_assignation_of_prosecution: Valid court decisions – Assignation of Prosecution
+        valid_court_decision_on_cessation_of_prosecution: Valid court decisions – Cessation of Prosecution
+        valid_court_decision_on_conditional_cessation_of_prosecution: Valid court decisions – Conditional Cessation of Prosecution
+        valid_court_decision_on_conditional_cessation_of_prosecution_of_cooperating_accused: Valid court decisions – Conditional Cessation of Prosecution of Cooperating accused
+        valid_court_decision_on_conviction_of_people: Valid court decisions – on conviction of people
+        valid_court_decision_on_exemption: Valid court decisions – Exemption
+        valid_court_decision_on_reconciliation_approval: Valid court decisions – Reconciliation Approval
+        valid_court_decision_on_suspension_of_prosecution: Valid court decisions – Suspension of Prosecution
+        valid_court_decision_on_waiver_of_sentence: Valid court decisions – waiver of sentence
+        valid_court_decision_only_convicted_with_guilt_and_sentence_agreement: Valid court decisions - Only convicted with Agreement on Guilt and Punishment
+        valid_other_court_decision: Valid court decisions – Others
+
   layouts:
     application:
       authors: TODO
