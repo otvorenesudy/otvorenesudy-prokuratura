@@ -43,20 +43,20 @@ en:
       other: '%{count} mentions in the media'
 
   models:
-    statistics:
+    statistic:
       metrics:
-        accused_Age_14_to_15_all: All age from 14 to 15 years
-        accused_Age_14_to_15_boys: Boys from 14 to 15 years
-        accused_Age_14_to_15_girls: Girls from 14 to 15 years
-        accused_Age_16_to_18_all: Age from 16 to 18 years
-        accused_Age_16_to_18_boys: Boys from 16 to 18 years
-        accused_Age_16_to_18_girls: Girls from 16 to 18 years
-        accused_Age_19_to_21_all: Age from 19 to 21 years
-        accused_Age_22_to_30_all: Age from 22 to 30 years
-        accused_Age_31_to_40_all: Age from 31 to 40 years
-        accused_Age_41_to_50_all: Age from 41 to 50 years
-        accused_Age_51_to_60_all: Age from 51 to 60 years
-        accused_Age_61_and_more_all: Age from 61 and more
+        accused_age_14_to_15_all: All age from 14 to 15 years
+        accused_age_14_to_15_boys: Boys from 14 to 15 years
+        accused_age_14_to_15_girls: Girls from 14 to 15 years
+        accused_age_16_to_18_all: Age from 16 to 18 years
+        accused_age_16_to_18_boys: Boys from 16 to 18 years
+        accused_age_16_to_18_girls: Girls from 16 to 18 years
+        accused_age_19_to_21_all: Age from 19 to 21 years
+        accused_age_22_to_30_all: Age from 22 to 30 years
+        accused_age_31_to_40_all: Age from 31 to 40 years
+        accused_age_41_to_50_all: Age from 41 to 50 years
+        accused_age_51_to_60_all: Age from 51 to 60 years
+        accused_age_61_and_more_all: Age from 61 and more
         accused_alcohol_abuse: Alcohol Abuse
         accused_all: All
         accused_by_paragraph_204: Shorten investigation according to §204 of the Penal code
@@ -91,6 +91,7 @@ en:
         prosecuted_all: All
         prosecuted_foreigners: Foreigners
         prosecuted_men: Men
+        prosecuted_alcohol_abuse: Alcohol Influence
         prosecuted_substance_abuse: Influence of other addictive substance
         prosecuted_women: Women
         prosecuted_young: Young
@@ -116,7 +117,7 @@ en:
         sentence_under_home_arrest: Home Arrest
         sentence_waived: Waived
         suspension_of_prosecution: Suspension of Prosecution
-        suspension_of_prosecution_of_cooperating_accused:Suspension of Prosecution of Cooperatin Accused
+        suspension_of_prosecution_of_cooperating_accused: Suspension of Prosecution of Cooperatin Accused
         valid_court_decision_all: Valid court decisions - All
         valid_court_decision_on_assignation_of_prosecution: Valid court decisions – Assignation of Prosecution
         valid_court_decision_on_cessation_of_prosecution: Valid court decisions – Cessation of Prosecution
@@ -129,6 +130,8 @@ en:
         valid_court_decision_on_waiver_of_sentence: Valid court decisions – waiver of sentence
         valid_court_decision_only_convicted_with_guilt_and_sentence_agreement: Valid court decisions - Only convicted with Agreement on Guilt and Punishment
         valid_other_court_decision: Valid court decisions – Others
+        _closure_all: All
+        _sentence_all: All
 
   layouts:
     application:
@@ -173,6 +176,11 @@ en:
     search:
       found_html: "%{count} out of %{total} (%{time} ms)"
       reset: Cancel all filters
+
+  facets:
+    collapsible_results:
+      show_more: Show more
+      show_less: Show less
 
   offices:
     types:
