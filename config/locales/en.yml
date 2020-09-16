@@ -278,11 +278,7 @@ en:
 
     index:
       list:
-        declarations:
-          zero: We register no asset declarations.
-          one: We register 1 asset declaration.
-          few: We register %{count} asset declarations.
-          other: We register %{count} asset declarations.
+        register: We register
         office_fixed_html: The prosecutor is appointed to %{link}.
         office_temporary_html: The prosecutor is temporarily appointed to %{link}.
       search:
@@ -329,6 +325,64 @@ en:
       incomes: Incomes and Other Benefits
       income_value: Income (in €)
       statements: Statements
+
+  statistics:
+    count:
+      zero: 0 statistics
+      one: 1 statistic
+      few: '%{count} statistics'
+      other: '%{count} statistics'
+
+    index:
+      title: Crime Stats
+      subtitle: "Overview by metric – %{metric}"
+      subtitle_with_paragraphs: 'Overview by metric – %{metric} as sum of selected paragraphs'
+      enlarge_chart: Enlarge Chart
+      shrink_chart: Shrink Chart
+      search:
+        year:
+          title: Year
+          not_found: No years found
+          all: All Years
+        office_type:
+          not_found: No office types founds
+          title: Office Type
+        office:
+          not_found: No proseuctors' offices found
+          placeholder: Name of Prosecutors' Office
+          title: Prosecutors' Office
+          all: All of SR
+        accused:
+          title: Accused People
+          not_found: No metrics for accused people found
+        prosecuted:
+          title: Prosecuted People
+          not_found: No metrics for prosecuted people found
+        convicted:
+          title: Convicted People
+          not_found: No metrics for convicted people found
+        closure:
+          title: Means of Cessation
+          not_found: No metrics for means of cessation found
+          all: All Means of Cessation
+        prosecution_by_police:
+          title: Prosecution by Police
+          not_found: No metrics for prosecution by police found
+        sentence:
+          title: Sentences
+          not_found: No metrics for sentences found
+        other:
+          title: Other
+          not_found: No other metrics found
+        paragraphs:
+          all: All Paragraphs
+        paragraph_old:
+          title: Sentences until the year of 2005
+        paragraph_new:
+          title: Sentences from the year of 2006
+        paragraph:
+          placeholder: Paragraph Name
+          not_found: No paragraphs found
 
   static_pages:
     home:
