@@ -84,7 +84,7 @@ class Statistic < ApplicationRecord
     convicted: %i[convicted_all convicted_men convicted_women convicted_young],
     closure: %i[
       _closure_all
-      assignation_of_prosuction
+      assignation_of_prosecution
       guilt_and_sentence_agreement
       reconciliation_approval
       suspension_of_prosecution

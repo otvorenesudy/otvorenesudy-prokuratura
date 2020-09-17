@@ -2,7 +2,7 @@ import { Controller } from "stimulus";
 import Highcharts from "highcharts";
 
 export default class extends Controller {
-  initialize() {
+  connect() {
     this.colors = ["#00aeef", "#ac3e53", "#73be1e", "#8392ac", "#73be1e", "#d34242", "#e19e41", "#1b325f"];
 
     const { years: categories, data } = JSON.parse(this.element.getAttribute("data-json"));

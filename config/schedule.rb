@@ -38,3 +38,7 @@ end
 every 6.hours do
   runner '::Prosecutor.find_each(&:news)'
 end
+
+every 6.hours do
+  runner '::Office.find_each(&:news)'
+end

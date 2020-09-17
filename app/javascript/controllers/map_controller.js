@@ -2,7 +2,7 @@ import { Controller } from "stimulus";
 import sanitize from "sanitize-html";
 
 export default class extends Controller {
-  async initialize() {
+  async connect() {
     this.map = L.map(this.element.getAttribute("id"), {
       zoomSnap: 0.05,
       zoomControl: false,
@@ -30,8 +30,7 @@ export default class extends Controller {
 
     this.map.addLayer(
       new L.tileLayer("https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png", {
-        attribution:
-          '&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org" target="_blank">OpenStreetMap</a> contributors',
+        attribution: '&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a>',
       })
     );
 

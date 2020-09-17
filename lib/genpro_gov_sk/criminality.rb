@@ -25,7 +25,13 @@ module GenproGovSk
         Curl.get(
           'https://www.genpro.gov.sk/statistiky/statisticky-prehlad-trestnej-a-netrestnej-cinnosti-za-rok-2020-3a68.html'
         ).body_str
-      url = Nokogiri.HTML(html).css('a:contains("Štruktúra kriminality stíhaných a obžalovaných osôb")')[0][:href]
+
+      url =
+        Nokogiri.HTML(html).css('a').find do |e|
+          e.text =~ /Štruktúra kriminality/ && e.text =~ /stíhaných/ && e.text =~ /obžalovaných/
+        end[
+          :href
+        ]
       urls = ["https://www.genpro.gov.sk#{url}"]
 
       urls +=
@@ -189,8 +195,8 @@ module GenproGovSk
       'Počet obžalovaných osôb' => :accused_all,
       'Počet obžalovaných osôb - z toho skrátené vyšetrovanie podľa §204 Tr.por.' => :accused_by_paragraph_204,
       'Počet obžalovaných osôb z toho skrátené vyšetrovanie podľa § 204 Tr.por.' => :accused_by_paragraph_204,
-      'Postúpenie trestného stíhania' => :assignation_of_prosuction,
-      'Postúpené trestné stíhanie' => :assignation_of_prosuction,
+      'Postúpenie trestného stíhania' => :assignation_of_prosecution,
+      'Postúpené trestné stíhanie' => :assignation_of_prosecution,
       'Zastavené trestné stíhanie' => :cessation_of_prosecution,
       'Zastavenie trestného stíhania' => :cessation_of_prosecution,
       'V trestných registroch Pv/Kv/Gv bolo vybavených spisov' => :closed_cases,

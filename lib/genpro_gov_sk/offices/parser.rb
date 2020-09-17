@@ -32,6 +32,7 @@ module GenproGovSk
           'okresná prokurátorka',
           'okresný prokurátor',
           'poverená výkonom funkcie zástupcu riaditeľa medzinárodného odboru',
+          'poverená výkonom funkcie okresného prokurátora',
           'poverený výkonom funkcie námestníka krajského prokurátora pre trestný úsek',
           'poverený výkonom funkcie námestníka okresného prokurátora',
           'poverený výkonom funkcie okresného prokurátora',
