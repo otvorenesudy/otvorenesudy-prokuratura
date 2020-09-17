@@ -359,7 +359,7 @@ sk:
     index:
       title: Kriminalita
       subtitle: "Prehľad podľa štatistiky – %{metric}"
-      subtitle_with_paragraphs: 'Prehľad podľa štatistiky – %{metric} ako súčet zvolených paragrafov'
+      subtitle_with_paragraphs: 'Prehľad podľa štatistiky – %{metric} – ako súčet zvolených paragrafov'
       enlarge_chart: Zväčšiť graf
       shrink_chart: Zmenšiť graf
       search:

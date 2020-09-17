@@ -184,12 +184,12 @@ class StatisticSearch
     end
 
     def facets(relation, suggest:)
-      paragraphs = ::QueryFilter.filter(Paragraph.where(type: type).all, { q: suggest }, columns: %i[name])
-      order = paragraphs.pluck(:value)
+      paragraphs =
+        ::QueryFilter.filter(Paragraph.where(type: type).all, { q: suggest }, columns: %i[name]).pluck(:value)
 
-      relation.where(paragraph: paragraphs.select(:value)).group(:paragraph).count.map do |value, count|
+      relation.where(paragraph: paragraphs).group(:paragraph).count.map do |value, count|
         [value, count]
-      end.sort_by { |(name, _)| order.index(name) }.to_h
+      end.sort_by { |(name, _)| paragraphs.index(name) }.to_h
     end
   end
 end
