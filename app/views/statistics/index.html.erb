@@ -20,7 +20,7 @@
               </ul>
 
               <% if @search.facets_for(:year).tap do |facets| %>
-                <%= collapsible_facet_results(facets) do |key, _| %>
+                <%= collapsible_facet_results(facets, selected: @search.params[:year]) do |key, _| %>
                   <li class="facet-item">
                     <%= link_to statistics_path(search_params(@search.params, year: key)), class: "facet-link#{' active' if search_param?(@search.params, :year, key)}" do %>
                       <%= key %>
@@ -115,7 +115,7 @@
 
                 <div id="statistic-<%= group %>-content" class="facet-content collapse show">
                   <div class="facet-results">
-                    <%= collapsible_facet_results(facets) do |key| %>
+                    <%= collapsible_facet_results(facets, selected: @search.params[:metric]) do |key| %>
                       <li class="facet-item">
                         <%= link_to statistics_path(search_params(@search.params, { metric: key }, replace: true)), class: "facet-link#{' active' if search_param?(@search.params, :metric, key)}" do %>
                           <%= trim(t("models.statistic.metrics.#{key}"), length: 30) %>

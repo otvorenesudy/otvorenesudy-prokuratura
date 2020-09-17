@@ -5,7 +5,7 @@
 </ul>
 
 <% if hidden.present? %>
-  <ul id="<%= id %>" class="facet-list collapse">
+  <ul id="<%= id %>" class="facet-list collapse <%= 'show' if selected.present? && hidden.keys.any? { |e| e.to_s.in?(selected)  } %>">
     <% hidden.each do |value| %>
       <%= capture(value, &renderer) %>
     <% end %>
