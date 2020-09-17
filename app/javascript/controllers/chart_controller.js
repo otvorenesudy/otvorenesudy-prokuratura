@@ -10,7 +10,7 @@ export default class extends Controller {
 
     const series = data.filter(({ name }) => selectedOffices.includes(name));
     const chartOptions =
-      selectedOffices.length < 2 || categories.length < 2
+      selectedOffices.length < 2 || categories.length <= 3
         ? this.barChartOptions(series)
         : this.lineChartOptions(series);
 
