@@ -39,4 +39,7 @@ Rails.application.routes.draw do
     get :contact
     get :copyright
   end
+
+  # error pages
+  %w[400 404 422 500 503].each { |code| get "/#{code}", to: 'errors#show', code: code }
 end

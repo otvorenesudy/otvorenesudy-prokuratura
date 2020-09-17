@@ -1,4 +1,19 @@
 sk:
+  errors:
+    unicorn:
+      title: "Jednorožec"
+      message: "A preto sa veľmi rozzúril jednorožec!"
+
+    400:
+      title: "Chybná požiadavka"
+      description: "Server nerozumel Vašej požiadavke. Mohla byť poškodená."
+    404:
+      title: "Stránka nenájdená"
+      description: "Stránka, ktorú ste hľadali neexistuje."
+    500:
+      title: "Kritická chyba"
+      description: "Prepáčte, ale niečo sa pokazilo pri spracovaní Vašej požiadavky."
+
   kaminari:
     pagination:
       current: Aktuálna strana

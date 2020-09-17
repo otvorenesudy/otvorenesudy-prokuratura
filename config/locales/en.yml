@@ -1,4 +1,19 @@
 en:
+  errors:
+    unicorn:
+      title: "Unicorn"
+      message: "And that's why the unicorn got really mad!"
+
+    400:
+      title: "Bad request"
+      description: "The server did not understand your request. It may have been malformed."
+    404:
+      title: "Page not found"
+      description: "The page you were looking for does not exists."
+    500:
+      title: "Internal server error"
+      description: "Sorry, something went wrong while processing your request."
+
   kaminari:
     pagination:
       current: Current Page
