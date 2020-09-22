@@ -11,6 +11,7 @@
 #
 # Indexes
 #
+#  index_paragraphs_on_type   (type)
 #  index_paragraphs_on_value  (value) UNIQUE
 #
 class Paragraph < ApplicationRecord

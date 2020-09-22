@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_14_215818) do
+ActiveRecord::Schema.define(version: 2020_09_22_205548) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pg_trgm'
   enable_extension 'plpgsql'
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 2020_09_14_215818) do
     t.string 'value', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.index %w[type], name: 'index_paragraphs_on_type'
     t.index %w[value], name: 'index_paragraphs_on_value', unique: true
   end
 
