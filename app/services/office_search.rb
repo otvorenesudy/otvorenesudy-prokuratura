@@ -26,9 +26,8 @@ class OfficeSearch
       return relation if params[:q].blank?
 
       columns = %i[name address city employee]
-      order = params[:sort] == 'relevancy' && params[:order].in?(%w[asc desc]) ? params[:order].to_sym : nil
 
-      ::QueryFilter.filter(relation, params, columns: columns, order: order)
+      ::QueryFilter.filter(relation, params, columns: columns)
     end
   end
 
