@@ -217,7 +217,7 @@ class StatisticSearch
 
     def facets(relation, suggest:)
       paragraphs =
-        ::QueryFilter.filter(Paragraph.where(type: type).all, { q: suggest }, columns: %i[name]).pluck(:value)
+        ::QueryFilter.filter(Paragraph.where(type: type).all, { q: suggest }, columns: %i[name]).select(:value)
 
       relation.where(paragraph: paragraphs).group(:paragraph).count.map do |value, count|
         [value, count]
