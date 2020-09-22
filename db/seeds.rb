@@ -26,8 +26,10 @@ Dir[Rails.root.join('data/genpro_gov_sk/criminality/paragraph-definitions-*')].e
 
   CSV.open(path, headers: true).each do |row|
     value = "#{row[2].strip} [#{type}]"
-    name = "#{row[2].strip} – #{row[3].strip}"
+    name = "#{row[2].strip} – #{row[3].strip.capitalize}"
 
-    Paragraph.find_or_create_by!(name: name, value: value, type: type)
+    paragraph = Paragraph.find_or_initialize_by(value: value, type: type)
+
+    paragraph.update(name: name)
   end
 end

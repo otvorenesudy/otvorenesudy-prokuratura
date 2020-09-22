@@ -1,5 +1,5 @@
 class StatisticSearch
-  attr_reader :search, :params, :current_statistic_metric, :current_statistic_paragraphs
+  attr_reader :search, :params, :current_statistic_metric, :current_statistic_paragraphs, :default_params
 
   def initialize(params)
     @params = params
@@ -7,12 +7,37 @@ class StatisticSearch
     if (params[:paragraph_old].present? || params[:paragraph_new].present?) && params[:metric].blank?
       params[:metric] = %i[_sentence_all]
     else
-      @default_params = { metric: %i[judged_all], paragraph_old: [], paragraph_new: [] }
+      @default_params = {
+        metric: %i[_sentence_all],
+        paragraph_new: [
+          '§ 328 [new]',
+          '§ 329 [new]',
+          '§ 330 [new]',
+          '§ 331 [new]',
+          '§ 332 [new]',
+          '§ 333 [new]',
+          '§ 334 [new]',
+          '§ 336 [new]',
+          '§ 336a [new]',
+          '§ 336b [new]'
+        ],
+        paragraph_old: [
+          '§ 160 [old]',
+          '§ 160a [old]',
+          '§ 160b [old]',
+          '§ 160c [old]',
+          '§ 161 [old]',
+          '§ 161a [old]',
+          '§ 161b [old]',
+          '§ 161c [old]',
+          '§ 162 [old]'
+        ]
+      }
     end
 
     @current_statistic_metric = params[:metric]&.first || @default_params[:metric].first
     @current_statistic_paragraphs =
-      (params.values_at(:paragraph_old, :paragraph_new).flatten.blank? ? @default_params : params).slice(
+      (params.values_at(:paragraph_old, :paragraph_new).flatten.compact.blank? ? @default_params : params).slice(
         :paragraph_old,
         :paragraph_new
       )
@@ -36,33 +61,13 @@ class StatisticSearch
   delegate :params, to: :search
   delegate :facets_for, to: :search
 
-  def office_aggregate_key
-    @office_aggregate_key ||= I18n.t('statistics.index.search.office.all')
+  def default_params?
+    default_params && @current_statistic_metric == default_params[:metric][0] &&
+      @current_statistic_paragraphs == default_params.slice(:paragraph_old, :paragraph_new)
   end
 
-  def data_by_office
-    @data_by_office ||=
-      begin
-        relation = current
-
-        sums =
-          relation.where(paragraph: nil).joins(:office).order(:year, :'offices.name').group(:year, :'offices.name').sum(
-            :count
-          )
-
-        sums_by_paragraphs =
-          relation.joins(:office).where.not(paragraph: nil).group(:year, :'offices.name').order(:year, :'offices.name')
-            .sum(:count)
-
-        all = sums_by_paragraphs.merge(sums)
-        years = all.keys.map(&:first).uniq.sort
-        groupped =
-          all.each.with_object({}) do |((year, office), count), hash|
-            hash[office] = (hash[office] || {}).merge(year => count)
-          end
-
-        { years: years, data: groupped.map { |office, values| { name: office, data: years.map { |e| values[e] } } } }
-      end
+  def office_aggregate_key
+    @office_aggregate_key ||= I18n.t('statistics.index.search.office.all')
   end
 
   def data
@@ -81,13 +86,11 @@ class StatisticSearch
             hash[office_aggregate_key] = (hash[office_aggregate_key] || {}).merge(year => count)
           end
 
-        by_office = data_by_office
+        by_office = data_by_office(years)
 
         {
-          years: (years + data_by_office[:years]).uniq,
-          data:
-            groupped.map { |office, values| { name: office, data: years.map { |e| values[e] } } } +
-              data_by_office[:data]
+          years: years,
+          data: groupped.map { |office, values| { name: office, data: years.map { |e| values[e] } } } + by_office[:data]
         }
       end
   end
@@ -109,6 +112,35 @@ class StatisticSearch
     else
       value.in?(@metrics)
     end
+  end
+
+  private
+
+  def data_by_office(years)
+    @data_by_office ||=
+      begin
+        relation = current
+
+        sums =
+          relation.where(paragraph: nil).joins(:office).order(:year, :'offices.name').group(:year, :'offices.name').sum(
+            :count
+          )
+
+        sums_by_paragraphs =
+          relation.joins(:office).where.not(paragraph: nil).group(:year, :'offices.name').order(:year, :'offices.name')
+            .sum(:count)
+
+        all = sums_by_paragraphs.merge(sums)
+        groupped =
+          all.each.with_object({}) do |((year, office), count), hash|
+            hash[office] = (hash[office] || {}).merge(year => count)
+          end
+
+        {
+          years: years,
+          data: groupped.map { |office, values| { name: office, office: true, data: years.map { |e| values[e] } } }
+        }
+      end
   end
 
   class YearFilter

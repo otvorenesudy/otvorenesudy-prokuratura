@@ -36,9 +36,9 @@ every :day, at: '6:00am' do
 end
 
 every 6.hours do
-  runner '::Prosecutor.find_each(&:news)'
+  runner '::Prosecutor.find_each(&:news!)'
 end
 
 every 6.hours do
-  runner '::Office.find_each(&:news)'
+  runner '::Office.find_each(&:news!)'
 end

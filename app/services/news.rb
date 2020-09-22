@@ -11,7 +11,7 @@ class News
 
   class DennikN
     def self.search_url_for(query)
-      URI.encode("https://dennikn.sk/?s=#{query}")
+      "https://dennikn.sk/?s=#{URI.encode_www_form_component(query)}"
     end
 
     def self.search(query)
@@ -37,7 +37,7 @@ class News
 
   class SME
     def self.search_url_for(query)
-      URI.encode("https://www.sme.sk/search?q=#{query}&period=all&order=relevance")
+      "https://www.sme.sk/search?q=#{URI.encode_www_form_component(query)}&period=all&order=relevance"
     end
 
     def self.search(query)

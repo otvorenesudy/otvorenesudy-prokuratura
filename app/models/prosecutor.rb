@@ -22,6 +22,7 @@
 #
 class Prosecutor < ApplicationRecord
   include Searchable
+  include Newsable
 
   belongs_to :genpro_gov_sk_prosecutors_list, class_name: :'GenproGovSk::ProsecutorsList'
 
@@ -36,10 +37,6 @@ class Prosecutor < ApplicationRecord
 
   def to_news_query
     "\"#{name_parts.values_at('first', 'middle', 'last').compact.join(' ')}\""
-  end
-
-  def news
-    Rails.cache.fetch("prosecutor-#{id}-news", expires_in: 12.hours) { News.search_by(to_news_query) }
   end
 
   def self.as_map_json

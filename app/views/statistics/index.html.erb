@@ -92,7 +92,7 @@
                 <% if @search.facets_for(:"paragraph_#{type}").any? %>
                   <ul class="facet-list">
                     <li class="facet-item">
-                      <%= link_to statistics_path(search_params(@search.params, :"paragraph_#{type}" => nil)), class: "facet-link#{' active' if @search.params[:"paragraph_#{type}"].blank?}" do %>
+                      <%= link_to statistics_path(search_params(@search.params, :"paragraph_#{type}" => nil)), class: "facet-link#{' active' if @search.params[:"paragraph_#{type}"].blank? && !@search.default_params?}" do %>
                         <%= t('.search.paragraphs.all') %>
                       <% end %>
                     </li>
@@ -151,14 +151,22 @@
           </div>
         </div>
 
-        <div class="w-100" data-controller="chart" data-json="<%= @data.to_json %>" data-selected-offices="<%= (@search.params.values_at(:office, :office_type).flatten.compact.blank? ? [@search.office_aggregate_key] : @search.data_by_office[:data].map { |e| e[:name] }.uniq).to_json %>">
+        <div class="w-100" data-controller="chart" data-json="<%= @data.to_json %>" data-selected-offices="<%= (@search.params.values_at(:office, :office_type).flatten.compact.blank? ? [@search.office_aggregate_key] : @search.data[:data].select { |e| e[:office] }.map { |e| e[:name] }.uniq).to_json %>">
           <h1 class="text-uppercase">
             <small class="text-muted">
-              <%= statistics_subtitle(@search.current_statistic_metric, @search.current_statistic_paragraphs) %>
+              <% if @search.default_params? %>
+                <%= t('.subtitle_for_default_params') %>
+              <% else %>
+                <%= statistics_subtitle(@search.current_statistic_metric, @search.current_statistic_paragraphs) %>
+              <% end %>
             </small>
           </h1>
 
-          <div class="mt-5 chart"></div>
+          <% if @search.data[:data].select { |e| e[:office] }.any? %>
+            <div class="mt-5 chart"></div>
+          <% else %>
+            <p class="text-center text-muted mt-5 p-5"><%= t '.no_data' %></p>
+          <% end %>
 
           <div class="table-responsive-md mt-5" data-controller="table">
             <%= table_tag class: 'table table-sm' do %>
@@ -178,7 +186,7 @@
                     </th>
 
                     <% value[:data].each do |count| %>
-                      <td  data-value="<%= count %>"><%= trim(number_with_delimiter(count), length: 5) %></td>
+                      <td  data-value="<%= count || -1 %>"><%= count ? trim(number_with_delimiter(count), length: 5) : '&ndash;'.html_safe %></td>
                     <% end %>
                   </tr>
                 <% end %>

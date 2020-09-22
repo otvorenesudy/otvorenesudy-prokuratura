@@ -360,6 +360,8 @@ sk:
       title: Kriminalita
       subtitle: "Prehľad podľa štatistiky – %{metric}"
       subtitle_with_paragraphs: 'Prehľad podľa štatistiky – %{metric} – ako súčet zvolených paragrafov'
+      subtitle_for_default_params: 'Vývoj trestania korupčných trestných činov'
+      no_data: Neboli nájdené žiadne štatistiky pre vaše vyhľadávacie kritéria
       enlarge_chart: Zväčšiť graf
       shrink_chart: Zmenšiť graf
       search:
@@ -411,6 +413,6 @@ sk:
     home:
       squares:
         criminality: Kriminalita
-        offices: Prokuratúra
+        offices: Prokuratúry
         prosecutors: Prokurátori
         search: Hľadaj

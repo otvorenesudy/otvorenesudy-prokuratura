@@ -37,6 +37,7 @@
 #
 class Office < ApplicationRecord
   include Searchable
+  include Newsable
 
   self.inheritance_column = :_type_disabled
 
@@ -78,10 +79,6 @@ class Office < ApplicationRecord
     return '"Generálna prokuratúra"' if general?
 
     "\"#{name}\""
-  end
-
-  def news
-    Rails.cache.fetch("office-#{id}-news", expires_in: 12.hours) { News.search_by(to_news_query) }
   end
 
   def self.as_map_json
