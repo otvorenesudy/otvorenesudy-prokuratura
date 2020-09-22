@@ -16,6 +16,7 @@
 #  index_statistics_on_metric                                       (metric)
 #  index_statistics_on_office_id                                    (office_id)
 #  index_statistics_on_paragraph                                    (paragraph)
+#  index_statistics_on_paragraph_and_metric                         (paragraph,metric)
 #  index_statistics_on_year                                         (year)
 #  index_statistics_on_year_and_office_id_and_metric_and_paragraph  (year,office_id,metric,paragraph) UNIQUE
 #

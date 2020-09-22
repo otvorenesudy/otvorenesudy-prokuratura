@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_22_205548) do
+ActiveRecord::Schema.define(version: 2020_09_22_211054) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pg_trgm'
   enable_extension 'plpgsql'
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 2020_09_22_205548) do
     t.datetime 'updated_at', precision: 6, null: false
     t.index %w[metric], name: 'index_statistics_on_metric'
     t.index %w[office_id], name: 'index_statistics_on_office_id'
+    t.index %w[paragraph metric], name: 'index_statistics_on_paragraph_and_metric'
     t.index %w[paragraph], name: 'index_statistics_on_paragraph'
     t.index %w[year office_id metric paragraph],
             name: 'index_statistics_on_year_and_office_id_and_metric_and_paragraph', unique: true
