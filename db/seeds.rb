@@ -30,6 +30,6 @@ Dir[Rails.root.join('data/genpro_gov_sk/criminality/paragraph-definitions-*')].e
 
     paragraph = Paragraph.find_or_initialize_by(value: value, type: type)
 
-    paragraph.update(name: name)
+    paragraph.update!(name: name)
   end
 end

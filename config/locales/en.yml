@@ -354,7 +354,7 @@ en:
       title: Crime Stats
       subtitle: "Overview by metric – %{metric}"
       subtitle_with_paragraphs: 'Overview by metric – %{metric} – as sum of selected paragraphs'
-      subtitle_for_default_params: Overview of prosecuting corruption
+      subtitle_for_default_params: Overview by corruption prosecution
       enlarge_chart: Enlarge Chart
       shrink_chart: Shrink Chart
       search:
