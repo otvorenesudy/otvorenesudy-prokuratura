@@ -163,9 +163,12 @@ class StatisticSearch
     end
 
     def self.facets(relation, suggest:)
-      offices = ::QueryFilter.filter(Office.all, { q: suggest }, columns: %i[name])
+      if suggest.present?
+        offices = ::QueryFilter.filter(Office.all, { q: suggest }, columns: %i[name])
+        relation = relation.where(office: offices)
+      end
 
-      relation.where(office: offices).joins(:office).reorder('offices.name': :asc).group('offices.name').count
+      relation.joins(:office).reorder('offices.name': :asc).group('offices.name').count
     end
   end
 
