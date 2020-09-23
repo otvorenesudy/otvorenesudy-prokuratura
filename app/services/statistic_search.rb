@@ -41,6 +41,9 @@ class StatisticSearch
         :paragraph_old,
         :paragraph_new
       )
+
+    params[:office] -= %w[_all] if params[:office].present? && '_all'.in?(params[:office]) && params[:office].size > 1
+
     @search =
       Search.new(
         Statistic.all,
@@ -157,7 +160,7 @@ class StatisticSearch
 
   class OfficeFilter
     def self.filter(relation, params)
-      return relation if params[:office].blank?
+      return relation if params[:office].blank? || params[:office] == %w[_all]
 
       relation.joins(:office).where(offices: { name: params[:office] })
     end

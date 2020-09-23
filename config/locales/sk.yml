@@ -377,6 +377,7 @@ sk:
           placeholder: Meno prokuratúry
           title: Prokuratúra
           all: Celá SR
+          by_all: Všetky prokuratúry
         accused:
           title: Obžalované osoby
           not_found: Nenájedené žiadne ďalšie štatistiky pre obžalované osoby

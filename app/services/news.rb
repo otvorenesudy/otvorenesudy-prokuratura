@@ -3,10 +3,13 @@ class News
     dennikn = DennikN.search(query)
     sme = SME.search(query)
 
-    dennikn[0..4].each.with_index.with_object([]) do |(article, i), array|
-      array << article
-      array << sme.delete_at(i) if sme[i]
-    end
+    articles =
+      dennikn.each.with_index.with_object([]) do |(article, i), array|
+        array << article
+        array << sme[i] if sme[i]
+      end
+
+    articles + (sme - articles)
   end
 
   class DennikN
@@ -22,15 +25,23 @@ class News
       def self.parse(html)
         document = Nokogiri.HTML(html)
 
-        document.css('.a_art_b').map do |node|
+        document.css('article > div:first-of-type, aside > div:first-of-type').map do |node|
+          url =
+            node.css('a').find do |e|
+              !e[:href].match(%r{\/(autor|tema)\/}) && !e[:href].match(/(www.facebook.com|newsfilter)/)
+            end
+          author = node.css('a').find { |e| e[:href].match(%r{\/autor\/}) }
+
+          next unless url
+
           {
-            title: node.css('a > h3.a_art_t').text.gsub(/if \(typeof.*\z/, ''),
-            url: node.css('a > h3.a_art_t')[0].parent[:href],
-            date: node.css('.e_terms_posted')[0].text,
-            author: node.css('.e_terms_author')[0].text.presence,
+            title: url.text.gsub(/if \(typeof.*/, '').strip,
+            url: url[:href],
+            date: node.parent.css('time[datetime]')[0].text,
+            author: author&.text,
             source: 'Denník N'
           }
-        end
+        end.compact
       end
     end
   end
@@ -50,6 +61,8 @@ class News
 
         document.css('.media-body').map do |node|
           author = node.css('.media-bottom > a').remove
+
+          node.css('.media-bottom > span').remove
 
           {
             title: node.css('.media-heading > a').text,

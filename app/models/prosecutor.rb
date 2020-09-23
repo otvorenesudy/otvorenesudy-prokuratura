@@ -36,7 +36,7 @@ class Prosecutor < ApplicationRecord
   validate :validate_declarations, if: :declarations?
 
   def to_news_query
-    "\"#{name_parts.values_at('first', 'middle', 'last').compact.join(' ')}\""
+    "'#{name_parts.values_at('first', 'middle', 'last').compact.join(' ')}'"
   end
 
   def self.as_map_json

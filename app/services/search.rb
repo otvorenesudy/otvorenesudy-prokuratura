@@ -32,7 +32,9 @@ class Search
     return facets if params[key].blank? || suggest.present?
 
     values =
-      (params[key] - facets.keys.map(&:to_s)).each.with_object({}) { |value, hash| hash[value] = all[value] || nil }
+      (params[key].select { |e| !e.match(/\A_/) } - facets.keys.map(&:to_s)).each.with_object({}) do |value, hash|
+        hash[value] = all[value] || nil
+      end
 
     values.merge(facets)
   end

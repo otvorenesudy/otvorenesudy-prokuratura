@@ -370,6 +370,7 @@ en:
           placeholder: Name of Prosecutors' Office
           title: Prosecutors' Office
           all: All of SR
+          by_all: All offices
         accused:
           title: Accused People
           not_found: No metrics for accused people found

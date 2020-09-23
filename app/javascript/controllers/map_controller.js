@@ -38,7 +38,6 @@ export default class extends Controller {
       group.eachLayer((layer) => {
         if (layer.options.definesBounds) {
           this.map.fitBounds(layer.getBounds());
-          this.map.setMaxBounds(group.getBounds());
         }
       });
     })();
@@ -76,7 +75,7 @@ export default class extends Controller {
     this.map.addLayer(markers);
 
     markers.on("clusterclick", (cluster) => {
-      const bounds = cluster.layer.getBounds().pad(0.5);
+      const bounds = cluster.layer.getBounds().pad(0.25);
 
       this.map.fitBounds(bounds);
 

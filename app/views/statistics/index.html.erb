@@ -72,6 +72,12 @@
                     <%= t('.search.office.all') %>
                   <% end %>
                 </li>
+
+                <li class="facet-item">
+                  <%= link_to statistics_path(search_params(@search.params, { office: '_all' }, replace: true)), class: "facet-link#{' active' if @search.params[:office] == ['_all']}" do %>
+                    <%= t('.search.office.by_all') %>
+                  <% end %>
+                </li>
               </ul>
 
               <%= render 'office_results', values: @search.facets_for(:office), params: @search.params %>
