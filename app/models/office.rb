@@ -76,9 +76,9 @@ class Office < ApplicationRecord
   end
 
   def to_news_query
-    return "'Generálna prokuratúra'" if general?
+    return '"Generálna prokuratúra"' if general?
 
-    "'#{name}'"
+    "\"#{name}\""
   end
 
   def self.as_map_json
@@ -123,9 +123,19 @@ class Office < ApplicationRecord
   end
 
   def geocode
-    location = Geocoder.search("#{address}, #{city}, Slovakia").first || Geocoder.search("#{city}, Slovakia").first
+    bounds = Geocoder.search("#{city}, Slovakia").first.boundingbox.map(&:to_f)
+    location =
+      Geocoder.search("#{address}, #{zipcode} #{city}, Slovakia").find do |result|
+        result.latitude.to_f.in?(bounds[0]..bounds[1]) && result.longitude.to_f.in?(bounds[2]..bounds[3])
+      end
+
+    unless location
+      location = Geocoder.search("#{zipcode} #{city}, Slovakia").first || Geocoder.search("#{city}, Slovakia").first
+    end
 
     self.latitude = location.latitude
     self.longitude = location.longitude
+
+    self
   end
 end

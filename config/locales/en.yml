@@ -292,7 +292,7 @@ en:
       inactive: "Neaktívny prokurátor od %{date}"
 
     index:
-      redirecting_to_prosecutors_list: We are redirecting you to the list of prosecutors from the office …
+      redirecting_to_prosecutors_list: We are redirecting you to the list of prosecutors …
 
       list:
         register: We register

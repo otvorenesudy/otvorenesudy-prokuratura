@@ -90,15 +90,10 @@ export default class extends Controller {
           .setContent(sanitize(`<p>${this.element.getAttribute("data-search-on-cluster-opening-message")}</p>`))
           .openOn(this.map);
 
-        setTimeout(
-          () =>
-            Turbolinks.visit(
-              `${url.split("#")[0]}&${encodeURI("office[]")}=${
-                cluster.layer.getAllChildMarkers()[0].attributes.office
-              }#facets`
-            ),
-          2000
-        );
+        const offices = [...new Set(cluster.layer.getAllChildMarkers().map((marker) => marker.attributes.office))];
+        const params = offices.map((office) => encodeURI(`office[]=${office}`));
+
+        setTimeout(() => Turbolinks.visit(`${url.split("#")[0]}&${params.join("&")}#facets`), 2000);
       }
     });
   }

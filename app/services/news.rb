@@ -14,7 +14,7 @@ class News
 
   class DennikN
     def self.search_url_for(query)
-      "https://dennikn.sk/?s=#{URI.encode_www_form_component(query)}"
+      "https://dennikn.sk/?s=#{URI.encode_www_form_component(query.gsub(/"/, ''))}"
     end
 
     def self.search(query)
