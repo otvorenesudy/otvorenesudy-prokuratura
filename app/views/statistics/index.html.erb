@@ -95,17 +95,17 @@
               <div class="facet-results">
                 <input class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
 
-                <% if @search.facets_for(:"paragraph_#{type}").any? %>
+                <% if (facets = @search.facets_for(:"paragraph_#{type}", limit: nil)).any? %>
                   <ul class="facet-list">
                     <li class="facet-item">
-                      <%= link_to statistics_path(search_params(@search.params, :"paragraph_#{type}" => nil)), class: "facet-link#{' active' if @search.params[:"paragraph_#{type}"].blank? && !@search.default_params?}" do %>
+                      <%= link_to statistics_path(search_params(@search.params, :"paragraph_#{type}" => 'all')), class: "facet-link#{' active' if @search.params[:"paragraph_#{type}"].blank? && !@search.default_params?}" do %>
                         <%= t('.search.paragraphs.all') %>
                       <% end %>
                     </li>
                   </ul>
                 <% end %>
 
-                <%= render "paragraph_#{type}_results", values: @search.facets_for(:"paragraph_#{type}"), params: @search.params %>
+                <%= render "paragraph_#{type}_results", values: facets, params: @search.params %>
               </div>
             </div>
           </div>

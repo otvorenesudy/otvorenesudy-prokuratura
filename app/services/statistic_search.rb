@@ -42,8 +42,6 @@ class StatisticSearch
         :paragraph_new
       )
 
-    params[:office] -= %w[_all] if params[:office].present? && '_all'.in?(params[:office]) && params[:office].size > 1
-
     @search =
       Search.new(
         Statistic.all,
@@ -58,6 +56,8 @@ class StatisticSearch
           paragraph_new: ParagraphFacet.new(:new)
         }
       )
+
+    normalize_params
   end
 
   delegate :all, to: :search
@@ -144,6 +144,12 @@ class StatisticSearch
           data: groupped.map { |office, values| { name: office, office: true, data: years.map { |e| values[e] } } }
         }
       end
+  end
+
+  def normalize_params
+    params.each do |key, value|
+      params[key] -= %w[_all] if params[key].present? && '_all'.in?(params[key]) && params[key].size > 1
+    end
   end
 
   class YearFilter
