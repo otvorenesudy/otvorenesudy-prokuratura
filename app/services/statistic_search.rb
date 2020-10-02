@@ -148,7 +148,10 @@ class StatisticSearch
 
   def normalize_params
     params.each do |key, value|
-      params[key] -= %w[_all] if params[key].present? && '_all'.in?(params[key]) && params[key].size > 1
+      if params[key].present? && '_all'.in?(params[key]) &&
+           (params[key].size > 1 || key.in?(%w[paragraph_old paragraph_new]))
+        params[key] -= %w[_all]
+      end
     end
   end
 
