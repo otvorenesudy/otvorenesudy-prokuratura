@@ -32,11 +32,19 @@ class Paragraph < ApplicationRecord
     by_value[value]
   end
 
+  def self.type_of(value)
+    by_type[value]
+  end
+
   def self.by_name
     @paragraphs_by_name ||= Paragraph.pluck(:name, :value).to_h
   end
 
   def self.by_value
     @paragraphs_by_value ||= by_name.map(&:reverse).to_h
+  end
+
+  def self.by_type
+    @paragraphs_by_type ||= Paragraph.pluck(:value, :type).map { |value, type| [value, type.to_sym] }.to_h
   end
 end

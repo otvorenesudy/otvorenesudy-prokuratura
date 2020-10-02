@@ -402,13 +402,16 @@ sk:
           not_found: Nenájedené žiadne ďalšie štatistiky
         paragraphs:
           all: Všetky paragrafy
-        paragraph_old:
-          title: Trestné činy do roku 2005
-        paragraph_new:
-          title: Trestné činy od roku 2006
         paragraph:
+          title: Trestné činy
           placeholder: Názov paragrafu
           not_found: Neboli nájdené žiadne paragrafy
+          old:
+            title: Paragraf trestného zákonníka do roku 2005
+            badge: "TZ '05"
+          new:
+            title: Paragraf trestného zákonníka od roku 2006
+            badge: "TZ '06"
 
   static_pages:
     home:

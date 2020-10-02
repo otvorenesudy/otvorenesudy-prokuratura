@@ -19,7 +19,7 @@ export default class extends Controller {
 
     this.targets.find("results").innerHTML = response.html;
 
-    const event = new Event("suggest:changed");
+    const event = new Event("suggest:load");
     document.dispatchEvent(event);
   }
 }

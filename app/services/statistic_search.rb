@@ -4,12 +4,12 @@ class StatisticSearch
   def initialize(params)
     @params = params
 
-    if (params[:paragraph_old].present? || params[:paragraph_new].present?) && params[:metric].blank?
+    if params[:paragraph].present? && params[:metric].blank?
       params[:metric] = %i[_sentence_all]
     else
       @default_params = {
         metric: %i[_sentence_all],
-        paragraph_new: [
+        paragraph: [
           '§ 328 [new]',
           '§ 329 [new]',
           '§ 330 [new]',
@@ -19,9 +19,7 @@ class StatisticSearch
           '§ 334 [new]',
           '§ 336 [new]',
           '§ 336a [new]',
-          '§ 336b [new]'
-        ],
-        paragraph_old: [
+          '§ 336b [new]',
           '§ 160 [old]',
           '§ 160a [old]',
           '§ 160b [old]',
@@ -36,11 +34,7 @@ class StatisticSearch
     end
 
     @current_statistic_metric = params[:metric]&.first || @default_params[:metric].first
-    @current_statistic_paragraphs =
-      (params.values_at(:paragraph_old, :paragraph_new).flatten.compact.blank? ? @default_params : params).slice(
-        :paragraph_old,
-        :paragraph_new
-      )
+    @current_statistic_paragraphs = (params[:paragraph].blank? ? @default_params : params)[:paragraph]
 
     @search =
       Search.new(
@@ -51,9 +45,7 @@ class StatisticSearch
           office: OfficeFilter,
           office_type: OfficeTypeFilter,
           metric: MetricFilter,
-          paragraph: ParagraphFilter,
-          paragraph_old: ParagraphFacet.new(:old),
-          paragraph_new: ParagraphFacet.new(:new)
+          paragraph: ParagraphFilter
         }
       )
 
@@ -66,7 +58,7 @@ class StatisticSearch
 
   def default_params?
     default_params && @current_statistic_metric == default_params[:metric][0] &&
-      @current_statistic_paragraphs == default_params.slice(:paragraph_old, :paragraph_new)
+      @current_statistic_paragraphs == default_params[:paragraph]
   end
 
   def office_aggregate_key
@@ -148,8 +140,7 @@ class StatisticSearch
 
   def normalize_params
     params.each do |key, value|
-      if params[key].present? && '_all'.in?(params[key]) &&
-           (params[key].size > 1 || key.in?(%w[paragraph_old paragraph_new]))
+      if params[key].present? && '_all'.in?(params[key]) && (params[key].size > 1 || key.in?(%w[paragraph]))
         params[key] -= %w[_all]
       end
     end
@@ -211,28 +202,14 @@ class StatisticSearch
 
   class ParagraphFilter
     def self.filter(relation, params)
-      return relation if params[:paragraph_old].blank? && params[:paragraph_new].blank?
+      return relation if params[:paragraph].blank?
 
-      paragraphs = (params[:paragraph_old] || []) + (params[:paragraph_new] || [])
-
-      relation.where(paragraph: paragraphs)
-    end
-  end
-
-  class ParagraphFacet
-    attr_accessor :type
-
-    def initialize(type)
-      @type = type
+      relation.where(paragraph: params[:paragraph])
     end
 
-    def except
-      %i[paragraph_old paragraph_new paragraph]
-    end
-
-    def facets(relation, suggest:)
+    def self.facets(relation, suggest:)
       paragraphs =
-        ::QueryFilter.filter(Paragraph.where(type: type).all, { q: suggest }, columns: %i[name]).select(:value)
+        ::QueryFilter.filter(Paragraph.all.order(name: :asc), { q: suggest }, columns: %i[name]).pluck(:value)
 
       relation.where(paragraph: paragraphs).group(:paragraph).count.map do |value, count|
         [value, count]

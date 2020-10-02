@@ -4,6 +4,30 @@
   <div class="clearfix">
     <% facets_time = Benchmark.realtime do %>
       <div id="facets" class="float-lg-left col-lg-3 mb-5 mb-lg-0 px-0 pr-lg-4 collapse show">
+        <div class="facet" data-controller="suggest" data-url="<%= suggest_statistics_path(@search.params.merge(facet: :paragraph)) %>">
+          <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-paragraph-content">
+            <%= t ".search.paragraph.title" %>
+          </h6>
+
+          <div id="statistic-paragraph-content" class="facet-content collapse show">
+            <div class="facet-results">
+              <input class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
+
+              <% if (facets = @search.facets_for(:paragraph, limit: nil)).any? %>
+                <ul class="facet-list">
+                  <li class="facet-item">
+                    <%= link_to statistics_path(search_params(@search.params, { paragraph: '_all' }, replace: true)), class: "facet-link#{' active' if @search.params[:paragraph].blank? && !@search.default_params?}" do %>
+                      <%= t('.search.paragraphs.all') %>
+                    <% end %>
+                  </li>
+                </ul>
+              <% end %>
+
+              <%= render "paragraph_results", values: facets, params: @search.params %>
+            </div>
+          </div>
+        </div>
+
         <div class="facet">
           <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-year-content">
             <%= t '.search.year.title' %>
@@ -84,32 +108,6 @@
             </div>
           </div>
         </div>
-
-        <% [:new, :old].each do |type| %>
-          <div class="facet" data-controller="suggest" data-url="<%= suggest_statistics_path(@search.params.merge(facet: :"paragraph_#{type}")) %>">
-            <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-paragraph-<%= type %>-content">
-              <%= t ".search.paragraph_#{type}.title" %>
-            </h6>
-
-            <div id="statistic-paragraph-<%= type %>-content" class="facet-content collapse show">
-              <div class="facet-results">
-                <input class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
-
-                <% if (facets = @search.facets_for(:"paragraph_#{type}", limit: nil)).any? %>
-                  <ul class="facet-list">
-                    <li class="facet-item">
-                      <%= link_to statistics_path(search_params(@search.params, { :"paragraph_#{type}" => '_all' }, replace: true)), class: "facet-link#{' active' if @search.params[:"paragraph_#{type}"].blank? && !@search.default_params?}" do %>
-                        <%= t('.search.paragraphs.all') %>
-                      <% end %>
-                    </li>
-                  </ul>
-                <% end %>
-
-                <%= render "paragraph_#{type}_results", values: facets, params: @search.params %>
-              </div>
-            </div>
-          </div>
-        <% end %>
 
         <% Statistic::GROUPS.each do |group, metrics| %>
           <% metrics.select { |metric| @search.has_metric?(metric) }.tap do |facets| %>

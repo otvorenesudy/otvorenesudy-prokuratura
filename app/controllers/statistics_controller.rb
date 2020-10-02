@@ -6,7 +6,7 @@ class StatisticsController < ApplicationController
   end
 
   def suggest
-    return head 404 unless suggest_params[:facet].in?(%w[office paragraph_old paragraph_new])
+    return head 404 unless suggest_params[:facet].in?(%w[office paragraph])
 
     @search = StatisticSearch.new(index_params)
 
@@ -29,7 +29,7 @@ class StatisticsController < ApplicationController
   helper_method :index_params
 
   def index_params
-    params.permit(year: [], office: [], metric: [], office_type: [], paragraph_old: [], paragraph_new: [])
+    params.permit(year: [], office: [], metric: [], office_type: [], paragraph: [])
   end
 
   def suggest_params
