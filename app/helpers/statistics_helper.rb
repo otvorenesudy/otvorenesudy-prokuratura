@@ -9,6 +9,8 @@ module StatisticsHelper
       translation = "#{I18n.t("statistics.index.search.#{group}.title")} – #{translation}" unless group == :other
     end
 
+    paragraphs -= %w[_all] if paragraphs
+
     return I18n.t('statistics.index.subtitle', metric: translation) if paragraphs&.compact.blank?
 
     paragraph_names = paragraphs.map { |value| Paragraph.by_value[value] }
