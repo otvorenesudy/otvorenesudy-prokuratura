@@ -358,12 +358,13 @@ sk:
 
     index:
       title: Kriminalita
-      subtitle: "Prehľad podľa štatistiky – %{metric}"
-      subtitle_with_paragraphs: 'Prehľad podľa štatistiky – %{metric} – ako súčet zvolených paragrafov'
+      subtitle: "Štatistika – %{metric}"
+      subtitle_with_paragraphs: 'Štatistika – %{metric} podľa paragrafov %{paragraphs}'
       subtitle_for_default_params: 'Vývoj trestania korupčných trestných činov'
       no_data: Neboli nájdené žiadne štatistiky pre vaše vyhľadávacie kritéria
       enlarge_chart: Zväčšiť graf
       shrink_chart: Zmenšiť graf
+      data_source_disclaimer: 'Zdroj dát: https://www.genpro.gov.sk/statistiky-12c1.html'
       search:
         year:
           title: Rok
@@ -381,22 +382,32 @@ sk:
         accused:
           title: Obžalované osoby
           not_found: Nenájedené žiadne ďalšie štatistiky pre obžalované osoby
+          metrics:
+            accused_all: Všetky obžalované osoby
         prosecuted:
           title: Odstíhané osoby
           not_found: Nenájedené žiadne ďalšie štatistiky pre ostíhané osoby
+          metrics:
+            prosecuted_all: Všetky odstíhané osoby
         convicted:
           title: Odsúdené osoby
           not_found: Nenájedené žiadne ďalšie štatistiky pre odsúdené osoby
+          metrics:
+            convicted_all: Všetky odsúdené osoby
         closure:
           title: Spôsoby ukončenia
           not_found: Nenájedené žiadne ďalšie spôsoby ukončenia
-          all: Všetky spôsoby ukončenia
+          metrics:
+            _closure_all: Všetky spôsoby ukončenia
         prosecution_by_police:
           title: Trestné stíhania ukončené na polícii
           not_found: Nenájedené žiadne trestné stíhania ukončené na polícii
         sentence:
           title: Tresty
           not_found: Nenájedené žiadne ďalšie štatistiky pre tresty
+          metrics:
+            _sentence_all: Všetky tresty
+
         other:
           title: Ostatné
           not_found: Nenájedené žiadne ďalšie štatistiky
@@ -406,12 +417,10 @@ sk:
           title: Trestné činy
           placeholder: Názov paragrafu
           not_found: Neboli nájdené žiadne paragrafy
+          disclaimer: Scollujte pre zobrazenie ďalších paragrafov
           old:
-            title: Paragraf trestného zákonníka do roku 2005
-            badge: "TZ '05"
-          new:
-            title: Paragraf trestného zákonníka od roku 2006
-            badge: "TZ '06"
+            title: Podľa trestného zákonníka platného do roku 2005
+            badge: "TZ '61"
 
   static_pages:
     home:

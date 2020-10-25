@@ -34,7 +34,8 @@ class StatisticSearch
     end
 
     @current_statistic_metric = params[:metric]&.first || @default_params[:metric].first
-    @current_statistic_paragraphs = (params[:paragraph].blank? ? @default_params : params)[:paragraph]
+    @current_statistic_paragraphs =
+      (params[:paragraph].blank? && params[:metric].blank? ? @default_params : params)[:paragraph]
 
     @search =
       Search.new(

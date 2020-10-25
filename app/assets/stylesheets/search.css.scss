@@ -69,6 +69,11 @@
   }
 }
 
+.facet-list-scrollable {
+  max-height: 250px;
+  overflow-y: scroll;
+}
+
 .facet-item {
   margin-bottom: map-get($spacers, 2);
 

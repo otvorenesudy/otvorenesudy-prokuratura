@@ -33,6 +33,8 @@ gem 'dalli', '~> 2.7.10'
 gem 'bootsnap', '>= 1.4.2'
 gem 'rollbar', '~> 3.0.0'
 gem 'skylight', '~> 4.3.1'
+gem 'selenium-webdriver'
+gem 'google-api-client', '~> 0.46.2'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
@@ -52,7 +54,6 @@ end
 
 group :test do
   gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
   gem 'webdrivers'
   gem 'webmock', '~> 3.8.3'
   gem 'database_cleaner-active_record'

@@ -42,11 +42,24 @@ export default class extends Controller {
       },
     });
 
-    setTimeout(() => this.chart.setSize(this.element.offsetWidth), 0);
+    setTimeout(() => this.resizeChart(), 0);
+    (window.onresize = () => this.resizeChart())();
+  }
 
-    (window.onresize = () => {
-      this.chart.setSize(this.element.offsetWidth);
-    })();
+  resizeChart() {
+    this.chart.setSize(this.element.offsetWidth);
+
+    if (this.watermark) this.watermark.destroy();
+
+    this.watermark = this.chart.renderer.image(
+      this.element.getAttribute("watermark-url"),
+      this.chart.plotLeft + this.chart.plotSizeX - 125,
+      25,
+      100,
+      25
+    );
+    this.watermark.element.setAttribute("style", "opacity: 0.25;");
+    this.watermark.add();
   }
 
   lineChartOptions(data) {

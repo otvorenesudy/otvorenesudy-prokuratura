@@ -1,12 +1,14 @@
-<ul class="facet-list" data-target="suggest.results">
+<ul class="facet-list facet-list-scrollable mb-2" data-target="suggest.results">
   <% if values.any? %>
-    <%= collapsible_facet_results(values, selected: @search.params[:paragraph]) do |value, _| %>
+    <% values.each do |value, _| %>
       <li class="facet-item">
         <%= link_to statistics_path(search_params(params, paragraph: value)), class: "facet-link#{' active' if search_param?(params, :paragraph, value)}" do %>
           <%= trim(Paragraph.name_of(value), length: 24) %>
 
           <div class="facet-tag">
-            <%= tooltip_tag(I18n.t("statistics.index.search.paragraph.#{Paragraph.type_of(value)}.badge"),  I18n.t("statistics.index.search.paragraph.#{Paragraph.type_of(value)}.title"), class: 'd-inline') %>
+            <% if (type = Paragraph.type_of(value)) == :old %>
+              <%= tooltip_tag(I18n.t("statistics.index.search.paragraph.old.badge"),  I18n.t("statistics.index.search.paragraph.old.title"), class: 'd-inline') %>
+            <% end %>
           </div>
         <% end %>
       </li>

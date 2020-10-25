@@ -24,6 +24,8 @@
               <% end %>
 
               <%= render "paragraph_results", values: facets, params: @search.params %>
+
+              <small class="text-muted mt-2"><%= t '.search.paragraph.disclaimer' %></small>
             </div>
           </div>
         </div>
@@ -155,7 +157,7 @@
           </div>
         </div>
 
-        <div class="w-100" data-controller="chart" data-json="<%= @data.to_json %>" data-selected-offices="<%= (@search.params.values_at(:office, :office_type).flatten.compact.blank? ? [@search.office_aggregate_key] : @search.data[:data].select { |e| e[:office] }.map { |e| e[:name] }.uniq).to_json %>">
+        <div class="w-100" data-controller="chart" watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>" data-json="<%= @data.to_json %>" data-selected-offices="<%= (@search.params.values_at(:office, :office_type).flatten.compact.blank? ? [@search.office_aggregate_key] : @search.data[:data].select { |e| e[:office] }.map { |e| e[:name] }.uniq).to_json %>">
           <h1 class="text-uppercase">
             <small class="text-muted">
               <% if @search.default_params? %>
@@ -168,6 +170,10 @@
 
           <% if @search.data[:data].select { |e| e[:office] }.any? %>
             <div class="mt-5 chart"></div>
+
+            <small class="mt-2 text-muted float-right">
+              <%= t '.data_source_disclaimer' %>
+            </small>
           <% else %>
             <p class="text-center text-muted mt-5 p-5"><%= t '.no_data' %></p>
           <% end %>
@@ -198,7 +204,7 @@
             <% end %>
           </div>
 
-          <div class="d-flex flex-wrap align-items-center justify-content-between">
+          <div id="timing" class="d-flex flex-wrap align-items-center justify-content-between">
             <div class="small text-muted mr-3 mt-3">
               <%= t 'layouts.search.found_html', count: number_with_delimiter(@search.current.count), total: I18n.t('statistics.count', count: number_with_delimiter(@count)), time: (@time + facets_time).to_i %>
             </div>

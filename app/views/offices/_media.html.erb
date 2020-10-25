@@ -5,11 +5,11 @@
         <a href="<%= article[:url] %>" target="_blank"><%= article[:title] %></a>
         <br>
         <span class="text-muted">
-          <%= article[:date] %>
-
-          <% if article[:author] %>
-            &middot; <%= article[:author] %>
+          <% if article[:date].present? %>
+            <%= l article[:date] %> &middot;
           <% end %>
+
+          <%= article[:source] %>
         </span>
       </li>
     <% end %>
