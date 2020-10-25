@@ -6,7 +6,7 @@
         <br>
         <span class="text-muted">
           <% if article[:date].present? %>
-            <%= l article[:date] %> &middot;
+            <%= l article[:date], format: :long %> &middot;
           <% end %>
 
           <%= article[:source] %>
