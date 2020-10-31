@@ -3,10 +3,6 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def default_url_options
-    { l: I18n.locale, only_path: true }
-  end
-
   private
 
   def set_locale(value)

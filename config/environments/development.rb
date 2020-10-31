@@ -60,4 +60,8 @@ Rails.application.configure do
 
   config.active_job.queue_adapter = :sidekiq
   config.active_job.queue_name_prefix = 'otvorenesudy_prokuratura_development'
+
+  # Default URL options
+  Rails.application.routes.default_url_options[:host] = 'localhost'
+  Rails.application.routes.default_url_options[:port] = 3000
 end

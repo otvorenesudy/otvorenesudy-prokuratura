@@ -24,7 +24,7 @@ module StatisticsHelper
                 (
                   content_tag(:span, name, class: 'text-truncate') +
                     (
-                      if Paragraph.type_of(Paragraph.by_name[name])
+                      if Paragraph.type_of(Paragraph.by_name[name]) == :old
                         content_tag(:span, class: 'ml-2 facet-tag') do
                           tooltip_tag(
                             I18n.t('statistics.index.search.paragraph.old.badge'),

@@ -1,0 +1,30 @@
+<div class="statistics-export">
+  <div class="d-flex flex-wrap align-items-center justify-content-between">
+  <h1 class="display-2 text-uppercase mr-sm-4 mt-1 pr-5">
+    <%= t 'statistics.index.title' %>
+  </h1>
+
+  <%= brand_tag('transparency-international-slovensko', width: 197.92, height: 47.5, variant: I18n.locale) %>
+
+  <div class="w-100" data-controller="chart" data-json="<%= @data.to_json %>" data-selected-offices="<%= (@search.params.values_at(:office, :office_type).flatten.compact.blank? ? [@search.office_aggregate_key] : @search.data[:data].select { |e| e[:office] }.map { |e| e[:name] }.uniq).to_json %>" data-animation="false">
+    <h1 class="text-uppercase">
+      <small class="text-muted">
+        <% if @search.default_params? %>
+          <%= t('statistics.index.subtitle_for_default_params') %>
+        <% else %>
+          <%= statistics_subtitle(@search.current_statistic_metric, @search.current_statistic_paragraphs) %>
+        <% end %>
+      </small>
+    </h1>
+
+    <% if @search.data[:data].select { |e| e[:office] }.any? %>
+      <div class="mt-5 chart"></div>
+
+      <small class="mt-2 text-muted float-right">
+        <%= t 'statistics.index.data_source_disclaimer' %>
+      </small>
+    <% else %>
+      <p class="text-center text-muted mt-5 p-5"><%= t '.no_data' %></p>
+    <% end %>
+</div>
+</div>

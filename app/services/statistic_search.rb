@@ -208,6 +208,10 @@ class StatisticSearch
       relation.where(paragraph: params[:paragraph])
     end
 
+    def self.facets_limit
+      nil
+    end
+
     def self.facets(relation, suggest:)
       paragraphs =
         ::QueryFilter.filter(Paragraph.all.order(name: :asc), { q: suggest }, columns: %i[name]).pluck(:value)

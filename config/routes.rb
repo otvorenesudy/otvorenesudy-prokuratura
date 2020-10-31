@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
   resources :statistics, only: :index, path: :criminality do
     get :suggest, on: :collection
+    get :export, on: :collection
+    get :_export, on: :collection
   end
 
   resource :static_page, only: [] do

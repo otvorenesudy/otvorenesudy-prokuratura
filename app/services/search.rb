@@ -21,12 +21,12 @@ class Search
     all.page(params[:page] || 1).per(15)
   end
 
-  def facets_for(key, suggest: nil, limit: 10)
+  def facets_for(key, suggest: nil, limit: nil)
     key = key.to_sym
-
     except = filters[key].try(:except) || key
+    limit = limit || (filters[key].respond_to?(:facets_limit) ? filters[key].facets_limit : 10)
 
-    all = filters[key].facets(all(except: except).reorder(''), suggest: suggest)
+    all = filters[key].facets(all(except: except).reorder(''), suggest: suggest || params["#{key}_suggest"])
     facets = limit ? all.first(limit).to_h : all
 
     return facets if params[key].blank? || suggest.present?

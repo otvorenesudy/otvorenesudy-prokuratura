@@ -11,12 +11,12 @@
 
           <div id="statistic-paragraph-content" class="facet-content collapse show">
             <div class="facet-results">
-              <input class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
+              <input value="<%= params[:paragraph_suggest] %>" class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
 
-              <% if (facets = @search.facets_for(:paragraph, limit: nil)).any? %>
+              <% if (facets = @search.facets_for(:paragraph)).any? %>
                 <ul class="facet-list">
                   <li class="facet-item">
-                    <%= link_to statistics_path(search_params(@search.params, { paragraph: '_all' }, replace: true)), class: "facet-link#{' active' if @search.params[:paragraph].blank? && !@search.default_params?}" do %>
+                    <%= link_to statistics_path(search_params(@search.params, { paragraph: '_all', paragraph_suggest: nil, }, replace: true)), class: "facet-link#{' active' if @search.params[:paragraph].blank? && !@search.default_params?}" do %>
                       <%= t('.search.paragraphs.all') %>
                     <% end %>
                   </li>
@@ -155,9 +155,13 @@
               <span class="hide"><%= t '.enlarge_chart' %></span>
             </a>
           </div>
+
+          <div class="btn-group btn-group-sm border mb-3 ml-2">
+            <%= link_to 'Export', export_statistics_path(index_params), class: 'btn btn-secondary btn-sm shadow-none border-0', target: :_blank %>
+          </div>
         </div>
 
-        <div class="w-100" data-controller="chart" watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>" data-json="<%= @data.to_json %>" data-selected-offices="<%= (@search.params.values_at(:office, :office_type).flatten.compact.blank? ? [@search.office_aggregate_key] : @search.data[:data].select { |e| e[:office] }.map { |e| e[:name] }.uniq).to_json %>">
+        <div class="w-100" data-controller="chart" data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>" data-json="<%= @data.to_json %>" data-selected-offices="<%= (@search.params.values_at(:office, :office_type).flatten.compact.blank? ? [@search.office_aggregate_key] : @search.data[:data].select { |e| e[:office] }.map { |e| e[:name] }.uniq).to_json %>">
           <h1 class="text-uppercase">
             <small class="text-muted">
               <% if @search.default_params? %>

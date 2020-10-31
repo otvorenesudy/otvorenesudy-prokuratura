@@ -150,10 +150,10 @@ sk:
 
   layouts:
     application:
-      authors: TODO
-      content: TODO
-      description: TODO
-      keywords: TODO
+      authors: Transparency Internal Slovensko, Samuel Molnár
+      content: Transparentný pohľad na slovenskú prokuratúru
+      description: Transparentný pohľad na slovenskú prokuratúru
+      keywords: prokuratúra, prokuratúry, prokurátor, prokurátori, majektové priznania,kriminalita, otvorené súdy
       title: Otvorená Prokuratúra
     footer:
       about: O projekte

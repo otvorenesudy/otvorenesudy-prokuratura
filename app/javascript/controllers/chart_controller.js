@@ -49,10 +49,14 @@ export default class extends Controller {
   resizeChart() {
     this.chart.setSize(this.element.offsetWidth);
 
+    const watermarkUrl = this.element.getAttribute("data-watermark-url");
+
+    if (!watermarkUrl) return;
+
     if (this.watermark) this.watermark.destroy();
 
     this.watermark = this.chart.renderer.image(
-      this.element.getAttribute("watermark-url"),
+      watermarkUrl,
       this.chart.plotLeft + this.chart.plotSizeX - 125,
       25,
       100,
@@ -106,6 +110,7 @@ export default class extends Controller {
       plotOptions: {
         series: {
           fillOpacity: 0,
+          animation: this.element.getAttribute("data-animation") === "false" ? false : true,
           marker: {
             radius: 4,
             symbol: "dot",
@@ -155,6 +160,12 @@ export default class extends Controller {
         type: "column",
         backgroundColor: "transparent",
         height: 500,
+      },
+
+      plotOptions: {
+        series: {
+          animation: this.element.getAttribute("data-animation") === "false" ? false : true,
+        },
       },
     };
   }
