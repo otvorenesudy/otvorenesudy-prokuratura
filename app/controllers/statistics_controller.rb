@@ -34,13 +34,18 @@ class StatisticsController < ApplicationController
 
     driver.get(url)
     driver.save_screenshot(path)
-    driver.quit
 
-    File.open(path, 'rb') do |file|
-      send_data(file.read, type: 'image/png', filename: 'otvorena-prokuratura-export.png')
+    begin
+      driver.quit
+
+      File.open(path, 'rb') do |file|
+        send_data(file.read, type: 'image/png', filename: 'otvorena-prokuratura-export.png')
+      end
+    rescue Exception => e
+      raise e
+    ensure
+      File.delete(path)
     end
-  ensure
-    File.delete(path)
   end
 
   def export
