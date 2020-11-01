@@ -1,8 +1,12 @@
-<%= render template: 'statistics/export' %>
+<iframe src="<%= export_statistics_url(@search.params.merge(embedded: true)) %>" width="100%" height="800" frameborder="0" sandbox="allow-same-origin allow-scripts allow-popups">
+  <p>
+    <a href="https://developer.mozilla.org/en-US/docs/Glossary">Fallback link for browsers that don't support iframes</a>
+  </p>
+</iframe>
 
 <div class="form-group">
   <textarea name="embed" id="embed" rows="10" cols="40" class="w-100 mt-3 form-control" disabled="true">
-    <iframe src="<%= export_statistics_url(@search.params.merge(embedded: true)) %>" width="100%" height="100%" frameborder="0">
+    <iframe src="<%= export_statistics_url(@search.params.merge(embedded: true)) %>" width="100%" height="100%" frameborder="0" sandbox="allow-same-origin allow-scripts allow-popups">
       <p>
         <a href="https://developer.mozilla.org/en-US/docs/Glossary">Fallback link for browsers that don't support iframes</a>
       </p>
