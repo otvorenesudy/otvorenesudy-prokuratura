@@ -160,7 +160,10 @@ class StatisticSearch
   end
 
   def format_paragraph_name_for_chart(value)
-    value.gsub(/\[new\]/, '').gsub(/\[old\]/, "[#{I18n.t('statistics.index.search.paragraph.old.badge')}]").strip
+    name = Paragraph.name_of(value)
+    name += " [#{I18n.t('statistics.index.search.paragraph.old.badge')}]" if Paragraph.type_of(value) == :old
+
+    name
   end
 
   class YearFilter

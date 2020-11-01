@@ -110,7 +110,7 @@ export default class extends Controller {
       },
 
       legend: {
-        enabled: this.seriesNames.length > 20 ? false : true,
+        enabled: false,
       },
 
       plotOptions: {

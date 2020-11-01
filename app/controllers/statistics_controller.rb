@@ -29,7 +29,7 @@ class StatisticsController < ApplicationController
     url = export_statistics_url(index_params)
 
     options = Selenium::WebDriver::Chrome::Options.new(args: %w[headless])
-    options.add_argument('--window-size=1024,768')
+    options.add_argument('--window-size=1400,800')
     driver = Selenium::WebDriver.for(:chrome, options: options)
 
     driver.get(url)
