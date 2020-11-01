@@ -16,8 +16,6 @@ class GoogleNews
 
     return [] if results.blank?
 
-    require 'pry'
-    binding.pry
     results.map do |result|
       uri = URI.parse(result.link)
       source = 'SME' if uri.host.match('sme.sk')
