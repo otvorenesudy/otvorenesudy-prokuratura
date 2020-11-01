@@ -2,15 +2,9 @@
   <ul id="media" class="list-unstyled mt-4">
     <% articles.each do |article| %>
       <li class="mb-3">
-        <a href="<%= article[:url] %>" target="_blank"><%= article[:title] %></a>
+        <a href="<%= article[:url] %>" target="_blank"><%= article[:title] %></a> <span class="text-muted">&middot; <%= article[:source] %></span>
         <br>
-        <span class="text-muted">
-          <% if article[:date].present? %>
-            <%= l article[:date], format: :long %> &middot;
-          <% end %>
-
-          <%= article[:source] %>
-        </span>
+        <span class="text-muted"><%= article[:snippet] %></span>
       </li>
     <% end %>
   </ul>
@@ -18,9 +12,7 @@
   <% if articles.any? %>
     <p>
       <small class="text-muted">
-        <a href="<%= News::DennikN.search_url_for(@prosecutor.to_news_query) %>" target="_blank"><%= t 'prosecutors.show.media.more_from_n' %></a>
-        &middot;
-        <a href="<%= News::SME.search_url_for(@prosecutor.to_news_query) %>" target="_blank"><%= t 'prosecutors.show.media.more_from_sme' %></a>
+        <a href="<%= GoogleNews.search_url_for(@prosecutor) %>" target="_blank"><%= t 'prosecutors.show.media.more_from_google' %></a>
 
         &middot;
 

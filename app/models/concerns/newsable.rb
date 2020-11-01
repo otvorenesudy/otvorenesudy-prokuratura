@@ -2,12 +2,8 @@ module Newsable
   extend ActiveSupport::Concern
 
   def news
-    Rails.cache.fetch("#{self.class.table_name.dasherize}-#{id}-news", expires_in: 0) { News.search_by(to_news_query) }
-  end
+    news = Rails.cache.read("#{self.class.table_name.dasherize}-#{id}-news")
 
-  def news!
-    Rails.cache.delete("#{self.class.table_name.dasherize}-#{id}-news")
-
-    news
+    news ? news[:data].first(20) : []
   end
 end

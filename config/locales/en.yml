@@ -265,10 +265,9 @@ en:
 
       media:
         title: 'Mentions in Media'
-        disclaimer: "News articles above are automated search results for from Denník N and SME for the name of the prosecutors' office and therefore not all the results might be relevant."
+        disclaimer: "News articles above are automated search results from Google for Denník N, SME and Aktuality for the name of the prosecutors' office and therefore not all the results might be relevant."
         no_results: No relevant news articles found.
-        more_from_n: More from Dennik N
-        more_from_sme: More from SME
+        more_from_google: More results from Google
 
     prosecutors:
       activity: Activity
@@ -328,10 +327,9 @@ en:
 
       media:
         title: 'Mentions in Media'
-        disclaimer: 'News articles above are automated search results for from Denník N and SME for the name of the prosecutor and therefore not all the results might be relevant.'
+        disclaimer: 'News articles above are automated search results from Google for Denník N, SME and Aktuality for the name of the prosecutor and therefore not all the results might be relevant.'
         no_results: No relevant news articles found.
-        more_from_n: More from Dennik N
-        more_from_sme: More from SME
+        more_from_google: More results from Google
 
     declaration:
       name: Name/Description

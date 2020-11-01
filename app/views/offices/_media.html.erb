@@ -5,10 +5,6 @@
         <a href="<%= article[:url] %>" target="_blank"><%= article[:title] %></a>
         <br>
         <span class="text-muted">
-          <% if article[:date].present? %>
-            <%= l article[:date], format: :long %> &middot;
-          <% end %>
-
           <%= article[:source] %>
         </span>
       </li>
@@ -18,9 +14,7 @@
   <% if articles.any? %>
     <p>
       <small class="text-muted">
-        <a href="<%= News::DennikN.search_url_for(@office.to_news_query) %>" target="_blank"><%= t 'offices.show.media.more_from_n' %></a>
-        &middot;
-        <a href="<%= News::SME.search_url_for(@office.to_news_query) %>" target="_blank"><%= t 'offices.show.media.more_from_sme' %></a>
+        <a href="<%= GoogleNews.search_url_for(@office) %>" target="_blank"><%= t 'offices.show.media.more_from_google' %></a>
 
         &middot;
 
