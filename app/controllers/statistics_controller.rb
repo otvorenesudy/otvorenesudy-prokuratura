@@ -30,7 +30,8 @@ class StatisticsController < ApplicationController
 
     options = Selenium::WebDriver::Chrome::Options.new(args: %w[headless])
     options.add_argument('--window-size=1400,800')
-    options.add_argument('--font-render-hinting=none')
+    options.add_argument('--font-render-hinting=max')
+    options.add_argument('--enable-font-antialiasing')
     driver = Selenium::WebDriver.for(:chrome, options: options)
 
     driver.get(url)
