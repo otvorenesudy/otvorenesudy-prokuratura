@@ -19,6 +19,8 @@ import "./fixes";
 
 // Cookie consent
 window.addEventListener("load", () => {
+  if (!window.cookieconsent) return;
+
   window.cookieconsent.initialise({
     palette: {
       popup: {
@@ -37,6 +39,8 @@ window.addEventListener("load", () => {
 
 // Google Analytics
 document.addEventListener("turbolinks:load", () => {
+  if (!window.GOOGLE_ANALYTICS_TRACKING_ID) return;
+
   window.dataLayer = window.dataLayer || [];
   const gtag = (...params) => dataLayer.push(...params);
 

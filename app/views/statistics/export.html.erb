@@ -6,7 +6,13 @@
 
   <%= brand_tag('transparency-international-slovensko', width: 197.92, height: 47.5, variant: I18n.locale) %>
 
-  <div class="w-100" data-controller="chart" data-json="<%= @data.to_json %>" data-selected-offices="<%= (@search.params.values_at(:office, :office_type).flatten.compact.blank? ? [@search.office_aggregate_key] : @search.data[:data].select { |e| e[:office] }.map { |e| e[:name] }.uniq).to_json %>" data-animation="false">
+  <div
+    class="w-100"
+    data-controller="chart"
+    data-json="<%= @data.to_json %>"
+    data-comparison="<%= @search.comparison %>"
+    data-animation="false"
+  >
     <h1 class="text-uppercase">
       <small class="text-muted">
         <% if @search.default_params? %>
@@ -26,5 +32,5 @@
     <% else %>
       <p class="text-center text-muted mt-5 p-5"><%= t '.no_data' %></p>
     <% end %>
-</div>
+  </div>
 </div>

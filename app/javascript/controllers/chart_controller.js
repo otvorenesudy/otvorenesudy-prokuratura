@@ -6,17 +6,17 @@ export default class extends Controller {
     this.colors = ["#00aeef", "#ac3e53", "#73be1e", "#8392ac", "#73be1e", "#d34242", "#e19e41", "#1b325f"];
 
     const { years: categories, data } = JSON.parse(this.element.getAttribute("data-json"));
-    const selectedOffices = JSON.parse(this.element.getAttribute("data-selected-offices"));
+    const comparison = this.element.getAttribute("data-comparison");
 
-    const series = data.filter(({ name }) => selectedOffices.includes(name));
+    this.seriesNames = [...new Set(data.filter((e) => e[comparison]).map(({ name }) => name))];
+
+    const series = data.filter(({ name }) => this.seriesNames.includes(name));
     const chartOptions =
-      selectedOffices.length < 2 || (categories.length <= 3 && selectedOffices.length <= 5) || categories.length == 1
+      this.seriesNames.length < 2 || (categories.length <= 3 && this.seriesNames.length <= 5) || categories.length == 1
         ? this.barChartOptions(series)
         : this.lineChartOptions(series);
 
     this.chart = Highcharts.chart(this.element.getElementsByClassName("chart")[0], {
-      ...chartOptions,
-
       colors: this.colors,
 
       credits: {
@@ -40,6 +40,8 @@ export default class extends Controller {
       legend: {
         enabled: false,
       },
+
+      ...chartOptions,
     });
 
     setTimeout(() => this.resizeChart(), 0);
@@ -68,7 +70,7 @@ export default class extends Controller {
 
   lineChartOptions(data) {
     const series =
-      data.length > this.colors.length
+      this.seriesNames.length > 20
         ? data
         : data.map((value, i) => {
             return {
@@ -107,10 +109,14 @@ export default class extends Controller {
         height: 500,
       },
 
+      legend: {
+        enabled: this.seriesNames.length > 20 ? false : true,
+      },
+
       plotOptions: {
         series: {
           fillOpacity: 0,
-          animation: this.element.getAttribute("data-animation") === "false" ? false : true,
+          animation: this.element.getAttribute("data-animation") === "false" ? null : { duration: 1000 },
           marker: {
             radius: 4,
             symbol: "dot",
@@ -164,7 +170,7 @@ export default class extends Controller {
 
       plotOptions: {
         series: {
-          animation: this.element.getAttribute("data-animation") === "false" ? false : true,
+          animation: this.element.getAttribute("data-animation") === "false" ? null : { duration: 1000 },
         },
       },
     };

@@ -353,9 +353,14 @@ en:
       subtitle: "Metric – %{metric}"
       subtitle_with_paragraphs: 'Metric – %{metric} – by paragraphs %{paragraphs}'
       subtitle_for_default_params: Overview by corruption prosecution
-      enlarge_chart: Enlarge Chart
-      shrink_chart: Shrink Chart
+      enlarge_chart: Enlarge
+      shrink_chart: Shrink
       data_source_disclaimer: 'Data Source: https://www.genpro.gov.sk/statistiky-12c1.html'
+      comparison:
+        title: Compare In Chart
+        global: As a Sum per Year
+        paragraph: By Paragraphs
+        office: By Office
       search:
         year:
           title: Year

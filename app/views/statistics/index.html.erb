@@ -157,11 +157,41 @@
           </div>
 
           <div class="btn-group btn-group-sm border mb-3 ml-2">
-            <%= link_to 'Export', export_statistics_path(index_params), class: 'btn btn-secondary btn-sm shadow-none border-0', target: :_blank %>
+            <div class="btn-group btn-group-sm flex-grow-1 d-flex" role="group">
+              <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-0 flex-grow-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%=  t ".comparison.title" %>
+              </button>
+              <div class="dropdown-menu dropdown-menu-sm">
+                <%= link_to t('.comparison.global'), statistics_path(@search.params.merge(comparison: nil)), class: "dropdown-item #{'active' if @search.comparison == 'global'}" %>
+                <%= link_to t('.comparison.office'), statistics_path(@search.params.merge(comparison: 'office')), class: "dropdown-item #{'active' if @search.comparison == 'office'}" %>
+                <% if @search.paragraphs_present? %>
+                  <%= link_to t('.comparison.paragraph'), statistics_path(@search.params.merge(comparison: 'paragraph')), class: "dropdown-item #{'active' if @search.comparison == 'paragraph'}" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+
+         <div class="btn-group btn-group-sm border mb-3 ml-2">
+            <div class="btn-group btn-group-sm flex-grow-1 d-flex" role="group">
+              <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-0 flex-grow-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%=  t 'Export' %>
+              </button>
+              <div class="dropdown-menu dropdown-menu-sm">
+                <%= link_to 'PNG', png_statistics_path(index_params), class: 'dropdown-item', target: :_blank %>
+                <%= link_to 'Embed', embed_statistics_path(index_params), class: 'dropdown-item', target: :_blank %>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="w-100" data-controller="chart" data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>" data-json="<%= @data.to_json %>" data-selected-offices="<%= (@search.params.values_at(:office, :office_type).flatten.compact.blank? ? [@search.office_aggregate_key] : @search.data[:data].select { |e| e[:office] }.map { |e| e[:name] }.uniq).to_json %>">
+        <div
+          class="w-100"
+          data-controller="chart"
+          data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>"
+          data-comparison="<%= @search.comparison %>"
+          data-json="<%= @data.to_json %>"
+        >
           <h1 class="text-uppercase">
             <small class="text-muted">
               <% if @search.default_params? %>
@@ -172,7 +202,7 @@
             </small>
           </h1>
 
-          <% if @search.data[:data].select { |e| e[:office] }.any? %>
+          <% if @search.data[:data].reject { |e| e[:global] }.any? %>
             <div class="mt-5 chart"></div>
 
             <small class="mt-2 text-muted float-right">
@@ -193,9 +223,9 @@
                 </tr>
               </thead>
               <tbody>
-                <% @data[:data].each do |value| %>
+                <% @data[:data].select { |e| e[:table] == true }.each do |value| %>
                   <tr>
-                    <th class="text-left" scope="row" data-value="<% value[:name] == @search.office_aggregate_key ? 'a' : value[:name] %>">
+                    <th class="text-left" scope="row" data-value="<% value[:office] ? value[:office] : 'a' %>">
                       <%= minified_office_name(value[:name]) %>
                     </th>
 

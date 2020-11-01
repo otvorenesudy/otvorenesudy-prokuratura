@@ -24,12 +24,13 @@ class StatisticsController < ApplicationController
     )
   end
 
-  def export
+  def png
+    path = Rails.root.join('tmp', "statistics-export-#{SecureRandom.hex}.png")
+    url = export_statistics_url(index_params)
+
     options = Selenium::WebDriver::Chrome::Options.new(args: %w[headless])
     options.add_argument('--window-size=1024,768')
     driver = Selenium::WebDriver.for(:chrome, options: options)
-    url = _export_statistics_url(index_params)
-    path = Rails.root.join('tmp', "statistics-export-#{SecureRandom.hex}.png")
 
     driver.get(url)
     driver.save_screenshot(path)
@@ -38,16 +39,20 @@ class StatisticsController < ApplicationController
     File.open(path, 'rb') do |file|
       send_data(file.read, type: 'image/png', filename: 'otvorena-prokuratura-export.png')
     end
-
+  ensure
     File.delete(path)
   end
 
-  def _export
-    return head 404 unless request.local?
+  def export
+    response.headers['X-FRAME-OPTIONS'] = 'ALLOWALL'
 
     index
 
     render layout: 'export'
+  end
+
+  def embed
+    index
   end
 
   private
@@ -55,7 +60,7 @@ class StatisticsController < ApplicationController
   helper_method :index_params
 
   def index_params
-    params.permit(:paragraph_suggest, year: [], office: [], metric: [], office_type: [], paragraph: [])
+    params.permit(:comparison, :paragraph_suggest, year: [], office: [], metric: [], office_type: [], paragraph: [])
   end
 
   def suggest_params

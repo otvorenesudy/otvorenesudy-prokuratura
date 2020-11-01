@@ -190,7 +190,7 @@ sk:
 
     search:
       found_html: "%{count} z celkovo %{total} (%{time} ms)"
-      reset: Zrušiť všetky kritéria
+      reset: Zrušiť kritéria
 
   facets:
     collapsible_results:
@@ -357,12 +357,17 @@ sk:
     index:
       title: Kriminalita
       subtitle: "Štatistika – %{metric}"
-      subtitle_with_paragraphs: 'Štatistika – %{metric} podľa paragrafov %{paragraphs}'
+      subtitle_with_paragraphs: 'Štatistika – %{metric} pre paragrafy %{paragraphs}'
       subtitle_for_default_params: 'Vývoj trestania korupčných trestných činov'
       no_data: Neboli nájdené žiadne štatistiky pre vaše vyhľadávacie kritéria
-      enlarge_chart: Zväčšiť graf
-      shrink_chart: Zmenšiť graf
+      enlarge_chart: Zväčšiť
+      shrink_chart: Zmenšiť
       data_source_disclaimer: 'Zdroj dát: https://www.genpro.gov.sk/statistiky-12c1.html'
+      comparison:
+        title: Porovnať graf
+        global: Ako súčet podľa rokov
+        paragraph: Podľa paragrafov
+        office: Podľa prokuratúr
       search:
         year:
           title: Rok

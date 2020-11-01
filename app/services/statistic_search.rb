@@ -58,12 +58,20 @@ class StatisticSearch
   delegate :facets_for, to: :search
 
   def default_params?
-    default_params && @current_statistic_metric == default_params[:metric][0] &&
-      @current_statistic_paragraphs == default_params[:paragraph]
+    default_params && current_statistic_metric == default_params[:metric][0] &&
+      current_statistic_paragraphs == default_params[:paragraph]
+  end
+
+  def paragraphs_present?
+    current_statistic_paragraphs.present? && current_statistic_paragraphs != %w[_all]
   end
 
   def office_aggregate_key
     @office_aggregate_key ||= I18n.t('statistics.index.search.office.all')
+  end
+
+  def comparison
+    params[:comparison] || 'global'
   end
 
   def data
@@ -72,7 +80,6 @@ class StatisticSearch
         relation = current(except: %i[office office_type])
 
         sums = relation.where(paragraph: nil).joins(:office).order(:year).group(:year).sum(:count)
-
         sums_by_paragraphs = relation.joins(:office).where.not(paragraph: nil).group(:year).order(:year).sum(:count)
 
         all = sums_by_paragraphs.merge(sums)
@@ -82,11 +89,21 @@ class StatisticSearch
             hash[office_aggregate_key] = (hash[office_aggregate_key] || {}).merge(year => count)
           end
 
-        by_office = data_by_office(years)
+        by_office = data_by(years, aggregate: :office)
+
+        if paragraphs_present?
+          by_paragraphs =
+            data_by(years, aggregate: :paragraph).each do |statistic|
+              statistic[:name] = format_paragraph_name_for_chart(statistic[:name])
+            end
+        end
 
         {
           years: years,
-          data: groupped.map { |office, values| { name: office, data: years.map { |e| values[e] } } } + by_office[:data]
+          data:
+            groupped.map do |office, values|
+              { name: office, global: true, table: true, data: years.map { |e| values[e] } }
+            end + by_office + (by_paragraphs || [])
         }
       end
   end
@@ -95,12 +112,12 @@ class StatisticSearch
     if params[:metric].present?
       @search.all(except: except)
     else
-      MetricFilter.filter(ParagraphFilter.filter(@search.all(except: except), @default_params), @default_params)
+      MetricFilter.filter(ParagraphFilter.filter(@search.all(except: except), default_params), default_params)
     end
   end
 
   def has_metric?(value)
-    @metrics ||= @search.all.pluck(Arel.sql('DISTINCT statistics.metric')).map(&:to_sym)
+    @metrics ||= search.all.pluck(Arel.sql('DISTINCT statistics.metric')).map(&:to_sym)
 
     if params[:metric].blank? ||
          (value.match(/\A_(sentence|closure)/) && params[:metric].first.match(/\A_?#{Regexp.last_match(1)}/))
@@ -112,31 +129,24 @@ class StatisticSearch
 
   private
 
-  def data_by_office(years)
-    @data_by_office ||=
-      begin
-        relation = current
+  def data_by(years, aggregate:)
+    relation = current
+    group = { office: :'offices.name', paragraph: :paragraph }[aggregate]
 
-        sums =
-          relation.where(paragraph: nil).joins(:office).order(:year, :'offices.name').group(:year, :'offices.name').sum(
-            :count
-          )
+    sums = relation.where(paragraph: nil).joins(:office).order(:year, group).group(:year, group).sum(:count)
 
-        sums_by_paragraphs =
-          relation.joins(:office).where.not(paragraph: nil).group(:year, :'offices.name').order(:year, :'offices.name')
-            .sum(:count)
+    sums_by_paragraphs =
+      relation.joins(:office).where.not(paragraph: nil).group(:year, group).order(:year, group).sum(:count)
 
-        all = sums_by_paragraphs.merge(sums)
-        groupped =
-          all.each.with_object({}) do |((year, office), count), hash|
-            hash[office] = (hash[office] || {}).merge(year => count)
-          end
+    all = sums_by_paragraphs.merge(sums)
+    groupped =
+      all.each.with_object({}) { |((year, name), count), hash| hash[name] = (hash[name] || {}).merge(year => count) }
 
-        {
-          years: years,
-          data: groupped.map { |office, values| { name: office, office: true, data: years.map { |e| values[e] } } }
-        }
-      end
+    groupped.map do |name, values|
+      { name: name, table: aggregate == :office ? true : false, data: years.map { |e| values[e] } }.merge(
+        aggregate => true
+      )
+    end
   end
 
   def normalize_params
@@ -145,6 +155,12 @@ class StatisticSearch
         params[key] -= %w[_all]
       end
     end
+
+    params[:comparison] = nil if current_statistic_paragraphs.blank? && params[:comparison] == 'paragraph'
+  end
+
+  def format_paragraph_name_for_chart(value)
+    value.gsub(/\[new\]/, '').gsub(/\[old\]/, "[#{I18n.t('statistics.index.search.paragraph.old.badge')}]").strip
   end
 
   class YearFilter
