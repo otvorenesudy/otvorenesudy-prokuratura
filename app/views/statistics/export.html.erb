@@ -27,6 +27,11 @@
       <div class="mt-5 chart"></div>
 
       <small class="mt-2 text-muted float-right">
+        <% if params[:embedded] %>
+          <%= link_to t('.open_in_application'), statistics_url(@search.params), class: 'text-muted', target: :_blank %>
+          &middot;
+        <% end %>
+
         <%= t 'statistics.index.data_source_disclaimer' %>
       </small>
     <% else %>

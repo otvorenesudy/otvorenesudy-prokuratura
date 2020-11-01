@@ -348,6 +348,9 @@ en:
       few: '%{count} statistics'
       other: '%{count} statistics'
 
+    export:
+      open_in_application: Open in the application Otvorená Prokuratúra
+
     index:
       title: Crime Stats
       subtitle: "Metric – %{metric}"

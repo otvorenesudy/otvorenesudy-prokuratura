@@ -354,6 +354,9 @@ sk:
       few: '%{count} štatistík'
       other: '%{count} štatistík'
 
+    export:
+      open_in_application: Otvoriť v aplikácii Otvorená Prokuratúra
+
     index:
       title: Kriminalita
       subtitle: "Štatistika – %{metric}"
