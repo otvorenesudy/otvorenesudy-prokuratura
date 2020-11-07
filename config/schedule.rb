@@ -42,3 +42,11 @@ end
 every 6.hours do
   runner '::Office.find_each(&:news!)'
 end
+
+every :day, at: '4:00am' do
+  runner 'GoogleNewsJob.perform_later("Prosecutor", size: 80)'
+end
+
+every :day, at: '4:30am' do
+  runner 'GoogleNewsJob.perform_later("Office", size: 20)'
+end

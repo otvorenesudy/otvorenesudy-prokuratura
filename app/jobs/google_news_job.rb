@@ -1,5 +1,5 @@
 class GoogleNewsJob < ApplicationJob
-  def perform(model_name)
+  def perform(model_name, size: 50)
     model = model_name.constantize
     cache = {}
 
@@ -10,9 +10,9 @@ class GoogleNewsJob < ApplicationJob
         cache[id] = data if data
 
         data
-      end.first(100)
+      end.first(size)
 
-    ids += cache.sort_by { |_, data| data[:last_updated_at] }.map { |id, _| id }.first(100 - ids.size)
+    ids += cache.sort_by { |_, data| data[:last_updated_at] }.map { |id, _| id }.first(size - ids.size)
 
     model.where(id: ids).find_each do |record|
       results = GoogleNews.search_by(record.to_news_query)
