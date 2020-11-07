@@ -76,7 +76,7 @@ class Office < ApplicationRecord
   end
 
   def to_news_query
-    general ? 'Generálna prokuratúra' : name
+    general? ? 'Generálna prokuratúra' : name
   end
 
   def self.as_map_json
