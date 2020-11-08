@@ -15,10 +15,10 @@
   >
     <h1 class="text-uppercase">
       <small class="text-muted">
-        <% if @search.default_params? %>
-          <%= t('statistics.index.subtitle_for_default_params') %>
+        <% if @search.default_params? && params[:show_default_paragraphs].blank? %>
+          <%= t 'statistics.index.subtitle_for_default_params' %>
         <% else %>
-          <%= statistics_subtitle(@search.current_statistic_metric, @search.current_statistic_paragraphs) %>
+          <%= statistics_subtitle(@search) %>
         <% end %>
       </small>
     </h1>
@@ -26,13 +26,14 @@
     <% if @search.data[:data].select { |e| e[:office] }.any? %>
       <div class="mt-5 chart"></div>
 
-      <small class="mt-2 text-muted float-right">
+      <small class="mt-2 text-muted float-right text-right">
+        <%= t 'statistics.index.data_disclaimer' %>
+        <br>
         <% if params[:embedded] %>
           <%= link_to t('.open_in_application'), statistics_url(@search.params), class: 'text-muted', target: :_blank %>
-          &middot;
+          &middot;&nbsp;
         <% end %>
-
-        <%= t 'statistics.index.data_source_disclaimer' %>
+        <%= t 'statistics.index.data_source_disclaimer_html' %>
       </small>
     <% else %>
       <p class="text-center text-muted mt-5 p-5"><%= t '.no_data' %></p>

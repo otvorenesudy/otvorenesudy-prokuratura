@@ -33,16 +33,8 @@ Rails.application.routes.draw do
     get :embed, on: :collection
   end
 
-  resource :static_page, only: [] do
-    get :about
-    get :faq
-    get :feedback
-    get :tos
-    get :privacy
-    get :contact
-    get :copyright
-  end
-
   # error pages
   %w[400 404 422 500 503].each { |code| get "/#{code}", to: 'errors#show', code: code }
+
+  match '/:slug', via: :get, to: 'static_pages#show', as: :static_page
 end

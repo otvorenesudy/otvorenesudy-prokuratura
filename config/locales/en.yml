@@ -356,9 +356,12 @@ en:
       subtitle: "Metric – %{metric}"
       subtitle_with_paragraphs: 'Metric – %{metric} – by paragraphs %{paragraphs}'
       subtitle_for_default_params: Overview by corruption prosecution
+      subtitle_for_default_params_with_paragraphs: 'Overview by corruption prosecution %{paragraphs}'
+      show_paragraphs: Show Paragraphs
       enlarge_chart: Enlarge
       shrink_chart: Shrink
-      data_source_disclaimer: 'Data Source: https://www.genpro.gov.sk/statistiky-12c1.html'
+      data_disclaimer: Aggregation is perfomed only on the data from the ‘V’ register
+      data_source_disclaimer_html: 'Data Source: <a href="https://www.genpro.gov.sk/statistiky-12c1.html" class="text-muted" target="_blank">https://www.genpro.gov.sk/statistiky-12c1.html</a>'
       comparison:
         title: Compare In Chart
         global: As a Sum per Year

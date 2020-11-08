@@ -29,12 +29,13 @@ class StatisticsController < ApplicationController
     url = export_statistics_url(index_params)
 
     options = Selenium::WebDriver::Chrome::Options.new(args: %w[headless])
-    options.add_argument('--window-size=1400,800')
+    options.add_argument('--window-size=1400,760')
     options.add_argument('--font-render-hinting=max')
     options.add_argument('--enable-font-antialiasing')
     driver = Selenium::WebDriver.for(:chrome, options: options)
 
     driver.get(url)
+    driver.manage.window.resize_to(1400, driver.execute_script('return document.body.scrollHeight') + 25)
     driver.save_screenshot(path)
 
     begin
@@ -67,7 +68,12 @@ class StatisticsController < ApplicationController
   helper_method :index_params
 
   def index_params
-    params.permit(:comparison, :paragraph_suggest, year: [], office: [], metric: [], office_type: [], paragraph: [])
+    params.permit(
+      :comparison,
+      :paragraph_suggest,
+      :show_default_paragraphs,
+      year: [], office: [], metric: [], office_type: [], paragraph: []
+    )
   end
 
   def suggest_params

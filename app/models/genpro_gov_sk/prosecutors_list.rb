@@ -61,7 +61,7 @@ module GenproGovSk
           appointment.update!(genpro_gov_sk_prosecutors_list: list, started_at: time) if appointment.new_record?
           prosecutor.appointments.current.fixed.where.not(id: appointment.id).update_all(ended_at: time)
 
-          if value[:temporary_office] # TODO: handle string only if office does not exist
+          if value[:temporary_office]
             office = ::Office.find_by(name: value[:temporary_office])
 
             appointment =

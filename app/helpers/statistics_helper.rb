@@ -1,17 +1,22 @@
 module StatisticsHelper
-  def statistics_subtitle(metric, paragraphs)
+  def statistics_subtitle(search)
+    metric = search.current_statistic_metric
+    paragraphs = search.current_statistic_paragraphs
     group = Statistic::GROUPS.find { |group, values| metric.to_sym.in?(values) }[0]
+    key = search.default_params? ? 'statistics.index.subtitle_for_default_params' : 'statistics.index.subtitle'
 
-    translation = I18n.t("statistics.index.search.#{group}.metrics.#{metric}", default: nil)
+    unless search.default_params?
+      translation = I18n.t("statistics.index.search.#{group}.metrics.#{metric}", default: nil)
 
-    unless translation
-      translation = I18n.t("models.statistic.metrics.#{metric}")
-      translation = "#{I18n.t("statistics.index.search.#{group}.title")} – #{translation}" unless group == :other
+      unless translation
+        translation = I18n.t("models.statistic.metrics.#{metric}")
+        translation = "#{I18n.t("statistics.index.search.#{group}.title")} – #{translation}" unless group == :other
+      end
     end
 
     paragraphs -= %w[_all] if paragraphs
 
-    return I18n.t('statistics.index.subtitle', metric: translation) if paragraphs&.compact.blank?
+    return I18n.t(key, metric: translation) if paragraphs&.compact.blank?
 
     paragraph_names = paragraphs.map { |value| Paragraph.by_value[value] }
 
@@ -47,6 +52,6 @@ module StatisticsHelper
         end
       end
 
-    I18n.t('statistics.index.subtitle_with_paragraphs', metric: translation, paragraphs: paragraphs_list).html_safe
+    I18n.t("#{key}_with_paragraphs", metric: translation, paragraphs: paragraphs_list).html_safe
   end
 end

@@ -157,6 +157,7 @@ class StatisticSearch
     end
 
     params[:comparison] = nil if current_statistic_paragraphs.blank? && params[:comparison] == 'paragraph'
+    params[:show_default_paragraphs] = nil unless default_params?
   end
 
   def format_paragraph_name_for_chart(value)
@@ -232,8 +233,15 @@ class StatisticSearch
     end
 
     def self.facets(relation, suggest:)
-      paragraphs =
-        ::QueryFilter.filter(Paragraph.all.order(name: :asc), { q: suggest }, columns: %i[name]).pluck(:value)
+      highlights =
+        ['§ 145 [new]', '§ 199 [new]', '§ 212 [new]', '§ 326 [new]', '§ 363 [new]'].map do |value|
+          ActiveRecord::Base.connection.quote(value)
+        end
+
+      scope =
+        Paragraph.all.order("array_position(ARRAY[#{highlights.join(',')}] :: text[], value :: text) ASC NULLS LAST")
+          .order(name: :asc)
+      paragraphs = ::QueryFilter.filter(scope, { q: suggest }, columns: %i[name]).pluck(:value)
 
       relation.where(paragraph: paragraphs).group(:paragraph).count.map do |value, count|
         [value, count]

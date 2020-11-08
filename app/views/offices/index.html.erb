@@ -99,7 +99,7 @@
         <div id="office-city-content" class="facet-content collapse show">
           <div class="facet-results">
             <input class="facet-suggest ui-autocomplete-input" name="city" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.city.placeholder' %>" type="text" autocomplete="off">
-            <%= render 'city_results', values: @search.facets_for(:city), params: @search.params %>
+            <%= render 'city_results', values: @search.facets_for(:city, selected_first: true), params: @search.params %>
           </div>
         </div>
       </div>

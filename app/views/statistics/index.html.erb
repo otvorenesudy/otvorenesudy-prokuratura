@@ -13,7 +13,7 @@
             <div class="facet-results">
               <input value="<%= params[:paragraph_suggest] %>" class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
 
-              <% if (facets = @search.facets_for(:paragraph)).any? %>
+              <% if (facets = @search.facets_for(:paragraph, selected_first: true)).any? %>
                 <ul class="facet-list">
                   <li class="facet-item">
                     <%= link_to statistics_path(search_params(@search.params, { paragraph: '_all', paragraph_suggest: nil, }, replace: true)), class: "facet-link#{' active' if @search.params[:paragraph].blank? && !@search.default_params?}" do %>
@@ -106,7 +106,7 @@
                 </li>
               </ul>
 
-              <%= render 'office_results', values: @search.facets_for(:office), params: @search.params %>
+              <%= render 'office_results', values: @search.facets_for(:office, selected_first: true), params: @search.params %>
             </div>
           </div>
         </div>
@@ -171,8 +171,7 @@
             </div>
           </div>
 
-
-         <div class="btn-group btn-group-sm border mb-3 ml-2">
+          <div class="btn-group btn-group-sm border mb-3 ml-2">
             <div class="btn-group btn-group-sm flex-grow-1 d-flex" role="group">
               <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-0 flex-grow-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <%=  t 'Export' %>
@@ -194,19 +193,23 @@
         >
           <h1 class="text-uppercase">
             <small class="text-muted">
-              <% if @search.default_params? %>
-                <%= t('.subtitle_for_default_params') %>
+              <% if @search.default_params? && params[:show_default_paragraphs].blank? %>
+                <%= t '.subtitle_for_default_params' %>
               <% else %>
-                <%= statistics_subtitle(@search.current_statistic_metric, @search.current_statistic_paragraphs) %>
+                <%= statistics_subtitle(@search) %>
               <% end %>
             </small>
           </h1>
 
+          <% if @search.default_params? && params[:show_default_paragraphs].blank? %>
+            <%= link_to t('.show_paragraphs'), statistics_path(@search.params.merge(show_default_paragraphs: true)), class: 'text-muted' %>
+          <% end %>
+
           <% if @search.data[:data].reject { |e| e[:global] }.any? %>
             <div class="mt-5 chart"></div>
 
-            <small class="mt-2 text-muted float-right">
-              <%= t '.data_source_disclaimer' %>
+            <small class="mt-2 text-muted float-right text-right">
+              <%= t '.data_disclaimer' %>
             </small>
           <% else %>
             <p class="text-center text-muted mt-5 p-5"><%= t '.no_data' %></p>
@@ -238,9 +241,13 @@
             <% end %>
           </div>
 
-          <div id="timing" class="d-flex flex-wrap align-items-center justify-content-between">
+          <div class="d-flex flex-wrap align-items-center justify-content-between">
             <div class="small text-muted mr-3 mt-3">
               <%= t 'layouts.search.found_html', count: number_with_delimiter(@search.current.count), total: I18n.t('statistics.count', count: number_with_delimiter(@count)), time: (@time + facets_time).to_i %>
+            </div>
+
+            <div class="small mt-3 text-muted float-right text-right">
+              <%= t '.data_source_disclaimer_html' %>
             </div>
           </div>
         </div>
