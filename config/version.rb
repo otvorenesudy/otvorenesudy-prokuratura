@@ -2,8 +2,8 @@ module OpenCourts
   module Prokuratura
     module VERSION
       MAJOR = 0
-      MINOR = 1
-      PATCH = 10
+      MINOR = 2
+      PATCH = 11
 
       PRE = nil
 
