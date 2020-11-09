@@ -2,11 +2,9 @@
   <ul id="media" class="list-unstyled mt-4">
     <% articles.each do |article| %>
       <li class="mb-3">
-        <a href="<%= article[:url] %>" target="_blank"><%= article[:title] %></a>
+        <a href="<%= article[:url] %>" target="_blank"><%= article[:title] %></a> <span class="text-muted">&middot; <%= article[:source] %></span>
         <br>
-        <span class="text-muted">
-          <%= article[:source] %>
-        </span>
+       <span class="text-muted"><%= article[:snippet] %></span>
       </li>
     <% end %>
   </ul>

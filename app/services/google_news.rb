@@ -21,8 +21,11 @@ class GoogleNews
       source = 'SME' if uri.host.match('sme.sk')
       source = 'Denník N' if uri.host.match('dennikn.sk')
       source = 'Aktuality' if uri.host.match('aktuality.sk')
-      title = result.pagemap['metatags']&.find { |e| e['og:title'] }&.fetch('og:title', nil) || result.title
-      snippet = result.pagemap['metatags']&.find { |e| e['og:title'] }&.fetch('og:description', nil) || result.snippet
+      title =
+        result.pagemap.try { |e| e['metatags']&.find { |e| e['og:title'] }&.fetch('og:title', nil) } || result.title
+      snippet =
+        result.pagemap.try { |e| e['metatags']&.find { |e| e['og:title'] }&.fetch('og:description', nil) } ||
+          result.snippet
 
       { title: title, snippet: snippet.gsub(/[[:space:]]+/, ' '), url: result.link, source: source }
     end
