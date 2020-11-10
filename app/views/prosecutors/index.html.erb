@@ -134,7 +134,7 @@
                 <%=
                   [
                     t('terms.declaration', count: prosecutor.declarations&.count || 0),
-                    prosecutor.news.any? ? t('terms.news', count: prosecutor.news.count) : nil
+                    prosecutor.articles.any? ? t('terms.news', count: prosecutor.articles.count) : nil
                   ].compact.to_sentence
                 %>.
               </div>

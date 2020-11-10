@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_22_211054) do
+ActiveRecord::Schema.define(version: 2020_11_10_205753) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pg_trgm'
   enable_extension 'plpgsql'
@@ -88,10 +88,12 @@ ActiveRecord::Schema.define(version: 2020_09_22_211054) do
     t.datetime 'destroyed_at'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.jsonb 'news'
     t.index %w[city], name: 'index_offices_on_city'
     t.index %w[destroyed_at], name: 'index_offices_on_destroyed_at'
     t.index %w[genpro_gov_sk_office_id], name: 'index_offices_on_genpro_gov_sk_office_id'
     t.index %w[name], name: 'index_offices_on_name', unique: true
+    t.index %w[news], name: 'index_offices_on_news'
     t.index %w[type], name: 'index_offices_on_type'
     t.index %w[type], name: 'index_offices_on_unique_general_type', unique: true, where: '(type = 0)'
     t.index %w[type], name: 'index_offices_on_unique_specialized_type', unique: true, where: '(type = 1)'
@@ -114,9 +116,11 @@ ActiveRecord::Schema.define(version: 2020_09_22_211054) do
     t.jsonb 'declarations'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.jsonb 'news'
     t.index %w[genpro_gov_sk_prosecutors_list_id], name: 'index_prosecutors_on_genpro_gov_sk_prosecutors_list_id'
     t.index %w[name], name: 'index_prosecutors_on_name'
     t.index %w[name_parts], name: 'index_prosecutors_on_name_parts'
+    t.index %w[news], name: 'index_prosecutors_on_news'
   end
 
   create_table 'statistics', force: :cascade do |t|

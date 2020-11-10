@@ -1,10 +1,10 @@
-<% @office.news.tap do |articles| %>
+<% @office.articles.tap do |articles| %>
   <ul id="media" class="list-unstyled mt-4">
     <% articles.each do |article| %>
       <li class="mb-3">
-        <a href="<%= article[:url] %>" target="_blank"><%= article[:title] %></a> <span class="text-muted">&middot; <%= article[:source] %></span>
+        <a href="<%= article['url'] %>" target="_blank"><%= article['title'] %></a> <span class="text-muted">&middot; <%= article['source'] %></span>
         <br>
-       <span class="text-muted"><%= article[:snippet] %></span>
+       <span class="text-muted"><%= article['snippet'] %></span>
       </li>
     <% end %>
   </ul>

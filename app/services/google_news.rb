@@ -14,6 +14,8 @@ class GoogleNews
         num: 10
       ).items
 
+    searched_at = Time.zone.now
+
     return [] if results.blank?
 
     results.map do |result|
@@ -27,7 +29,13 @@ class GoogleNews
         result.pagemap.try { |e| e['metatags']&.find { |e| e['og:title'] }&.fetch('og:description', nil) } ||
           result.snippet
 
-      { title: title, snippet: snippet.gsub(/[[:space:]]+/, ' '), url: result.link, source: source }
+      {
+        title: title,
+        snippet: snippet.gsub(/[[:space:]]+/, ' '),
+        url: result.link,
+        source: source,
+        searched_at: searched_at.to_i
+      }
     end
   end
 
