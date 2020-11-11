@@ -112,6 +112,8 @@ module GenproGovSk
 
               name, phone = normalize(text).split('<>').map { |e| normalize(e) }
 
+              next if name.blank?
+
               _, suffix_to_position = *name.match(/(?<suffix>- (ne)?trestný úsek)\z/)
 
               name_parts = parse_name(suffix_to_position ? normalize(name.gsub(suffix_to_position, '')) : name)
