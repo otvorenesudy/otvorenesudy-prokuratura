@@ -28,7 +28,6 @@
 #  index_offices_on_destroyed_at             (destroyed_at)
 #  index_offices_on_genpro_gov_sk_office_id  (genpro_gov_sk_office_id)
 #  index_offices_on_name                     (name) UNIQUE
-#  index_offices_on_news                     (news)
 #  index_offices_on_type                     (type)
 #  index_offices_on_unique_general_type      (type) UNIQUE WHERE (type = 0)
 #  index_offices_on_unique_specialized_type  (type) UNIQUE WHERE (type = 1)
