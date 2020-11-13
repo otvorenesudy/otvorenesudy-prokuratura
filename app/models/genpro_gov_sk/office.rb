@@ -29,13 +29,12 @@ module GenproGovSk
 
       ActiveRecord::Base.transaction do
         genpro_gov_sk_office.lock!
-
         genpro_gov_sk_office.update!(data: data)
 
-        office = ::Office.find_or_initialize_by(genpro_gov_sk_office: genpro_gov_sk_office)
+        office = ::Office.find_or_initialize_by(name: data[:name])
 
         office.lock!
-        office.update!(data.except(:employees))
+        office.update!(data.except(:employees).merge(genpro_gov_sk_office: genpro_gov_sk_office))
 
         office.employees.lock!
 

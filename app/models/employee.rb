@@ -36,7 +36,6 @@ class Employee < ApplicationRecord
   validates :name, presence: true
   validates :position, presence: true
   validates :rank, presence: true, numericality: { greater_than: 0, only_integer: true }
-  validates :rank, uniqueness: { scope: %i[office_id disabled_at] }, unless: :disabled_at?
 
   scope :active, -> { where(disabled_at: nil) }
   scope :as_prosecutor, -> { where.not(prosecutor_id: nil) }
