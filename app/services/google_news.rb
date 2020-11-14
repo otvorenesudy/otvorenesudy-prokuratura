@@ -8,10 +8,11 @@ class GoogleNews
     results =
       service.list_cses(
         exact_terms: name,
-        or_terms: 'prokurátor prokuratúra',
+        or_terms: 'prokurátor|prokuratúra',
         cx: Rails.application.credentials.dig(:google, :api, :search, :id),
         sort: 'date',
-        num: 10
+        num: 10,
+        safe: 'active'
       ).items
 
     searched_at = Time.zone.now
