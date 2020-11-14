@@ -82,7 +82,8 @@ class StatisticSearch
         sums = relation.where(paragraph: nil).joins(:office).order(:year).group(:year).sum(:count)
         sums_by_paragraphs = relation.joins(:office).where.not(paragraph: nil).group(:year).order(:year).sum(:count)
 
-        all = sums_by_paragraphs.merge(sums)
+        all = sums_by_paragraphs.merge(sums) { |_, old, new| old.present? ? old : new }
+
         years = all.keys
         groupped =
           all.each.with_object({}) do |(year, count), hash|
@@ -138,7 +139,8 @@ class StatisticSearch
     sums_by_paragraphs =
       relation.joins(:office).where.not(paragraph: nil).group(:year, group).order(:year, group).sum(:count)
 
-    all = sums_by_paragraphs.merge(sums)
+    all = sums_by_paragraphs.merge(sums) { |_, old, new| old.present? ? old : new }
+
     groupped =
       all.each.with_object({}) { |((year, name), count), hash| hash[name] = (hash[name] || {}).merge(year => count) }
 
@@ -234,9 +236,17 @@ class StatisticSearch
 
     def self.facets(relation, suggest:)
       highlights =
-        ['§ 145 [new]', '§ 199 [new]', '§ 212 [new]', '§ 326 [new]', '§ 363 [new]'].map do |value|
-          ActiveRecord::Base.connection.quote(value)
-        end
+        [
+          '§ 145 [new]',
+          '§ 199 [new]',
+          '§ 212 [new]',
+          '§ 326 [new]',
+          '§ 363 [new]',
+          '§ 144 [new]',
+          '§ 221 [new]',
+          '§ 326 [new]',
+          '§ 345 [new]'
+        ].map { |value| ActiveRecord::Base.connection.quote(value) }
 
       scope =
         Paragraph.all.order("array_position(ARRAY[#{highlights.join(',')}] :: text[], value :: text) ASC NULLS LAST")
