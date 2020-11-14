@@ -36,7 +36,7 @@ every :day, at: '6:00am' do
 end
 
 every :day, at: '4:00am' do
-  runner 'GoogleNews.cache_for(::Prosecutor, size: 80)'
+  runner 'GoogleNews.cache_for(::Prosecutor, size: 60)'
 end
 
 every :day, at: '4:30am' do
