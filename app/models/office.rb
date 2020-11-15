@@ -82,7 +82,12 @@ class Office < ApplicationRecord
   end
 
   def average_convicted_people_yearly
-    statistics.where(metric: :convicted_all).where.not(paragraph: nil).pluck(Arel.sql('AVG(statistics.count)'))[0]
+    sums =
+      statistics.where(metric: :convicted_all).where.not(paragraph: nil).group(:year).pluck(
+        Arel.sql('SUM(statistics.count)')
+      )
+
+    sums.inject(:+) / sums.size.to_f
   end
 
   def years_for_average_convicted_people_yearly
