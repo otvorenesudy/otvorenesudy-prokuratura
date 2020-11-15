@@ -262,6 +262,11 @@ en:
       contact: Contact
       employees: Leading Employees
       prosecutors: Prosecutors
+      average_convicted_people_yearly_html: 'We register %{count} convited people per year on avarage.'
+      average_data_disclaimer:
+        title: 'Data'
+        content: 'Podľa dát zo štatistických výkazov o kriminalite pre danú prokuratúru pre roky %{years}.'
+        content: 'Sourced from criminal statistics for the office for years of %{years}.'
 
       media:
         title: 'Mentions in Media'

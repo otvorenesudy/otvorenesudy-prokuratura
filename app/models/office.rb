@@ -48,6 +48,7 @@ class Office < ApplicationRecord
   has_many :appointments, dependent: :destroy
   has_many :active_appointments, -> { current }, class_name: :Appointment, dependent: :destroy
   has_many :prosecutors, through: :active_appointments
+  has_many :statistics, dependent: :destroy
 
   enum type: { general: 0, specialized: 1, regional: 2, district: 3 }
 
@@ -78,6 +79,16 @@ class Office < ApplicationRecord
 
   def to_news_query
     general? ? 'Generálna prokuratúra' : name
+  end
+
+  def average_convicted_people_yearly
+    statistics.where(metric: :convicted_all).where.not(paragraph: nil).pluck(Arel.sql('AVG(statistics.count)'))[0]
+  end
+
+  def years_for_average_convicted_people_yearly
+    statistics.where(metric: :convicted_all).where.not(paragraph: nil).order(year: :asc).pluck(
+      Arel.sql('DISTINCT statistics.year')
+    )
   end
 
   def self.as_map_json

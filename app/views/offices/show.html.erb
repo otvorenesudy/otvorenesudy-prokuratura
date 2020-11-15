@@ -21,6 +21,13 @@
   %>.
 </p>
 
+<% if @office.average_convicted_people_yearly %>
+  <p>
+    <%= t '.average_convicted_people_yearly_html', count: number_with_delimiter(@office.average_convicted_people_yearly.round) %>
+    <%= help_tag('.average_data_disclaimer', content_translation_options: { years: @office.years_for_average_convicted_people_yearly.to_sentence }) %>
+  </p>
+<% end %>
+
 <ul class="nav nav-tabs mt-4" role="tablist">
   <%= tab_link_tag t('.contact'), 'contact', class: 'active', tabindex: -1 %>
   <%= tab_link_tag t('.prosecutors'), 'prosecutors' %>
