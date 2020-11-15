@@ -87,6 +87,8 @@ class Office < ApplicationRecord
         Arel.sql('SUM(statistics.count)')
       )
 
+    return if sums.blank?
+
     sums.inject(:+) / sums.size.to_f
   end
 
