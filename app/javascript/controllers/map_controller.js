@@ -82,7 +82,7 @@ export default class extends Controller {
       const locations = cluster.layer
         .getAllChildMarkers()
         .reduce((acc, e) => ({ ...acc, [e.getLatLng().lat]: 1, [e.getLatLng().lng]: 1 }), {});
-      const url = this.element.getAttribute("data-search-on-cluster-opening");
+      let url = this.element.getAttribute("data-search-on-cluster-opening");
 
       if (Object.keys(locations).length === 2 && url) {
         L.popup()
@@ -92,6 +92,10 @@ export default class extends Controller {
 
         const offices = [...new Set(cluster.layer.getAllChildMarkers().map((marker) => marker.attributes.office))];
         const params = offices.map((office) => encodeURI(`office[]=${office}`));
+
+        url = url.split("#")[0];
+
+        if (!url.match(/\?/)) url = `${url}?`;
 
         setTimeout(() => Turbolinks.visit(`${url.split("#")[0]}&${params.join("&")}#facets`), 2000);
       }

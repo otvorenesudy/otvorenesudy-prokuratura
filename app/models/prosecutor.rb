@@ -27,7 +27,7 @@ class Prosecutor < ApplicationRecord
 
   belongs_to :genpro_gov_sk_prosecutors_list, class_name: :'GenproGovSk::ProsecutorsList'
 
-  has_many :appointments, -> { order(id: :asc) }, dependent: :destroy
+  has_many :appointments, -> { current.order(id: :asc) }, dependent: :destroy
   has_many :offices, through: :appointments
 
   has_many :employments, class_name: :Employee, dependent: :nullify
