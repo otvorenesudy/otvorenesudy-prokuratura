@@ -1,9 +1,5 @@
 # Otvorená Prokuratúra
 
-[![Build Status](https://travis-ci.org/otvorenesudy/otvorenesudy-api.svg)](https://travis-ci.org/otvorenesudy/otvorenesudy-api)
-[![Code Climate](https://codeclimate.com/github/otvorenesudy/otvorenesudy-api/badges/gpa.svg)](https://codeclimate.com/github/otvorenesudy/otvorenesudy-api)
-[![Test Coverage](https://codeclimate.com/github/otvorenesudy/otvorenesudy-api/badges/coverage.svg)](https://codeclimate.com/github/otvorenesudy/otvorenesudy-api/coverage)
-
 Public data project aimed at making information about public prosecutors such as their assignations and property declarations, and annual data about criminality from [General Prosecutors Office of the Slovak Republic](https://www.genpro.gov.sk) more publicly available.
 
 ## Requirements
