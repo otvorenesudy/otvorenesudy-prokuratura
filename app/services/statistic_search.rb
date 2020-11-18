@@ -82,7 +82,10 @@ class StatisticSearch
         sums = relation.where(paragraph: nil).joins(:office).order(:year).group(:year).sum(:count)
         sums_by_paragraphs = relation.joins(:office).where.not(paragraph: nil).group(:year).order(:year).sum(:count)
 
-        all = sums_by_paragraphs.merge(sums) { |_, old, new| old.present? ? old : new }
+        all =
+          sums_by_paragraphs.merge(sums) do |_, from_paragraphs, from_sums|
+            from_sums.present? ? from_sums : from_paragraphs
+          end
 
         years = all.keys
         groupped =
@@ -139,7 +142,10 @@ class StatisticSearch
     sums_by_paragraphs =
       relation.joins(:office).where.not(paragraph: nil).group(:year, group).order(:year, group).sum(:count)
 
-    all = sums_by_paragraphs.merge(sums) { |_, old, new| old.present? ? old : new }
+    all =
+      sums_by_paragraphs.merge(sums) do |_, from_paragraphs, from_sums|
+        from_sums.present? ? from_sums : from_paragraphs
+      end
 
     groupped =
       all.each.with_object({}) { |((year, name), count), hash| hash[name] = (hash[name] || {}).merge(year => count) }
