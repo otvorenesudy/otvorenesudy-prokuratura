@@ -39,6 +39,7 @@
 class Office < ApplicationRecord
   include Searchable
   include Newsable
+  include Offices::Indicators
 
   self.inheritance_column = :_type_disabled
 
@@ -79,23 +80,6 @@ class Office < ApplicationRecord
 
   def to_news_query
     general? ? 'Generálna prokuratúra' : name
-  end
-
-  def average_convicted_people_yearly
-    sums =
-      statistics.where(metric: :convicted_all).where.not(paragraph: nil).group(:year).pluck(
-        Arel.sql('SUM(statistics.count)')
-      )
-
-    return if sums.blank?
-
-    sums.inject(:+) / sums.size.to_f
-  end
-
-  def years_for_average_convicted_people_yearly
-    statistics.where(metric: :convicted_all).where.not(paragraph: nil).order(year: :asc).pluck(
-      Arel.sql('DISTINCT statistics.year')
-    )
   end
 
   def self.as_map_json

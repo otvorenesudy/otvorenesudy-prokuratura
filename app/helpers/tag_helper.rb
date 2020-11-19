@@ -1,11 +1,8 @@
 module TagHelper
-  def help_tag(key, options = {})
+  def help_tag(options = {})
     options = options.merge class: 'd-inline text-info', trigger: 'hover'
-    title = t "#{key}.title"
-    options[:title] = title if title.present?
-    popover_tag icon_tag('question', size: 12),
-                t("#{key}.content", options[:content_translation_options] || {}),
-                options
+    content = options.delete(:content)
+    popover_tag(icon_tag('question', size: 12), content, options)
   end
 
   def popover_tag(name, content, options = {})

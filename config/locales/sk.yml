@@ -269,9 +269,9 @@ sk:
       employees: Vedúci pracovníci
       prosecutors: Prokurátori
       average_convicted_people_yearly_html: 'Pre prokuratúru evidujeme priemerne %{count} odsúdených za rok.'
-      average_data_disclaimer:
-        title: 'Zdroj dát'
-        content: 'Podľa dát zo štatistických výkazov o kriminalite pre danú prokuratúru pre roky %{years}.'
+      average_incoming_cases_per_prosecutor_monthly_html: 'Na každého prokurátora napadlo priemerne %{count} vecí mesačne každý rok.'
+      average_incoming_cases_per_prosecutor_yearly_html: 'Na každého prokurátora napadlo priemerne %{count} vecí každý rok.'
+      average_data_disclaimer_title: 'Podľa jednotlivých rokov'
 
       media:
         title: Mediálne zmienky
