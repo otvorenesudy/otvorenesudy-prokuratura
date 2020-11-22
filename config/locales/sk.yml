@@ -189,7 +189,8 @@ sk:
       slovak: Slovensky
 
     search:
-      found_html: "%{count} z celkovo %{total} (%{time} ms)"
+      found_with_timing_html: "%{count} z celkovo %{total} (%{time} ms)"
+      found_html: "%{count} z celkovo %{total}"
       reset: Zrušiť kritéria
 
   facets:
@@ -269,8 +270,10 @@ sk:
       employees: Vedúci pracovníci
       prosecutors: Prokurátori
       average_convicted_people_yearly_html: 'Pre prokuratúru evidujeme priemerne %{count} odsúdených za rok.'
-      average_incoming_cases_per_prosecutor_monthly_html: 'Na každého prokurátora napadlo priemerne %{count} vecí mesačne každý rok.'
-      average_incoming_cases_per_prosecutor_yearly_html: 'Na každého prokurátora napadlo priemerne %{count} vecí každý rok.'
+      average_incoming_cases_per_prosecutor_monthly_html: 'Priemerný nápad vecí na jedného prokurátora je %{count} za mesiac každý rok.'
+      average_incoming_cases_per_prosecutor_yearly_html: 'Priemerný nápad vecí na jedného prokurátora je %{count} ročne.'
+      average_filed_prosecutions_per_prosecutor_monthly_html: 'Priemerný počet podaných obžalôb je %{count} za mesiac každý rok.'
+      average_filed_prosecutions_per_prosecutor_yearly_html: 'Priemerný počet podaných obžalôb je %{count} ročne.'
       average_data_disclaimer_title: 'Podľa jednotlivých rokov'
 
       media:

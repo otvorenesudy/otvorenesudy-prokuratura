@@ -189,7 +189,8 @@ en:
       slovak: Slovensky
 
     search:
-      found_html: "%{count} out of %{total} (%{time} ms)"
+      found_with_timing_html: "%{count} out of %{total} (%{time} ms)"
+      found_html: "%{count} out of %{total}"
       reset: Cancel all filters
 
   facets:
@@ -263,8 +264,10 @@ en:
       employees: Leading Employees
       prosecutors: Prosecutors
       average_convicted_people_yearly_html: 'We register %{count} convited people per year on avarage.'
-      average_incoming_cases_per_prosecutor_monthly_html: 'On average the prosecutors had %{count} incoming cases monthly each year.'
-      average_incoming_cases_per_prosecutor_yearly_html: 'On average the prosecutors had %{count} incoming cases yearly.'
+      average_incoming_cases_per_prosecutor_monthly_html: 'Average incoming cases for prosecutor is %{count} monthly every year.'
+      average_incoming_cases_per_prosecutor_yearly_html: 'Average incoming cases for prosecutor is %{count} yearly.'
+      average_filed_prosecutions_per_prosecutor_monthly_html: 'Average amount of filed prosecutions is %{count} monthly every year.'
+      average_filed_prosecutions_per_prosecutor_yearly_html: 'Average amount of filed prosecutions is %{count} yearly.'
       average_data_disclaimer_title: 'By Years'
 
       media:

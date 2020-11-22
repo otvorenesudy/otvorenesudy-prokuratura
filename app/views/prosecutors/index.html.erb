@@ -150,7 +150,7 @@
       <div class="d-flex flex-wrap align-items-center justify-content-between">
         <div class="small text-muted mr-3 mt-4">
           <% if @search.all.any? %>
-            <%= t 'layouts.search.found_html', count: "#{@search.paginated.offset_value + 1} &ndash; #{@search.paginated.offset_value + @search.paginated.count}".html_safe, total: I18n.t('prosecutors.count', count: @search.paginated.total_count), time: time.to_i %>
+            <%= t 'layouts.search.found_with_timing_html', count: "#{@search.paginated.offset_value + 1} &ndash; #{@search.paginated.offset_value + @search.paginated.count}".html_safe, total: I18n.t('prosecutors.count', count: @search.paginated.total_count), time: time.to_i %>
           <% else %>
             <%= t '.search.not_found', time: number_with_delimiter(time.to_i) %>
           <% end %>
