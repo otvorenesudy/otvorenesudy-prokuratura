@@ -25,6 +25,7 @@ set :ssh_options, { forward_agent: true }
 namespace :deploy do
   after 'deploy:publishing', 'deploy:restart'
   after 'finishing', 'deploy:cleanup'
+  after 'finishing', 'cache:clear'
 
   desc 'Deploy app for first time'
   task :cold do
@@ -49,6 +50,18 @@ namespace :deploy do
           execute :rake, 'db:create'
           execute :rake, 'db:migrate'
           execute :rake, 'db:seed'
+        end
+      end
+    end
+  end
+end
+
+namespace :cache do
+  task :clear do
+    on roles(:app) do |host|
+      with rails_env: fetch(:rails_env) do
+        within current_path do
+          execute :bundle, :exec, 'rake cache:clear'
         end
       end
     end
