@@ -90,7 +90,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Default URL options
-  Rails.application.routes.default_url_options[:host] = 'prokuratori.otvorenesudy.sk'
+  Rails.application.routes.default_url_options[:host] = 'prokuratura.otvorenesudy.sk'
   Rails.application.routes.default_url_options[:port] = 80
 
   # Inserts middleware to perform automatic connection switching.
