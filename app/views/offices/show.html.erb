@@ -19,6 +19,14 @@
       t('offices.index.employees_count', count: @office.employees.active.count)
     ].to_sentence
   %>.
+  <%=
+    help_tag(
+      title: t('.average_data_disclaimer_title'),
+      content: @office.prosecutors_count_by_years.map do |year, count|
+        "<b>#{year}</b> &ndash; #{t('terms.prosecutor_with_count', count: number_with_precision(count, precision: 2, strip_insignificant_zeros: true))}"
+      end.join('<br>').html_safe
+    )
+  %>
 </p>
 
 <% if @office.convicted_people_by_year.present? %>
@@ -27,7 +35,7 @@
     <%=
       help_tag(
         title: t('.average_data_disclaimer_title'),
-        content: @office.convicted_people_by_year.map { |year, count| "<b>#{year}</b> &ndash; #{number_with_delimiter(count.round(2))}" }.join('<br>').html_safe
+        content: @office.convicted_people_by_year.map { |year, count| "<b>#{year}</b> &ndash; #{number_with_precision(count, precision: 2, strip_insignificant_zeros: true)}" }.join('<br>').html_safe
       )
     %>
   </p>
@@ -39,7 +47,7 @@
     <%=
       help_tag(
         title: t('.average_data_disclaimer_title'),
-        content: @office.average_incoming_cases_per_prosecutor_monthly_by_years.map { |year, count| "<b>#{year}</b> &ndash; #{number_with_delimiter(count.round(2))}" }.join('<br>').html_safe
+        content: @office.average_incoming_cases_per_prosecutor_monthly_by_years.map { |year, count| "<b>#{year}</b> &ndash; #{number_with_precision(count, precision: 2, strip_insignificant_zeros: true)}" }.join('<br>').html_safe
       )
     %>
   </p>
@@ -52,7 +60,7 @@
     <%=
       help_tag(
         title: t('.average_data_disclaimer_title'),
-        content: @office.average_incoming_cases_per_prosecutor_yearly_by_years.map { |year, count| "<b>#{year}</b> &ndash; #{number_with_delimiter(count.round(2))}" }.join('<br>').html_safe
+        content: @office.average_incoming_cases_per_prosecutor_yearly_by_years.map { |year, count| "<b>#{year}</b> &ndash; #{number_with_precision(count, precision: 2, strip_insignificant_zeros: true)}" }.join('<br>').html_safe
       )
     %>
   </p>
@@ -64,7 +72,7 @@
     <%=
       help_tag(
         title: t('.average_data_disclaimer_title'),
-        content: @office.average_filed_prosecutions_per_prosecutor_monthly_by_years.map { |year, count| "<b>#{year}</b> &ndash; #{number_with_delimiter(count.round(2))}" }.join('<br>').html_safe
+        content: @office.average_filed_prosecutions_per_prosecutor_monthly_by_years.map { |year, count| "<b>#{year}</b> &ndash; #{number_with_precision(count, precision: 2, strip_insignificant_zeros: true)}" }.join('<br>').html_safe
       )
     %>
   </p>
@@ -77,7 +85,7 @@
     <%=
       help_tag(
         title: t('.average_data_disclaimer_title'),
-        content: @office.average_filed_prosecutions_per_prosecutor_yearly_by_years.map { |year, count| "<b>#{year}</b> &ndash; #{number_with_delimiter(count.round(2))}" }.join('<br>').html_safe
+        content: @office.average_filed_prosecutions_per_prosecutor_yearly_by_years.map { |year, count| "<b>#{year}</b> &ndash; #{number_with_precision(count, precision: 2, strip_insignificant_zeros: true)}" }.join('<br>').html_safe
       )
     %>
   </p>
