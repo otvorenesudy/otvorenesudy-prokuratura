@@ -89,6 +89,39 @@ module Offices
         @indicators ||= prepare_indicators
       end
 
+      def average_convicted_people_yearly_by_office_type
+        @average_convicted_people_yearly_by_office_type ||=
+          Office.all.group_by(&:type).each.with_object({}) do |(type, offices), hash|
+            values = offices.map(&:average_convicted_people_yearly).compact
+
+            next if values.blank?
+
+            hash[type] = values.sum / offices.size.to_f
+          end
+      end
+
+      def average_incoming_cases_per_prosecutor_yearly_by_office_type
+        @average_incoming_cases_per_prosecutor_yearly_by_office_type ||=
+          Office.all.group_by(&:type).each.with_object({}) do |(type, offices), hash|
+            values = offices.map(&:average_incoming_cases_per_prosecutor_yearly).compact
+
+            next if values.blank?
+
+            hash[type] = values.sum / offices.size.to_f
+          end
+      end
+
+      def average_filed_prosecutions_per_prosecutor_yearly_by_office_type
+        @average_filed_prosecutions_per_prosecutor_yearly_by_office_type ||=
+          Office.all.group_by(&:type).each.with_object({}) do |(type, offices), hash|
+            values = offices.map(&:average_filed_prosecutions_per_prosecutor_yearly).compact
+
+            next if values.blank?
+
+            hash[type] = values.sum / offices.size.to_f
+          end
+      end
+
       private
 
       def prepare_indicators

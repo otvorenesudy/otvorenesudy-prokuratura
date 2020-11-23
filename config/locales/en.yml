@@ -268,7 +268,10 @@ en:
       average_incoming_cases_per_prosecutor_yearly_html: 'Average incoming cases for prosecutor is %{count} yearly.'
       average_filed_prosecutions_per_prosecutor_monthly_html: 'Average amount of filed prosecutions is %{count} monthly every year.'
       average_filed_prosecutions_per_prosecutor_yearly_html: 'Average amount of filed prosecutions is %{count} yearly.'
-      average_data_disclaimer_title: 'By Years'
+      average_data_disclaimer_title: 'Breakdown by Years for the Office'
+      indicators_comparison_by_office_type:
+        regional: 'Regional yearly average is %{count}.'
+        district: 'District yearly average is %{count}.'
 
       media:
         title: 'Mentions in Media'

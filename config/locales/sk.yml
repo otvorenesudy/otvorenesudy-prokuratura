@@ -274,7 +274,10 @@ sk:
       average_incoming_cases_per_prosecutor_yearly_html: 'Priemerný nápad vecí na jedného prokurátora je %{count} ročne.'
       average_filed_prosecutions_per_prosecutor_monthly_html: 'Priemerný počet podaných obžalôb je %{count} za mesiac každý rok.'
       average_filed_prosecutions_per_prosecutor_yearly_html: 'Priemerný počet podaných obžalôb je %{count} ročne.'
-      average_data_disclaimer_title: 'Podľa jednotlivých rokov'
+      average_data_disclaimer_title: 'Jednotlivé roky pre danú prokuratúru'
+      indicators_comparison_by_office_type:
+        regional: 'Krajský ročný priemer je %{count}.'
+        district: 'Okresný ročný priemer je %{count}.'
 
       media:
         title: Mediálne zmienky
