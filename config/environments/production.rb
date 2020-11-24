@@ -91,7 +91,8 @@ Rails.application.configure do
 
   # Default URL options
   Rails.application.routes.default_url_options[:host] = 'prokuratura.otvorenesudy.sk'
-  Rails.application.routes.default_url_options[:port] = 443
+  Rails.application.routes.default_url_options[:protocol] = :https
+  Rails.application.routes.default_url_options[:port] = 80
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
