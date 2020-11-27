@@ -19,33 +19,15 @@
       t('offices.index.employees_count', count: @office.employees.active.count)
     ].to_sentence
   %>.
-
-  <% if @office.prosecutors_count_by_years.present? %>
-    <%=
-      help_tag(
-        title: t('.average_data_disclaimer_title'),
-        content: @office.prosecutors_count_by_years.map do |year, count|
-          "<b>#{year}</b> &ndash; #{t('terms.prosecutor_with_count', count: number_with_precision(count, precision: 2, strip_insignificant_zeros: true))}"
-        end.join('<br>').html_safe
-      )
-    %>
-  <% end %>
 </p>
 
-<% if @office.convicted_people_by_year.present? %>
+<% if @office.convicted_people_by_years.present? %>
   <p>
     <%= t '.average_convicted_people_yearly_html', count: number_with_delimiter(@office.average_convicted_people_yearly.round(2)) %>
 
     <% if @office.regional? || @office.district? %>
       <%= t ".indicators_comparison_by_office_type.#{@office.type}", count: number_with_precision(Office.average_convicted_people_yearly_by_office_type[@office.type], precision: 2, strip_insignificant_zeros: true) %>
     <% end %>
-
-    <%=
-      help_tag(
-        title: t('.average_data_disclaimer_title'),
-        content: @office.convicted_people_by_year.map { |year, count| "<b>#{year}</b> &ndash; #{number_with_precision(count, precision: 2, strip_insignificant_zeros: true)}" }.join('<br>').html_safe
-      )
-    %>
   </p>
 <% end %>
 
@@ -56,13 +38,6 @@
     <% if @office.regional? || @office.district? %>
       <%= t ".indicators_comparison_by_office_type.#{@office.type}", count: number_with_precision(Office.average_incoming_cases_per_prosecutor_yearly_by_office_type[@office.type], precision: 2, strip_insignificant_zeros: true) %>
     <% end %>
-
-    <%=
-      help_tag(
-        title: t('.average_data_disclaimer_title'),
-        content: @office.average_incoming_cases_per_prosecutor_yearly_by_years.map { |year, count| "<b>#{year}</b> &ndash; #{number_with_precision(count, precision: 2, strip_insignificant_zeros: true)}" }.join('<br>').html_safe
-      )
-    %>
   </p>
 <% end %>
 
@@ -73,15 +48,17 @@
     <% if @office.regional? || @office.district? %>
       <%= t ".indicators_comparison_by_office_type.#{@office.type}", count: number_with_precision(Office.average_filed_prosecutions_per_prosecutor_yearly_by_office_type[@office.type], precision: 2, strip_insignificant_zeros: true) %>
     <% end %>
-
-    <%=
-      help_tag(
-        title: t('.average_data_disclaimer_title'),
-        content: @office.average_filed_prosecutions_per_prosecutor_yearly_by_years.map { |year, count| "<b>#{year}</b> &ndash; #{number_with_precision(count, precision: 2, strip_insignificant_zeros: true)}" }.join('<br>').html_safe
-      )
-    %>
   </p>
 <% end %>
+
+<div
+  class="w-100 mt-5 mb-5"
+  data-controller="indicators"
+  data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>"
+  data-json="<%= @office.to_indicators_chart_data.to_json %>"
+>
+  <div class="chart"></div>
+</div>
 
 <ul class="nav nav-tabs mt-4" role="tablist">
   <%= tab_link_tag t('.contact'), 'contact', class: 'active', tabindex: -1 %>

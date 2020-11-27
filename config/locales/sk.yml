@@ -1,4 +1,21 @@
 sk:
+  active_record:
+    models:
+      prosecutor:
+        indicators:
+          average_convicted_people:
+            office: Priemer odsúdených ľudí za rok
+            regional: Krajský priemer odsúdených ľudí za rok
+            district: Okresný priemer odsúdených ľudí za rok
+          average_incoming_cases_per_prosecutor:
+            office: Priemer nápadu vecí na prokurátora  za rok
+            regional: Krajský priemer nápadu vecí na prokurátora za rok
+            district: Okresný priemer nápadu vecí na prokurátora za rok
+          average_filed_prosecutions_per_prosecutor:
+            office: Priemer podaných obžalob prokurátorom za rok
+            regional: Krajský priemer podaných obžalob prokurátorom za rok
+            district: Okresný priemer podaných obžalob prokurátorom za rok
+
   errors:
     unicorn:
       title: "Jednorožec"
@@ -270,10 +287,10 @@ sk:
       employees: Vedúci pracovníci
       prosecutors: Prokurátori
       average_convicted_people_yearly_html: 'Pre prokuratúru evidujeme priemerne %{count} odsúdených za rok.'
-      average_incoming_cases_per_prosecutor_monthly_html: 'Priemerný nápad vecí na jedného prokurátora je %{count} za mesiac každý rok.'
-      average_incoming_cases_per_prosecutor_yearly_html: 'Priemerný nápad vecí na jedného prokurátora je %{count} ročne.'
-      average_filed_prosecutions_per_prosecutor_monthly_html: 'Priemerný počet podaných obžalôb je %{count} za mesiac každý rok.'
-      average_filed_prosecutions_per_prosecutor_yearly_html: 'Priemerný počet podaných obžalôb je %{count} ročne.'
+      average_incoming_cases_per_prosecutor_monthly_html: 'Priemerný nápad vecí na prokurátora je %{count} za mesiac každý rok.'
+      average_incoming_cases_per_prosecutor_yearly_html: 'Priemerný nápad vecí na prokurátora je %{count} ročne.'
+      average_filed_prosecutions_per_prosecutor_monthly_html: 'Priemerný počet podaných obžalôb prokurátorom je %{count} za mesiac každý rok.'
+      average_filed_prosecutions_per_prosecutor_yearly_html: 'Priemerný počet podaných obžalôb prokurátorom je %{count} ročne.'
       average_data_disclaimer_title: 'Jednotlivé roky pre danú prokuratúru'
       indicators_comparison_by_office_type:
         regional: 'Krajský ročný priemer je %{count}.'
@@ -426,7 +443,6 @@ sk:
           not_found: Nenájedené žiadne ďalšie štatistiky pre tresty
           metrics:
             _sentence_all: Všetky tresty
-
         other:
           title: Ostatné
           not_found: Nenájedené žiadne ďalšie štatistiky

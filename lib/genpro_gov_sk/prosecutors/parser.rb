@@ -11,6 +11,8 @@ module GenproGovSk
         'JUDr. Milan Cisarik' => 'Úrad špeciálnej prokuratúry',
         'JUDr. Bohdan Čeľovský' => 'Úrad špeciálnej prokuratúry',
         'JUDr. Ján Hrivnák' => 'Úrad špeciálnej prokuratúry',
+        'JUDr. Tomáš Honz' => 'Úrad špeciálnej prokuratúry',
+        'JUDr. Attila Izsák' => 'Úrad špeciálnej prokuratúry',
         'JUDr. Rastislav Hruška, PhD.' => 'Úrad špeciálnej prokuratúry',
         'JUDr. Oliver Janíček' => 'Úrad špeciálnej prokuratúry',
         'JUDr. Peter Jenčík' => 'Úrad špeciálnej prokuratúry',

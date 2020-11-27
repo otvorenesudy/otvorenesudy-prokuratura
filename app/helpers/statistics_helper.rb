@@ -42,7 +42,12 @@ module StatisticsHelper
                     ) +
                     link_to(
                       '&times;'.html_safe,
-                      statistics_path(search_params(@search.params, { paragraph: Paragraph.by_name[name] })),
+                      statistics_path(
+                        search_params(
+                          @search.params.merge(paragraph: paragraphs),
+                          { paragraph: Paragraph.by_name[name] }
+                        )
+                      ),
                       class: 'flex-fill ml-2 cancel'
                     )
                 ).html_safe

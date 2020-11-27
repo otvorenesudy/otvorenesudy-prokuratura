@@ -2,18 +2,18 @@ module Offices
   module Indicators
     extend ActiveSupport::Concern
 
-    def convicted_people_by_year
-      @convicted_people_by_year ||=
+    def convicted_people_by_years
+      @convicted_people_by_years ||=
         statistics.where(metric: :convicted_all).where.not(paragraph: nil).group(:year).order(year: :asc).sum(:count)
     end
 
     def average_convicted_people_yearly
       @average_convicted_people_yearly ||=
         begin
-          if convicted_people_by_year.blank?
+          if convicted_people_by_years.blank?
             nil
           else
-            convicted_people_by_year.values.sum / convicted_people_by_year.keys.size.to_f
+            convicted_people_by_years.values.sum / convicted_people_by_years.keys.size.to_f
           end
         end
     end
@@ -84,6 +84,55 @@ module Offices
       @prosecutors_count_by_years ||= self.class.indicators[id].try { |e| e[:prosecutors_count_by_years] }
     end
 
+    def to_indicators_chart_data
+      years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
+      key = ->(value) { "active_record.models.prosecutor.indicators.#{value}" }
+      mapper = lambda do |data|
+        break unless data
+
+        years.map { |year| data[year] }
+      end
+
+      data =
+        [
+          {
+            id: :convicted,
+            name: I18n.t(key.call('average_convicted_people.office')),
+            data: mapper.call(convicted_people_by_years)
+          },
+          {
+            name: I18n.t(key.call("average_convicted_people.#{type}")),
+            data: mapper.call(self.class.average_convicted_people_by_years_by_office_type[type]),
+            dependent: :convicted
+          },
+          {
+            id: :incoming_cases,
+            name: I18n.t(key.call('average_incoming_cases_per_prosecutor.office')),
+            data: mapper.call(average_incoming_cases_per_prosecutor_yearly_by_years),
+            visible: false
+          },
+          {
+            name: I18n.t(key.call("average_incoming_cases_per_prosecutor.#{type}")),
+            data: mapper.call(self.class.average_incoming_cases_per_prosecutor_yearly_by_years_by_office_type[type]),
+            dependent: :incoming_cases
+          },
+          {
+            id: :filed_prosecutions,
+            name: I18n.t(key.call('average_filed_prosecutions_per_prosecutor.office')),
+            data: mapper.call(average_filed_prosecutions_per_prosecutor_yearly_by_years),
+            visible: false
+          },
+          {
+            name: I18n.t(key.call("average_filed_prosecutions_per_prosecutor.#{type}")),
+            data:
+              mapper.call(self.class.average_filed_prosecutions_per_prosecutor_yearly_by_years_by_office_type[type]),
+            dependent: :filed_prosecutions
+          }
+        ].select { |values| values[:data].present? }
+
+      { years: years, data: data }
+    end
+
     class_methods do
       def indicators
         @indicators ||= prepare_indicators
@@ -94,9 +143,23 @@ module Offices
           Office.all.group_by(&:type).each.with_object({}) do |(type, offices), hash|
             values = offices.map(&:average_convicted_people_yearly).compact
 
-            next if values.blank?
+            next if values.blank? || type.in?(%w[general specialized])
 
             hash[type] = values.sum / offices.size.to_f
+          end
+      end
+
+      def average_convicted_people_by_years_by_office_type
+        @average_convicted_people_by_years_by_office_type ||=
+          Office.all.group_by(&:type).each.with_object({}) do |(type, offices), hash|
+            sums =
+              offices.map(&:convicted_people_by_years).each.with_object({}) do |values, result|
+                result.merge!(values) { |_, a, b| a && b ? a + b : a || b }
+              end
+
+            next if sums.blank? || type.in?(%w[general specialized])
+
+            hash[type] = sums.each.with_object({}) { |(year, sum), result| result[year] = sum / offices.count.to_f }
           end
       end
 
@@ -105,9 +168,23 @@ module Offices
           Office.all.group_by(&:type).each.with_object({}) do |(type, offices), hash|
             values = offices.map(&:average_incoming_cases_per_prosecutor_yearly).compact
 
-            next if values.blank?
+            next if values.blank? || type.in?(%w[general specialized])
 
             hash[type] = values.sum / offices.size.to_f
+          end
+      end
+
+      def average_incoming_cases_per_prosecutor_yearly_by_years_by_office_type
+        @average_incoming_cases_per_prosecutor_yearly_by_years_by_office_type ||=
+          Office.all.group_by(&:type).each.with_object({}) do |(type, offices), hash|
+            sums =
+              offices.map(&:average_incoming_cases_per_prosecutor_yearly_by_years).each.with_object(
+                {}
+              ) { |values, result| result.merge!(values || {}) { |_, a, b| a && b ? a + b : a || b } }
+
+            next if sums.blank? || type.in?(%w[general specialized])
+
+            hash[type] = sums.each.with_object({}) { |(year, sum), result| result[year] = sum / offices.count.to_f }
           end
       end
 
@@ -116,9 +193,23 @@ module Offices
           Office.all.group_by(&:type).each.with_object({}) do |(type, offices), hash|
             values = offices.map(&:average_filed_prosecutions_per_prosecutor_yearly).compact
 
-            next if values.blank?
+            next if values.blank? || type.in?(%w[general specialized])
 
             hash[type] = values.sum / offices.size.to_f
+          end
+      end
+
+      def average_filed_prosecutions_per_prosecutor_yearly_by_years_by_office_type
+        @average_filed_prosecutions_per_prosecutor_yearly_by_years_by_office_type ||=
+          Office.all.group_by(&:type).each.with_object({}) do |(type, offices), hash|
+            sums =
+              offices.map(&:average_filed_prosecutions_per_prosecutor_yearly_by_years).each.with_object(
+                {}
+              ) { |values, result| result.merge!(values || {}) { |_, a, b| a && b ? a + b : a || b } }
+
+            next if sums.blank? || type.in?(%w[general specialized])
+
+            hash[type] = sums.each.with_object({}) { |(year, sum), result| result[year] = sum / offices.count.to_f }
           end
       end
 
