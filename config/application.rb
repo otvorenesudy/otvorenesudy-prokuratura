@@ -41,3 +41,4 @@ end
 
 require 'legacy'
 require 'genpro_gov_sk'
+require 'exception_handler'

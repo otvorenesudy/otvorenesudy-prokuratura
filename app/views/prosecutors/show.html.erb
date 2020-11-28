@@ -40,7 +40,7 @@
 </div>
 
 <ul class="nav nav-tabs mt-4" role="tablist">
-  <% @declarations.each.with_index do |declaration, i| %>
+  <% @declarations&.each&.with_index do |declaration, i| %>
     <%= tab_link_tag i == 0 ? t('.declarations.title', year: declaration[:year]) : declaration[:year], declaration[:year], class: i == 0 ? 'active' : nil, tabindex: i == 0 ? -1 : nil %>
   <% end %>
 
@@ -48,7 +48,7 @@
 </ul>
 
 <div class="tab-content mb-5">
-  <% @declarations.each.with_index do |declaration, i| %>
+  <% @declarations&.each&.with_index do |declaration, i| %>
     <%= render_tab partial: 'declaration', tab: declaration[:year], locals: { declaration: declaration }, class: i == 0 ? 'active' : nil %>
   <% end %>
 
