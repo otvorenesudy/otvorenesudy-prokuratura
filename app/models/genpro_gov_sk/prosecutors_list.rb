@@ -19,7 +19,7 @@ module GenproGovSk
     validates :file, presence: true
     validates :digest, presence: true, uniqueness: true
 
-    def self.import_from(data:, file:, force:)
+    def self.import_from(data:, file:, force: false)
       digest = Digest::MD5.hexdigest(file)
 
       return if exists?(digest: digest) && !force

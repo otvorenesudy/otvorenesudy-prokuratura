@@ -38,16 +38,4 @@ RSpec.describe Employee do
   it { is_expected.to validate_presence_of(:position) }
   it { is_expected.to validate_presence_of(:rank) }
   it { is_expected.to validate_numericality_of(:rank).is_greater_than(0).only_integer }
-
-  context 'when active' do
-    subject { build(:employee, disabled_at: nil) }
-
-    it { is_expected.to validate_uniqueness_of(:rank).scoped_to(%i[office_id disabled_at]) }
-  end
-
-  context 'when disabled' do
-    subject { build(:employee, disabled_at: Time.zone.now) }
-
-    it { is_expected.not_to validate_uniqueness_of(:rank).scoped_to(%i[office_id disabled_at]) }
-  end
 end

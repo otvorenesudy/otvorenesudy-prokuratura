@@ -51,11 +51,29 @@
   </p>
 <% end %>
 
+<% if @office.average_incoming_cases_yearly.present? && @office.average_rest_cases_yearly.present? %>
+  <p>
+    <%= t '.average_rest_vs_incoming_cases_yearly_html', rest: number_with_precision(@office.average_rest_cases_yearly, precision: 2, strip_insignificant_zeros: true), ratio: number_with_precision(@office.average_ratio_of_rest_to_incoming_cases_yearly * 100, precision: 2, strip_insignificant_zeros: true) %>
+
+    <% if @office.regional? || @office.district? %>
+      <%=
+        t(
+          ".indicators_comparison_by_office_type.#{@office.type}",
+          count: "
+            #{number_with_precision(Office.average_rest_cases_yearly_by_office_type[@office.type], precision: 2, strip_insignificant_zeros: true)}
+            (#{number_with_precision(Office.average_rest_cases_yearly_by_office_type[@office.type] * 100 / Office.average_incoming_cases_yearly_by_office_type[@office.type].to_f, precision: 2, strip_insignificant_zeros: true)}%)
+          ".strip
+        )
+      %>
+    <% end %>
+  </p>
+<% end %>
+
 <% @office.to_indicators_chart_data.tap do |data| %>
  <% if data[:data].any? %>
     <div
       class="w-100 mt-5 mb-5"
-      data-controller="indicators"
+      data-controller="indicators-chart"
       data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>"
       data-json="<%= data.to_json %>"
     >

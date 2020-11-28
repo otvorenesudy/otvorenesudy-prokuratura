@@ -19,6 +19,18 @@ sk:
             office: Počet prokurátorov
             regional: Krajský priemer počtu prokurátorov
             district: Okresný priemer počtu prokurátorov
+          rest_cases:
+            office: Počet vecí dozoru v trestnom konaní prevedených z predchádzajúceho obdobia
+            regional: Krajský priemer počtu vecí dozoru v trestnom konaní prevedených z predchádzajúceho obdobia
+            district: Okresný priemer počtu vecí dozoru v trestnom konaní prevedených z predchádzajúceho obdobia
+          incoming_cases:
+            office: Celkový počet vecí dozoru v trestnom konaní
+            regional: Krajský priemer celkového počtu vecí dozoru v trestnom konaní
+            district: Okresný priemer celkového počtu vecí dozoru v trestnom konaní
+          ratio_of_rest_to_incoming_cases:
+            office: Pomer prenesených vecí k celkovému počtu vecí dozoru v trestnom konaní
+            regional: Krajský pomer prenesených vecí k celkovému počtu vecí dozoru v trestnom konaní
+            district: Okresný pomer prenesených vecí k celkovému počtu vecí dozoru v trestnom konaní
 
   errors:
     unicorn:
@@ -295,6 +307,7 @@ sk:
       average_incoming_cases_per_prosecutor_yearly_html: 'Priemerný nápad vecí na prokurátora je %{count} ročne.'
       average_filed_prosecutions_per_prosecutor_monthly_html: 'Priemerný počet podaných obžalôb prokurátorom je %{count} za mesiac každý rok.'
       average_filed_prosecutions_per_prosecutor_yearly_html: 'Priemerný počet podaných obžalôb prokurátorom je %{count} ročne.'
+      average_rest_vs_incoming_cases_yearly_html: 'Na prokuratúre evidujeme priemerne %{rest} vecí dozoru v trestnom konaní prevedených z predchádzajúceho obdobia ročne, čo predstavuje priemerne %{ratio}% vecí v danom registri.'
       average_data_disclaimer_title: 'Jednotlivé roky pre danú prokuratúru'
       indicators_comparison_by_office_type:
         regional: 'Krajský ročný priemer je %{count}.'

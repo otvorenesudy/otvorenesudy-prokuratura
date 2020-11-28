@@ -7,9 +7,12 @@ export default class extends ChartController {
 
     const colorsByID = {
       convicted: this.colors[0],
-      incoming_cases: this.colors[1],
-      filed_prosecutions: this.colors[2],
-      prosecutors_count: this.colors[6],
+      incoming_cases_per_prosecutor: this.colors[1],
+      filed_prosecutions_per_prosecutor: this.colors[2],
+      prosecutors_count: this.colors[5],
+      rest_cases: this.colors[6],
+      incoming_cases: this.colors[3],
+      ratio_of_rest_to_incoming_cases: this.colors[4],
     };
 
     const series = data.map((value, i) => ({
@@ -19,7 +22,7 @@ export default class extends ChartController {
       linkedTo: value.dependent,
 
       color: Highcharts.Color(colorsByID[value.id || value.dependent])
-        .brighten(value.dependent ? 0 : 0.15)
+        .brighten(value.dependent ? -0.25 : 0)
         .get("rgb"),
 
       fillColor: {
@@ -35,14 +38,14 @@ export default class extends ChartController {
             0,
             Highcharts.Color(colorsByID[value.id || value.dependent])
               .setOpacity(0.15)
-              .brighten(value.dependant ? 0 : 0.15)
+              .brighten(value.dependent ? -0.25 : 0)
               .get("rgba"),
           ],
           [
             1,
             Highcharts.Color(colorsByID[value.id || value.dependent])
               .setOpacity(0)
-              .brighten(value.dependant ? 0 : 0.15)
+              .brighten(value.dependent ? -0.25 : 0)
               .get("rgba"),
           ],
         ],
@@ -69,8 +72,8 @@ export default class extends ChartController {
         verticalAlign: "top",
         x: 50,
         y: 0,
-        itemMarginTop: 5,
-        itemMarginBottom: 5,
+        itemMarginTop: 2,
+        itemMarginBottom: 2,
         floating: true,
         itemStyle: {
           fontWeight: "normal",
@@ -107,7 +110,7 @@ export default class extends ChartController {
           text: undefined,
         },
 
-        maxPadding: 0.5,
+        maxPadding: 0.75,
       },
 
       series,
