@@ -8,7 +8,7 @@ sk:
             regional: Krajský priemer odsúdených ľudí za rok
             district: Okresný priemer odsúdených ľudí za rok
           average_incoming_cases_per_prosecutor:
-            office: Priemer nápadu vecí na prokurátora  za rok
+            office: Priemer nápadu vecí na prokurátora za rok
             regional: Krajský priemer nápadu vecí na prokurátora za rok
             district: Okresný priemer nápadu vecí na prokurátora za rok
           average_filed_prosecutions_per_prosecutor:

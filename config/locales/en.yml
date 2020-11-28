@@ -1,4 +1,25 @@
 en:
+  active_record:
+    models:
+      prosecutor:
+        indicators:
+          average_convicted_people:
+            office: Average Convicted People per Year
+            regional: Regional Average of Convicted people per Year
+            district: District Average of Convicted people per Year
+          average_incoming_cases_per_prosecutor:
+            office: Average Incoming Cases for Prosecutor per Year
+            regional: Regional Average of Incoming Cases for Prosecutor per Year
+            district: District Average of Incoming Cases for Prosecutor per Year
+          average_filed_prosecutions_per_prosecutor:
+            office: Average Filed Prosecutions by Prosecutor per Year
+            regional: Regional Average of Filed Prosecutions by Prosecutor per Year
+            district: District Average of Filed Prosecutions by Prosecutor per Year
+          prosecutors_count:
+            office: Amount of Prosecutors
+            regional: Regional Average Amount of Prosecutors
+            district: District Average Amount of Prosecutors
+
   errors:
     unicorn:
       title: "Unicorn"
