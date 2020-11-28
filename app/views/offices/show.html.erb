@@ -51,14 +51,18 @@
   </p>
 <% end %>
 
-<div
-  class="w-100 mt-5 mb-5"
-  data-controller="indicators"
-  data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>"
-  data-json="<%= @office.to_indicators_chart_data.to_json %>"
->
-  <div class="chart"></div>
-</div>
+<% @office.to_indicators_chart_data.tap do |data| %>
+ <% if data[:data].any? %>
+    <div
+      class="w-100 mt-5 mb-5"
+      data-controller="indicators"
+      data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>"
+      data-json="<%= data.to_json %>"
+    >
+      <div class="chart"></div>
+    </div>
+  <% end %>
+<% end %>
 
 <ul class="nav nav-tabs mt-4" role="tablist">
   <%= tab_link_tag t('.contact'), 'contact', class: 'active', tabindex: -1 %>

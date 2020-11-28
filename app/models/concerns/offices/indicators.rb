@@ -88,7 +88,7 @@ module Offices
       years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
       key = ->(value) { "active_record.models.prosecutor.indicators.#{value}" }
       mapper = lambda do |data|
-        break unless data
+        break if data.blank?
 
         years.map { |year| data[year] }
       end
@@ -127,6 +127,17 @@ module Offices
             data:
               mapper.call(self.class.average_filed_prosecutions_per_prosecutor_yearly_by_years_by_office_type[type]),
             dependent: :filed_prosecutions
+          },
+          {
+            id: :prosecutors_count,
+            name: I18n.t(key.call('prosecutors_count.office')),
+            data: mapper.call(prosecutors_count_by_years),
+            visible: false
+          },
+          {
+            name: I18n.t(key.call("prosecutors_count.#{type}")),
+            data: mapper.call(self.class.average_prosecutors_count_by_years_by_office_type[type]),
+            dependent: :prosecutors_count
           }
         ].select { |values| values[:data].present? }
 
@@ -206,6 +217,20 @@ module Offices
               offices.map(&:average_filed_prosecutions_per_prosecutor_yearly_by_years).each.with_object(
                 {}
               ) { |values, result| result.merge!(values || {}) { |_, a, b| a && b ? a + b : a || b } }
+
+            next if sums.blank? || type.in?(%w[general specialized])
+
+            hash[type] = sums.each.with_object({}) { |(year, sum), result| result[year] = sum / offices.count.to_f }
+          end
+      end
+
+      def average_prosecutors_count_by_years_by_office_type
+        @average_prosecutors_count_by_years_by_office_type ||=
+          Office.all.group_by(&:type).each.with_object({}) do |(type, offices), hash|
+            sums =
+              offices.map(&:prosecutors_count_by_years).each.with_object({}) do |values, result|
+                result.merge!(values || {}) { |_, a, b| a && b ? a + b : a || b }
+              end
 
             next if sums.blank? || type.in?(%w[general specialized])
 

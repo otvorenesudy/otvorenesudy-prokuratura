@@ -5,11 +5,22 @@ export default class extends ChartController {
   async connect() {
     const { years: categories, data } = JSON.parse(this.element.getAttribute("data-json"));
 
+    const colorsByID = {
+      convicted: this.colors[0],
+      incoming_cases: this.colors[1],
+      filed_prosecutions: this.colors[2],
+      prosecutors_count: this.colors[6],
+    };
+
     const series = data.map((value, i) => ({
       ...value,
 
       data: (value.data || []).map((value) => Math.round(value * 100) / 100),
       linkedTo: value.dependent,
+
+      color: Highcharts.Color(colorsByID[value.id || value.dependent])
+        .brighten(value.dependent ? 0 : 0.15)
+        .get("rgb"),
 
       fillColor: {
         linearGradient: {
@@ -22,14 +33,16 @@ export default class extends ChartController {
         stops: [
           [
             0,
-            Highcharts.Color(this.colors[i % this.colors.length])
+            Highcharts.Color(colorsByID[value.id || value.dependent])
               .setOpacity(0.15)
+              .brighten(value.dependant ? 0 : 0.15)
               .get("rgba"),
           ],
           [
             1,
-            Highcharts.Color(this.colors[i % this.colors.length])
+            Highcharts.Color(colorsByID[value.id || value.dependent])
               .setOpacity(0)
+              .brighten(value.dependant ? 0 : 0.15)
               .get("rgba"),
           ],
         ],
@@ -59,6 +72,9 @@ export default class extends ChartController {
         itemMarginTop: 5,
         itemMarginBottom: 5,
         floating: true,
+        itemStyle: {
+          fontWeight: "normal",
+        },
       },
 
       tooltip: {

@@ -15,6 +15,10 @@ sk:
             office: Priemer podaných obžalob prokurátorom za rok
             regional: Krajský priemer podaných obžalob prokurátorom za rok
             district: Okresný priemer podaných obžalob prokurátorom za rok
+          prosecutors_count:
+            office: Počet prokurátorov
+            regional: Krajský priemer počtu prokurátorov
+            district: Okresný priemer počtu prokurátorov
 
   errors:
     unicorn:
