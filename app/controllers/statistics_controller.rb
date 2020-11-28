@@ -36,7 +36,12 @@ class StatisticsController < ApplicationController
     options.add_argument('--dns-prefetch-disable')
     driver = Selenium::WebDriver.for(:chrome, options: options)
 
-    driver.get(url)
+    driver.manage.timeouts.page_load = 5
+    begin
+      driver.get(url)
+    rescue StandardError
+      driver.navigate.refresh
+    end
     driver.manage.window.resize_to(1400, driver.execute_script('return document.body.scrollHeight') + 25)
     driver.save_screenshot(path)
 
