@@ -33,6 +33,7 @@ class StatisticsController < ApplicationController
     options.add_argument('--font-render-hinting=max')
     options.add_argument('--enable-font-antialiasing')
     options.add_argument('--force-device-scale-factor=2')
+    options.add_argument('--dns-prefetch-disable')
     driver = Selenium::WebDriver.for(:chrome, options: options)
 
     driver.get(url)
