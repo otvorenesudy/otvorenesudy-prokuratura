@@ -20,6 +20,7 @@
 # Learn more: http://github.com/javan/whenever
 
 set :output, 'log/cron.log'
+set :job_template, nil
 
 every :day, at: '3:00am' do
   runner 'GenproGovSk::Offices.import'

@@ -46,9 +46,11 @@ class GoogleNews
     } prokurátor prokuratúra site:dennikn.sk OR site:aktuality.sk OR site:sme.sk"
   end
 
-  def self.cache_for(model, size: 50)
-    ids = model.where(news: nil).first(size)
-    ids += model.where.not(news: nil).order("(news -> 'last_updated_at') :: int").limit(size - ids.size).pluck(:id)
+  def self.cache_for(model, size: 50, ids: nil)
+    unless ids
+      ids = model.where(news: nil).first(size)
+      ids += model.where.not(news: nil).order("(news -> 'last_updated_at') :: int").limit(size - ids.size).pluck(:id)
+    end
 
     model.where(id: ids).find_each do |record|
       results = GoogleNews.search_by(record.to_news_query)
