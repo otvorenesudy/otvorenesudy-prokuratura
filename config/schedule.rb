@@ -23,25 +23,25 @@ set :output, 'log/cron.log'
 set :job_template, nil
 
 every :day, at: '3:00am' do
-  runner 'ExceptionHander.run { GenproGovSk::Offices.import }'
+  runner 'ExceptionHandler.run { GenproGovSk::Offices.import }'
 end
 
 every :day, at: '4:00am' do
-  runner 'ExceptionHander.run { GenproGovSk::Prosecutors.import }'
+  runner 'ExceptionHandler.run { GenproGovSk::Prosecutors.import }'
 end
 
 every :day, at: '5:00am' do
-  runner 'ExceptionHander.run { GenproGovSk::Criminality.import }'
+  runner 'ExceptionHandler.run { GenproGovSk::Criminality.import }'
 end
 
 every :day, at: '6:00am' do
-  runner 'ExceptionHander.run { GenproGovSk::Declarations.import }'
+  runner 'ExceptionHandler.run { GenproGovSk::Declarations.import }'
 end
 
 every :day, at: '4:00am' do
-  runner 'ExceptionHander.run { GoogleNews.cache_for(::Prosecutor, size: 60) }'
+  runner 'ExceptionHandler.run { GoogleNews.cache_for(::Prosecutor, size: 60) }'
 end
 
 every :day, at: '4:30am' do
-  runner 'ExceptionHander.run { GoogleNews.cache_for(::Office, size: 20) }'
+  runner 'ExceptionHandler.run { GoogleNews.cache_for(::Office, size: 20) }'
 end

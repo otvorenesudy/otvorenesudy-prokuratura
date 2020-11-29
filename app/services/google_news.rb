@@ -10,7 +10,8 @@ class GoogleNews
         exact_terms: name,
         or_terms: 'prokurátor|prokuratúra',
         cx: Rails.application.credentials.dig(:google, :api, :search, :id),
-        num: 10
+        num: 10,
+        sort: 'date:d:s'
       ).items
 
     searched_at = Time.zone.now
