@@ -25,10 +25,10 @@
     <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:300,700&subset=latin-ext" />
     <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script>window.GOOGLE_ANALYTICS_TRACKING_ID = "<%= Rails.application.credentials.dig(:google, :analytics, :tracking_id) %>";</script>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
-    <script>window.GOOGLE_ANALYTICS_TRACKING_ID = "<%= Rails.application.credentials.dig(:google, :analytics, :tracking_id) %>";</script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=<%= Rails.application.credentials.dig(:google, :analytics, :tracking_id) %>"></script>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
