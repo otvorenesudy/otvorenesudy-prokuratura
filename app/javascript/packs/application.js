@@ -36,14 +36,3 @@ window.addEventListener("load", () => {
     showLink: false,
   });
 });
-
-// Google Analytics
-document.addEventListener("turbolinks:load", () => {
-  if (!window.GOOGLE_ANALYTICS_TRACKING_ID) return;
-
-  window.dataLayer = window.dataLayer || [];
-  const gtag = (...params) => dataLayer.push(...params);
-
-  gtag("js", new Date());
-  gtag("config", GOOGLE_ANALYTICS_TRACKING_ID);
-});
