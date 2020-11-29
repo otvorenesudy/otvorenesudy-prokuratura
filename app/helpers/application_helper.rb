@@ -18,7 +18,7 @@ module ApplicationHelper
   end
 
   def donation_url
-    "https://transparency.darujme.sk/#{I18n.locale == :sk ? 238 : 761}?donation=40&periodicity=periodical"
+    'https://transparency.darujme.sk/prokuratura/?donation=40&periodicity=periodical'
   end
 
   def organisation_url(path = nil)
