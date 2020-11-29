@@ -4,7 +4,7 @@ sk:
       prosecutor:
         indicators:
           average_convicted_people:
-            office: Odsúdených ľudí za rok
+            office: Počet odsúdených ľudí za rok
             regional: Krajský priemer odsúdených ľudí za rok
             district: Okresný priemer odsúdených ľudí za rok
           average_incoming_cases_per_prosecutor:
