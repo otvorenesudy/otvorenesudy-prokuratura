@@ -21,11 +21,6 @@ class QueryFilter
 
     ids = search.pluck("#{relation.table_name}_search.id")
 
-    model.from(
-      relation.except(:distinct).where(id: ids).reorder(
-        Arel.sql("array_position(ARRAY[#{ids.join(', ')}] :: text[], #{relation.table_name}.id :: text)")
-      ),
-      :prosecutors
-    )
+    relation.where(id: ids) #.reorder(Arel.sql("array_position(ARRAY[#{ids.join(', ')}] :: text[], #{relation.table_name}.id :: text)"))
   end
 end
