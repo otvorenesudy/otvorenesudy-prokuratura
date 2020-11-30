@@ -83,7 +83,8 @@ class Office < ApplicationRecord
   end
 
   def self.as_map_json
-    pluck(:id, :name, :address, :additional_address, :zipcode, :city, :latitude, :longitude).map do |values|
+    reorder(id: :asc).pluck(:id, :name, :address, :additional_address, :zipcode, :city, :latitude, :longitude)
+      .map do |values|
       {
         url: Rails.application.routes.url_helpers.office_path(values[0]),
         name: values[1],
