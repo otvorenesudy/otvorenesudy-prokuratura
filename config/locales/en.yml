@@ -207,7 +207,7 @@ en:
       prosecutors: Prosecutors
       search: Search
       sk: Sk
-      slovak: Slovensky
+      slovak: Slovenčina
 
     search:
       found_with_timing_html: "%{count} out of %{total} (%{time} ms)"

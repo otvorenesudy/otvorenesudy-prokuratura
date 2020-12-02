@@ -219,7 +219,7 @@ sk:
       prosecutors: Prokurátori
       search: Hľadaj
       sk: Sk
-      slovak: Slovensky
+      slovak: Slovenčina
 
     search:
       found_with_timing_html: "%{count} z celkovo %{total} (%{time} ms)"
