@@ -122,6 +122,12 @@
             <li class="search-result-item">
               <h4 class="search-result-title">
                 <%= link_to prosecutor.name, prosecutor_path(prosecutor) %>
+
+                <% if prosecutor.appointments.current.any? %>
+                  <%= prosecutor_activity_icon_tag 'fixed', size: 20, placement: 'right' %>
+                <% else %>
+                  <%= prosecutor_activity_icon_tag 'inactive', size: 20, placement: 'right' %>
+                <% end %>
               </h4>
 
               <div class="search-result-content">

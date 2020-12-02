@@ -8,7 +8,7 @@
       <% if @prosecutor.appointments.current.any? %>
         <%= prosecutor_activity_icon_tag 'fixed', size: 20, placement: 'right' %>
       <% else %>
-        <%= prosecutor_activity_icon_tag 'inactive', size: 20, placement: 'right', i18n: { date: @prosecutor.appointments.order(:ended_at).last.ended_at } %>
+        <%= prosecutor_activity_icon_tag 'inactive', size: 20, placement: 'right' %>
       <% end %>
     </h1>
 

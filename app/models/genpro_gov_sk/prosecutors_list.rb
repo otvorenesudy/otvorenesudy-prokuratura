@@ -43,8 +43,8 @@ module GenproGovSk
         data.each { |value| value[:namesake] = true if value[:name].in?(namesakes) }
 
         prosecutors =
-          data.each do |value|
-            offices = [::Office.find_by(name: value[:office])]
+          data.map do |value|
+            offices = [::Office.find_by!(name: value[:office])]
 
             if value[:namesake]
               prosecutor =
@@ -91,7 +91,7 @@ module GenproGovSk
             prosecutor
           end
 
-        Prosecutor.where.not(id: prosecutors).destroy_all
+        Appointment.current.where.not(prosecutor: prosecutors).update_all(ended_at: time)
       end
 
       ::Office.refresh_search_view

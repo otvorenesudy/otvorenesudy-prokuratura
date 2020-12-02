@@ -319,7 +319,8 @@ en:
     appointment:
       fixed: Active prosecutor
       temporary: Temporarily appointed prosecutor
-      inactive: "Neaktívny prokurátor od %{date}"
+      inactive: "Pravdepodobne už neaktívny prokurátor, neevidujeme žiadne aktuálne pridelenie na prokuratúru"
+      inactive: Probably an inactive prosecutor
 
     index:
       redirecting_to_prosecutors_list: We are redirecting you to the list of prosecutors …

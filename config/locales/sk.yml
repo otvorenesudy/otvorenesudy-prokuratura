@@ -338,7 +338,7 @@ sk:
     appointment:
       fixed: Aktívny prokurátor
       temporary: Dočasne pridelený prokurátor
-      inactive: "Neaktívny prokurátor od %{date}"
+      inactive: Pravdepodobne neaktívny prokurátor
 
     index:
       redirecting_to_prosecutors_list: Za pár sekúnd vás presmerujeme na zoznam prokurátorov …

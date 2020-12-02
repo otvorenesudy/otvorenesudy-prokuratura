@@ -12,6 +12,8 @@ module ProsecutorHelper
         %w[check text-success prosecutors.appointment.fixed]
       when 'temporary'
         %w[check text-warning prosecutors.appointment.temporary]
+      when 'inactive'
+        %w[times text-danger prosecutors.appointment.inactive]
       end
 
     i18n_options = options.delete(:i18n)
@@ -22,10 +24,8 @@ module ProsecutorHelper
   end
 
   def prosecutor_declaration_date(value)
-    begin
-      I18n.l(Time.parse(value).to_date)
-    rescue StandardError
-      value
-    end
+    I18n.l(Time.parse(value).to_date)
+  rescue StandardError
+    value
   end
 end
