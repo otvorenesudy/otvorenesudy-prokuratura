@@ -12,7 +12,7 @@ module Newsable
 
         record.news['data'] = record.news['data'].reject { |e| EXCLUDED_URLS.any? { |url| e['url'].match(url) } }
 
-        record.save! if record.news.changed?
+        record.save! if record.changed?
       end
     end
   end
