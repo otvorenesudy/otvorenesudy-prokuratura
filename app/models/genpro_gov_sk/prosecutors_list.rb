@@ -95,6 +95,7 @@ module GenproGovSk
       end
 
       ::Office.refresh_search_view
+      ::Prosecutor.refresh_search_view
     end
   end
 end

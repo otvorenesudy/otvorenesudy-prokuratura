@@ -6,13 +6,13 @@ module Newsable
   ]
 
   class_methods do
-    def remove_excluded_urls_from_news
+    def remove_excluded_urls_from_news!
       find_each do |record|
         next if !record.news || !record.news['data']
 
         record.news['data'] = record.news['data'].reject { |e| EXCLUDED_URLS.any? { |url| e['url'].match(url) } }
 
-        record.save!
+        record.save! if record.news.changed?
       end
     end
   end
