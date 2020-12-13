@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   resources :prosecutors, only: %i[index show] do
     get :suggest, on: :collection
+    get :export, on: :collection
   end
 
   resources :statistics, only: :index, path: :criminality do
