@@ -18,7 +18,7 @@
       </p>
     <% end %>
 
-    <% @prosecutor.employments.each do |employment| %>
+    <% @prosecutor.employments.active.each do |employment| %>
     <p>
       <%= t '.employee_html', link: link_to(employment.office.name, office_path(employment.office)), position: employment.position %>
     </p>

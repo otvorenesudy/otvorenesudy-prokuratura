@@ -100,8 +100,7 @@ module GenproGovSk
         'Mgr. Martin Tamaškovič' => 'Úrad špeciálnej prokuratúry',
         'JUDr. Mária Trstenská' => 'Úrad špeciálnej prokuratúry',
         'Mgr. Vladimír Turan' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Marián Varga' => 'Úrad špeciálnej prokuratúry',
-        'Dr. JUDr. Maroš Žilinka, PhD.' => 'Úrad špeciálnej prokuratúry'
+        'JUDr. Marián Varga' => 'Úrad špeciálnej prokuratúry'
       }
 
       def self.parse(text)
