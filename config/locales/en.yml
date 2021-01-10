@@ -463,3 +463,7 @@ en:
         offices: Prosecutors' Offices
         prosecutors: Prosecutors
         search: Insights
+
+      average_incoming_cases_chart_title: Average Incoming Cases for District Attorney
+      average_incoming_cases_chart_comparison_title: Average Incoming Cases for Attorney per Year
+      filed_cases_to_incoming_cases_chart_title: Average Amount of Filed Cases to Incoming Cases in Matters of Criminal Proceedings for the year of 2019
