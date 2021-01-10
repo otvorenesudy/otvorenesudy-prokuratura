@@ -117,6 +117,7 @@ export default class extends ChartController {
           30,
           29,
           28,
+          27,
         ],
       },
 
