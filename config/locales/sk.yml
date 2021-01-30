@@ -484,6 +484,7 @@ sk:
       average_incoming_cases_chart_title: Priemerný nápad vecí na okresného prokurátora
       average_incoming_cases_comparison_chart_title: Priemerný nápad vecí na prokurátora za rok
       filed_cases_to_incoming_cases_chart_title: Pomer podaných obžalôb k nápadu vecí dozoru v trestnom konaní za rok 2019
+      ratio_of_rest_to_incoming_cases_chart_title: Podiel dozorových vecí prenesených z predchádzajúceho obdobia
 
     about: O projekte
     analyses: Články

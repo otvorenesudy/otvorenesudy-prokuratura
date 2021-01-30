@@ -33,15 +33,19 @@ module GenproGovSk
           'okresný prokurátor',
           'poverená výkonom funkcie okresného prokurátora',
           'poverená výkonom funkcie riaditeľky osobného úradu',
+          'poverená výkonom funkcie vedúca oddelenia služobných vzťahov prokurátorov, právnych čakateľov prokuratúry, a zamestnancov prokuratúry',
           'poverená výkonom funkcie vedúceho oddelenia násilnej a všeobecnej kriminality trestného odboru',
           'poverená výkonom funkcie zástupcu riaditeľa medzinárodného odboru',
+          'poverená výkonom funkcie zástupkyne riaditeľky osobného úradu',
           'poverený výkonom funkcie námestníka krajského prokurátora pre trestný úsek',
           'poverený výkonom funkcie námestníka okresného prokurátora',
           'poverený výkonom funkcie okresného prokurátora',
           'poverený výkonom funkcie prvého námestníka generálneho prokurátora Slovenskej republiky',
+          'poverený výkonom funkcie riaditeľa odboru ekonomickej kriminality ÚŠP GP SR',
           'poverený výkonom funkcie riaditeľa trestného odboru',
           'poverený výkonom funkcie vedúceho oddelenia majetkovej kriminality trestného odboru',
           'poverený výkonom funkcie vedúceho oddelenia organizovaného zločinu, terorizmu a medzinárodnej kriminality odboru všeobecnej kriminality Úradu špeciálnej prokuratúry GP SR',
+          'poverený výkonom funkcie vedúceho oddelenia organizovaného zločinu, terorizmu a medzinárodnej kriminality, odboru všeobecnej kriminality Úradu špeciálnej prokuratúry GP SR',
           'poverený výkonom funkcie vedúceho oddelenia právneho zastupovania štátu pred súdmi a inými orgánmi',
           'prvá námestníčka generálneho prokurátora Slovenskej republiky',
           'riaditeľ medzinárodného odboru',
@@ -52,6 +56,7 @@ module GenproGovSk
           'riaditeľ trestného odboru',
           'riaditeľka Kancelárie generálneho prokurátora Slovenskej republiky',
           'riaditeľka ekonomického odboru',
+          'riaditeľka medzinárodného odboru',
           'riaditeľka odboru informatiky',
           'riaditeľka odboru legislatívy a ústavného práva',
           'riaditeľka osobného úradu',
@@ -75,8 +80,10 @@ module GenproGovSk
           'vedúci oddelenia medzinárodného práva verejného a európskych záležitostí',
           'vedúci oddelenia násilnej a všeobecnej kriminality trestného odboru',
           'vedúci oddelenia organizovaného zločinu, terorizmu a medzinárodnej kriminality ÚŠP GP SR',
+          'vedúci oddelenia prevádzky IS, informačnej bezpečnosti a zverejňovania',
           'vedúci oddelenia prevádzky informačného systému registra trestov',
           'vedúci oddelenia právneho styku s cudzinou a extradícií',
+          'vedúci oddelenia stratégie a rozvoja IS a rezortnej štatistiky',
           'vedúci oddelenia stratégie a rozvoja IS a rezortnej štatistiky, vedúci oddelenia prevádzky IS, informačnej bezpečnosti a zverejňovania',
           'vedúci prieskumného oddelenia',
           'vedúci referátu vnútorného auditu',
@@ -93,6 +100,7 @@ module GenproGovSk
       def self.parse(html)
         document = Nokogiri.HTML(html)
 
+        unknown = []
         name = normalize(document.css('.contentPage > h3').text)
 
         data = {
@@ -114,7 +122,7 @@ module GenproGovSk
                 end
 
               if position.blank?
-                puts "Unkown position for employee: #{text}"
+                unknown << text
 
                 next
               end
@@ -136,6 +144,8 @@ module GenproGovSk
               }
             end.compact
         }
+
+        puts "Unknown positions: \n#{unknown.join("\n")}"
 
         data.merge(parse_contact(document))
       end

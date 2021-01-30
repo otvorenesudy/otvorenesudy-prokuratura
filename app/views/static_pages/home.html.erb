@@ -60,6 +60,13 @@
 
 <div class="row mt-5">
   <div class="col-12">
+    <h2 class="mb-4 text-uppercase"><%= t '.ratio_of_rest_to_incoming_cases_chart_title' %></h2>
+    <div data-controller="home-ratio-of-rest-to-incoming-cases-chart" data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>"></div>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-12">
     <h2 class="mb-4 text-uppercase"><%= t '.filed_cases_to_incoming_cases_chart_title' %></h2>
     <div data-controller="home-filed-cases-to-incoming-cases-chart" data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>"></div>
   </div>
