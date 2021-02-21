@@ -1,9 +1,7 @@
 module Newsable
   extend ActiveSupport::Concern
 
-  EXCLUDED_URLS = %w[
-    https://e.dennikn.sk/682996/sef-agrokomplexu-z-sns-uz-stihol-zamestnat-dceru-poslankyne-a-pohnevat-si-50-firiem/1738949
-  ]
+  EXCLUDED_URLS = File.readlines(Rails.root.join('data', 'newsable', 'excluded-urls.txt')).map(&:strip)
 
   class_methods do
     def remove_excluded_urls_from_news!
