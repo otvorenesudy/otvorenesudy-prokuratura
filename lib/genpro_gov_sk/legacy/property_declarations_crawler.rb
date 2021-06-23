@@ -1,7 +1,7 @@
 module GenproGovSk
   module Legacy
     class PropertyDeclarationsCrawler
-      def self.crawl_for(first_name:, last_name:)
+      def self.crawl_for(first_name:, last_name:, offices:)
         agent = Mechanize.new
         page = agent.get('https://www.genpro.gov.sk/prokuratura-sr/majetkove-priznania-30a3.html')
         list =
@@ -10,17 +10,31 @@ module GenproGovSk
             form.field_with(name: 'priezvisko').value = last_name
           end.submit
 
-        links = Parser.parse(list.body)
+        links = Parser.parse(list.body, offices: offices)
 
         links.map { |url| GenproGovSk::Legacy::PropertyDeclarationCrawler.crawl(url) }
       end
 
       class Parser
-        def self.parse(html)
+        def self.parse(html, offices:)
           document = Nokogiri.HTML(html)
 
-          document.css('table.table_01 > tbody > tr > td:nth-child(4) > a').map do |link|
-            "https://www.genpro.gov.sk/prokuratura-sr/majetkove-priznania-30a3.html#{link['href']}"
+          reported_offices =
+            document.css('table.table_01 > tbody > tr').map { |node| node.css('td:nth-child(3)').text.strip }
+
+          if reported_offices.uniq.one?
+            nodes = document.css('table.table_01 > tbody > tr')
+          else
+            nodes =
+              document.css('table.table_01 > tbody > tr').select do |node|
+                node.css('td:nth-child(3)').text.strip.in?(offices)
+              end
+          end
+
+          nodes.map do |node|
+            url = node.css('td:nth-child(6) > a')[0]['href']
+
+            "https://www.genpro.gov.sk/prokuratura-sr/majetkove-priznania-30a3.html#{url}"
           end
         end
       end

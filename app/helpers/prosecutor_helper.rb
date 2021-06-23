@@ -16,7 +16,7 @@ module ProsecutorHelper
         %w[times text-danger prosecutors.appointment.inactive]
       end
 
-    i18n_options = options.delete(:i18n)
+    i18n_options = options.delete(:i18n) || {}
     options = options.merge class: Array.wrap(options[:class]).unshift("d-inline #{c}")
     options = options.merge placement: options.delete(:placement) || 'top'
 
