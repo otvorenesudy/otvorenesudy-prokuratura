@@ -14,17 +14,17 @@ default: &default
 
 development:
   <<: *default
-  database: otvorenesudy_prokuratura_development
+  database: opencourts_prokuratura_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: otvorenesudy_prokuratura_test
+  database: opencourts_prokuratura_test
 
 production:
   <<: *default
-  database: otvorenesudy_prokuratura_production
+  database: opencourts_prokuratura_production
   username: <%= ENV['OPENCOURTS_PROKURATURA_DATABASE_USER'] %>
   password: <%= ENV['OPENCOURTS_PROKURATURA_DATABASE_PASSWORD'] %>
