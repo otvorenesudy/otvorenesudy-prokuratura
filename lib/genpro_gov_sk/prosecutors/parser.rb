@@ -62,6 +62,7 @@ module GenproGovSk
         'Okresná prokuratúra Svidník' => 'Okresná prokuratúra Svidník',
         'Okresná prokuratúra Vranov nad Topľou' => 'Okresná prokuratúra Vranov nad Topľou',
         'Krajská prokuratúra Košice' => 'Krajská prokuratúra Košice',
+        'Krajská prokuratúra Košice II' => 'Krajská prokuratúra Košice',
         'Okresná prokuratúra Košice I' => 'Okresná prokuratúra Košice I',
         'Okresná prokuratúra Košice II' => 'Okresná prokuratúra Košice II',
         'Okresná prokuratúra Košice - okolie' => 'Okresná prokuratúra Košice - okolie',
