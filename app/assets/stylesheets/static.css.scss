@@ -94,10 +94,6 @@
   .ip {
     @include color-variant($gray, #4b647c)
   }
-
-  .sme {
-    @include color-variant($gray, #cf2529)
-  }
 }
 
 .content {

@@ -3,10 +3,6 @@ body {
     min-width: 320px;
   }
 
-  .sme {
-    @include color-variant($text-muted, #cf2529);
-  }
-
   .tis {
     @include color-variant($blue, $navy);
   }
@@ -14,10 +10,4 @@ body {
 
 footer {
   border-top: $border-width * 2 solid $secondary;
-
-  .sme {
-    @include hover-focus {
-      text-decoration: none;
-    }
-  }
 }
