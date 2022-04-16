@@ -6,7 +6,7 @@ RSpec.describe 'GenproGovSk Prosecutors', type: :feature do
 
     GenproGovSk::Prosecutors.import
 
-    expect(::Prosecutor.count).to eql(967)
+    expect(::Prosecutor.count).to eql(959)
 
     GenproGovSk::Prosecutors::Parser::FIXED_OFFICES_BY_PROSECUTOR_NAME.each do |name, office|
       prosecutor = ::Prosecutor.find_by(name: name)
