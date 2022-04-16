@@ -64,10 +64,10 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 4.3.0'
   gem 'factory_bot', '~> 5.2.0'
   gem 'vcr'
-  gem 'prettier'
+  gem 'prettier', '~> 2.1.0'
   gem 'pry-rails'
   gem 'rubocop', '~> 0.84', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
