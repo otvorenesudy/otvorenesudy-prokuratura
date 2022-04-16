@@ -69,7 +69,7 @@ class Office < ApplicationRecord
   scope :active, -> { where(destroyed_at: nil) }
 
   def attorney_general
-    employees.active.order(rank: :asc).first
+    employees.active.attorney_general.first
   end
 
   def full_address
@@ -83,18 +83,19 @@ class Office < ApplicationRecord
   end
 
   def self.as_map_json
-    reorder(id: :asc).pluck(:id, :name, :address, :additional_address, :zipcode, :city, :latitude, :longitude)
+    reorder(id: :asc)
+      .pluck(:id, :name, :address, :additional_address, :zipcode, :city, :latitude, :longitude)
       .map do |values|
-      {
-        url: Rails.application.routes.url_helpers.office_path(values[0]),
-        name: values[1],
-        coordinates: values[6..7],
-        address: <<-TEXT
+        {
+          url: Rails.application.routes.url_helpers.office_path(values[0]),
+          name: values[1],
+          coordinates: values[6..7],
+          address: <<-TEXT
           #{values[3] ? "#{values[2]} (#{values[3]})" : values[2]},
           #{values[4]} #{values[5]}
         TEXT
-      }
-    end
+        }
+      end
   end
 
   private
@@ -104,16 +105,35 @@ class Office < ApplicationRecord
       type: :object,
       required: %i[phone hours],
       properties: {
-        phone: { type: %i[string null] },
-        note: { type: %i[string null] },
+        phone: {
+          type: %i[string null]
+        },
+        note: {
+          type: %i[string null]
+        },
         hours: {
           required: %i[monday tuesday wednesday thursday friday],
           properties: {
-            monday: { type: :string, minLength: 1 },
-            tuesday: { type: :string, minLength: 1 },
-            wednesday: { type: :string, minLength: 1 },
-            thursday: { type: :string, minLength: 1 },
-            friday: { type: :string, minLength: 1 }
+            monday: {
+              type: :string,
+              minLength: 1
+            },
+            tuesday: {
+              type: :string,
+              minLength: 1
+            },
+            wednesday: {
+              type: :string,
+              minLength: 1
+            },
+            thursday: {
+              type: :string,
+              minLength: 1
+            },
+            friday: {
+              type: :string,
+              minLength: 1
+            }
           }
         }
       }

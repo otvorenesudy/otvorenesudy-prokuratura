@@ -8,9 +8,9 @@ module GenproGovSk
         year = csv[0][0].match(/\d{2}.\d{2}.(\d{4})/)[1]
         unknown = []
         offices =
-          GenproGovSk::Criminality::OFFICES_MAP.each.with_object({}) do |(key, name), hash|
-            hash[name] = csv[0].index(key)
-          end
+          GenproGovSk::Criminality::OFFICES_MAP
+            .each
+            .with_object({}) { |(key, name), hash| hash[name] = csv[0].index(key) }
 
         offices.map do |name, index|
           last_title = nil

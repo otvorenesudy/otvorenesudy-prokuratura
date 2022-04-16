@@ -21,6 +21,7 @@
 #  index_employees_on_name_parts                          (name_parts)
 #  index_employees_on_office_id                           (office_id)
 #  index_employees_on_office_id_and_disabled_at_and_rank  (office_id,disabled_at,rank) UNIQUE WHERE (disabled_at IS NULL)
+#  index_employees_on_position                            (position)
 #  index_employees_on_prosecutor_id                       (prosecutor_id)
 #  index_employees_on_rank                                (rank)
 #
@@ -30,6 +31,15 @@
 #  fk_rails_...  (prosecutor_id => prosecutors.id)
 #
 class Employee < ApplicationRecord
+  ATTORNEY_GENERAL_POSITION = [
+    'generálny prokurátor Slovenskej republiky',
+    'krajská prokurátorka',
+    'krajský prokurátor',
+    'okresná prokurátorka',
+    'okresný prokurátor',
+    'špeciálny prokurátor'
+  ]
+
   belongs_to :office
   belongs_to :prosecutor, optional: true
 
@@ -39,4 +49,8 @@ class Employee < ApplicationRecord
 
   scope :active, -> { where(disabled_at: nil) }
   scope :as_prosecutor, -> { where.not(prosecutor_id: nil) }
+
+  def self.attorney_general
+    where(position: ATTORNEY_GENERAL_POSITION)
+  end
 end
