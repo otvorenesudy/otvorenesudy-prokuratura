@@ -25,20 +25,8 @@
   "devDependencies": {
     "@prettier/plugin-ruby": "^2.1.0",
     "eslint": "^7.4.0",
-    "husky": ">=4",
     "lint-staged": ">=10",
     "prettier": "^2.0.5",
     "webpack-dev-server": "^3.11.0"
-  },
-  "prettier": {
-    "printWidth": 120
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,css,md,rb}": "prettier --write"
   }
 }
