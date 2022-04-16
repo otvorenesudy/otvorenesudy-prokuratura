@@ -116,7 +116,7 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
-    curb (1.0.0)
+    curb (0.9.10)
     dalli (2.7.11)
     database_cleaner-active_record (2.0.1)
       activerecord (>= 5.a)
@@ -481,7 +481,7 @@ DEPENDENCIES
   capistrano-rbenv
   capistrano-sidekiq (~> 1.0.3)
   capybara (>= 2.15)
-  curb
+  curb (~> 0.9.10)
   dalli (~> 2.7.10)
   database_cleaner-active_record
   factory_bot (~> 5.2.0)

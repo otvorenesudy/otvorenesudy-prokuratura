@@ -13,7 +13,7 @@ gem 'webpacker', '~> 4.0'
 gem 'sprockets', '~> 4.0.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
-gem 'curb'
+gem 'curb', '~> 0.9.10'
 gem 'mechanize'
 
 gem 'bootstrap', '~> 4.1.0'
