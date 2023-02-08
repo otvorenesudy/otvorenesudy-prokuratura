@@ -60,3 +60,13 @@
     }
   }
 }
+
+.table-scrollable {
+  overflow: scroll;
+
+  th:first-child, td:first-child {
+    position: sticky;
+    left: 0;
+    background-color: darken($table-head-bg, 2.5%);
+  }
+}

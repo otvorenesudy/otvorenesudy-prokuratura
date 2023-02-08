@@ -108,7 +108,7 @@ module GenproGovSk
         text = cleanup(text)
         lines = text.split("\n").map(&:strip).select(&:present?)
 
-        lines.each.with_object([]) { |line, array| array << parse_line(line) }
+        lines.each.with_object([]) { |line, array| array << parse_line(line) }.compact
       end
 
       class << self
@@ -130,6 +130,8 @@ module GenproGovSk
           line.gsub!(/\A\d+/, '')
 
           parts = line.split(/\s{3,}/)
+
+          return if parts.size <= 1
 
           name_parts = parse_name(parts[0])
           office = parts[1].strip.gsub(/–/, '-')
