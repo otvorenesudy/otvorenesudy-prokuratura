@@ -32,19 +32,16 @@ class Statistic < ApplicationRecord
   validates :count, presence: true, numericality: true
 
   def self.import_from(records)
-    Statistic.transaction do
-      Statistic.delete_all
-      Statistic.lock
+    Statistic.delete_all
 
-      offices = ::Office.pluck(:id, :name).each.with_object({}) { |(id, name), hash| hash[name] = id }
+    offices = ::Office.pluck(:id, :name).each.with_object({}) { |(id, name), hash| hash[name] = id }
 
-      records.each { |record| record[:office_id] = offices[record[:office]] }
+    records.each { |record| record[:office_id] = offices[record[:office]] }
 
-      Statistic.import(
-        records.map { |e| { paragraph: nil }.merge(e.slice(:year, :office_id, :metric, :paragraph, :count)) }.uniq,
-        in_batches: 10_000, validate: false
-      )
-    end
+    Statistic.import(
+      records.map { |e| { paragraph: nil }.merge(e.slice(:year, :office_id, :metric, :paragraph, :count)) }.uniq,
+      in_batches: 10_000, validate: false
+    )
   end
 
   GROUPS = {
