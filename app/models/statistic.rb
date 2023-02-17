@@ -38,7 +38,7 @@ class Statistic < ApplicationRecord
 
     records.each { |record| record[:office_id] = offices[record[:office]] }
 
-    records = records.map { |e| { paragraph: nil }.merge(e.slice(:year, :office_id, :metric, :paragraph, :count)) }.uniq,
+    records = records.map { |e| { paragraph: nil }.merge(e.slice(:year, :office_id, :metric, :paragraph, :count)) }
 
     ActiveRecord::Base.logger.silence do
       records.each_with_index do |record, i|
