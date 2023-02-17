@@ -7,8 +7,7 @@ module GenproGovSk
           year = attributes[:year]
           office = attributes[:office]
 
-          # TODO
-          # raise if attributes[:unknown].any?
+          puts "WARN: #{attributes[:unknown].inspect}" if attributes[:unknown].any?
 
           attributes[:statistics].map do |statistic|
             next if statistic[:count].blank?
@@ -21,22 +20,11 @@ module GenproGovSk
     end
 
     def self.parse_structures
-      html =
-        Curl.get(
-          'https://www.genpro.gov.sk/statistiky/statisticky-prehlad-trestnej-a-netrestnej-cinnosti-za-rok-2020-3a68.html'
-        ).body_str
-
-      url =
-        Nokogiri.HTML(html).css('a').find do |e|
-          e.text =~ /Štruktúra kriminality/ && e.text =~ /stíhaných/ && e.text =~ /obžalovaných/
-        end[
-          :href
-        ]
-      urls = ["https://www.genpro.gov.sk#{url}"]
-
-      urls +=
+      urls =
         %w[
-          https://www.genpro.gov.sk/extdoc/54820/Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
+          https://www.genpro.gov.sk/extdoc/55654/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob
+          https://www.genpro.gov.sk/extdoc/55400/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob
+          https://www.genpro.gov.sk/extdoc/55078/12_Struktura_kriminality_a_st%EDhanych_a_obzalovanych_osob
           https://www.genpro.gov.sk/extdoc/54483/2018_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
           https://www.genpro.gov.sk/extdoc/54488/2017_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
           https://www.genpro.gov.sk/extdoc/54487/2016_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
@@ -59,7 +47,7 @@ module GenproGovSk
       path = Rails.root.join('data', 'genpro_gov_sk', 'criminality', 'paragraphs', '*.xls*')
       files = Dir.glob(path).to_a.reject { |e| e.match(/obvod/) }
 
-      Parallel.map(files, in_processes: 8) { |file| ParagraphsParser.parse(file)&.merge(file: file) }.compact
+      Parallel.map(files, in_processes: 2) { |file| ParagraphsParser.parse(file)&.merge(file: file) }.compact
     end
 
     def self.paragraphs_map
