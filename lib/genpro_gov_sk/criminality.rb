@@ -47,7 +47,7 @@ module GenproGovSk
       path = Rails.root.join('data', 'genpro_gov_sk', 'criminality', 'paragraphs', '*.xls*')
       files = Dir.glob(path).to_a.reject { |e| e.match(/obvod/) }
 
-      Parallel.map(files, in_processes: 2) { |file| ParagraphsParser.parse(file)&.merge(file: file) }.compact
+      Parallel.map(files, in_processes: 8) { |file| ParagraphsParser.parse(file)&.merge(file: file) }.compact
     end
 
     def self.paragraphs_map

@@ -38,11 +38,18 @@ class Statistic < ApplicationRecord
 
     records.each { |record| record[:office_id] = offices[record[:office]] }
 
-    Statistic.import(
-      records.map { |e| { paragraph: nil }.merge(e.slice(:year, :office_id, :metric, :paragraph, :count)) }.uniq,
-      in_batches: 10_000, validate: false
-    )
-  end
+    records = records.map { |e| { paragraph: nil }.merge(e.slice(:year, :office_id, :metric, :paragraph, :count)) }.uniq,
+
+    ActiveRecord::Base.logger.silence do
+      records.each_with_index do |record, i|
+        puts "Statistic # Imported #{i} records" if i % 10_000 == 0 && i > 0
+
+        Statistic.create!({ paragraph: nil }.merge(record.slice(:year, :office_id, :metric, :paragraph, :count)))
+      end
+    end
+
+    nil
+   end
 
   GROUPS = {
     accused: %i[
