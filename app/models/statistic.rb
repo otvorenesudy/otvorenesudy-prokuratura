@@ -44,7 +44,7 @@ class Statistic < ApplicationRecord
       records.each_with_index do |record, i|
         puts "Statistic # Imported #{i} records" if i % 10_000 == 0 && i > 0
 
-        Statistic.create!({ paragraph: nil }.merge(record.slice(:year, :office_id, :metric, :paragraph, :count)))
+        Statistic.create({ paragraph: nil }.merge(record.slice(:year, :office_id, :metric, :paragraph, :count)))
       end
     end
 
