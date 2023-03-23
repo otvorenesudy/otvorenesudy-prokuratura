@@ -30,9 +30,13 @@ class StatisticsController < ApplicationController
 
     options = Selenium::WebDriver::Chrome::Options.new(args: %w[headless])
     options.add_argument('--window-size=1400,760')
-    options.add_argument('--font-render-hinting=max')
     options.add_argument('--enable-font-antialiasing')
     options.add_argument('--force-device-scale-factor=2')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-extensions')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--disable-setuid-sandbox')
     driver = Selenium::WebDriver.for(:chrome, options: options)
 
     driver.get(url)
