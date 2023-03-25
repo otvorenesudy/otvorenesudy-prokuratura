@@ -37,6 +37,7 @@ class StatisticsController < ApplicationController
     options.add_argument('--disable-extensions')
     options.add_argument('--disable-gpu')
     options.add_argument('--disable-setuid-sandbox')
+    options.add_option(:detach, false)
     driver = Selenium::WebDriver.for(:chrome, options: options)
 
     driver.get(url)
