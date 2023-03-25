@@ -40,11 +40,11 @@ class StatisticsController < ApplicationController
     options.add_option(:detach, false)
     driver = Selenium::WebDriver.for(:chrome, options: options)
 
-    driver.get(url)
-    driver.manage.window.resize_to(1400, driver.execute_script('return document.body.scrollHeight') + 25)
-    driver.save_screenshot(path)
-
     begin
+      driver.get(url)
+      driver.manage.window.resize_to(1400, driver.execute_script('return document.body.scrollHeight') + 25)
+      driver.save_screenshot(path)
+
       driver.quit
 
       File.open(path, 'rb') do |file|
@@ -53,6 +53,7 @@ class StatisticsController < ApplicationController
     rescue Exception => e
       raise e
     ensure
+      driver.quit
       File.delete(path)
     end
   end
