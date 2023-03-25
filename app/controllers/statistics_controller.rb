@@ -45,8 +45,6 @@ class StatisticsController < ApplicationController
       driver.manage.window.resize_to(1400, driver.execute_script('return document.body.scrollHeight') + 25)
       driver.save_screenshot(path)
 
-      driver.quit
-
       File.open(path, 'rb') do |file|
         send_data(file.read, type: 'image/png', filename: 'otvorena-prokuratura-export.png')
       end
