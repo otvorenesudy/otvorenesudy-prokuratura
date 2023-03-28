@@ -21,11 +21,11 @@
 
 set :output, 'log/cron.log'
 
-every :day, at: '3:00am' do
+every :day, at: '1:15am' do
   runner 'ExceptionHandler.run { GenproGovSk::Offices.import }'
 end
 
-every :day, at: '4:00am' do
+every :day, at: '2:15am' do
   runner 'ExceptionHandler.run { GenproGovSk::Prosecutors.import }'
 end
 
@@ -33,14 +33,14 @@ end
 #   runner 'ExceptionHandler.run { GenproGovSk::Criminality.import }'
 # end
 
-every :day, at: '6:00am' do
+every :day, at: '3:15am' do
   runner 'ExceptionHandler.run { GenproGovSk::Declarations.import }'
 end
 
-every :day, at: '4:00am' do
+every :day, at: '4:15am' do
   runner 'ExceptionHandler.run { GoogleNews.cache_for(::Prosecutor, size: 60) }'
 end
 
-every :day, at: '4:30am' do
+every :day, at: '4:15am' do
   runner 'ExceptionHandler.run { GoogleNews.cache_for(::Office, size: 20) }'
 end
