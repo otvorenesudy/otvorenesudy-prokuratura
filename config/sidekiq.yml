@@ -1,7 +1,7 @@
 ---
-:concurrency: 1
+:concurrency: 5
 production:
-  :concurrency: 1
+  :concurrency: 5
 :queues:
   - otvorenesudy_prokuratura_development_default
   - otvorenesudy_prokuratura_production_default
