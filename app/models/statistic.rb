@@ -32,36 +32,19 @@ class Statistic < ApplicationRecord
   validates :count, presence: true, numericality: true
 
   def self.import_from(records)
-    Statistic.delete_all
+    Statistic.transaction do
+      Statistic.delete_all
+      Statistic.lock
 
-    offices = ::Office.pluck(:id, :name).each.with_object({}) { |(id, name), hash| hash[name] = id }
+      offices = ::Office.pluck(:id, :name).each.with_object({}) { |(id, name), hash| hash[name] = id }
 
-    records.each { |record| record[:office_id] = offices[record[:office]] }
+      records.each { |record| record[:office_id] = offices[record[:office]] }
 
-    records.each_slice(10_000).with_index do |batch, i|
-      time = Time.now
-
-      values = batch.map do |e|
-        "(#{e.values_at(:year, :office_id, :metric, :paragraph, :count).map { |e| ActiveRecord::Base.connection.quote(e) }.join(', ')}, NOW(), NOW())"
-      end
-
-      ActiveRecord::Base.logger.silence do 
-        ActiveRecord::Base.connection.execute(
-          "
-            INSERT INTO statistics (year, office_id, metric, paragraph, count, created_at, updated_at)
-            VALUES
-              #{values.join(', ')}
-            ON CONFLICT DO NOTHING
-          "
-        )
-      end
-
-      logger.debug("Statistic # Imported [#{i}] batch of statistics in [#{(Time.now - time).in_milliseconds.round}] ms")
+      Statistic.import(
+        records.map { |e| { paragraph: nil }.merge(e.slice(:year, :office_id, :metric, :paragraph, :count)) }.uniq,
+        in_batches: 10_000, validate: false
+      )
     end
-
-    ActiveRecord::Base.connection.execute('VACUUM ANALYZE')
-
-    nil
   end
 
   GROUPS = {
