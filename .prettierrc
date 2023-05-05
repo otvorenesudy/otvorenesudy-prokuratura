@@ -1,4 +1,4 @@
 {
   "printWidth": 120,
-  "rubySingleQuote": true
+  "rubyPlugins": "plugin/single_quotes"
 }

@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.1'
+ruby '2.7.3'
 
 gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
 gem 'rails-i18n', '~> 6.0.0'
@@ -64,9 +64,12 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 4.3.0'
   gem 'factory_bot', '~> 5.2.0'
   gem 'vcr'
-  gem 'prettier', '~> 2.1.0'
+  gem 'prettier', '~> 3.2.2'
+  gem 'prettier_print'
+  gem 'syntax_tree'
+  gem 'syntax_tree-haml'
+  gem 'syntax_tree-rbs'
   gem 'pry-rails'
-  gem 'rubocop', '~> 0.84', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
