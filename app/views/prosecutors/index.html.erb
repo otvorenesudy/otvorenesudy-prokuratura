@@ -131,18 +131,22 @@
               </h4>
 
               <div class="search-result-content">
+                
                 <% prosecutor.appointments.current.each do |appointment| %>
                   <%= t ".list.office_#{appointment.type}_html", link: appointment.office ? link_to(appointment.office.name, office_path(appointment.office)) : appointment.place %>
                   <br>
                 <% end %>
-
-                <%= t '.list.register' %>
-                <%=
-                  [
-                    prosecutor.declarations&.present? ? t('terms.declaration', count: prosecutor.declarations.count) : nil,
-                    prosecutor.articles.any? ? t('terms.news', count: prosecutor.articles.count) : nil
-                  ].compact.to_sentence
-                %>.
+   
+                <% if prosecutor.declarations&.present? ||  prosecutor.articles.any? %>
+                  <%= t '.list.register' %>
+                  <%=
+                    [
+                      prosecutor.decrees.any? ? t('terms.decrees', count: prosecutor.decrees.count) : nil,
+                      prosecutor.declarations&.present? ? t('terms.declaration', count: prosecutor.declarations.count) : nil,
+                      prosecutor.articles.any? ? t('terms.news', count: prosecutor.articles.count) : nil
+                    ].compact.to_sentence
+                  %>
+                <% end %>
               </div>
             </li>
           <% end.empty? %>

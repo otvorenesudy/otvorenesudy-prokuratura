@@ -5,6 +5,7 @@ module GenproGovSk
   require 'genpro_gov_sk/legacy/property_declarations_crawler'
 
   require 'genpro_gov_sk/prosecutors/parser'
+  require 'genpro_gov_sk/prosecutors/decrees_parser'
   require 'genpro_gov_sk/prosecutors'
   require 'genpro_gov_sk/offices/parser'
   require 'genpro_gov_sk/offices'

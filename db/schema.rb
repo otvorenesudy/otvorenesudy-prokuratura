@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_16_164722) do
+ActiveRecord::Schema.define(version: 2023_05_04_185426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2022_04_16_164722) do
   create_table "appointments", force: :cascade do |t|
     t.bigint "office_id"
     t.bigint "prosecutor_id", null: false
-    t.bigint "genpro_gov_sk_prosecutors_list_id", null: false
+    t.integer "genpro_gov_sk_prosecutors_list_id"
     t.datetime "started_at", null: false
     t.datetime "ended_at"
     t.integer "type", null: false
@@ -30,6 +30,30 @@ ActiveRecord::Schema.define(version: 2022_04_16_164722) do
     t.index ["genpro_gov_sk_prosecutors_list_id"], name: "index_appointments_on_genpro_gov_sk_prosecutors_list_id"
     t.index ["office_id"], name: "index_appointments_on_office_id"
     t.index ["prosecutor_id"], name: "index_appointments_on_prosecutor_id"
+  end
+
+  create_table "decrees", force: :cascade do |t|
+    t.bigint "genpro_gov_sk_decree_id", null: false
+    t.bigint "office_id"
+    t.bigint "prosecutor_id"
+    t.string "url", null: false
+    t.string "number", null: false
+    t.string "file_info", null: false
+    t.integer "file_type", null: false
+    t.date "effective_on", null: false
+    t.date "published_on", null: false
+    t.string "file_number", null: false
+    t.string "resolution", null: false
+    t.string "means_of_resolution"
+    t.text "text", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["effective_on"], name: "index_decrees_on_effective_on"
+    t.index ["genpro_gov_sk_decree_id"], name: "index_decrees_on_genpro_gov_sk_decree_id"
+    t.index ["office_id"], name: "index_decrees_on_office_id"
+    t.index ["prosecutor_id"], name: "index_decrees_on_prosecutor_id"
+    t.index ["published_on"], name: "index_decrees_on_published_on"
+    t.index ["url"], name: "index_decrees_on_url"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -51,6 +75,15 @@ ActiveRecord::Schema.define(version: 2022_04_16_164722) do
     t.index ["position"], name: "index_employees_on_position"
     t.index ["prosecutor_id"], name: "index_employees_on_prosecutor_id"
     t.index ["rank"], name: "index_employees_on_rank"
+  end
+
+  create_table "genpro_gov_sk_decrees", force: :cascade do |t|
+    t.jsonb "data", null: false
+    t.binary "file", null: false
+    t.string "digest", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["digest"], name: "index_genpro_gov_sk_decrees_on_digest", unique: true
   end
 
   create_table "genpro_gov_sk_offices", force: :cascade do |t|
@@ -110,13 +143,14 @@ ActiveRecord::Schema.define(version: 2022_04_16_164722) do
   end
 
   create_table "prosecutors", force: :cascade do |t|
-    t.bigint "genpro_gov_sk_prosecutors_list_id", null: false
+    t.integer "genpro_gov_sk_prosecutors_list_id"
     t.string "name", null: false
     t.jsonb "name_parts", null: false
     t.jsonb "declarations"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "news"
+    t.jsonb "decrees", default: [], null: false
     t.index ["genpro_gov_sk_prosecutors_list_id"], name: "index_prosecutors_on_genpro_gov_sk_prosecutors_list_id"
     t.index ["name"], name: "index_prosecutors_on_name"
     t.index ["name_parts"], name: "index_prosecutors_on_name_parts"
@@ -141,6 +175,9 @@ ActiveRecord::Schema.define(version: 2022_04_16_164722) do
   add_foreign_key "appointments", "genpro_gov_sk_prosecutors_lists"
   add_foreign_key "appointments", "offices"
   add_foreign_key "appointments", "prosecutors"
+  add_foreign_key "decrees", "genpro_gov_sk_decrees"
+  add_foreign_key "decrees", "offices"
+  add_foreign_key "decrees", "prosecutors"
   add_foreign_key "employees", "offices"
   add_foreign_key "employees", "prosecutors"
   add_foreign_key "offices", "genpro_gov_sk_offices"

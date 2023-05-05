@@ -78,6 +78,12 @@ en:
       few: '%{count} mentions in the media'
       other: '%{count} mentions in the media'
 
+    decrees:
+      zero: no decrees
+      one: 1 decree
+      few: '%{count} decrees'
+      other: '%{count} decrees'
+
   models:
     statistic:
       metrics:
@@ -289,7 +295,7 @@ en:
         district: 'District yearly average is %{count}.'
 
       media:
-        title: 'Mentions in Media'
+        title: 'Media'
         disclaimer: "News articles above are automated search results from Google for Denník N, SME and Aktuality for the name of the prosecutors' office and therefore not all the results might be relevant."
         no_results: No relevant news articles found.
         more_from_google: More results from Google
@@ -351,8 +357,11 @@ en:
       declarations:
         title: 'Estate Declaration of %{year}'
 
+      decrees:
+        title: 'Decrees'
+
       media:
-        title: 'Mentions in Media'
+        title: 'Media'
         disclaimer: 'News articles above are automated search results from Google for Denník N, SME and Aktuality for the name of the prosecutor and therefore not all the results might be relevant.'
         no_results: No relevant news articles found.
         more_from_google: More results from Google

@@ -9,7 +9,7 @@
 #  type                              :integer          not null
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
-#  genpro_gov_sk_prosecutors_list_id :bigint           not null
+#  genpro_gov_sk_prosecutors_list_id :integer
 #  office_id                         :bigint
 #  prosecutor_id                     :bigint           not null
 #

@@ -9,7 +9,7 @@
 #  news                              :jsonb
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
-#  genpro_gov_sk_prosecutors_list_id :bigint           not null
+#  genpro_gov_sk_prosecutors_list_id :integer
 #
 # Indexes
 #
@@ -25,12 +25,17 @@ class Prosecutor < ApplicationRecord
   include Searchable
   include Newsable
 
-  belongs_to :genpro_gov_sk_prosecutors_list, class_name: :'GenproGovSk::ProsecutorsList'
+  belongs_to :genpro_gov_sk_prosecutors_list, class_name: :'GenproGovSk::ProsecutorsList', optional: true
+
+  has_many :past_appointments, -> { past.order(id: :asc) }, dependent: :destroy, class_name: :Appointment
+  has_many :past_offices, through: :past_appointments, source: :office
 
   has_many :appointments, -> { current.order(id: :asc) }, dependent: :destroy
   has_many :offices, through: :appointments
 
   has_many :employments, class_name: :Employee, dependent: :nullify
+
+  has_many :decrees, -> { order(id: :asc) }, dependent: :destroy
 
   validates :name, presence: true
 

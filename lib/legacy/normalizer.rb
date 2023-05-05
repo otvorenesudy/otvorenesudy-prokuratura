@@ -284,6 +284,7 @@ module Legacy
                                 'LL.A.',
                                 'LL.B.',
                                 'LL.M.',
+                                'LL.M',
                                 'M.A.',
                                 'MAE',
                                 'MAS',

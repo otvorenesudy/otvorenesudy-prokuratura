@@ -9,7 +9,7 @@
 #  type                              :integer          not null
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
-#  genpro_gov_sk_prosecutors_list_id :bigint           not null
+#  genpro_gov_sk_prosecutors_list_id :integer
 #  office_id                         :bigint
 #  prosecutor_id                     :bigint           not null
 #
@@ -28,7 +28,7 @@
 class Appointment < ApplicationRecord
   self.inheritance_column = :_type_disabled
 
-  belongs_to :genpro_gov_sk_prosecutors_list, class_name: :'GenproGovSk::ProsecutorsList'
+  belongs_to :genpro_gov_sk_prosecutors_list, class_name: :'GenproGovSk::ProsecutorsList', optional: true
   belongs_to :prosecutor
   belongs_to :office, required: false
 
@@ -40,6 +40,8 @@ class Appointment < ApplicationRecord
   enum type: %i[fixed temporary]
 
   scope :current, -> { where(ended_at: nil) }
+  scope :past, -> { where.not(ended_at: nil) }
+  scope :probable, -> { where(genpro_gov_sk_prosecutors_list: nil) }
 
   def current?
     ended_at.blank?
