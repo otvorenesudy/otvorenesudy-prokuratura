@@ -16,7 +16,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'curb', '~> 0.9.10'
 gem 'mechanize'
 
-gem 'bootstrap', '~> 4.1.0'
+gem 'bootstrap', '~> 4.3.1'
 gem 'svgeez', '~> 3.0'
 gem 'pg', '~> 1.2.3'
 gem 'pdf-reader', '~> 2.4.0'
