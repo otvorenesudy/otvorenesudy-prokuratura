@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_04_185426) do
+ActiveRecord::Schema.define(version: 2023_05_05_061736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2023_05_04_185426) do
   create_table "appointments", force: :cascade do |t|
     t.bigint "office_id"
     t.bigint "prosecutor_id", null: false
-    t.integer "genpro_gov_sk_prosecutors_list_id"
+    t.bigint "genpro_gov_sk_prosecutors_list_id"
     t.datetime "started_at", null: false
     t.datetime "ended_at"
     t.integer "type", null: false
@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 2023_05_04_185426) do
   end
 
   create_table "prosecutors", force: :cascade do |t|
-    t.integer "genpro_gov_sk_prosecutors_list_id"
+    t.bigint "genpro_gov_sk_prosecutors_list_id"
     t.string "name", null: false
     t.jsonb "name_parts", null: false
     t.jsonb "declarations"

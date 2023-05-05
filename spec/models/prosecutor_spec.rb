@@ -10,7 +10,7 @@
 #  news                              :jsonb
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
-#  genpro_gov_sk_prosecutors_list_id :integer
+#  genpro_gov_sk_prosecutors_list_id :bigint
 #
 # Indexes
 #
