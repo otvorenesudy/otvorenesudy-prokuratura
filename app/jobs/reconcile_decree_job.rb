@@ -9,23 +9,26 @@ class ReconcileDecreeJob < ApplicationJob
     preamble = decree.preamble
     signature = decree.signature
 
-    office = offices.find do |office|
-      preamble.gsub(/Košice-okolie/i, 'Košice - okolie').match(/#{office.name}/i)
-    end
+    office = offices.find { |office| preamble.gsub(/Košice-okolie/i, 'Košice - okolie').match(/#{office.name}/i) }
 
     decree.update(office: office)
+    Office.reset_counters(office.id, :decrees) if office
 
-    prosecutors = [
-      *Prosecutor.joins(:offices).merge(Office.where(id: office)).distinct.pluck(:id, :name_parts),
-      *Prosecutor.joins(:offices).merge(Office.where.not(id: office)).distinct.pluck(:id, :name_parts)
-    ].map do |(id, name)|
-      [id, [name['first'], name['middle'], name['last']].compact]
+    prosecutors =
+      [
+        *Prosecutor.joins(:offices).merge(Office.where(id: office)).distinct.pluck(:id, :name_parts),
+        *Prosecutor.joins(:offices).merge(Office.where.not(id: office)).distinct.pluck(:id, :name_parts)
+      ].map { |(id, name)| [id, [name['first'], name['middle'], name['last']].compact] }
+
+    prosecutor =
+      prosecutors.find do |(id, name)|
+        name.permutation(name.size).any? { |e| signature.match(/#{e.join(' ').squeeze(' ')}/i) }
+      end
+
+    if prosecutor
+      decree.update(prosecutor_id: prosecutor[0])
+
+      Prosecutor.reset_counters(prosecutor[0], :decrees)
     end
-
-    prosecutor = prosecutors.find do |(id, name)|
-      name.permutation(name.size).any? { |e| signature.match(/#{e.join(' ').squeeze(' ')}/i) }
-    end
-
-    decree.update(prosecutor_id: prosecutor[0]) if prosecutor
   end
 end

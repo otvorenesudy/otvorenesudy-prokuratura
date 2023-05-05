@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_05_061736) do
+ActiveRecord::Schema.define(version: 2023_05_05_075916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 2023_05_05_061736) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "news"
+    t.bigint "decrees_count", default: 0
     t.index ["city"], name: "index_offices_on_city"
     t.index ["destroyed_at"], name: "index_offices_on_destroyed_at"
     t.index ["genpro_gov_sk_office_id"], name: "index_offices_on_genpro_gov_sk_office_id"
@@ -151,6 +152,7 @@ ActiveRecord::Schema.define(version: 2023_05_05_061736) do
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "news"
     t.jsonb "decrees", default: [], null: false
+    t.bigint "decrees_count", default: 0
     t.index ["genpro_gov_sk_prosecutors_list_id"], name: "index_prosecutors_on_genpro_gov_sk_prosecutors_list_id"
     t.index ["name"], name: "index_prosecutors_on_name"
     t.index ["name_parts"], name: "index_prosecutors_on_name_parts"

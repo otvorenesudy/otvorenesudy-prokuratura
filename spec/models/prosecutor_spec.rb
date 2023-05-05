@@ -5,6 +5,7 @@
 #  id                                :bigint           not null, primary key
 #  declarations                      :jsonb
 #  decrees                           :jsonb            not null
+#  decrees_count                     :bigint           default(0)
 #  name                              :string           not null
 #  name_parts                        :jsonb            not null
 #  news                              :jsonb

@@ -6,6 +6,7 @@
 #  additional_address      :string(1024)
 #  address                 :string(1024)     not null
 #  city                    :string           not null
+#  decrees_count           :bigint           default(0)
 #  destroyed_at            :datetime
 #  electronic_registry     :string
 #  email                   :string
@@ -50,6 +51,7 @@ class Office < ApplicationRecord
   has_many :active_appointments, -> { current }, class_name: :Appointment, dependent: :destroy
   has_many :prosecutors, through: :active_appointments
   has_many :statistics, dependent: :destroy
+  has_many :decrees, dependent: :nullify
 
   enum type: { general: 0, specialized: 1, regional: 2, district: 3 }
 

@@ -6,6 +6,7 @@
 #  additional_address      :string(1024)
 #  address                 :string(1024)     not null
 #  city                    :string           not null
+#  decrees_count           :bigint           default(0)
 #  destroyed_at            :datetime
 #  electronic_registry     :string
 #  email                   :string

@@ -5,6 +5,7 @@
 #  id                                :bigint           not null, primary key
 #  declarations                      :jsonb
 #  decrees                           :jsonb            not null
+#  decrees_count                     :bigint           default(0)
 #  name                              :string           not null
 #  name_parts                        :jsonb            not null
 #  news                              :jsonb
@@ -36,7 +37,7 @@ class Prosecutor < ApplicationRecord
 
   has_many :employments, class_name: :Employee, dependent: :nullify
 
-  has_many :decrees, -> { order(id: :asc) }, dependent: :destroy
+  has_many :decrees, -> { order(id: :asc) }, dependent: :nullify
 
   validates :name, presence: true
 
@@ -59,18 +60,21 @@ class Prosecutor < ApplicationRecord
       offices.name
     ]
 
-    joins(:offices).reorder(id: :asc).pluck(Arel.sql(attributes.join(', '))).map do |values|
-      {
-        url: Rails.application.routes.url_helpers.prosecutor_path(values[0]),
-        name: values[1],
-        coordinates: values[6..7],
-        office: values[8],
-        address: <<-TEXT
+    joins(:offices)
+      .reorder(id: :asc)
+      .pluck(Arel.sql(attributes.join(', ')))
+      .map do |values|
+        {
+          url: Rails.application.routes.url_helpers.prosecutor_path(values[0]),
+          name: values[1],
+          coordinates: values[6..7],
+          office: values[8],
+          address: <<-TEXT
           #{values[3] ? "#{values[2]} (#{values[3]})" : values[2]},
           #{values[4]} #{values[5]}
         TEXT
-      }
-    end
+        }
+      end
   end
 
   private
@@ -82,24 +86,38 @@ class Prosecutor < ApplicationRecord
         type: :object,
         required: %i[year lists incomes statements],
         properties: {
-          year: { type: :number },
+          year: {
+            type: :number
+          },
           lists: {
             type: :array,
             items: {
               type: :object,
               required: %i[category items],
               properties: {
-                category: { type: :string },
+                category: {
+                  type: :string
+                },
                 items: {
                   type: :array,
                   items: {
                     type: :object,
                     properties: {
-                      description: { type: %i[string null] },
-                      acquisition_date: { type: %i[string null] },
-                      acquisition_reason: { type: %i[string null] },
-                      procurement_price: { type: %i[string null] },
-                      price: { type: %i[string null] }
+                      description: {
+                        type: %i[string null]
+                      },
+                      acquisition_date: {
+                        type: %i[string null]
+                      },
+                      acquisition_reason: {
+                        type: %i[string null]
+                      },
+                      procurement_price: {
+                        type: %i[string null]
+                      },
+                      price: {
+                        type: %i[string null]
+                      }
                     }
                   }
                 }
@@ -111,10 +129,22 @@ class Prosecutor < ApplicationRecord
             items: {
               type: :object,
               required: %i[description value],
-              properties: { description: { type: :string }, value: { type: %i[string null] } }
+              properties: {
+                description: {
+                  type: :string
+                },
+                value: {
+                  type: %i[string null]
+                }
+              }
             }
           },
-          statements: { type: :array, iterm: { type: :string } }
+          statements: {
+            type: :array,
+            iterm: {
+              type: :string
+            }
+          }
         }
       }
     }
