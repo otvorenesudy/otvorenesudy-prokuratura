@@ -10,11 +10,13 @@ class Search
   def all(except: [])
     except = [*except].map(&:to_sym)
 
-    filters.reject { |(key, _)| key.to_sym.in?(except) }.inject(repository) do |relation, (key, filter)|
-      next filter.filter(relation, params) if filter.respond_to?(:filter)
+    filters
+      .reject { |(key, _)| key.to_sym.in?(except) }
+      .inject(repository) do |relation, (key, filter)|
+        next filter.filter(relation, params) if filter.respond_to?(:filter)
 
-      relation
-    end
+        relation
+      end
   end
 
   def paginated
@@ -27,7 +29,9 @@ class Search
     limit = limit || (filters[key].respond_to?(:facets_limit) ? filters[key].facets_limit : 10)
 
     all =
-      filters[key].facets(all(except: except).reorder(''), suggest: suggest || params["#{key}_suggest"]).each
+      filters[key]
+        .facets(all(except: except).reorder(''), suggest: suggest || params["#{key}_suggest"])
+        .each
         .with_object({}) { |(key, value), hash| hash[key.to_s] = value }
 
     facets = limit ? all.first(limit).to_h : all

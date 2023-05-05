@@ -6,7 +6,13 @@ class ProsecutorSearch
       Search.new(
         Prosecutor,
         params: params,
-        filters: { type: TypeFilter, city: CityFilter, office: OfficeFilter, sort: SortFilter, query: QueryFilter }
+        filters: {
+          type: TypeFilter,
+          city: CityFilter,
+          office: OfficeFilter,
+          sort: SortFilter,
+          query: QueryFilter
+        }
       )
   end
 
@@ -34,9 +40,13 @@ class ProsecutorSearch
     end
 
     def self.facets(relation, suggest:)
-      relation.joins(:offices).group('offices.type').distinct.count.each.with_object({}) do |(value, count), hash|
-        hash[Office.types.key(value)] = count
-      end
+      relation
+        .joins(:offices)
+        .group('offices.type')
+        .distinct
+        .count
+        .each
+        .with_object({}) { |(value, count), hash| hash[Office.types.key(value)] = count }
     end
   end
 

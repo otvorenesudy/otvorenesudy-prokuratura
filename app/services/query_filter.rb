@@ -7,17 +7,23 @@ class QueryFilter
     columns = columns.map { |column| ActiveRecord::Base.connection.quote_column_name(column) }
 
     search =
-      model.from("#{relation.table_name}_search").where(
-        columns.map do |column|
-          "
-          #{column} LIKE lower(unaccent(:like)) OR
-          similarity(#{column}, lower(unaccent(:similarity))) > 0.5
-        "
-        end.join(' OR '),
-        like: "%#{params[:q]}%", similarity: params[:q]
-      ).reorder(
-        Arel.sql(columns.map { |column| "similarity(#{column}, lower(unaccent(#{query})))" }.join(' + ') + ' DESC')
-      )
+      model
+        .from("#{relation.table_name}_search")
+        .where(
+          columns
+            .map do |column|
+              "
+                #{column} LIKE lower(unaccent(:like)) OR
+                similarity(#{column}, lower(unaccent(:similarity))) > 0.5
+              "
+            end
+            .join(' OR '),
+          like: "%#{params[:q]}%",
+          similarity: params[:q]
+        )
+        .reorder(
+          Arel.sql(columns.map { |column| "similarity(#{column}, lower(unaccent(#{query})))" }.join(' + ') + ' DESC')
+        )
 
     ids = search.pluck("#{relation.table_name}_search.id")
 
