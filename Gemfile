@@ -64,7 +64,6 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 4.3.0'
   gem 'factory_bot', '~> 5.2.0'
   gem 'vcr'
-  gem 'prettier', '~> 3.2.2'
   gem 'prettier_print'
   gem 'syntax_tree'
   gem 'syntax_tree-haml'

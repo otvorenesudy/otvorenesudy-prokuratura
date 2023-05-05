@@ -7,8 +7,9 @@ module GenproGovSk
 
     def self.import(force: false)
       html =
-        Curl.get('https://www.genpro.gov.sk/prokuratura-sr/menny-zoznam-prokuratorov-slovenskej-republiky-3928.html')
-          .body_str
+        Curl.get(
+          'https://www.genpro.gov.sk/prokuratura-sr/menny-zoznam-prokuratorov-slovenskej-republiky-3928.html'
+        ).body_str
 
       path = Nokogiri.HTML(html).css('a').find { |e| e.text.ascii =~ /Menny zoznam prokuratorov SR/ }[:href]
       url = "https://www.genpro.gov.sk#{path}"
@@ -21,7 +22,8 @@ module GenproGovSk
     end
 
     def self.import_decrees
-      url = 'https://www.genpro.gov.sk/dokumenty/pravoplatne-uznesenia-prokuratora-ktorymi-sa-skoncilo-trestne-stihanie-vedene-proti-urcitej-2f09.html'
+      url =
+        'https://www.genpro.gov.sk/dokumenty/pravoplatne-uznesenia-prokuratora-ktorymi-sa-skoncilo-trestne-stihanie-vedene-proti-urcitej-2f09.html'
       html = Curl.get(url).body_str
       links = Nokogiri.HTML(html).css('a[href^="?date_to"]').map { |e| e[:href] }
 
@@ -31,9 +33,7 @@ module GenproGovSk
 
         decrees = DecreesParser.parse(html, url: url)
 
-        decrees.each do |decree|
-          GenproGovSk::ImportDecreeJob.perform_later(decree)
-        end
+        decrees.each { |decree| GenproGovSk::ImportDecreeJob.perform_later(decree) }
       end
     end
   end
