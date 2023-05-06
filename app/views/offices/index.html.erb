@@ -180,7 +180,7 @@
                   [
                     t('.prosecutors_count', count: office.prosecutors.count),
                     t('.employees_count', count: office.employees.active.count),
-                    t('terms.decrees_with_count', count: office.decrees_count),
+                    office.decrees_count.positive? ? t('terms.decrees_with_count', count: office.decrees_count) : nil,
                     office.articles.any? ? t('terms.news', count: office.articles.count) : nil
                   ].compact.to_sentence
                 %>.

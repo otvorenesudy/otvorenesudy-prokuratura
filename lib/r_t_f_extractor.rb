@@ -8,13 +8,10 @@ class RTFExtractor
 
         text = File.open("#{path}.txt", 'r').read
 
-        return text, File.read(path)
+        [text, File.read(path)]
       ensure
         FileUtils.rm("#{path}.txt") if File.exists?("#{path}.txt")
       end
     end
   end
 end
-
-
-

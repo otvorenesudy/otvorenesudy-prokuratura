@@ -11,9 +11,7 @@ module GenproGovSk
 
       raise ArgumentError.new("Unknown decree type: [${#{data[:type]}}]") unless text
 
-      decree = GenproGovSk::Decree.import_from(data: data.merge(text: text), file: file)
-      
-      ReconcileDecreeJob.perform_later(decree)
+      GenproGovSk::Decree.import_from(data: data.merge(text: text), file: file)
     end
   end
 end

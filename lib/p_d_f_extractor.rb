@@ -7,10 +7,7 @@ class PDFExtractor
       file = File.open(path, 'rb').read
       reader = PDF::Reader.new(path)
 
-      return reader.pages.map(&:text).join(' '), file
+      [reader.pages.map(&:text).join(' '), file]
     end
   end
 end
-
-
-

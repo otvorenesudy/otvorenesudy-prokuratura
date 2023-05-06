@@ -35,8 +35,8 @@ module GenproGovSk
 
         decree.lock!
         decree.update!(data.merge(genpro_gov_sk_decree: genpro_gov_sk_decree))
-        
-        return decree
+
+        ReconcileDecreeJob.perform_later(decree)
       end
     end
   end
