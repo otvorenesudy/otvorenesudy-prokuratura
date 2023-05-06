@@ -66,19 +66,19 @@ sk:
       few: "%{count} vedúdich zamestnancov"
       other: "%{count} vedúci zamestnanci"
 
-    prosecutor:
+    prosecutors:
       zero: prokurátor
       one: prokurátor
       few: prokurátori
       other: prokurátorov
 
-    prosecutor_with_count: &prosecutors_with_count
+    prosecutors_with_count: &prosecutors_with_count
       zero: žiadny prokurátor
       one: 1 prokurátor
       few: "%{count} prokurátori"
       other: "%{count} prokurátorov"
 
-    declaration:
+    declarations:
       zero: žiadne majetkové priznanie.
       one: 1 majetkové priznanie.
       few: "%{count} majetkové priznania"
@@ -91,6 +91,12 @@ sk:
       other: "%{count} zmienok v novinách"
 
     decrees:
+      zero: žiadne uznesenia
+      one: uznesenie
+      few: uznesenia
+      other: uznesení
+
+    decrees_with_count:
       zero: žiadne právoplatné uznesenia
       one: 1 právoplatné uznesenie
       few: "%{count} právoplatné uznesenia"
@@ -287,6 +293,9 @@ sk:
         prosecutors_count:
           not_found: Nenájdení žiadni prokurátori
           title: Počet prokurátorov
+        decrees_count:
+          title: Počet právoplatných uznesení
+          not_found: Nenájdené žiadne právoplatné uznesenia
         sort:
           default: Základné
           name: Podľa názvu
@@ -367,6 +376,9 @@ sk:
         type:
           not_found: Nenájdené žiadne typy
           title: Typ
+        decrees_count:
+          title: Počet právoplatných uznesení
+          not_found: Nenájdené žiadne právoplatné uznesenia
       title: Prokurátori
 
     show:
@@ -376,7 +388,7 @@ sk:
         title: "Majetkové priznanie za rok %{year}"
 
       decrees:
-        title: "Právoplatné rozhodnutia"
+        title: "Právoplatné uznesenia"
 
       media:
         title: Médiá

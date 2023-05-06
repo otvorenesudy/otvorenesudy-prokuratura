@@ -54,19 +54,19 @@ en:
       few: "%{count} leading employees"
       other: "%{count} leading employees"
 
-    prosecutor:
+    prosecutors:
       zero: prosecutor
       one: prosecutor
       few: prosecutors
       other: prosecutors
 
-    prosecutor_with_count: &prosecutors_with_count
+    prosecutors_with_count: &prosecutors_with_count
       zero: no prosecutor
       one: 1 prosecutor
       few: "%{count} prosecutors"
       other: "%{count} prosecutors"
 
-    declaration:
+    declarations:
       zero: no asset declarations.
       one: 1 asset declaration.
       few: '%{count} asset declarations'
@@ -79,6 +79,12 @@ en:
       other: '%{count} mentions in the media'
 
     decrees:
+      zero: no decrees
+      one: decree
+      few: decrees
+      other: decrees
+
+    decrees_with_count:
       zero: no decrees
       one: 1 decree
       few: '%{count} decrees'
@@ -349,6 +355,8 @@ en:
         type:
           not_found: No types found
           title: Type
+        decrees_count:
+          title: Amount of Decrees
       title: Prosecutors
 
     show:
@@ -375,6 +383,17 @@ en:
       incomes: Incomes and Other Benefits
       income_value: Income (in €)
       statements: Statements
+
+    decrees:
+      title: Decrees
+      office: Office
+      number: Number
+      effective_on: Effective On
+      published_on: Published On
+      file_number: File Number
+      resolution: Resolution
+      means_of_resolution: Means of Resolution
+      download: Download
 
   statistics:
     count:

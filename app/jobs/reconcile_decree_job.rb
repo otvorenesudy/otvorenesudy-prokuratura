@@ -9,7 +9,17 @@ class ReconcileDecreeJob < ApplicationJob
     preamble = decree.preamble
     signature = decree.signature
 
-    office = offices.find { |office| preamble.gsub(/Košice-okolie/i, 'Košice - okolie').match(/#{office.name}/i) }
+    office =
+      offices.find do |office|
+        preamble
+          .gsub(/Košice-okolie/i, 'Košice - okolie')
+          .gsub(/Krajskej prokuratúry/i, 'Krajská prokuratúra')
+          .gsub(
+            /Ú\s*r\s*a\s*d\s*š\s*p\s*e\s*c\s*i\s*á\s*l\s*n\s*e\s*j\s*p\s*r\s*o\s*k\s*u\s*r\s*a\s*t\s*ú\s*r\s*y/i,
+            'Úrad špeciálnej prokuratúry'
+          )
+          .match(/#{office.name}/i)
+      end
 
     decree.update(office: office)
     Office.reset_counters(office.id, :decrees) if office

@@ -18,8 +18,9 @@
   <%=
     [
       t('offices.index.prosecutors_count', count: @office.prosecutors.count),
-      t('offices.index.employees_count', count: @office.employees.active.count)
-    ].to_sentence
+      t('offices.index.employees_count', count: @office.employees.active.count),
+      @office.decrees_count.positive? ? t('terms.decrees_with_count', count: @office.decrees_count) : 0
+    ].compact.to_sentence
   %>.
 </p>
 

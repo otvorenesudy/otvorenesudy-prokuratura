@@ -115,20 +115,21 @@ module Offices
         if rest_cases_by_years.blank?
           nil
         else
-          rest_cases_by_years.each.with_object({}) do |(year, count), hash|
-            hash[year] = count / incoming_cases_by_years[year].to_f
-          end
+          rest_cases_by_years
+            .each
+            .with_object({}) { |(year, count), hash| hash[year] = count / incoming_cases_by_years[year].to_f }
         end
     end
 
     def to_indicators_chart_data
       years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
       key = ->(value) { "active_record.models.prosecutor.indicators.#{value}" }
-      mapper = lambda do |data|
-        break if data.blank?
+      mapper =
+        lambda do |data|
+          break if data.blank?
 
-        years.map { |year| data[year] }
-      end
+          years.map { |year| data[year] }
+        end
 
       data =
         [
@@ -347,26 +348,35 @@ module Offices
       end
 
       def compute_yearly_indicators_average_by_office_type(metric)
-        Office.all.group_by(&:type).each.with_object({}) do |(type, offices), hash|
-          values = offices.map(&metric).compact
+        Office
+          .all
+          .group_by(&:type)
+          .each
+          .with_object({}) do |(type, offices), hash|
+            values = offices.map(&metric).compact
 
-          next if values.blank? || type.in?(%w[general specialized])
+            next if values.blank? || type.in?(%w[general specialized])
 
-          hash[type] = values.sum / offices.size.to_f
-        end
+            hash[type] = values.sum / offices.size.to_f
+          end
       end
 
       def compute_indicators_average_by_years_by_office_type(metric)
-        Office.all.group_by(&:type).each.with_object({}) do |(type, offices), hash|
-          sums =
-            offices.map(&metric).each.with_object({}) do |values, result|
-              result.merge!(values || {}) { |_, a, b| a && b ? a + b : a || b }
-            end
+        Office
+          .all
+          .group_by(&:type)
+          .each
+          .with_object({}) do |(type, offices), hash|
+            sums =
+              offices
+                .map(&metric)
+                .each
+                .with_object({}) { |values, result| result.merge!(values || {}) { |_, a, b| a && b ? a + b : a || b } }
 
-          next if sums.blank? || type.in?(%w[general specialized])
+            next if sums.blank? || type.in?(%w[general specialized])
 
-          hash[type] = sums.each.with_object({}) { |(year, sum), result| result[year] = sum / offices.count.to_f }
-        end
+            hash[type] = sums.each.with_object({}) { |(year, sum), result| result[year] = sum / offices.count.to_f }
+          end
       end
     end
   end

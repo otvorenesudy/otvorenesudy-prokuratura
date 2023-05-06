@@ -10,6 +10,10 @@ class ProsecutorSearch
           type: TypeFilter,
           city: CityFilter,
           office: OfficeFilter,
+          decrees_count:
+            Search::DecreesCountFilter.new(
+              [1..10, 11..50, 51..100, 101..150, 151..200, 201..300, 301..Prosecutor.maximum(:decrees_count)]
+            ),
           sort: SortFilter,
           query: QueryFilter
         }

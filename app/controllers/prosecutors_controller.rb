@@ -33,20 +33,19 @@ class ProsecutorsController < ApplicationController
   def export
     csv =
       CSV.generate do |csv|
-        csv <<
-          [
-            'ID',
-            'Name',
-            'Current Office',
-            'Temporary Office',
-            'Declaration Year',
-            'Declaration Category',
-            'Description',
-            'Acquisition Date',
-            'Aquisition Reason',
-            'Price/Value',
-            'Procurement Price/Value'
-          ]
+        csv << [
+          'ID',
+          'Name',
+          'Current Office',
+          'Temporary Office',
+          'Declaration Year',
+          'Declaration Category',
+          'Description',
+          'Acquisition Date',
+          'Aquisition Reason',
+          'Price/Value',
+          'Procurement Price/Value'
+        ]
 
         Prosecutor.find_each.map do |prosecutor|
           attributes = [
@@ -59,25 +58,27 @@ class ProsecutorsController < ApplicationController
           prosecutor.declarations&.each do |declaration|
             declaration['lists'].each do |list|
               list['items'].each do |item|
-                csv <<
-                  [
-                    *attributes,
-                    declaration['year'],
-                    list['category'],
-                    *item.values_at(
-                      'description',
-                      'acquisition_date',
-                      'acquisition_reason',
-                      'price',
-                      'procurement_price'
-                    )
-                  ]
+                csv << [
+                  *attributes,
+                  declaration['year'],
+                  list['category'],
+                  *item.values_at('description', 'acquisition_date', 'acquisition_reason', 'price', 'procurement_price')
+                ]
               end
             end
 
             declaration['incomes']&.each do |income|
-              csv <<
-                [*attributes, declaration['year'], 'Príjmy', income['description'], nil, nil, nil, income['value'], nil]
+              csv << [
+                *attributes,
+                declaration['year'],
+                'Príjmy',
+                income['description'],
+                nil,
+                nil,
+                nil,
+                income['value'],
+                nil
+              ]
             end
 
             declaration['statements'].each do |statement|
@@ -95,7 +96,7 @@ class ProsecutorsController < ApplicationController
   helper_method :index_params
 
   def index_params
-    params.permit(:page, :sort, :order, :q, type: [], city: [], office: [])
+    params.permit(:page, :sort, :order, :q, type: [], city: [], office: [], decrees_count: [])
   end
 
   def suggest_params

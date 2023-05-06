@@ -116,13 +116,39 @@
                 <li class="facet-item">
                   <%= link_to offices_path(search_params(@search.params, prosecutors_count: key)), class: "facet-link#{' active' if search_param?(@search.params, :prosecutors_count, key)}" do %>
 
-                    <%= range_with_count(key, term_for_count: 'terms.prosecutor') %>
+                    <%= range_with_count(key, term_for_count: 'terms.prosecutors') %>
                     <span class="facet-tag"><%= number_with_delimiter(count) %></span>
                   <% end %>
                 </li>
               <% end.empty? %>
                 <li class="facet-item">
                   <span class="text-muted"><%= t '.search.prosecutors_count.not_found' %></span>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="facet">
+        <h6 class="facet-title" data-toggle="collapse" data-target="#office-decrees-count-content">
+          <%= t '.search.decrees_count.title' %>
+        </h6>
+
+        <div id="office-decrees-count-content" class="facet-content collapse show">
+          <div class="facet-results">
+            <ul class="facet-list">
+              <% if @search.facets_for(:decrees_count).each do |key, count| %>
+                <li class="facet-item">
+                  <%= link_to offices_path(search_params(@search.params, decrees_count: key)), class: "facet-link#{' active' if search_param?(@search.params, :decrees_count, key)}" do %>
+
+                    <%= range_with_count(key, term_for_count: 'terms.decrees') %>
+                    <span class="facet-tag"><%= number_with_delimiter(count) %></span>
+                  <% end %>
+                </li>
+              <% end.empty? %>
+                <li class="facet-item">
+                  <span class="text-muted"><%= t '.search.decrees_count.not_found' %></span>
                 </li>
               <% end %>
             </ul>
@@ -146,14 +172,15 @@
               <div class="search-result-content">
                 <% if office.attorney_general&.prosecutor  %>
                   <%= t ".list.prosecutor_subtitle.#{office.type}_html", link: link_to(office.attorney_general.prosecutor.name, prosecutor_path(office.attorney_general.prosecutor)) %>
-                <% end %>
-                <br>
+                   <br>
+                <% end %> 
 
                 <%= t '.register' %>
                 <%=
                   [
                     t('.prosecutors_count', count: office.prosecutors.count),
                     t('.employees_count', count: office.employees.active.count),
+                    t('terms.decrees_with_count', count: office.decrees_count),
                     office.articles.any? ? t('terms.news', count: office.articles.count) : nil
                   ].compact.to_sentence
                 %>.
