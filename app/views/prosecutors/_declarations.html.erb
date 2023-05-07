@@ -1,0 +1,17 @@
+<% if declarations.any? %>
+  <ul class="nav nav-tabs mt-2" role="tablist">
+    <% declarations.each.with_index do |declaration, i| %>
+      <%= tab_link_tag declaration[:year], "declaration-#{declaration[:year]}", tabindex: i, class: i == 0 ? 'active' : nil %>
+    <% end%>
+  </ul>
+
+  <div class="tab-content mb-5">
+    <% declarations.each.with_index do |declaration, i| %>
+      <%= render_tab partial: 'declaration', tab: "declaration-#{declaration[:year]}", locals: { declaration: declaration }, class: i == 0 ? 'active' : nil %>
+    <% end%>
+  </div>
+<% else %>
+  <p class="text-muted mt-4">
+    <%= t '.empty' %>
+  </p>
+<% end %>

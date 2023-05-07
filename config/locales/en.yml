@@ -69,14 +69,14 @@ en:
     declarations:
       zero: no asset declarations.
       one: 1 asset declaration.
-      few: '%{count} asset declarations'
-      other: '%{count} assets declarations'
+      few: "%{count} asset declarations"
+      other: "%{count} assets declarations"
 
     news:
       zero: no mentions in the media
       one: 1 mention in the media
-      few: '%{count} mentions in the media'
-      other: '%{count} mentions in the media'
+      few: "%{count} mentions in the media"
+      other: "%{count} mentions in the media"
 
     decrees:
       zero: no decrees
@@ -87,8 +87,8 @@ en:
     decrees_with_count:
       zero: no decrees
       one: 1 decree
-      few: '%{count} decrees'
-      other: '%{count} decrees'
+      few: "%{count} decrees"
+      other: "%{count} decrees"
 
   models:
     statistic:
@@ -290,18 +290,18 @@ en:
       contact: Contact
       employees: Leading Employees
       prosecutors: Prosecutors
-      average_convicted_people_yearly_html: 'We register %{count} convited people per year on avarage.'
-      average_incoming_cases_per_prosecutor_monthly_html: 'Average incoming cases for prosecutor is %{count} monthly every year.'
-      average_incoming_cases_per_prosecutor_yearly_html: 'Average incoming cases for prosecutor is %{count} yearly.'
-      average_filed_prosecutions_per_prosecutor_monthly_html: 'Average amount of filed prosecutions is %{count} monthly every year.'
-      average_filed_prosecutions_per_prosecutor_yearly_html: 'Average amount of filed prosecutions is %{count} yearly.'
-      average_data_disclaimer_title: 'Breakdown by Years for the Office'
+      average_convicted_people_yearly_html: "We register %{count} convited people per year on avarage."
+      average_incoming_cases_per_prosecutor_monthly_html: "Average incoming cases for prosecutor is %{count} monthly every year."
+      average_incoming_cases_per_prosecutor_yearly_html: "Average incoming cases for prosecutor is %{count} yearly."
+      average_filed_prosecutions_per_prosecutor_monthly_html: "Average amount of filed prosecutions is %{count} monthly every year."
+      average_filed_prosecutions_per_prosecutor_yearly_html: "Average amount of filed prosecutions is %{count} yearly."
+      average_data_disclaimer_title: "Breakdown by Years for the Office"
       indicators_comparison_by_office_type:
-        regional: 'Regional yearly average is %{count}.'
-        district: 'District yearly average is %{count}.'
+        regional: "Regional yearly average is %{count}."
+        district: "District yearly average is %{count}."
 
       media:
-        title: 'Media'
+        title: "Mentions in Media"
         disclaimer: "News articles above are automated search results from Google for Denník N, SME and Aktuality for the name of the prosecutors' office and therefore not all the results might be relevant."
         no_results: No relevant news articles found.
         more_from_google: More results from Google
@@ -325,7 +325,6 @@ en:
     appointment:
       fixed: Active prosecutor
       temporary: Temporarily appointed prosecutor
-      inactive: "Pravdepodobne už neaktívny prokurátor, neevidujeme žiadne aktuálne pridelenie na prokuratúru"
       inactive: Probably an inactive prosecutor
 
     index:
@@ -363,16 +362,19 @@ en:
       employee_html: We register the prosecutor as <em>%{position}</em> at the prosecutors' office %{link}.
 
       declarations:
-        title: 'Estate Declaration of %{year}'
+        title: Estate Declarations
 
       decrees:
-        title: 'Decrees'
+        title: "Decrees"
 
       media:
-        title: 'Media'
-        disclaimer: 'News articles above are automated search results from Google for Denník N, SME and Aktuality for the name of the prosecutor and therefore not all the results might be relevant.'
+        title: "Mentions in Media"
+        disclaimer: "News articles above are automated search results from Google for Denník N, SME and Aktuality for the name of the prosecutor and therefore not all the results might be relevant."
         no_results: No relevant news articles found.
         more_from_google: More results from Google
+
+    declarations:
+      empty: No estate declarations found.
 
     declaration:
       name: Name/Description
@@ -399,8 +401,8 @@ en:
     count:
       zero: 0 statistics
       one: 1 statistic
-      few: '%{count} statistics'
-      other: '%{count} statistics'
+      few: "%{count} statistics"
+      other: "%{count} statistics"
 
     export:
       open_in_application: Open in the application Otvorená Prokuratúra
@@ -408,9 +410,9 @@ en:
     index:
       title: Crime Stats
       subtitle: "Metric – %{metric}"
-      subtitle_with_paragraphs: 'Metric – %{metric} – by paragraphs %{paragraphs}'
+      subtitle_with_paragraphs: "Metric – %{metric} – by paragraphs %{paragraphs}"
       subtitle_for_default_params: Overview by corruption prosecution
-      subtitle_for_default_params_with_paragraphs: 'Overview by corruption prosecution %{paragraphs}'
+      subtitle_for_default_params_with_paragraphs: "Overview by corruption prosecution %{paragraphs}"
       show_paragraphs: Show Paragraphs
       enlarge_chart: Enlarge
       shrink_chart: Shrink
