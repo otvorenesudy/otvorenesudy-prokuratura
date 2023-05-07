@@ -1,0 +1,7 @@
+---
+:concurrency: 1
+production:
+  :concurrency: 1
+:queues:
+  - otvorenesudy_prokuratura_development_genpro_gov_sk_rtf_decrees
+  - otvorenesudy_prokuratura_production_genpro_gov_sk_rtf_decrees

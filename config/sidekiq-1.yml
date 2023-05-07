@@ -5,3 +5,5 @@ production:
 :queues:
   - otvorenesudy_prokuratura_development_default
   - otvorenesudy_prokuratura_production_default
+  - otvorenesudy_prokuratura_development_genpro_gov_sk_pdf_decrees
+  - otvorenesudy_prokuratura_production_genpro_gov_sk_pdf_decrees

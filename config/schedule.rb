@@ -33,8 +33,12 @@ end
 #   runner 'ExceptionHandler.run { GenproGovSk::Criminality.import }'
 # end
 
-every :day, at: '3:15am' do
+every :day, at: '2:30am' do
   runner 'ExceptionHandler.run { GenproGovSk::Declarations.import }'
+end
+
+every :day, at: '3:15am' do
+  runner 'ExceptionHandler.run { GenproGovSk::Decrees.import }'
 end
 
 every :day, at: '4:15am' do

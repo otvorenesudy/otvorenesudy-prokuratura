@@ -17,7 +17,12 @@ module GenproGovSk
 
         decrees = Parser.parse(html, url: url)
 
-        decrees.each { |decree| GenproGovSk::ImportDecreeJob.perform_later(decree) }
+        decrees.each do |decree|
+          next GenproGovSk::ImportPdfDecreeJob.perform_later(decree) if decree[:file_type] === 'pdf'
+          next GenproGovSk::ImportRtfDecreeJob.perform_later(decree) if decree[:file_type] === 'rtf'
+
+          raise ArgumentError.new("Unknown decree type: [${#{data[:type]}}]")
+        end
       end
     end
   end

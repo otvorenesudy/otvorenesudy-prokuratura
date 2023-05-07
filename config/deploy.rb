@@ -5,7 +5,7 @@ set :application, 'otvorenesudy-prokuratura'
 set :repo_url, 'git@github.com:otvorenesudy/otvorenesudy-prokuratura.git'
 
 # Sidekiq
-set :sidekiq_processes, 1
+set :sidekiq_config_files, %w[sidekiq-1.yml sidekiq-2.yml]
 
 # Rbenv
 set :rbenv_type, :user

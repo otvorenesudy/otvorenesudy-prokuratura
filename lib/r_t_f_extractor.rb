@@ -1,17 +1,12 @@
 require 'file_downloader'
+require 'unoconv'
 
 class RTFExtractor
   def self.extract_text_from_url(url)
     FileDownloader.download(url, directory: '/tmp') do |path|
-      begin
-        `unoconv -f text "#{path}"`
+      text = Unoconv.convert(path)
 
-        text = File.open("#{path}.txt", 'r').read
-
-        [text, File.read(path)]
-      ensure
-        FileUtils.rm("#{path}.txt") if File.exists?("#{path}.txt")
-      end
+      [text, File.read(path)]
     end
   end
 end
