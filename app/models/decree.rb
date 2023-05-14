@@ -53,12 +53,12 @@ class Decree < ApplicationRecord
   validates :file_number, presence: true
   validates :resolution, presence: true
 
-  def normalized_text
-    text.gsub(/[[:space:]]+/, ' ').strip
-  end
-
   def formatted_text
     text.gsub(/(?>\r\n|\n|\f|\r|\u2028|\u2029)/, "\n")
+  end
+
+  def normalized_text
+    formatted_text.gsub(/[[:space:]]+/, ' ').strip
   end
 
   def preamble
