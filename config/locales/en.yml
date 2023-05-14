@@ -306,6 +306,23 @@ en:
         no_results: No relevant news articles found.
         more_from_google: More results from Google
 
+    decrees:
+      title: Decrees
+      table_title: List of Decrees
+      prosecutor: Prosecutor
+      number: Number
+      effective_on: Effective On
+      published_on: Published On
+      file_number: File Number
+      resolution: Resolution
+      means_of_resolution: Means of Resolution
+      published: "Published: %{date}"
+      paragraph: Paragraph
+      download: Download
+      search:
+        placeholder: Search in Decrees
+        no_results: No decrees found
+
     prosecutors:
       activity: Activity
       activity_help: Activity at the Prosecutors' Office
@@ -388,6 +405,7 @@ en:
 
     decrees:
       title: Decrees
+      table_title: List of Decrees
       office: Office
       number: Number
       effective_on: Effective On
@@ -395,7 +413,12 @@ en:
       file_number: File Number
       resolution: Resolution
       means_of_resolution: Means of Resolution
+      published: "Published: %{date}"
+      paragraph: Paragraph
       download: Download
+      search:
+        placeholder: Search in Decrees
+        no_results: No decrees found
 
   statistics:
     count:

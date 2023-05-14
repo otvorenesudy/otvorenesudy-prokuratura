@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_05_075916) do
+ActiveRecord::Schema.define(version: 2023_05_11_210024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 2023_05_05_075916) do
     t.text "text", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "paragraph_id"
+    t.string "paragraph_section"
     t.index ["effective_on"], name: "index_decrees_on_effective_on"
     t.index ["genpro_gov_sk_decree_id"], name: "index_decrees_on_genpro_gov_sk_decree_id"
     t.index ["office_id"], name: "index_decrees_on_office_id"

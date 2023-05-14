@@ -9,6 +9,7 @@
 #  file_type               :integer          not null
 #  means_of_resolution     :string
 #  number                  :string           not null
+#  paragraph_section       :string
 #  published_on            :date             not null
 #  resolution              :string           not null
 #  text                    :text             not null
@@ -17,6 +18,7 @@
 #  updated_at              :datetime         not null
 #  genpro_gov_sk_decree_id :bigint           not null
 #  office_id               :bigint
+#  paragraph_id            :bigint
 #  prosecutor_id           :bigint
 #
 # Indexes
@@ -38,6 +40,7 @@ class Decree < ApplicationRecord
   belongs_to :prosecutor, optional: true, counter_cache: true
   belongs_to :office, optional: true, counter_cache: true
   belongs_to :genpro_gov_sk_decree, class_name: :'GenproGovSk::Decree', required: true
+  belongs_to :paragraph, optional: true
 
   enum file_type: { pdf: 0, rtf: 1 }
 
@@ -51,7 +54,11 @@ class Decree < ApplicationRecord
   validates :resolution, presence: true
 
   def normalized_text
-    text.gsub(/[[:space:]]/, ' ').squeeze(' ').strip
+    text.gsub(/[[:space:]]+/, ' ').strip
+  end
+
+  def formatted_text
+    text.gsub(/(?>\r\n|\n|\f|\r|\u2028|\u2029)/, "\n")
   end
 
   def preamble

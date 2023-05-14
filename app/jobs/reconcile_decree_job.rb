@@ -5,9 +5,16 @@ class ReconcileDecreeJob < ApplicationJob
   queue_as :default
 
   def perform(decree)
+    office = reconcile_office(decree)
+    reconcile_prosecutor(decree, office)
+    reconcile_paragraph(decree)
+  end
+
+  private
+
+  def reconcile_office(decree)
     offices = Office.all
     preamble = decree.preamble
-    signature = decree.signature
 
     office =
       offices.find do |office|
@@ -23,6 +30,12 @@ class ReconcileDecreeJob < ApplicationJob
 
     decree.update(office: office)
     Office.reset_counters(office.id, :decrees) if office
+
+    office
+  end
+
+  def reconcile_prosecutor(decree, office)
+    signature = decree.signature
 
     prosecutors =
       [
@@ -40,5 +53,21 @@ class ReconcileDecreeJob < ApplicationJob
 
       Prosecutor.reset_counters(prosecutor[0], :decrees)
     end
+  end
+
+  def reconcile_paragraph(decree)
+    matches = decree.normalized_text.match(/(Trestný čin|Prečin|Zločin):.+?(§\s+?\d+)(.{0,200})/i)
+
+    return unless matches && matches[2]
+
+    after_paragraph = matches[3]
+
+    _, _, paragraph_section = *after_paragraph.match(/((.+?)Trestného zákona)?/i)
+    paragraph_type = after_paragraph.match(/1961/) ? 'old' : 'new'
+    paragraph = Paragraph.find_by(type: paragraph_type, value: "#{matches[2]} [#{paragraph_type}]")
+
+    return unless paragraph
+
+    decree.update(paragraph_id: paragraph.id, paragraph_section: paragraph_section&.strip)
   end
 end

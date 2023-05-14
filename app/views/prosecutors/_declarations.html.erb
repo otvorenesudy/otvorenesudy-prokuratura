@@ -1,4 +1,4 @@
-<% if declarations.any? %>
+<% if declarations && declarations.any? %>
   <ul class="nav nav-tabs mt-2" role="tablist">
     <% declarations.each.with_index do |declaration, i| %>
       <%= tab_link_tag declaration[:year], "declaration-#{declaration[:year]}", tabindex: i, class: i == 0 ? 'active' : nil %>

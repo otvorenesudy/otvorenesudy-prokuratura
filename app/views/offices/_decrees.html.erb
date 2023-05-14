@@ -1,7 +1,7 @@
 <div class="table-responsive-md mt-2" data-controller="table">
   <div class="row mt-3 mb-4 search-query">
     <div class="col-lg-6 pt-1">
-      <h4><%= t('.table_title') %> <small class="text-muted">(<span class="search-query-count"><%= decrees.size %></span>)</small></h4>
+      <h4><%= t('.table_title') %> <small class="text-muted">(<span class="search-query-count"><%= @office.decrees.count %></span>)</small></h4>
     </div>
     <div class="col-lg-6">
       <div class="input-group input-group-sm">
@@ -14,11 +14,10 @@
     </div>
   </div>
 
-
   <%= table_tag class: 'table', 'data-sortlist': '[[2, 1]]' do %>
     <thead>
       <tr>
-        <%= table_header_tag t('.office'), class: 'text-left', sorter: 'text' %>
+        <%= table_header_tag t('.prosecutor'), class: 'text-left', sorter: 'text' %>
         <%= table_header_tag t('.number'), class: 'text-left', sorter: 'text' %>
         <%= table_header_tag t('.effective_on'), class: 'text-left', sorter: 'date' %>
         <%= table_header_tag t('.file_number'), class: 'text-left', sorter: 'text' %>
@@ -28,9 +27,9 @@
       </tr>
     </thead>
     <tbody>
-      <% decrees.includes(:office, :paragraph).order(effective_on: :asc).each do |decree| %>
+      <% @office.decrees.includes(:prosecutor, :paragraph).order(effective_on: :asc).each do |decree| %>
         <tr>
-          <td data-search-value="<%= decree.office&.name %>"><%= decree.office ? link_to(decree.office.name, office_path(decree.office)) : '&ndash;' %></td>
+          <td data-search-value="<%= decree.prosecutor&.name %>"><%= decree.prosecutor ? link_to(decree.prosecutor.name, prosecutor_path(decree.prosecutor)) : '&ndash;' %></td>
           <td><%= link_to decree.number, decree.url, target: '_blank' %></td>
           <td data-value="<%= decree.effective_on %>"><%= tooltip_tag(l(decree.effective_on), t('.published', date: l(decree.published_on))) %></td>
           <td><%= decree.file_number %></td>

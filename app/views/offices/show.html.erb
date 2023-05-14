@@ -95,6 +95,7 @@
   <%= tab_link_tag t('.contact'), 'contact', class: 'active', tabindex: -1 %>
   <%= tab_link_tag t('.prosecutors'), 'prosecutors' %>
   <%= tab_link_tag t('.employees'), 'employees' %>
+  <%= tab_link_tag t('offices.decrees.title'), 'decrees' %>
   <%= tab_link_tag t('.media.title'), 'media' %>
 </ul>
 
@@ -102,5 +103,6 @@
   <%= render_tab partial: 'contact', class: 'active' %>
   <%= render_tab partial: 'prosecutors' %>
   <%= render_tab partial: 'employees' %>
+  <%= render_tab partial: 'decrees' %>
   <%= render_tab partial: 'media' %>
 </div>

@@ -328,6 +328,23 @@ sk:
         no_results: Nenájdené žiadne relevantné články v médiách.
         more_from_google: Viac výsledkov z Google
 
+    decrees:
+      title: Právoplatné rozhodnutia
+      table_title: Zoznam právoplatných rozhodnutí
+      prosecutor: Prokurátor
+      number: Poradové číslo
+      effective_on: Právoplatnosť
+      published_on: Zverejnenie
+      file_number: Spisová značka
+      resolution: Uznesenie
+      means_of_resolution: Spôsob rozhodnutia
+      published: "Zverejnené: %{date}"
+      paragraph: Paragraf
+      download: Stiahnuť
+      search:
+        placeholder: "Vyhladať v tabuľke"
+        no_results: Nenájdené žiadne právoplatné uznesenia
+
     prosecutors:
       activity: Aktivita
       activity_help: Aktivita na prokuratúre
@@ -411,6 +428,7 @@ sk:
 
     decrees:
       title: Právoplatné rozhodnutia
+      table_title: Zoznam právoplatných rozhodnutí
       office: Prokuratúra
       number: Poradové číslo
       effective_on: Právoplatnosť
@@ -418,7 +436,12 @@ sk:
       file_number: Spisová značka
       resolution: Uznesenie
       means_of_resolution: Spôsob rozhodnutia
+      published: "Zverejnené: %{date}"
+      paragraph: Paragraf
       download: Stiahnuť
+      search:
+        placeholder: "Vyhladať v tabuľke"
+        no_results: Nenájdené žiadne právoplatné uznesenia
 
   decrees:
     download: Stiahnuť %{file_info}

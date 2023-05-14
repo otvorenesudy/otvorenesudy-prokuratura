@@ -109,7 +109,9 @@
   a {
     color: $gray !important;
 
-    &:hover, &:active, .active {
+    &:hover,
+    &:active,
+    .active {
       color: $gray !important;
     }
   }
@@ -124,7 +126,8 @@
   border-bottom: $input-focus-width solid $input-border-color;
   padding: $input-padding-x;
 
-  &:focus, &:active {
+  &:focus,
+  &:active {
     box-shadow: none;
     border-bottom-color: $input-focus-border-color;
   }
@@ -133,7 +136,7 @@
 .search-query-submit {
   background: $input-bg;
   position: absolute !important;
-  z-index: 910 !important;;
+  z-index: 910 !important;
   right: 0;
 
   border: 0;
@@ -147,7 +150,12 @@
 }
 
 .search-query-reset {
-  display: none;
+  border: 0;
+  padding: $input-padding-x;
+  background: $input-bg;
+  position: absolute !important;
+  z-index: 911 !important;
+  right: 0;
 }
 
 .search-result-list {
@@ -197,9 +205,9 @@
   text-align: justify;
 
   em {
-    background: rgba($yellow, .25);
+    background: rgba($yellow, 0.25);
     font-style: normal;
-    padding: 0 .25rem;
+    padding: 0 0.25rem;
   }
 }
 
