@@ -71,10 +71,7 @@ export default class extends Controller {
 
   searchTable(query) {
     if (query.length === 0) {
-      $(this.element)
-        .find("table tr")
-        .map((_, row) => $(row).show());
-
+      $(this.element).find("table tr").show();
       $(this.element).find(".search-query-reset").hide();
     } else {
       $(this.element).find(".search-query-reset").show();

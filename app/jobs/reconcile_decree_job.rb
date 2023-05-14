@@ -62,7 +62,7 @@ class ReconcileDecreeJob < ApplicationJob
 
     after_paragraph = matches[3]
 
-    _, _, paragraph_section = *after_paragraph.match(/((.+?)Trestného zákona)?/i)
+    _, _, paragraph_section = *after_paragraph.match(/((.+?)(Trestného zákona|Tr. zák))?/i)
     paragraph_type = after_paragraph.match(/1961/) ? 'old' : 'new'
     paragraph = Paragraph.find_by(type: paragraph_type, value: "#{matches[2]} [#{paragraph_type}]")
 

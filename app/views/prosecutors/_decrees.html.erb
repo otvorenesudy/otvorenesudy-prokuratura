@@ -34,7 +34,7 @@
           <td><%= link_to decree.number, decree.url, target: '_blank' %></td>
           <td data-value="<%= decree.effective_on %>"><%= tooltip_tag(l(decree.effective_on), t('.published', date: l(decree.published_on))) %></td>
           <td><%= decree.file_number %></td>
-          <td data-search-value="<%= decree.paragraph&.name %>"><%= decree.paragraph ? tooltip_tag(trim(decree.paragraph.name, length: 25), decree.paragraph_section) : '&ndash;'.html_safe %></td>
+          <td data-search-value="<%= decree.paragraph&.name %>"><%= decree.paragraph ? tooltip_tag(decree.paragraph.name, decree.paragraph_section) : '&ndash;'.html_safe %></td>
           <td data-search-value="<%= decree.resolution %>"><%= decree.resolution %></td>
           <td data-search-value="<%= decree.means_of_resolution %>"><%= decree.means_of_resolution %></td>
         </tr>
