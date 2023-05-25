@@ -11,6 +11,7 @@ class OfficeSearch
           type: TypeFilter,
           city: CityFilter,
           prosecutors_count: ProsecutorsCountFilter,
+          paragraph: Search::ParagraphFilter.new(Office),
           decrees_count:
             Search::DecreesCountFilter.new(
               [1..50, 51..200, 201..500, 501..1000, 1001..1500, 1501..2000, 2001..Office.maximum(:decrees_count)]

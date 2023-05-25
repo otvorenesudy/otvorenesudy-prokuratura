@@ -305,6 +305,15 @@ sk:
         type:
           not_found: Nenájdené žiadne typy
           title: Typ
+        paragraph:
+          title: Podľa paragrafov
+          placeholder: Názov paragrafu
+          not_found: Neboli nájdené žiadne paragrafy
+          disclaimer: Scollujte pre zobrazenie ďalších paragrafov. Filter vyhľadáva prokuratúry, kde bolo vydané jedno alebo viac uznesení podľa daného paragrafu.
+          old:
+            title: Podľa trestného zákonníka platného do roku 2005
+            badge: "TZ '61"
+
       title: Prokuratúry
 
     show:
@@ -396,6 +405,15 @@ sk:
         decrees_count:
           title: Počet právoplatných uznesení
           not_found: Nenájdené žiadne právoplatné uznesenia
+        paragraph:
+          title: Podľa paragrafov
+          placeholder: Názov paragrafu
+          not_found: Neboli nájdené žiadne paragrafy
+          disclaimer: Scollujte pre zobrazenie ďalších paragrafov. Filter vyhľadáva prokurátorov, ktorí vydali jedno alebo viac uznesení podľa daného paragrafu.
+          old:
+            title: Podľa trestného zákonníka platného do roku 2005
+            badge: "TZ '61"
+
       title: Prokurátori
 
     show:

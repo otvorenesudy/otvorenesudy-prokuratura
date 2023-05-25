@@ -17,7 +17,7 @@
 
           <div id="statistic-paragraph-content" class="facet-content collapse show">
             <div class="facet-results">
-              <input value="<%= params[:paragraph_suggest] %>" class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
+              <input value="<%= params[:paragraph_suggest] %>" class="facet-suggest ui-autocomplete-input" name="paragraph" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
 
               <% if (facets = @search.facets_for(:paragraph, selected_first: true)).any? %>
                 <ul class="facet-list">

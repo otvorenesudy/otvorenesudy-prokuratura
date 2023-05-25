@@ -89,9 +89,11 @@ class StatisticSearch
 
         years = all.keys
         groupped =
-          all.each.with_object({}) do |(year, count), hash|
-            hash[office_aggregate_key] = (hash[office_aggregate_key] || {}).merge(year => count)
-          end
+          all
+            .each
+            .with_object({}) do |(year, count), hash|
+              hash[office_aggregate_key] = (hash[office_aggregate_key] || {}).merge(year => count)
+            end
 
         by_office = data_by(years, aggregate: :office)
 
@@ -212,9 +214,13 @@ class StatisticSearch
     end
 
     def self.facets(relation, suggest:)
-      relation.joins(:office).reorder('offices.type' => :asc).group('offices.type').count.each.with_object(
-        {}
-      ) { |(value, count), hash| hash[Office.types.key(value)] = count }
+      relation
+        .joins(:office)
+        .reorder('offices.type' => :asc)
+        .group('offices.type')
+        .count
+        .each
+        .with_object({}) { |(value, count), hash| hash[Office.types.key(value)] = count }
     end
   end
 
@@ -255,13 +261,20 @@ class StatisticSearch
         ].map { |value| ActiveRecord::Base.connection.quote(value) }
 
       scope =
-        Paragraph.all.order("array_position(ARRAY[#{highlights.join(',')}] :: text[], value :: text) ASC NULLS LAST")
+        Paragraph
+          .all
+          .order("array_position(ARRAY[#{highlights.join(',')}] :: text[], value :: text) ASC NULLS LAST")
           .order(name: :asc)
+
       paragraphs = ::QueryFilter.filter(scope, { q: suggest }, columns: %i[name]).pluck(:value)
 
-      relation.where(paragraph: paragraphs).group(:paragraph).count.map do |value, count|
-        [value, count]
-      end.sort_by { |(name, _)| paragraphs.index(name) }.to_h
+      relation
+        .where(paragraph: paragraphs)
+        .group(:paragraph)
+        .count
+        .map { |value, count| [value, count] }
+        .sort_by { |(name, _)| paragraphs.index(name) }
+        .to_h
     end
   end
 end

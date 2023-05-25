@@ -11,7 +11,7 @@ class OfficesController < ApplicationController
   end
 
   def suggest
-    return head 404 unless suggest_params[:facet].in?(%w[city])
+    return head 404 unless suggest_params[:facet].in?(%w[city paragraph])
 
     @search = OfficeSearch.new(index_params)
 
@@ -34,7 +34,7 @@ class OfficesController < ApplicationController
   helper_method :index_params
 
   def index_params
-    params.permit(:page, :sort, :order, :q, type: [], city: [], prosecutors_count: [], decrees_count: [])
+    params.permit(:page, :sort, :order, :q, type: [], city: [], prosecutors_count: [], decrees_count: [], paragraph: [])
   end
 
   def suggest_params

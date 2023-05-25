@@ -77,7 +77,11 @@ class StatisticsController < ApplicationController
       :comparison,
       :paragraph_suggest,
       :show_default_paragraphs,
-      year: [], office: [], metric: [], office_type: [], paragraph: []
+      year: [],
+      office: [],
+      metric: [],
+      office_type: [],
+      paragraph: []
     )
   end
 

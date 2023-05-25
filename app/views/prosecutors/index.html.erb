@@ -141,6 +141,22 @@
           </div>
         </div>
       </div>
+
+      <div class="facet" data-controller="suggest" data-url="<%= suggest_prosecutors_path(@search.params.merge(facet: :paragraph)) %>">
+        <h6 class="facet-title" data-toggle="collapse" data-target="#prosecutor-paragraph-content">
+          <%= t ".search.paragraph.title" %>
+        </h6>
+
+        <div id="prosecutor-paragraph-content" class="facet-content collapse show">
+          <div class="facet-results">
+            <input class="facet-suggest ui-autocomplete-input" name="paragraph" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
+
+            <%= render "paragraph_results", values: @search.facets_for(:paragraph, selected_first: true), params: @search.params %>
+
+            <small class="text-muted mt-2"><%= t '.search.paragraph.disclaimer' %></small>
+          </div>
+        </div>
+      </div>
     </div>
 
     <% time = Benchmark.realtime do %>
