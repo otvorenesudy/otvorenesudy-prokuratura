@@ -317,6 +317,7 @@ en:
     decrees:
       title: Decrees
       table_title: List of Decrees
+      filtered_by: Filtered by
       prosecutor: Prosecutor
       number: Number
       effective_on: Effective On
@@ -422,6 +423,7 @@ en:
     decrees:
       title: Decrees
       table_title: List of Decrees
+      filtered_by: Filtered by
       office: Office
       number: Number
       effective_on: Effective On

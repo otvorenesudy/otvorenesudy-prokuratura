@@ -92,17 +92,17 @@
 <% end %>
 
 <ul class="nav nav-tabs mt-4" role="tablist">
-  <%= tab_link_tag t('.contact'), 'contact', class: 'active', tabindex: -1 %>
+  <%= tab_link_tag t('.contact'), 'contact', class: @paragraphs.present? || @tab == 'decrees' ? '' : 'active' %>
   <%= tab_link_tag t('.prosecutors'), 'prosecutors' %>
   <%= tab_link_tag t('.employees'), 'employees' %>
-  <%= tab_link_tag t('offices.decrees.title'), 'decrees' %>
+  <%= tab_link_tag t('offices.decrees.title'), 'decrees', class: @paragraphs.present? || @tab == 'decrees' ? 'active' : '' %>
   <%= tab_link_tag t('.media.title'), 'media' %>
 </ul>
 
 <div class="tab-content">
-  <%= render_tab partial: 'contact', class: 'active' %>
+  <%= render_tab partial: 'contact', class: @paragraphs.present? || @tab == 'decrees' ? '' : 'active' %>
   <%= render_tab partial: 'prosecutors' %>
   <%= render_tab partial: 'employees' %>
-  <%= render_tab partial: 'decrees' %>
+  <%= render_tab partial: 'decrees', class: @paragraphs.present? || @tab == 'decrees' ? 'active' : '' %>
   <%= render_tab partial: 'media' %>
 </div>

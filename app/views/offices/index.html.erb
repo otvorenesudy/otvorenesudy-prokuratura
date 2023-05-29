@@ -181,7 +181,7 @@
           <% if @search.paginated.each do |office| %>
             <li class="search-result-item">
               <h4 class="search-result-title">
-                <%= link_to office.name, office_path(office) %>
+                <%= link_to office.name, office_path(office, tab: index_params[:paragraph].present? ? 'decrees' : nil, paragraph: index_params[:paragraph]) %>
                 <small>
                   <%= office.full_address %>
                 </small>

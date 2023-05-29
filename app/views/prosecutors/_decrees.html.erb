@@ -1,7 +1,20 @@
 <div class="table-responsive-md mt-2" data-controller="table">
   <div class="row mt-3 mb-3 search-query">
     <div class="col-lg-6 pt-1">
-      <h4><%= t('.table_title') %> <small class="text-muted">(<span class="search-query-count"><%= decrees.size %></span>)</small></h4>
+      <h4>
+        <%= t('.table_title') %> <small class="text-muted">(<span class="search-query-count"><%= @decrees.size %></span>)</small>
+      </h4>
+
+      <% if @paragraphs.present? %>
+        <h4>
+          <small class="text-muted">
+            <%= t '.filtered_by' %> <%= @paragraphs.map(&:name).to_sentence %>
+
+            <%= link_to '&times;'.html_safe, prosecutor_path(params[:id], tab: 'decrees'), class: 'cancel' %>
+          </small>
+        </h4>
+      <% end %> 
+      
     </div>
     <div class="col-lg-6">
       <div class="input-group input-group-sm">
@@ -28,7 +41,7 @@
       </tr>
     </thead>
     <tbody>
-      <% decrees.includes(:office, :paragraph).order(effective_on: :asc).each do |decree| %>
+      <% @decrees.includes(:office, :paragraph).order(effective_on: :asc).each do |decree| %>
         <tr>
           <td data-search-value="<%= decree.office&.name %>"><%= decree.office ? link_to(decree.office.name, office_path(decree.office)) : '&ndash;' %></td>
           <td><%= link_to decree.number, decree.url, target: '_blank' %></td>

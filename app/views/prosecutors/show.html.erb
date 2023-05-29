@@ -40,20 +40,20 @@
 </div>
 
 <ul class="nav nav-tabs mt-4" role="tablist">
-  <%= tab_link_tag t('.declarations.title'), 'declarations', class: 'active', tabindex: 0 %>
+  <%= tab_link_tag t('.declarations.title'), 'declarations', class: @paragraphs.present? || @tab == 'decrees' ? '' : 'active' %>
 
   <% if @prosecutor.decrees.any? %>
-    <%= tab_link_tag t('.decrees.title'), 'decrees', tabindex: nil %>
+    <%= tab_link_tag t('.decrees.title'), 'decrees', class: @paragraphs.present? || @tab == 'decrees' ? 'active' : '' %>
   <% end %>
 
-  <%= tab_link_tag t('.media.title'), 'media', tabindex: nil %>
+  <%= tab_link_tag t('.media.title'), 'media' %>
 </ul>
 
 <div class="tab-content mb-5">
-  <%= render_tab partial: 'declarations', tab: 'declarations', locals: { declarations: @declarations }, class: 'active' %>
+  <%= render_tab partial: 'declarations', tab: 'declarations', locals: { declarations: @declarations }, class: @paragraphs.present? || @tab == 'decrees' ? '' : 'active' %>
 
   <% if @prosecutor.decrees.any?  %>
-    <%= render_tab partial: 'decrees', locals: { decrees: @prosecutor.decrees }, tab: 'decrees' %>
+    <%= render_tab partial: 'decrees', tab: 'decrees', class: @paragraphs.present? || @tab == 'decrees' ? 'active' : '' %>
   <% end %>
   
   <%= render_tab partial: 'media', tab: 'media' %>

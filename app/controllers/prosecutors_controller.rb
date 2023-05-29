@@ -7,7 +7,10 @@ class ProsecutorsController < ApplicationController
 
   def show
     @prosecutor = Prosecutor.find(params[:id])
-
+    @tab = show_params[:tab]
+    @paragraphs = Paragraph.where(value: show_params[:paragraph]) if params[:paragraph].present?
+    @decrees = @prosecutor.decrees
+    @decrees = @decrees.where(paragraph: @paragraphs) if @paragraphs.present?
     @declarations = @prosecutor.declarations.reverse.map!(&:deep_symbolize_keys) if @prosecutor.declarations
   end
 
@@ -93,10 +96,14 @@ class ProsecutorsController < ApplicationController
 
   private
 
-  helper_method :index_params
+  helper_method :index_params, :show_params
 
   def index_params
     params.permit(:page, :sort, :order, :q, type: [], city: [], office: [], decrees_count: [], paragraph: [])
+  end
+
+  def show_params
+    params.permit(:tab, paragraph: [])
   end
 
   def suggest_params

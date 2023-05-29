@@ -340,6 +340,7 @@ sk:
     decrees:
       title: Právoplatné rozhodnutia
       table_title: Zoznam právoplatných rozhodnutí
+      filtered_by: Filtrované podľa
       prosecutor: Prokurátor
       number: Poradové číslo
       effective_on: Právoplatné
@@ -447,6 +448,7 @@ sk:
     decrees:
       title: Právoplatné rozhodnutia
       table_title: Zoznam právoplatných rozhodnutí
+      filtered_by: Filtrované podľa
       office: Prokuratúra
       number: Poradové číslo
       effective_on: Právoplatnosť

@@ -165,7 +165,7 @@
           <% if @search.paginated.each do |prosecutor| %>
             <li class="search-result-item">
               <h4 class="search-result-title">
-                <%= link_to prosecutor.name, prosecutor_path(prosecutor) %>
+                <%= link_to prosecutor.name, prosecutor_path(prosecutor, tab: index_params[:paragraph].present? ? 'decrees' : nil, paragraph: index_params[:paragraph]) %>
 
                 <% if prosecutor.appointments.current.any? %>
                   <%= prosecutor_activity_icon_tag 'fixed', size: 20, placement: 'right' %>

@@ -7,6 +7,10 @@ class OfficesController < ApplicationController
 
   def show
     @office = Office.active.find(params[:id])
+    @tab = show_params[:tab]
+    @paragraphs = Paragraph.where(value: show_params[:paragraph]) if params[:paragraph].present?
+    @decrees = @office.decrees
+    @decrees = @decrees.where(paragraph: @paragraphs) if @paragraphs.present?
     @registry = @office.registry.deep_symbolize_keys
   end
 
@@ -31,10 +35,14 @@ class OfficesController < ApplicationController
 
   private
 
-  helper_method :index_params
+  helper_method :index_params, :show_params
 
   def index_params
     params.permit(:page, :sort, :order, :q, type: [], city: [], prosecutors_count: [], decrees_count: [], paragraph: [])
+  end
+
+  def show_params
+    params.permit(:tab, paragraph: [])
   end
 
   def suggest_params

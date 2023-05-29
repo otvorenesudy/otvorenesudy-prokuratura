@@ -2,6 +2,16 @@
   <div class="row mt-3 mb-3 search-query">
     <div class="col-lg-6 pt-1">
       <h4><%= t('.table_title') %> <small class="text-muted">(<span class="search-query-count"><%= @office.decrees.count %></span>)</small></h4>
+
+      <% if @paragraphs.present? %>
+        <h4>
+          <small class="text-muted">
+            <%= t '.filtered_by' %> <%= @paragraphs.map(&:name).to_sentence %>
+
+            <%= link_to '&times;'.html_safe, office_path(params[:id], tab: 'decrees'), class: 'cancel' %>
+          </small>
+        </h4>
+      <% end %> 
     </div>
     <div class="col-lg-6">
       <div class="input-group input-group-sm">
@@ -27,7 +37,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @office.decrees.includes(:prosecutor, :paragraph).order(effective_on: :asc).each do |decree| %>
+      <% @decrees.includes(:prosecutor, :paragraph).order(effective_on: :asc).each do |decree| %>
         <tr>
           <td data-search-value="<%= decree.prosecutor&.name %>"><%= decree.prosecutor ? link_to(decree.prosecutor.name, prosecutor_path(decree.prosecutor)) : '&ndash;' %></td>
           <td><%= link_to decree.number, decree.url, target: '_blank' %></td>
