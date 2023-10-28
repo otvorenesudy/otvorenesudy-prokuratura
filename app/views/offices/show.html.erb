@@ -103,6 +103,8 @@
   <%= render_tab partial: 'contact', class: @paragraphs.present? || @tab == 'decrees' ? '' : 'active' %>
   <%= render_tab partial: 'prosecutors' %>
   <%= render_tab partial: 'employees' %>
-  <%= render_tab partial: 'decrees', class: @paragraphs.present? || @tab == 'decrees' ? 'active' : '' %>
+  <% cache "office-#{@office.id}-decrees" do %>
+    <%= render_tab partial: 'decrees', class: @paragraphs.present? || @tab == 'decrees' ? 'active' : '' %>  
+  <% end %>
   <%= render_tab partial: 'media' %>
 </div>

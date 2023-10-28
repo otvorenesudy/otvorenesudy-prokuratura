@@ -192,6 +192,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
+    lefthook (1.5.2)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -248,6 +249,10 @@ GEM
       ttfunk
     pg (1.2.3)
     popper_js (1.16.0)
+    prettier (3.2.2)
+      syntax_tree (>= 2.7.1)
+      syntax_tree-haml (>= 1.1.0)
+      syntax_tree-rbs (>= 0.2.0)
     prettier_print (1.2.1)
     pry (0.13.1)
       coderay (~> 1.1)
@@ -471,12 +476,13 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   json-schema (~> 2.8.1)
   kaminari (~> 1.2.1)
+  lefthook
   listen (~> 3.2.1)
   mechanize
   parallel (~> 1.19.1)
   pdf-reader (~> 2.4.0)
   pg (~> 1.2.3)
-  prettier_print
+  prettier
   pry-rails
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.1)
@@ -494,9 +500,6 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.1)
   sprockets (~> 4.0.2)
   svgeez (~> 3.0)
-  syntax_tree
-  syntax_tree-haml
-  syntax_tree-rbs
   turbolinks (~> 5)
   tzinfo-data
   vcr
