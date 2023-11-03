@@ -3,7 +3,7 @@ import Highcharts from "highcharts";
 
 export default class extends ChartController {
   async connect() {
-    const categories = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019];
+    const categories = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022];
 
     const colorsByName = {
       "Priemer za okresné prokuratúry": this.colors[0],
@@ -13,12 +13,12 @@ export default class extends ChartController {
     const data = [
       {
         name: "Priemer za okresné prokuratúry",
-        data: [288, 293, 266, 282, 267, 246, 242, 245, 237, 215],
+        data: [288, 293, 266, 282, 267, 246, 242, 245, 237, 215, 208, 206, 204],
       },
 
       {
         name: "Priemer za krajské prokuratúry",
-        data: [141, 135, 140, 139, 144, 139, 136, 136, 148, 150],
+        data: [141, 135, 140, 139, 144, 139, 136, 136, 148, 150, 136, 134, 122],
       },
     ];
 
