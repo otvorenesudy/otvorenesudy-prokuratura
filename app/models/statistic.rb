@@ -53,7 +53,8 @@ class Statistic < ApplicationRecord
         records.map { |e| { paragraph: nil }.merge(e.slice(:year, :office_id, :metric, :paragraph, :count)) },
         in_batches: 10_000,
         validate: false,
-        on_duplicate_key_ignore: true
+        on_duplicate_key_ignore: true,
+        returning: []
       )
     end
   end

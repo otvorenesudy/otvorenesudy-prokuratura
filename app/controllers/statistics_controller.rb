@@ -46,7 +46,7 @@ class StatisticsController < ApplicationController
       driver.save_screenshot(path)
 
       File.open(path, 'rb') do |file|
-        send_data(file.read, type: 'image/png', filename: 'otvorena-prokuratura-export.png')
+        send_data(file.read, type: 'image/png', filename: 'otvorena-prokuratura-kriminalita-export.png')
       end
     rescue Exception => e
       raise e

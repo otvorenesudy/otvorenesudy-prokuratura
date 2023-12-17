@@ -26,7 +26,7 @@ class CrimesController < ApplicationController
 
   def png
     path = Rails.root.join('tmp', "crimes-export-#{SecureRandom.hex}.png")
-    url = export_statistics_url(index_params)
+    url = export_crimes_url(index_params)
 
     options = Selenium::WebDriver::Chrome::Options.new(args: %w[headless])
     options.add_argument('--window-size=1400,760')
@@ -46,7 +46,7 @@ class CrimesController < ApplicationController
       driver.save_screenshot(path)
 
       File.open(path, 'rb') do |file|
-        send_data(file.read, type: 'image/png', filename: 'otvorena-prokuratura-export.png')
+        send_data(file.read, type: 'image/png', filename: 'otvorena-prokuratura-kriminalita-prokuratura-export.png')
       end
     rescue Exception => e
       raise e
