@@ -1,3 +1,13 @@
+<h6 class="mt-4 mb-3">
+  <%= t '.office' %>:
+
+  <% if office = Office.find_by(name: declaration[:office]) %>
+    <%= link_to(office.name, office_path(office), class: 'font-weight-normal') %>
+  <% else %>
+    <span class="font-weight-normal"><%= office %></span>
+  <% end %>
+</h6>
+
 <% declaration[:lists].each do |list| %>
   <h6 class="mt-4 mb-3"><%= list[:category] %></h6>
 
@@ -71,4 +81,9 @@
     <% end %>
   </ul>
 <% end %>
+
+
+<div class="small mt-4 text-muted">
+  <%= t '.source' %>: <%= link_to 'Generálna Prokuratúra &middot; Majetkové priznania prokurátorov'.html_safe, declaration[:url], class: 'text-muted', target: '_blank' %>
+</div>
 

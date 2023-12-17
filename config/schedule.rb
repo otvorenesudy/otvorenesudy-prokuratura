@@ -29,10 +29,6 @@ every :day, at: '2:15am' do
   runner 'ExceptionHandler.run { GenproGovSk::Prosecutors.import }'
 end
 
-# every :day, at: '5:00am' do
-#   runner 'ExceptionHandler.run { GenproGovSk::Criminality.import }'
-# end
-
 every :day, at: '2:30am' do
   runner 'ExceptionHandler.run { GenproGovSk::Declarations.import }'
 end
@@ -41,10 +37,18 @@ every :day, at: '3:15am' do
   runner 'ExceptionHandler.run { GenproGovSk::Decrees.import }'
 end
 
+every :day, at: '3:30am' do
+  runner 'ExceptionHandler.run { MinvSk::Criminality.import }'
+end
+
 every :day, at: '4:15am' do
   runner 'ExceptionHandler.run { GoogleNews.cache_for(::Prosecutor, size: 60) }'
 end
 
 every :day, at: '4:15am' do
   runner 'ExceptionHandler.run { GoogleNews.cache_for(::Office, size: 20) }'
+end
+
+every :day, at: '6:00am' do
+  runner 'ExceptionHandler.run { GenproGovSk::Declarations.reconcile! }'
 end

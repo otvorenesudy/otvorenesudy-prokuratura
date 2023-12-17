@@ -1,0 +1,21 @@
+<ul class="facet-list facet-list-scrollable mb-2" data-target="suggest.results">
+  <% if values.any? %>
+    <% values.each do |value, _| %>
+      <li class="facet-item">
+        <%= link_to crimes_path(search_params(params, paragraph: value)), class: "facet-link#{' active' if search_param?(params, :paragraph, value)}" do %>
+          <%= trim(Paragraph.name_of(value), length: 24) %>
+
+          <div class="facet-tag">
+            <% if (type = Paragraph.type_of(value)) == :old %>
+              <%= tooltip_tag(I18n.t("statistics.index.search.paragraph.old.badge"),  I18n.t("statistics.index.search.paragraph.old.title"), class: 'd-inline') %>
+            <% end %>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+  <% else %>
+    <li class="facet-item">
+      <span class="text-muted"><%= t 'statistics.index.search.paragraph.not_found' %></span>
+    </li>
+  <% end %>
+</ul>

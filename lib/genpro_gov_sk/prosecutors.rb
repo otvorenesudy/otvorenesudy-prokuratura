@@ -6,10 +6,7 @@ module GenproGovSk
     using ::Legacy::String
 
     def self.import(force: false)
-      html =
-        Curl.get(
-          'https://www.genpro.gov.sk/prokuratura-sr/menny-zoznam-prokuratorov-slovenskej-republiky-3928.html'
-        ).body_str
+      html = Curl.get('https://www.genpro.gov.sk/menny-zoznam-prokuratorov-slovenskej-republiky').body_str
 
       path = Nokogiri.HTML(html).css('a').find { |e| e.text.ascii =~ /Menny zoznam prokuratorov SR/ }[:href]
       url = "https://www.genpro.gov.sk#{path}"

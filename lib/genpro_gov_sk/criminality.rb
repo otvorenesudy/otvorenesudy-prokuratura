@@ -1,46 +1,59 @@
 module GenproGovSk
   module Criminality
     def self.import
+      unknown_attributes = []
       statistics = [parse_structures, parse_paragraphs].flatten
       records =
-        statistics.map do |attributes|
-          year = attributes[:year]
-          office = attributes[:office]
+        statistics
+          .map do |attributes|
+            year = attributes[:year]
+            office = attributes[:office]
 
-          puts "WARN: #{attributes[:unknown].inspect}" if attributes[:unknown].any?
+            unknown_attributes += attributes[:unknown] if attributes[:unknown].any?
 
-          attributes[:statistics].map do |statistic|
-            next if statistic[:count].blank?
+            attributes[:statistics].map do |statistic|
+              next if statistic[:count].blank?
 
-            statistic.slice(:metric, :paragraph, :count).merge(office: office, year: year, file: attributes[:file])
+              statistic.slice(:metric, :paragraph, :count).merge(office: office, year: year, file: attributes[:file])
+            end
           end
-        end.flatten.compact
+          .flatten
+          .compact
+
+      warn "Unknown attributes: #{unknown_attributes.uniq.join(', ')}" if unknown_attributes.any?
 
       ::Statistic.import_from(records)
     end
 
     def self.parse_structures
-      urls =
-        %w[
-          https://www.genpro.gov.sk/extdoc/55654/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob
-          https://www.genpro.gov.sk/extdoc/55400/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob
-          https://www.genpro.gov.sk/extdoc/55078/12_Struktura_kriminality_a_st%EDhanych_a_obzalovanych_osob
-          https://www.genpro.gov.sk/extdoc/54483/2018_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-          https://www.genpro.gov.sk/extdoc/54488/2017_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-          https://www.genpro.gov.sk/extdoc/54487/2016_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-          https://www.genpro.gov.sk/extdoc/54486/2015_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-          https://www.genpro.gov.sk/extdoc/54485/2014_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-          https://www.genpro.gov.sk/extdoc/54395/2013_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-          https://www.genpro.gov.sk/extdoc/54394/2012_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-          https://www.genpro.gov.sk/extdoc/54393/2011_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-          https://www.genpro.gov.sk/extdoc/54392/2010_Struktura%20kriminality%20a%20stihanych%20a%20obzalovanych%20osob
-        ]
+      urls = %w[
+        https://www.genpro.gov.sk/extdoc/14299
+        https://www.genpro.gov.sk/extdoc/14299
+        https://www.genpro.gov.sk/extdoc/14293
+        https://www.genpro.gov.sk/extdoc/14290
+        https://www.genpro.gov.sk/extdoc/14287
+        https://www.genpro.gov.sk/extdoc/14284
+        https://www.genpro.gov.sk/extdoc/14281
+        https://www.genpro.gov.sk/extdoc/14278
+        https://www.genpro.gov.sk/extdoc/14275
+        https://www.genpro.gov.sk/extdoc/14272
+        https://www.genpro.gov.sk/extdoc/14269
+        https://www.genpro.gov.sk/extdoc/14265
+        https://www.genpro.gov.sk/extdoc/14261
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2023/09_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+      ]
 
-      urls.map do |url|
-        FileDownloader.download(url) do |path|
-          StructureParser.parse(File.read(path, encoding: 'Windows-1250').force_encoding('UTF-8'))
+      urls
+        .map do |url|
+          FileDownloader.download(url) do |path|
+            begin
+              StructureParser.parse(File.read(path, encoding: 'Windows-1250').force_encoding('UTF-8'))
+            rescue StandardError
+              binding.pry
+            end
+          end
         end
-      end.flatten
+        .flatten
     end
 
     def self.parse_paragraphs
@@ -52,22 +65,24 @@ module GenproGovSk
 
     def self.paragraphs_map
       @paragraphs_map ||=
-        %i[new old].each.with_object({ new: {}, old: {} }) do |key, hash|
-          csv =
-            CSV.open(
-              Rails.root.join('data', 'genpro_gov_sk', 'criminality', "paragraph-definitions-#{key}.csv"),
-              headers: true
-            )
+        %i[new old]
+          .each
+          .with_object({ new: {}, old: {} }) do |key, hash|
+            csv =
+              CSV.open(
+                Rails.root.join('data', 'genpro_gov_sk', 'criminality', "paragraph-definitions-#{key}.csv"),
+                headers: true
+              )
 
-          csv.each do |row|
-            hash[key][row[2]] = {
-              chapter: row[0],
-              chapter_name: row[1]&.downcase&.capitalize,
-              paragraph: row[2],
-              paragraph_name: row[3].downcase.capitalize
-            }
+            csv.each do |row|
+              hash[key][row[2]] = {
+                chapter: row[0],
+                chapter_name: row[1]&.downcase&.capitalize,
+                paragraph: row[2],
+                paragraph_name: row[3].downcase.capitalize
+              }
+            end
           end
-        end
     end
 
     def self.generate_and_save_metrics_map
@@ -78,27 +93,40 @@ module GenproGovSk
       }
 
       CSV.open(Rails.root.join('data', 'genpro_gov_sk', 'criminality', 'metrics-map.csv'), 'w') do |csv|
-        csv <<
-          ['Symbol nášho atribútu', 'Názov nášho atribútu', 'Názov atribútu z dát Generálnej prokuratúry', 'Typ súboru']
+        csv << [
+          'Symbol nášho atribútu',
+          'Názov nášho atribútu',
+          'Názov atribútu z dát Generálnej prokuratúry',
+          'Typ súboru'
+        ]
 
-        sources.values.map(&:values).flatten.uniq.sort.each.with_object({}) do |metric, hash|
-          rows =
-            sources.each.with_object([]) do |(key, source), array|
-              values = source.select { |_, e| e == metric }.map(&:first)
+        sources
+          .values
+          .map(&:values)
+          .flatten
+          .uniq
+          .sort
+          .each
+          .with_object({}) do |metric, hash|
+            rows =
+              sources
+                .each
+                .with_object([]) do |(key, source), array|
+                  values = source.select { |_, e| e == metric }.map(&:first)
 
-              values.each { |value| array << [nil, nil, value, key] }
-            end.sort_by { |e| e[1] }
+                  values.each { |value| array << [nil, nil, value, key] }
+                end
+                .sort_by { |e| e[1] }
 
-          rows[0][0] = metric
+            rows[0][0] = metric
 
-          title = Statistic::GROUPS.find { |group, values| metric.in?(values) }
+            title = Statistic::GROUPS.find { |group, values| metric.in?(values) }
 
-          rows[0][1] =
-            (title ? "#{I18n.t("statistics.index.search.#{title[0]}.title")} - " : '') +
+            rows[0][1] = (title ? "#{I18n.t("statistics.index.search.#{title[0]}.title")} - " : '') +
               I18n.t("models.statistic.metrics.#{metric}")
 
-          rows.each { |row| csv << row }
-        end
+            rows.each { |row| csv << row }
+          end
       end
     end
 

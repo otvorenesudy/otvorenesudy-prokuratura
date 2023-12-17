@@ -3,8 +3,8 @@ module GenproGovSk
     def self.import
       links =
         Nokogiri
-          .HTML(Curl.get('https://www.genpro.gov.sk/kontakty-a-uradne-hodiny-12cb.html').body_str)
-          .css('.content > .navigacia > li > a')
+          .HTML(Curl.get('https://www.genpro.gov.sk/kontakty-a-uradne-hodiny/').body_str)
+          .css('.tx-tempest-contacts .govuk-table__row td > a')
           .map { |e| "https://www.genpro.gov.sk/#{e['href']}" }
 
       links.map do |link|

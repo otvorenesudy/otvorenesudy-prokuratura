@@ -30,7 +30,8 @@ module OpenCourts
 
       # X-XSS header is already defined by nginx
       config.action_dispatch.default_headers = {
-        'X-Frame-Options' => 'SAMEORIGIN', 'X-Content-Type-Options' => 'nosniff'
+        'X-Frame-Options' => 'SAMEORIGIN',
+        'X-Content-Type-Options' => 'nosniff'
       }
 
       # Custom Error Pages
@@ -41,4 +42,5 @@ end
 
 require 'legacy'
 require 'genpro_gov_sk'
+require 'minv_sk'
 require 'exception_handler'

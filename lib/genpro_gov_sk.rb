@@ -8,6 +8,7 @@ module GenproGovSk
   require 'genpro_gov_sk/prosecutors'
   require 'genpro_gov_sk/offices/parser'
   require 'genpro_gov_sk/offices'
+  require 'genpro_gov_sk/declarations/parser'
   require 'genpro_gov_sk/declarations'
   require 'genpro_gov_sk/decrees/parser'
   require 'genpro_gov_sk/decrees'

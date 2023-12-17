@@ -11,7 +11,7 @@
             <div class="input-group">
               <%= search_field_tag :q, @search.params[:q], class: 'form-control search-query-input', placeholder: t('.search.placeholder') %>
               <div class="input-group-append">
-                <%= link_to icon_tag('times'), prosecutors_path(@search.params.except(:q)), class: 'btn search-query-reset mt-1' if @search.params[:q].present? %>
+                <%= link_to icon_tag('times'), prosecutors_path(@search.params.except(:q, :sort, :order)), class: 'btn search-query-reset mt-1' if @search.params[:q].present? %>
                 <% unless @search.params[:q].present? %>
                   <button type="submit" class="btn mt-1 search-query-submit"><%= icon_tag('search') %></button>
                 <% end %>
@@ -177,6 +177,11 @@
               <div class="search-result-content">
                 <% prosecutor.appointments.current.each do |appointment| %>
                   <%= t ".list.office_#{appointment.type}_html", link: appointment.office ? link_to(appointment.office.name, office_path(appointment.office)) : appointment.place %>
+                  <br>
+                <% end %>
+
+                <% if prosecutor.past_appointments_excluding_current.any? %>
+                  <%= t ".list.past_offices_html", link: prosecutor.past_appointments_excluding_current.map { |e| e.office ? link_to(e.office.name, office_path(e.office)) : e.place }.uniq.to_sentence.html_safe %>
                   <br>
                 <% end %>
    

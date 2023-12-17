@@ -17,6 +17,7 @@
 #  index_statistics_on_office_id                                    (office_id)
 #  index_statistics_on_paragraph                                    (paragraph)
 #  index_statistics_on_paragraph_and_metric                         (paragraph,metric)
+#  index_statistics_on_present_paragraph                            (paragraph) WHERE (paragraph IS NOT NULL)
 #  index_statistics_on_year                                         (year)
 #  index_statistics_on_year_and_office_id_and_metric_and_paragraph  (year,office_id,metric,paragraph) UNIQUE
 #
@@ -24,11 +25,19 @@
 #
 #  fk_rails_...  (office_id => offices.id)
 #
+
 class Statistic < ApplicationRecord
-  belongs_to :office
+  belongs_to :office, optional: true
 
   validates :year, presence: true, numericality: { in: 2010..2020 }
-  validates :metric, presence: true, uniqueness: { scope: %i[year office_id paragraph] }
+  validates :metric,
+            presence: true,
+            uniqueness: {
+              scope: %i[year office_id paragraph]
+            },
+            inclusion: {
+              in: -> { GROUPS.values.flatten }
+            }
   validates :count, presence: true, numericality: true
 
   def self.import_from(records)
@@ -36,13 +45,15 @@ class Statistic < ApplicationRecord
       Statistic.delete_all
       Statistic.lock
 
-      offices =::Office.pluck(:id, :name).each.with_object({}) { |(id, name), hash| hash[name] = id }
+      offices = ::Office.pluck(:id, :name).each.with_object({}) { |(id, name), hash| hash[name] = id }
 
       records.each { |record| record[:office_id] = offices[record[:office]] }
 
       Statistic.import(
-        records.map { |e| { paragraph: nil }.merge(e.slice(:year, :office_id, :metric, :paragraph, :count)) }.uniq,
-        in_batches: 10_000, validate: false
+        records.map { |e| { paragraph: nil }.merge(e.slice(:year, :office_id, :metric, :paragraph, :count)) },
+        in_batches: 10_000,
+        validate: false,
+        on_duplicate_key_ignore: true
       )
     end
   end

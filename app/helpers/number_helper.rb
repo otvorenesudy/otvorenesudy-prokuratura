@@ -7,4 +7,18 @@ module NumberHelper
       #{I18n.t(term_for_count, count: max.to_i)}
     "
   end
+
+  def number_to_abbreviation(number)
+    number_to_human(
+      number,
+      format: '%n%u',
+      precision: 0,
+      significant: false,
+      units: {
+        thousand: 'K',
+        million: 'M',
+        billion: 'B'
+      }
+    )
+  end
 end

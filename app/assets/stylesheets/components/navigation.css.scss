@@ -112,3 +112,17 @@
   border: none;
   line-height: $line-height-base;
 }
+
+.nav-item.dropdown {
+  .dropdown-item {
+    @include hover-focus {
+      color: $orange;
+      text-decoration: none;
+    }
+
+    &.active {
+      color: $orange;
+      text-decoration: none;
+    }
+  }
+}

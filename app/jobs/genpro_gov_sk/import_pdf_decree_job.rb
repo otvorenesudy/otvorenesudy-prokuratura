@@ -7,7 +7,7 @@ module GenproGovSk
     def perform(data)
       text, file = PDFExtractor.extract_text_from_url(data[:url])
 
-      GenproGovSk::Decree.import_from(data: data.merge(text: text), file: file)
+      GenproGovSk::Decree.import_from(data: data.merge(text: text, file_info: 'TODO'), file: file)
     end
   end
 end

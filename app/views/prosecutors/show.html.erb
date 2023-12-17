@@ -18,6 +18,11 @@
       </p>
     <% end %>
 
+    <% if @prosecutor.past_appointments_excluding_current.any? %>
+      <%= t "prosecutors.index.list.past_offices_html", link: @prosecutor.past_appointments_excluding_current.map { |e| e.office ? link_to(e.office.name, office_path(e.office)) : e.place }.uniq.to_sentence.html_safe %>
+      <br>
+    <% end %>
+   
     <% @prosecutor.employments.active.each do |employment| %>
     <p>
       <%= t '.employee_html', link: link_to(employment.office.name, office_path(employment.office)), position: employment.position %>

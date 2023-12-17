@@ -1,6 +1,11 @@
 {
   "name": "otvorenesudy_prokuratura",
   "private": true,
+  "version": "0.3.1",
+  "engines": {
+    "npm": ">=8.0.0 <9.0.0",
+    "node": ">=16.0.0 <17.0.0"
+  },
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
@@ -13,7 +18,7 @@
     "leaflet": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
     "leaflet.snogylop": "^0.4.0",
-    "lodash.debounce": "^4.0.8",
+    "lodash": "^4.0.8",
     "node-sass": "^7.0.1",
     "popper.js": "^1.16.1",
     "sanitize-html": "^1.27.0",
@@ -21,7 +26,6 @@
     "tablesorter": "^2.31.3",
     "turbolinks": "^5.2.0"
   },
-  "version": "0.3.1",
   "devDependencies": {
     "@prettier/plugin-ruby": "^3.2.2",
     "eslint": "^7.4.0",

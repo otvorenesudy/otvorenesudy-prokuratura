@@ -70,7 +70,7 @@ class StatisticsController < ApplicationController
 
   private
 
-  helper_method :index_params, :params_checksum
+  helper_method :index_params
 
   def index_params
     params.permit(
@@ -83,10 +83,6 @@ class StatisticsController < ApplicationController
       office_type: [],
       paragraph: []
     )
-  end
-
-  def params_checksum
-    Digest::SHA256.hexdigest(params.keys.sort.map { |key| "#{key}=#{params[key]}" }.join(''))
   end
 
   def suggest_params

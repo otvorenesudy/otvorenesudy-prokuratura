@@ -4,7 +4,6 @@
 #
 #  id                                :bigint           not null, primary key
 #  declarations                      :jsonb
-#  decrees                           :jsonb            not null
 #  decrees_count                     :bigint           default(0)
 #  name                              :string           not null
 #  name_parts                        :jsonb            not null
@@ -29,6 +28,9 @@ class Prosecutor < ApplicationRecord
 
   belongs_to :genpro_gov_sk_prosecutors_list, class_name: :'GenproGovSk::ProsecutorsList', optional: true
 
+  has_many :all_appointments, -> { order(id: :asc) }, dependent: :destroy, class_name: :Appointment
+  has_many :all_offices, through: :all_appointments, source: :office
+
   has_many :past_appointments, -> { past.order(id: :asc) }, dependent: :destroy, class_name: :Appointment
   has_many :past_offices, through: :past_appointments, source: :office
 
@@ -45,6 +47,10 @@ class Prosecutor < ApplicationRecord
 
   def to_news_query
     name_parts.values_at('first', 'middle', 'last').compact.join(' ')
+  end
+
+  def past_appointments_excluding_current
+    all_appointments.past.where.not(office: offices).order(id: :asc)
   end
 
   def self.as_map_json
@@ -77,6 +83,37 @@ class Prosecutor < ApplicationRecord
       end
   end
 
+  def self.find_by_fuzzy_name(name, office: nil)
+    # TODO: index?
+    relation =
+      self.where(
+        "
+        ARRAY_REMOVE(
+          ARRAY[
+            LOWER(UNACCENT(name_parts ->> 'prefix')),
+            LOWER(UNACCENT(name_parts ->> 'first')),
+            LOWER(UNACCENT(name_parts ->> 'middle')),
+            LOWER(UNACCENT(name_parts ->> 'last')),
+            LOWER(UNACCENT(name_parts ->> 'suffix'))
+          ],
+          NULL
+        ) @> ARRAY[:name]
+      ",
+        name: name.squeeze(' ').strip.split(' ').map { |e| I18n.transliterate(e).downcase }
+      )
+
+    if office
+      relation =
+        relation.left_joins(:all_offices).order(
+          "CASE WHEN offices.id = #{ActiveRecord::Base.connection.quote(office.id)} THEN 0 ELSE 1 END ASC"
+        )
+    else
+      relation = relation.order('LENGTH(name) DESC')
+    end
+
+    relation.first
+  end
+
   private
 
   def validate_declarations
@@ -84,8 +121,23 @@ class Prosecutor < ApplicationRecord
       type: :array,
       items: {
         type: :object,
-        required: %i[year lists incomes statements],
+        required: %i[genpro_gov_sk_declaration_id name year lists incomes statements],
         properties: {
+          genpro_gov_sk_declaration_id: {
+            type: :bigint
+          },
+          name: {
+            type: :string
+          },
+          office: {
+            type: %i[string null]
+          },
+          office_id: {
+            type: %i[bigint null]
+          },
+          url: {
+            type: :string
+          },
           year: {
             type: :number
           },

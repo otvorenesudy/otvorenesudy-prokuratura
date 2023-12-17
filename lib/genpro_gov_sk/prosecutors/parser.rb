@@ -151,6 +151,8 @@ module GenproGovSk
         end
 
         def parse_name(value)
+          value = 'Sofia Svitnič Martina, Mgr.' if value.strip.squeeze(' ') == 'Svitnič Martina Sofia, Mgr.'
+
           ::Legacy::Normalizer.partition_person_name(value, reverse: true)
         end
       end

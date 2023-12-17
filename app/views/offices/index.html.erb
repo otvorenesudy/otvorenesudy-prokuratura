@@ -13,7 +13,7 @@
             <div class="input-group">
               <%= search_field_tag :q, @search.params[:q], class: 'form-control search-query-input', placeholder: t('.search.placeholder') %>
               <div class="input-group-append">
-                <%= link_to icon_tag('times'), offices_path(@search.params.except(:q)), class: 'btn search-query-reset mt-1' if @search.params[:q].present? %>
+                <%= link_to icon_tag('times'), offices_path(@search.params.except(:q, :sort, :order)), class: 'btn search-query-reset mt-1' if @search.params[:q].present? %>
                  <% unless @search.params[:q].present? %>
                   <button type="submit" class="btn mt-1 search-query-submit"><%= icon_tag('search') %></button>
                 <% end %>

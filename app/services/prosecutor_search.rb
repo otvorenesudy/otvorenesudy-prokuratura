@@ -87,9 +87,11 @@ class ProsecutorSearch
     def self.filter(relation, params)
       order = params[:order] || 'asc'
 
+      relation = relation.order('genpro_gov_sk_prosecutors_list_id ASC NULLS LAST')
+
       return relation unless order.in?(%w[asc desc])
-      return relation.reorder(type: order == 'asc' ? 'desc' : 'asc') if params[:sort] == 'type'
-      return relation.reorder(name: order) if params[:sort] == 'name'
+      return relation.order(type: order == 'asc' ? 'desc' : 'asc') if params[:sort] == 'type'
+      return relation.order(name: order) if params[:sort] == 'name'
 
       relation.order(id: order)
     end

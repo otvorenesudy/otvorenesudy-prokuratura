@@ -40,6 +40,7 @@ export default class extends Controller {
     $(this.element)
       .find("table")
       .tablesorter({
+        widgets: ["staticRow"],
         sortLocaleCompare: true,
         ignoreCase: true,
         textExtraction: (node) => {

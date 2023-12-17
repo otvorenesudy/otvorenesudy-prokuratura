@@ -263,16 +263,19 @@ class StatisticSearch
       scope =
         Paragraph
           .all
-          .order("array_position(ARRAY[#{highlights.join(',')}] :: text[], value :: text) ASC NULLS LAST")
+          .order(Arel.sql("array_position(ARRAY[#{highlights.join(',')}] :: text[], value :: text) ASC NULLS LAST"))
           .order(name: :asc)
 
-      paragraphs = ::QueryFilter.filter(scope, { q: suggest }, columns: %i[name]).pluck(:value)
+      paragraphs = ::QueryFilter.filter(scope, { q: suggest }, columns: %i[name]).pluck(:value).to_a
+
+      relation = relation.where(paragraph: paragraphs) if suggest
 
       relation
-        .where(paragraph: paragraphs)
+        .where.not(paragraph: nil)
         .group(:paragraph)
         .count
         .map { |value, count| [value, count] }
+        .select { |(name, _)| paragraphs.include?(name) }
         .sort_by { |(name, _)| paragraphs.index(name) }
         .to_h
     end

@@ -1,263 +1,262 @@
-<% provide :title, t('.title') %>
+<% provide :title, t('.page_title') %>
 
-<% cache "statistics/index-#{params_checksum}" do %>
-  <%
-    @time = Benchmark.realtime do
-      @data = @search.data
-    end * 1000
-  %>
+<%
+  @time = Benchmark.realtime do
+    @data = @search.data
+  end * 1000
+%>
 
-  <div class="container px-sm-0" data-controller="facets">
-    <div class="clearfix">
-      <div id="facets" class="float-lg-left col-lg-3 mb-5 mb-lg-0 px-0 pr-lg-4 collapse show">
-        <div class="facet" data-controller="suggest" data-url="<%= suggest_statistics_path(@search.params.merge(facet: :paragraph)) %>">
-          <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-paragraph-content">
-            <%= t ".search.paragraph.title" %>
-          </h6>
+<div class="container px-sm-0" data-controller="facets">
+  <div class="clearfix">
+    <div id="facets" class="float-lg-left col-lg-3 mb-5 mb-lg-0 px-0 pr-lg-4 collapse show">
+      <div class="facet" data-controller="suggest" data-url="<%= suggest_statistics_path(@search.params.merge(facet: :paragraph)) %>">
+        <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-paragraph-content">
+          <%= t ".search.paragraph.title" %>
+        </h6>
 
-          <div id="statistic-paragraph-content" class="facet-content collapse show">
-            <div class="facet-results">
-              <input value="<%= params[:paragraph_suggest] %>" class="facet-suggest ui-autocomplete-input" name="paragraph" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
+        <div id="statistic-paragraph-content" class="facet-content collapse show">
+          <div class="facet-results">
+            <input value="<%= params[:paragraph_suggest] %>" class="facet-suggest ui-autocomplete-input" name="paragraph" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
 
-              <% if (facets = @search.facets_for(:paragraph, selected_first: true)).any? %>
-                <ul class="facet-list">
-                  <li class="facet-item">
-                    <%= link_to statistics_path(search_params(@search.params, { paragraph: '_all', paragraph_suggest: nil, }, replace: true)), class: "facet-link#{' active' if @search.params[:paragraph].blank? && !@search.default_params?}" do %>
-                      <%= t('.search.paragraphs.all') %>
-                    <% end %>
-                  </li>
-                </ul>
-              <% end %>
-
-              <%= render "paragraph_results", values: facets, params: @search.params %>
-
-              <small class="text-muted mt-2"><%= t '.search.paragraph.disclaimer' %></small>
-            </div>
-          </div>
-        </div>
-
-        <div class="facet">
-          <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-year-content">
-            <%= t '.search.year.title' %>
-          </h6>
-
-          <div id="statistic-year-content" class="facet-content collapse show">
-            <div class="facet-results">
+            <% if (facets = @search.facets_for(:paragraph, selected_first: true)).any? %>
               <ul class="facet-list">
                 <li class="facet-item">
-                  <%= link_to statistics_path(search_params(@search.params, year: nil)), class: "facet-link#{' active' if @search.params[:year].blank?}" do %>
-                    <%= t('.search.year.all') %>
+                  <%= link_to statistics_path(search_params(@search.params, { paragraph: '_all', paragraph_suggest: nil, }, replace: true)), class: "facet-link#{' active' if @search.params[:paragraph].blank? && !@search.default_params?}" do %>
+                    <%= t('.search.paragraphs.all') %>
                   <% end %>
                 </li>
               </ul>
+            <% end %>
 
-              <% if @search.facets_for(:year).tap do |facets| %>
-                <%= collapsible_facet_results(facets, selected: @search.params[:year]) do |key, _| %>
-                  <li class="facet-item">
-                    <%= link_to statistics_path(search_params(@search.params, year: key)), class: "facet-link#{' active' if search_param?(@search.params, :year, key)}" do %>
-                      <%= key %>
-                    <% end %>
-                  </li>
+            <%= render "paragraph_results", values: facets, params: @search.params %>
+
+            <small class="text-muted mt-2"><%= t '.search.paragraph.disclaimer' %></small>
+          </div>
+        </div>
+      </div>
+
+      <div class="facet">
+        <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-year-content">
+          <%= t '.search.year.title' %>
+        </h6>
+
+        <div id="statistic-year-content" class="facet-content collapse show">
+          <div class="facet-results">
+            <ul class="facet-list">
+              <li class="facet-item">
+                <%= link_to statistics_path(search_params(@search.params, year: nil)), class: "facet-link#{' active' if @search.params[:year].blank?}" do %>
+                  <%= t('.search.year.all') %>
                 <% end %>
+              </li>
+            </ul>
+
+            <% if @search.facets_for(:year).tap do |facets| %>
+              <%= collapsible_facet_results(facets, selected: @search.params[:year]) do |key, _| %>
+                <li class="facet-item">
+                  <%= link_to statistics_path(search_params(@search.params, year: key)), class: "facet-link#{' active' if search_param?(@search.params, :year, key)}" do %>
+                    <%= key %>
+                  <% end %>
+                </li>
+              <% end %>
+            <% end.empty? %>
+              <span class="text-muted"><%= t '.search.year.not_found' %></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="facet">
+        <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-office-type-content">
+          <%= t '.search.office_type.title' %>
+        </h6>
+
+        <div id="statistic-office-type-content" class="facet-content collapse show">
+          <div class="facet-results">
+            <ul class="facet-list">
+              <% if @search.facets_for(:office_type).each do |key, _| %>
+                <li class="facet-item">
+                  <%= link_to statistics_path(search_params(@search.params, office_type: key)), class: "facet-link#{' active' if search_param?(@search.params, :office_type, key)}" do %>
+                    <%= t("offices.types.#{key}") %>
+                  <% end %>
+                </li>
               <% end.empty? %>
-                <span class="text-muted"><%= t '.search.year.not_found' %></span>
+                <li class="facet-item">
+                  <span class="text-muted"><%= t '.search.office_type.not_found' %></span>
+                </li>
               <% end %>
-            </div>
+            </ul>
           </div>
         </div>
+      </div>
 
-        <div class="facet">
-          <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-office-type-content">
-            <%= t '.search.office_type.title' %>
-          </h6>
+      <div class="facet" data-controller="suggest" data-url="<%= suggest_statistics_path(@search.params.merge(facet: :office)) %>">
+        <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-office-content">
+          <%= t '.search.office.title' %>
+        </h6>
 
-          <div id="statistic-office-type-content" class="facet-content collapse show">
-            <div class="facet-results">
-              <ul class="facet-list">
-                <% if @search.facets_for(:office_type).each do |key, _| %>
-                  <li class="facet-item">
-                    <%= link_to statistics_path(search_params(@search.params, office_type: key)), class: "facet-link#{' active' if search_param?(@search.params, :office_type, key)}" do %>
-                      <%= t("offices.types.#{key}") %>
-                    <% end %>
-                  </li>
-                <% end.empty? %>
-                  <li class="facet-item">
-                    <span class="text-muted"><%= t '.search.office_type.not_found' %></span>
-                  </li>
+        <div id="statistic-office-content" class="facet-content collapse show">
+          <div class="facet-results">
+            <input class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.office.placeholder' %>" type="text" autocomplete="off">
+            <ul class="facet-list">
+              <li class="facet-item">
+                <%= link_to statistics_path(search_params(@search.params, office: nil)), class: "facet-link#{' active' if @search.params[:office].blank?}" do %>
+                  <%= t('.search.office.all') %>
                 <% end %>
-              </ul>
-            </div>
+              </li>
+
+              <li class="facet-item">
+                <%= link_to statistics_path(search_params(@search.params, { office: '_all' }, replace: true)), class: "facet-link#{' active' if @search.params[:office] == ['_all']}" do %>
+                  <%= t('.search.office.by_all') %>
+                <% end %>
+              </li>
+            </ul>
+
+            <%= render 'office_results', values: @search.facets_for(:office, selected_first: true), params: @search.params %>
           </div>
         </div>
+      </div>
 
-        <div class="facet" data-controller="suggest" data-url="<%= suggest_statistics_path(@search.params.merge(facet: :office)) %>">
-          <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-office-content">
-            <%= t '.search.office.title' %>
-          </h6>
+      <% Statistic::GROUPS.each do |group, metrics| %>
+        <% metrics.select { |metric| @search.has_metric?(metric) }.tap do |facets| %>
+          <% if facets.any? %>
+            <div class="facet">
+              <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-<%= group %>-content">
+                <%= t ".search.#{group}.title" %>
+              </h6>
 
-          <div id="statistic-office-content" class="facet-content collapse show">
-            <div class="facet-results">
-              <input class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.office.placeholder' %>" type="text" autocomplete="off">
-              <ul class="facet-list">
-                <li class="facet-item">
-                  <%= link_to statistics_path(search_params(@search.params, office: nil)), class: "facet-link#{' active' if @search.params[:office].blank?}" do %>
-                    <%= t('.search.office.all') %>
+              <div id="statistic-<%= group %>-content" class="facet-content collapse show">
+                <div class="facet-results">
+                  <%= collapsible_facet_results(facets, selected: @search.params[:metric]) do |key| %>
+                    <li class="facet-item">
+                      <%= link_to statistics_path(search_params(@search.params, { metric: key }, replace: true)), class: "facet-link#{' active' if search_param?(@search.params, :metric, key)}" do %>
+                        <%= trim(t("models.statistic.metrics.#{key}"), length: 30) %>
+                      <% end %>
+                    </li>
                   <% end %>
-                </li>
-
-                <li class="facet-item">
-                  <%= link_to statistics_path(search_params(@search.params, { office: '_all' }, replace: true)), class: "facet-link#{' active' if @search.params[:office] == ['_all']}" do %>
-                    <%= t('.search.office.by_all') %>
-                  <% end %>
-                </li>
-              </ul>
-
-              <%= render 'office_results', values: @search.facets_for(:office, selected_first: true), params: @search.params %>
-            </div>
-          </div>
-        </div>
-
-        <% Statistic::GROUPS.each do |group, metrics| %>
-          <% metrics.select { |metric| @search.has_metric?(metric) }.tap do |facets| %>
-            <% if facets.any? %>
-              <div class="facet">
-                <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-<%= group %>-content">
-                  <%= t ".search.#{group}.title" %>
-                </h6>
-
-                <div id="statistic-<%= group %>-content" class="facet-content collapse show">
-                  <div class="facet-results">
-                    <%= collapsible_facet_results(facets, selected: @search.params[:metric]) do |key| %>
-                      <li class="facet-item">
-                        <%= link_to statistics_path(search_params(@search.params, { metric: key }, replace: true)), class: "facet-link#{' active' if search_param?(@search.params, :metric, key)}" do %>
-                          <%= trim(t("models.statistic.metrics.#{key}"), length: 30) %>
-                        <% end %>
-                      </li>
-                    <% end %>
-                  </div>
                 </div>
               </div>
-            <% end %>
+            </div>
           <% end %>
         <% end %>
-      </div>
-      <div class="float-lg-right col-lg-9 px-0" data-results-for-facets>
-        <div class="d-flex flex-wrap align-items-center justify-content-between">
-          <h1 class="display-2 text-uppercase mr-sm-4 mt-1 pr-5">
-            <%= t '.title' %>
-          </h1>
+      <% end %>
+    </div>
+    <div class="float-lg-right col-lg-9 px-0" data-results-for-facets>
+      <div class="d-flex flex-wrap align-items-center justify-content-between">
+        <h1 class="display-2 text-uppercase mr-sm-4 mt-1 pr-5">
+          <%= t '.title' %>
+        </h1>
 
-          <div class="btn-toolbar" role="toolbar">
-            <% if @search.params.any? { |_, v| v.present? } %>
-              <div class="btn-group btn-group-sm border mb-3 mr-2" role="group">
-                <%= link_to t('layouts.search.reset'), statistics_path, class: 'btn btn-secondary btn-sm shadow-none border-0 w-100', 'data-turbolinks': false %>
-              </div>
-            <% end %>
-
-            <div class="btn-group btn-group-sm border mb-3" role="group">
-              <a href="#" class="btn btn-secondary btn-sm shadow-none border-0 w-100" data-toggle="collapse" data-target="#facets" aria-controls="#facets" aria-expanded="true">
-                <span class="show"><%= t '.shrink_chart' %></span>
-                <span class="hide"><%= t '.enlarge_chart' %></span>
-              </a>
+        <div class="btn-toolbar" role="toolbar">
+          <% if @search.params.any? { |_, v| v.present? } %>
+            <div class="btn-group btn-group-sm border mb-3 mr-2" role="group">
+              <%= link_to t('layouts.search.reset'), statistics_path, class: 'btn btn-secondary btn-sm shadow-none border-0 w-100', 'data-turbolinks': false %>
             </div>
+          <% end %>
 
-            <div class="btn-group btn-group-sm border mb-3 ml-2">
-              <div class="btn-group btn-group-sm flex-grow-1 d-flex" role="group">
-                <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-0 flex-grow-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <%=  t ".comparison.title" %>
-                </button>
-                <div class="dropdown-menu dropdown-menu-sm">
-                  <%= link_to t('.comparison.global'), statistics_path(@search.params.merge(comparison: nil)), class: "dropdown-item #{'active' if @search.comparison == 'global'}" %>
-                  <%= link_to t('.comparison.office'), statistics_path(@search.params.merge(comparison: 'office')), class: "dropdown-item #{'active' if @search.comparison == 'office'}" %>
-                  <% if @search.paragraphs_present? %>
-                    <%= link_to t('.comparison.paragraph'), statistics_path(@search.params.merge(comparison: 'paragraph')), class: "dropdown-item #{'active' if @search.comparison == 'paragraph'}" %>
-                  <% end %>
-                </div>
-              </div>
-            </div>
+          <div class="btn-group btn-group-sm border mb-3" role="group">
+            <a href="#" class="btn btn-secondary btn-sm shadow-none border-0 w-100" data-toggle="collapse" data-target="#facets" aria-controls="#facets" aria-expanded="true">
+              <span class="show"><%= t '.shrink_chart' %></span>
+              <span class="hide"><%= t '.enlarge_chart' %></span>
+            </a>
+          </div>
 
-            <div class="btn-group btn-group-sm border mb-3 ml-2">
-              <div class="btn-group btn-group-sm flex-grow-1 d-flex" role="group">
-                <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-0 flex-grow-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <%=  t 'Export' %>
-                </button>
-                <div class="dropdown-menu dropdown-menu-sm">
-                  <%= link_to 'PNG', png_statistics_path(index_params), class: 'dropdown-item', target: :_blank %>
-                  <%= link_to 'Embed', embed_statistics_path(index_params), class: 'dropdown-item', target: :_blank %>
-                </div>
+          <div class="btn-group btn-group-sm border mb-3 ml-2">
+            <div class="btn-group btn-group-sm flex-grow-1 d-flex" role="group">
+              <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-0 flex-grow-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%=  t ".comparison.title" %>
+              </button>
+              <div class="dropdown-menu dropdown-menu-sm">
+                <%= link_to t('.comparison.global'), statistics_path(@search.params.merge(comparison: nil)), class: "dropdown-item #{'active' if @search.comparison == 'global'}" %>
+                <%= link_to t('.comparison.office'), statistics_path(@search.params.merge(comparison: 'office')), class: "dropdown-item #{'active' if @search.comparison == 'office'}" %>
+                <% if @search.paragraphs_present? %>
+                  <%= link_to t('.comparison.paragraph'), statistics_path(@search.params.merge(comparison: 'paragraph')), class: "dropdown-item #{'active' if @search.comparison == 'paragraph'}" %>
+                <% end %>
               </div>
             </div>
           </div>
 
-          <div
-            class="w-100"
-            data-controller="statistics-chart"
-            data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>"
-            data-comparison="<%= @search.comparison %>"
-            data-json="<%= @data.to_json %>"
-          >
-            <h1 class="text-uppercase">
-              <small class="text-muted">
-                <% if @search.default_params? && params[:show_default_paragraphs].blank? %>
-                  <%= t '.subtitle_for_default_params' %>
-                <% else %>
-                  <%= statistics_subtitle(@search) %>
-                <% end %>
-              </small>
-            </h1>
+          <div class="btn-group btn-group-sm border mb-3 ml-2">
+            <div class="btn-group btn-group-sm flex-grow-1 d-flex" role="group">
+              <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-0 flex-grow-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%=  t 'Export' %>
+              </button>
+              <div class="dropdown-menu dropdown-menu-sm">
+                <%= link_to 'PNG', png_statistics_path(index_params), class: 'dropdown-item', target: :_blank %>
+                <%= link_to 'Embed', embed_statistics_path(index_params), class: 'dropdown-item', target: :_blank %>
+              </div>
+            </div>
+          </div>
+        </div>
 
-            <% if @search.default_params? && params[:show_default_paragraphs].blank? %>
-              <%= link_to t('.show_paragraphs'), statistics_path(@search.params.merge(show_default_paragraphs: true)), class: 'text-muted' %>
-            <% end %>
+        <div
+          class="w-100"
+          data-controller="statistics-chart"
+          data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>"
+          data-comparison="<%= @search.comparison %>"
+          data-json="<%= @data.to_json %>"
+        >
+          <h1 class="text-uppercase">
+            <small class="text-muted">
+              <% if @search.default_params? && params[:show_default_paragraphs].blank? %>
+                <%= t '.subtitle_for_default_params' %>
+              <% else %>
+                <%= statistics_subtitle(@search) %>
+              <% end %>
+            </small>
+          </h1>
 
-            <% if @search.data[:data].reject { |e| e[:global] }.any? %>
-              <div class="mt-5 chart"></div>
+          <% if @search.default_params? && params[:show_default_paragraphs].blank? %>
+            <%= link_to t('.show_paragraphs'), statistics_path(@search.params.merge(show_default_paragraphs: true)), class: 'text-muted' %>
+          <% end %>
 
-              <small class="mt-2 text-muted float-right text-right">
-                <%= t '.data_disclaimer' %>
-              </small>
-            <% else %>
-              <p class="text-center text-muted mt-5 p-5"><%= t '.no_data' %></p>
-            <% end %>
+          <% if @search.data[:data].reject { |e| e[:global] }.any? %>
+            <div class="mt-5 chart"></div>
 
-            <div class="table-responsive-md mt-5 table-scrollable" data-controller="table">
-              <%= table_tag class: 'table table-sm' do %>
-                <thead>
+            <small class="mt-2 text-muted float-right text-right">
+              <%= t '.data_disclaimer' %>
+            </small>
+          <% else %>
+            <p class="text-center text-muted mt-5 p-5"><%= t '.no_data' %></p>
+          <% end %>
+
+          <div class="table-responsive-md mt-5 table-scrollable" data-controller="table">
+            <%= table_tag class: 'table' do %>
+              <thead>
+                <tr>
+                  <%= table_header_tag t('.search.office.title'), class: 'text-left', sorter: 'text' %>
+                  <% @data[:years].each do |year| %>
+                    <%= table_header_tag year, class: 'text-left', sorter: 'number' %>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% @data[:data].select { |e| e[:table] == true }.each do |value| %>
                   <tr>
-                    <%= table_header_tag t('.search.office.title'), class: 'text-left', sorter: 'text' %>
-                    <% @data[:years].each do |year| %>
-                      <%= table_header_tag year, class: 'text-left', sorter: 'number' %>
+                    <th class="text-left" scope="row" data-value="<% value[:office] ? value[:office] : 'a' %>">
+                      <%= minified_office_name(value[:name]) %>
+                    </th>
+
+                    <% value[:data].each do |count| %>
+                      <td  data-value="<%= count || -1 %>"><%= count ? trim(number_with_delimiter(count), length: 5) : '&ndash;'.html_safe %></td>
                     <% end %>
                   </tr>
-                </thead>
-                <tbody>
-                  <% @data[:data].select { |e| e[:table] == true }.each do |value| %>
-                    <tr>
-                      <th class="text-left" scope="row" data-value="<% value[:office] ? value[:office] : 'a' %>">
-                        <%= minified_office_name(value[:name]) %>
-                      </th>
+                <% end %>
+              </tbody>
+            <% end %>
+          </div>
 
-                      <% value[:data].each do |count| %>
-                        <td  data-value="<%= count || -1 %>"><%= count ? trim(number_with_delimiter(count), length: 5) : '&ndash;'.html_safe %></td>
-                      <% end %>
-                    </tr>
-                  <% end %>
-                </tbody>
-              <% end %>
+          <div class="d-flex flex-wrap align-items-center justify-content-between">
+            <div class="small text-muted mr-3 mt-3">
+              <%= t 'layouts.search.found_html', count: number_with_delimiter(@search.current.count), total: I18n.t('statistics.count', count: number_with_delimiter(@count)) %>
             </div>
 
-            <div class="d-flex flex-wrap align-items-center justify-content-between">
-              <div class="small text-muted mr-3 mt-3">
-                <%= t 'layouts.search.found_html', count: number_with_delimiter(@search.current.count), total: I18n.t('statistics.count', count: number_with_delimiter(@count)) %>
-              </div>
-
-              <div class="small mt-3 text-muted float-right text-right">
-                <%= t '.data_source_disclaimer_html' %>
-              </div>
+            <div class="small mt-3 text-muted float-right text-right">
+              <%= t '.data_source_disclaimer_html' %>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-<% end %>
+</div>
+

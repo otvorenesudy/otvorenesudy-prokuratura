@@ -1,162 +1,32 @@
 module GenproGovSk
   module Offices
     module Parser
-      EMPLOYEE_POSITIONS =
-        [
-          'generálny prokurátor Slovenskej republiky',
-          'krajská prokurátorka',
-          'krajský prokurátor',
-          'manažér kybernetickej bezpečnosti a informačnej bezpečnosti',
-          'námestníčka generálneho prokurátora Slovenskej republiky pre netrestný úsek',
-          'námestníčka krajského prokurátora, - netrestný úsek',
-          'námestníčka krajského prokurátora, - trestný úsek',
-          'námestníčka krajského prokurátora',
-          'námestníčka krajskej prokurátorky, - netrestný úsek',
-          'námestníčka krajskej prokurátorky',
-          'námestníčka okresného prokurátora, - netrestný úsek',
-          'námestníčka okresného prokurátora',
-          'námestníčka okresnej prokurátorky',
-          'námestník generálneho prokurátora Slovenskej republiky',
-          'námestník krajského prokurátora - trestný úsek',
-          'námestník krajského prokurátora pre netrestný úsek,',
-          'námestník krajského prokurátora pre trestný úsek',
-          'námestník krajského prokurátora, - netrestný úsek',
-          'námestník krajského prokurátora, - trestný úsek',
-          'námestník krajského prokurátora',
-          'námestník krajskej prokurátorky, - netrestný úsek',
-          'námestník krajskej prokurátorky, - trestný úsek',
-          'námestník krajskej prokurátorky',
-          'námestník okresného prokurátora JUDr., - netrestný úsek',
-          'námestník okresného prokurátora, - trestný úsek',
-          'námestník okresného prokurátora',
-          'námestník okresnej prokurátorky',
-          'okresná prokurátorka',
-          'okresný prokurátor',
-          'poverená výkonom funkcie námestníčky krajského prokurátora',
-          'poverená výkonom funkcie námestníčky krajského prokurátora',
-          'poverená výkonom funkcie námestníčky okresnej prokurátorky',
-          'poverená výkonom funkcie okresného prokurátora',
-          'poverená výkonom funkcie riaditeľky osobného úradu',
-          'poverená výkonom funkcie vedúca oddelenia služobných vzťahov prokurátorov, právnych čakateľov prokuratúry, a zamestnancov prokuratúry',
-          'poverená výkonom funkcie vedúceho oddelenia násilnej a všeobecnej kriminality trestného odboru',
-          'poverená výkonom funkcie zástupcu riaditeľa medzinárodného odboru',
-          'poverená výkonom funkcie zástupkyne riaditeľa trestného odboru',
-          'poverená výkonom funkcie zástupkyne riaditeľky osobného úradu',
-          'poverený výkonom funkcie námestníka krajského prokurátora pre trestný úsek',
-          'poverený výkonom funkcie námestníka okresného prokurátora',
-          'poverený výkonom funkcie námestníka okresnej prokurátorky',
-          'poverený výkonom funkcie okresného prokurátora',
-          'poverený výkonom funkcie prvého námestníka generálneho prokurátora Slovenskej republiky',
-          'poverený výkonom funkcie riaditeľa odboru ekonomickej kriminality ÚŠP GP SR',
-          'poverený výkonom funkcie riaditeľa trestného odboru',
-          'poverený výkonom funkcie vedúceho oddelenia majetkovej kriminality trestného odboru',
-          'poverený výkonom funkcie vedúceho oddelenia násilnej a všeobecnej kriminality trestného odboru',
-          'poverený výkonom funkcie vedúceho oddelenia organizovaného zločinu, terorizmu a medzinárodnej kriminality odboru všeobecnej kriminality Úradu špeciálnej prokuratúry GP SR',
-          'poverený výkonom funkcie vedúceho oddelenia organizovaného zločinu, terorizmu a medzinárodnej kriminality, odboru všeobecnej kriminality Úradu špeciálnej prokuratúry GP SR',
-          'poverený výkonom funkcie vedúceho oddelenia právneho zastupovania štátu pred súdmi a inými orgánmi',
-          'poverený výkonom funkcie zástupcu špeciálneho prokurátora',
-          'prvá námestníčka generálneho prokurátora Slovenskej republiky',
-          'riaditeľ medzinárodného odboru',
-          'riaditeľ netrestného odboru',
-          'riaditeľ odboru ekonomickej kriminality ÚŠP GP SR',
-          'riaditeľ odboru všeobecnej kriminality ÚŠP GP SR',
-          'riaditeľ registra trestov',
-          'riaditeľ trestného odboru',
-          'riaditeľka ekonomického odboru',
-          'riaditeľka Kancelárie generálneho prokurátora Slovenskej republiky',
-          'riaditeľka medzinárodného odboru',
-          'riaditeľka odboru informatiky',
-          'riaditeľka odboru legislatívy a ústavného práva',
-          'riaditeľka osobného úradu',
-          'špeciálny prokurátor - námestník generálneho prokurátora',
-          'špeciálny prokurátor',
-          'vedúca oddelenia civilného procesu netrestného odboru',
-          'vedúca oddelenia dozoru orgánov verejnej správy netrestného odboru',
-          'vedúca oddelenia financovania a kontroly',
-          'vedúca oddelenia hospodárskej kriminality odboru ekonomickej kriminality ÚŠP GP SR',
-          'vedúca oddelenia prokurátorov a právnych čakateľov prokuratúry',
-          'vedúca oddelenia rozpočtu a verejného obstarávania',
-          'vedúca oddelenia služobných vzťahov prokurátorov, právnych čakateľov prokuratúry a zamestnancov prokuratúry',
-          'vedúca oddelenia správnych činností',
-          'vedúca oddelenia štátnych zamestnancov a ostatných zamestnancov prokuratúry',
-          'vedúca oddelenia ústavného práva',
-          'vedúca oddelenia vzdelávania a ďalších činností',
-          'vedúca organizačno-kontrolného oddelenia',
-          'vedúca referátu ochrany utajovaných skutočností',
-          'vedúca referátu správy registratúry',
-          'vedúci oddelenia extrémistickej kriminality ÚŠP GP SR',
-          'vedúci oddelenia hospodárskej správy',
-          'vedúci oddelenia koncepcie a rozvoja IS RT a mikrofilmovej archivácie a indexácie',
-          'vedúci oddelenia korupcie odboru všeobecnej kriminality ÚŠP GP SR',
-          'vedúci oddelenia legislatívy',
-          'vedúci oddelenia majetkovej kriminality odboru ekonomickej kriminality ÚŠP GP SR',
-          'vedúci oddelenia majetkovej kriminality trestného odboru',
-          'vedúci oddelenia medzinárodného práva verejného a európskych záležitostí',
-          'vedúci oddelenia násilnej a všeobecnej kriminality trestného odboru',
-          'vedúci oddelenia organizovaného zločinu, terorizmu a extrémistickej kriminality odboru všeobecnej kriminality ÚŠP GP SR',
-          'vedúci oddelenia organizovaného zločinu, terorizmu a medzinárodnej kriminality ÚŠP GP SR',
-          'vedúci oddelenia právneho styku s cudzinou a extradícií',
-          'vedúci oddelenia právneho zastupovania pred súdmi a inými orgánmi netrestného odboru',
-          'vedúci oddelenia prevádzky informačného systému registra trestov',
-          'vedúci oddelenia prevádzky IS, informačnej bezpečnosti a zverejňovania',
-          'vedúci oddelenia stratégie a rozvoja IS a rezortnej štatistiky, vedúci oddelenia prevádzky IS, informačnej bezpečnosti a zverejňovania',
-          'vedúci oddelenia stratégie a rozvoja IS a rezortnej štatistiky',
-          'vedúci prieskumného oddelenia',
-          'vedúci referátu vnútorného auditu',
-          'zástupca riaditeľa netrestného odboru',
-          'zástupca riaditeľa odboru ekonomickej kriminality ÚŠP GP SR',
-          'zástupca riaditeľa trestného odboru',
-          'zástupca riaditeľky odboru informatiky',
-          'zástupca špeciálneho prokurátora',
-          'zástupkyňa riaditeľa medzinárodného odboru',
-          'zástupkyňa riaditeľa registra trestov',
-          'zástupkyňa riaditeľky osobného úradu'
-        ].sort_by(&:size).reverse.freeze
-
       def self.parse(html)
         document = Nokogiri.HTML(html)
 
         unknown = []
-        name = normalize(document.css('.contentPage > h3').text)
+        name = normalize(document.css('.tx-tempest-contacts > h1').text)
 
         data = {
           name: name,
           type: type_by(name),
           employees:
-            document.css('.tab-kontakt:nth-of-type(2) tr')[1..-1]
+            document.css('.tx-tempest-contacts .table-responsive:nth-of-type(2) .gp-table tr')[1..-1]
               .map
               .with_index do |row, rank|
-                text = row.css('td').map { |e| normalize(e.text).presence }.compact.join('<>')
+                next if row.text.gsub(/[[:space:]]*/, '').blank?
 
-                next unless text.present?
+                name_parts = parse_name(row.css('td:nth-child(1)').text)
 
-                position =
-                  EMPLOYEE_POSITIONS.select do |position|
-                    next unless text.include?(position)
+                next if name_parts[:value].blank?
 
-                    text.gsub!(/#{position}[[:space:]]*(<>)?/, '')
-
-                    break position
-                  end
-
-                if position.blank?
-                  unknown << text
-
-                  next
-                end
-
-                name, phone = normalize(text).split('<>').map { |e| normalize(e) }
-
-                next if name.blank?
-
-                _, suffix_to_position = *name.match(/(?<suffix>- (ne)?trestný úsek)\z/)
-
-                name_parts = parse_name(suffix_to_position ? normalize(name.gsub(suffix_to_position, '')) : name)
+                position = row.css('td:nth-child(2)').text
+                phone = normalize(row.css('td:nth-child(3)').text)
 
                 {
                   name: name_parts[:value],
                   name_parts: name_parts.except(:value),
-                  position: normalize("#{position} #{suffix_to_position}"),
+                  position: position,
                   rank: rank + 1,
                   phone: phone
                 }
@@ -183,45 +53,42 @@ module GenproGovSk
         end
 
         def parse_contact(document)
-          registry_phone =
-            document.css('.tab-kontakt:nth-of-type(1) tr:nth-of-type(2) td:nth-of-type(1) p').text.match(/\((.+)\)/)
-
-          note = remove_excessive_redundant_columns_from_first_contact_table(document)
+          contact_table = document.css('.tx-tempest-contacts .table-responsive:nth-of-type(1) .gp-table')
 
           location =
-            document
-              .css('.tab-kontakt:nth-of-type(1) tr:nth-of-type(1) td:nth-of-type(1) p')
-              .map { |e| normalize(e.text) }[
-              1..-1
-            ]
+            contact_table.css('tr:nth-child(1) td:nth-child(1)').text.gsub(/\t+/, "\t").gsub('\s+', ' ').split("\t")
 
-          additional_address = normalize(location.delete_at(1)) if location.size == 3
-
-          _, address, zipcode, city = *location.join(' ').match(/\A(.+)(\d{3}[[:space:]]\d{2})[[:space:]]{0,}(.+)\z/)
+          address = location[location.size - 2]
+          _, zipcode, city = *location[location.size - 1].match(/\A(\d{3}[[:space:]]*\d{2})[[:space:]]{0,}(.+)\z/)
 
           address = normalize(address)
           zipcode = normalize(zipcode)
           city = normalize(city)
 
+          contact = contact_table.css('tr:nth-child(1) td:nth-child(2)').text.gsub(/\t+/, "\n").gsub('\s+', ' ')
+          _, phone = *contact.match(/tel\.{0,1}:(.+)$/)
+          _, fax = *contact.match(/fax:(.+)$/)
+          _, email = *contact.match(/e-mail:(.+)$/)
+          _, _, electronic_registry = *contact.match(/(edesk adresa|elektronická podateľňa):(.+)$/)
+
           data = {
             address: address,
-            additional_address: additional_address,
             zipcode: zipcode,
-            city: normalize(city.gsub(/\d/, '')),
-            phone:
-              normalize(
-                document.css('.tab-kontakt:nth-of-type(1) tr:nth-of-type(1) td:nth-of-type(2) p:nth-of-type(1)').text
-              ),
+            city: city,
+            phone: normalize(phone),
+            fax: normalize(fax),
+            email: normalize(email),
+            electronic_registry: normalize(electronic_registry),
             registry: {
-              phone: registry_phone ? normalize(registry_phone[1]) : nil,
-              note: note,
+              note: normalize(document.css('.tx-tempest-contacts > p.text-justify').text),
+              phone: nil,
               hours:
                 %i[monday tuesday wednesday thursday friday]
                   .map
                   .with_index do |day, i|
                     {
                       day =>
-                        document.css(".tab-kontakt:nth-of-type(1) tr:nth-of-type(#{i + 3}) td")[1..2]
+                        contact_table.css("tr:nth-of-type(#{i + 3}) td")[1..2]
                           .map { |e| normalize(e.text).presence }
                           .compact
                           .join(' – ')
@@ -231,37 +98,6 @@ module GenproGovSk
                   .inject(:merge)
             }
           }
-
-          document.css('.tab-kontakt:nth-of-type(1) tr:nth-of-type(1) td:nth-of-type(2) p')[1..-1]
-            .map do |line|
-              if line.text.match(/e\-mail:/)
-                next { email: normalize(line.css('a')[0][:href].match(/\Amailto:(.+)\z/)[1]) }
-              end
-
-              next { fax: normalize(line.text) } if line.text.match(/fax:/)
-
-              if line.text.match(/elektronická podateľňa:/)
-                next { electronic_registry: normalize(line.css('a')[0].text) }
-              end
-            end
-            .compact
-            .inject(:merge)
-            .merge(data)
-        end
-
-        def remove_excessive_redundant_columns_from_first_contact_table(document)
-          lines = document.css('.tab-kontakt:nth-of-type(1) tr').size
-
-          return unless lines > 7
-
-          redundant_lines_range = 2..(2 + (lines - 7) - 1)
-
-          nodes = document.css('.tab-kontakt:nth-of-type(1) tr')[redundant_lines_range]
-          text = nodes.map(&:text).join(' ')
-
-          nodes.map(&:remove)
-
-          normalize(text)
         end
 
         def type_by(name)

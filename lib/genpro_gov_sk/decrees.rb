@@ -6,16 +6,13 @@ module GenproGovSk
     using ::Legacy::String
 
     def self.import
-      url =
-        'https://www.genpro.gov.sk/dokumenty/pravoplatne-uznesenia-prokuratora-ktorymi-sa-skoncilo-trestne-stihanie-vedene-proti-urcitej-2f09.html'
-      html = Curl.get(url).body_str
-      links = Nokogiri.HTML(html).css('a[href^="?date_to"]').map { |e| e[:href] }
+      landing = Nokogiri.HTML(Curl.get(url()).body_str)
+      last_page = landing.css('ul.govuk-pagination__list > li:last-child').text.to_i
 
-      links.each do |link|
-        list_url = "#{url}#{link}"
-        html = Curl.get(list_url).body_str
+      (1..last_page).each do |page|
+        html = Curl.get(url(page: page)).body_str
 
-        decrees = Parser.parse(html, url: url)
+        decrees = Parser.parse(html, url: base_url)
 
         decrees.each do |decree|
           next GenproGovSk::ImportPdfDecreeJob.perform_later(decree) if decree[:file_type] === 'pdf'
@@ -24,6 +21,14 @@ module GenproGovSk
           raise ArgumentError.new("Unknown decree type: [${#{data[:type]}}]")
         end
       end
+    end
+
+    def self.url(page: 1)
+      "https://www.genpro.gov.sk/informacie/uznesenie-o-zastaveni-trestneho-stihania/?datumOd=1960-01-01&page=#{page || 1}"
+    end
+
+    def self.base_url
+      'https://www.genpro.gov.sk/'
     end
   end
 end

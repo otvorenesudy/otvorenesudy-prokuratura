@@ -11,7 +11,8 @@ class ProsecutorsController < ApplicationController
     @paragraphs = Paragraph.where(value: show_params[:paragraph]) if params[:paragraph].present?
     @decrees = @prosecutor.decrees
     @decrees = @decrees.where(paragraph: @paragraphs) if @paragraphs.present?
-    @declarations = @prosecutor.declarations.reverse.map!(&:deep_symbolize_keys) if @prosecutor.declarations
+    @declarations =
+      @prosecutor.declarations.map!(&:deep_symbolize_keys).sort_by { |e| e[:year] }.reverse if @prosecutor.declarations
   end
 
   def suggest

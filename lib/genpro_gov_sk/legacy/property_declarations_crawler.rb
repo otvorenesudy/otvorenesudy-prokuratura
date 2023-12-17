@@ -3,12 +3,14 @@ module GenproGovSk
     class PropertyDeclarationsCrawler
       def self.crawl_for(first_name:, last_name:, offices:)
         agent = Mechanize.new
-        page = agent.get('https://www.genpro.gov.sk/prokuratura-sr/majetkove-priznania-30a3.html')
+        page = agent.get('https://www.genpro.gov.sk/majetkove-priznania/')
         list =
-          page.form_with(name: 'uznesenia-form') do |form|
-            form.field_with(name: 'meno').value = first_name
-            form.field_with(name: 'priezvisko').value = last_name
-          end.submit
+          page
+            .form_with(name: 'uznesenia-form') do |form|
+              form.field_with(name: 'meno').value = first_name
+              form.field_with(name: 'priezvisko').value = last_name
+            end
+            .submit
 
         links = Parser.parse(list.body, offices: offices)
 
@@ -26,9 +28,9 @@ module GenproGovSk
             nodes = document.css('table.table_01 > tbody > tr')
           else
             nodes =
-              document.css('table.table_01 > tbody > tr').select do |node|
-                node.css('td:nth-child(3)').text.strip.in?(offices)
-              end
+              document
+                .css('table.table_01 > tbody > tr')
+                .select { |node| node.css('td:nth-child(3)').text.strip.in?(offices) }
           end
 
           nodes.map do |node|

@@ -2,7 +2,7 @@ import { Controller } from "stimulus";
 
 export default class extends Controller {
   initialize() {
-    this.colors = ["#00aeef", "#ac3e53", "#73be1e", "#8392ac", "#73be1e", "#d34242", "#e19e41", "#1b325f"];
+    this.colors = ["#00aeef", "#ac3e53", "#73be1e", "#8392ac", "#d34242", "#e19e41", "#1b325f"];
   }
 
   setupChartResizing() {

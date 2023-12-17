@@ -1,0 +1,42 @@
+<div class="statistics-export">
+  <div class="d-flex flex-wrap align-items-center justify-content-between">
+  <h1 class="display-2 text-uppercase mr-sm-4 mt-1 pr-5">
+    <%= t 'crimes.index.title' %>
+  </h1>
+
+  <%= brand_tag('transparency-international-slovensko', width: 197.92, height: 47.5, variant: I18n.locale) %>
+
+  <div
+    class="w-100"
+    data-controller="crimes-chart"
+    data-json="<%= @data.to_json %>"
+    data-comparison="<%= @search.comparison %>"
+    data-animation="false"
+  >
+    <h1 class="text-uppercase">
+      <small class="text-muted">
+        <% if @search.default_params? && params[:show_default_paragraphs].blank? %>
+          <%= t 'crimes.index.subtitle_for_default_params' %>
+        <% else %>
+          <%= crimes_subtitle(@search) %>
+        <% end %>
+      </small>
+    </h1>
+
+    <% if @search.data[:data].present? %>
+      <div class="mt-5 chart"></div>
+
+      <small class="mt-2 text-muted float-right text-right">
+        <%= t 'statistics.index.data_disclaimer' %>
+        <br>
+        <% if params[:embedded] %>
+          <%= link_to t('.open_in_application'), statistics_url(@search.params), class: 'text-muted', target: :_blank %>
+          &middot;&nbsp;
+        <% end %>
+        <%= t 'statistics.index.data_source_disclaimer_html' %>
+      </small>
+    <% else %>
+      <p class="text-center text-muted mt-5 p-5"><%= t '.no_data' %></p>
+    <% end %>
+  </div>
+</div>

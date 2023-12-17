@@ -27,7 +27,14 @@ Rails.application.routes.draw do
     get :export, on: :collection
   end
 
-  resources :statistics, only: :index, path: :criminality do
+  resources :statistics, only: :index, path: :'criminality/prosecutors' do
+    get :suggest, on: :collection
+    get :png, on: :collection
+    get :export, on: :collection
+    get :embed, on: :collection
+  end
+
+  resources :crimes, only: :index, path: :'criminality/police' do
     get :suggest, on: :collection
     get :png, on: :collection
     get :export, on: :collection

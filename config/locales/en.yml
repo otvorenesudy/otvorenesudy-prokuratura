@@ -19,6 +19,18 @@ en:
             office: Amount of Prosecutors
             regional: Regional Average Amount of Prosecutors
             district: District Average Amount of Prosecutors
+          rest_cases:
+            office: Amount of Supervision in Criminal Proceedings from Previous Period
+            regional: Regional Average of Supervision in Criminal Proceedings from Previous Period
+            district: District Average of Supervision in Criminal Proceedings from Previous Period
+          incoming_cases:
+            office: Total Amount of Supervision in Criminal Proceedings
+            regional: Regional Average of Total Amount of Supervision in Criminal Proceedings
+            district: District Average of Total Amount of Supervision in Criminal Proceedings
+          ratio_of_rest_to_incoming_cases:
+            office: Ratio of Transfered Cases to Total Amount of Supervised Cases in Criminal Proceedings
+            regional: Regional Average of Ratio of Transfered Cases to Total Amount of Supervised Cases in Criminal Proceedings
+            district: District Average of Ratio of Transfered Cases to Total Amount of Supervised Cases in Criminal Proceedings
 
   errors:
     unicorn:
@@ -181,6 +193,30 @@ en:
         _closure_all: All
         _sentence_all: All
 
+    crime:
+      metrics:
+        crime_discovered: Discovered
+        crime_solved: Solved
+        crime_denominated_damage: Denominated Damage
+        crime_additionally_solved: Additionally Solved
+        crime_alcohol_abuse: Alcohol Abuse
+        crime_drug_abuse: Drug Abuse
+        crime_underage_offender: Underage Offender
+        crime_underage_offender_alcohol_abuse: Underage Offender - Alcohol Abuse
+        crime_underage_offender_drug_abuse: Underage Offender - Drug Abuse
+        crime_adolescent_offender: Adolescent Offender
+        crime_adolescent_offender_alcohol_abuse: Adolescent Offender - Alcohol Abuse
+        crime_adolescent_offender_drug_abuse: Adolescent Offender - Drug Abuse
+        persons_all: All Persons
+        persons_alcohol_abuse: Alcohol Abuse
+        persons_drug_abuse: Drug Abuse
+        persons_underage_offender: Underage Offender
+        persons_underage_offender_alcohol_abuse: Underage Offender - Alcohol Abuse
+        persons_underage_offender_drug_abuse: Underage Offender - Drug Abuse
+        persons_adolescent_offender: Adolescent Offender
+        persons_adolescent_offender_alcohol_abuse: Adolescent Offender - Alcohol Abuse
+        persons_adolescent_offender_drug_abuse: Adolescent Offender - Drug Abuse
+
   layouts:
     application:
       authors: Transparency Internal Slovakia, Samuel Molnár
@@ -203,7 +239,10 @@ en:
       tos: Terms of Service
 
     header:
-      criminality: Crime Stats
+      criminality:
+        title: Crime Stats
+        prosecutors: Prosecutors
+        police: Police
       donate: Donate
       en: En
       english: English
@@ -275,6 +314,9 @@ en:
         prosecutors_count:
           not_found: No prosecutors found
           title: Amount of Prosecutors
+        decrees_count:
+          title: Amount of Decrees
+          not_found: No decrees found
         sort:
           default: Default
           name: By Name
@@ -304,6 +346,7 @@ en:
       average_filed_prosecutions_per_prosecutor_monthly_html: "Average amount of filed prosecutions is %{count} monthly every year."
       average_filed_prosecutions_per_prosecutor_yearly_html: "Average amount of filed prosecutions is %{count} yearly."
       average_data_disclaimer_title: "Breakdown by Years for the Office"
+      average_rest_vs_incoming_cases_yearly_html: "Average amount of rest cases from previous period is %{rest} yearly, which is %{ratio}% of all cases in the registry."
       indicators_comparison_by_office_type:
         regional: "Regional yearly average is %{count}."
         district: "District yearly average is %{count}."
@@ -382,6 +425,7 @@ en:
           title: Type
         decrees_count:
           title: Amount of Decrees
+          not_found: No decrees found
         paragraph:
           title: By Paragraph
           placeholder: Name of Paragraph
@@ -411,6 +455,7 @@ en:
       empty: No estate declarations found.
 
     declaration:
+      office: Prosecutors' Office
       name: Name/Description
       reason: Acquisition Reason
       date: Acquisition Date
@@ -419,6 +464,7 @@ en:
       incomes: Incomes and Other Benefits
       income_value: Income (in €)
       statements: Statements
+      source: "Data Source"
 
     decrees:
       title: Decrees
@@ -446,15 +492,18 @@ en:
       other: "%{count} statistics"
 
     export:
-      open_in_application: Open in the application Otvorená Prokuratúra
+      open_in_application: Open in the Application Otvorená Prokuratúra
+      no_data: No statistics found for the given criteria
 
     index:
-      title: Crime Stats
+      title: Prosecutors
+      page_title: "Prosecutors · Criminality"
       subtitle: "Metric – %{metric}"
       subtitle_with_paragraphs: "Metric – %{metric} – by paragraphs %{paragraphs}"
-      subtitle_for_default_params: Overview by corruption prosecution
-      subtitle_for_default_params_with_paragraphs: "Overview by corruption prosecution %{paragraphs}"
+      subtitle_for_default_params: Overview by Corruption Prosecution
+      subtitle_for_default_params_with_paragraphs: "Overview by Corruption Prosecution %{paragraphs}"
       show_paragraphs: Show Paragraphs
+      no_data: "No statitics found for the given criteria"
       enlarge_chart: Enlarge
       shrink_chart: Shrink
       data_disclaimer: Aggregation is perfomed only on the data from the ‘V’ register
@@ -521,6 +570,28 @@ en:
             title: A paragraph of Criminal Code until the year of 2005
             badge: "CC '61"
 
+  crimes:
+    export:
+      open_in_application: Open in the Application Otvorená Prokuratúra
+      no_data: No statistics found for the given criteria
+
+    index:
+      page_title: "Police · Criminality"
+      title: "Police"
+      subtitle_for_default_params: "Overview by Corruption Criminality"
+      monetary_subtitle: Material Damages
+      by_paragraphs_subtitle: by paragraphs %{paragraphs}
+      show_paragraphs: Show Paragraphs
+      no_data: No statistics found for the given criteria
+      data_disclaimer: TODO - Pridat disclaimer o datach
+      data_source_disclaimer_html: 'Data Source: <a href="https://www.minv.sk/?statistika-kriminality-v-slovenskej-republike-csv" class="text-muted" target="_blank">https://www.minv.sk/?statistika-kriminality-v-slovenskej-republike-csv</a>'
+      metric: Metrics
+      search:
+        crimes:
+          title: Crimes
+        persons:
+          title: Perpetrators
+
   static_pages:
     home:
       squares:
@@ -528,8 +599,7 @@ en:
         offices: Prosecutors' Offices
         prosecutors: Prosecutors
         search: Insights
-
       average_incoming_cases_chart_title: Average Incoming Cases for District Attorney
-      average_incoming_cases_chart_comparison_title: Average Incoming Cases for Attorney per Year
+      average_incoming_cases_comparison_chart_title: Average Incoming Cases for Attorney per Year
       filed_cases_to_incoming_cases_chart_title: Average Amount of Filed Cases to Incoming Cases in Matters of Criminal Proceedings for the year of 2019
       ratio_of_rest_to_incoming_cases_chart_title: Ratio of Rest Incoming Cases from Previous Period

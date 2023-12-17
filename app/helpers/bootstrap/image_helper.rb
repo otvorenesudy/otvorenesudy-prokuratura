@@ -7,7 +7,7 @@ module Bootstrap
     end
 
     def brand_tag(name, options = {}, variants = {})
-      use_within_svg_tag 'brands', name, options, variants
+      use_within_svg_tag('brands', name, options, variants)
     end
 
     private
@@ -23,7 +23,13 @@ module Bootstrap
                     }
       content_tag :svg,
                   use,
-                  size ? options.merge(width: SIZES.fetch(size, size), height: SIZES.fetch(size, size)) : options
+                  (
+                    if size
+                      options.merge(width: SIZES.fetch(size, size), height: SIZES.fetch(size, size))
+                    else
+                      options
+                    end
+                  )
     end
   end
 end
