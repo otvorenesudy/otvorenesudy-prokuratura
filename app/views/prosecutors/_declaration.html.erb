@@ -4,7 +4,7 @@
   <% if office = Office.find_by(name: declaration[:office]) %>
     <%= link_to(office.name, office_path(office), class: 'font-weight-normal') %>
   <% else %>
-    <span class="font-weight-normal"><%= office %></span>
+    <span class="font-weight-normal"><%= declaration[:office] %></span>
   <% end %>
 </h6>
 
