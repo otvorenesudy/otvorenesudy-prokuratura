@@ -131,7 +131,7 @@ module GenproGovSk
 
           parts = line.split(/\s{3,}/)
 
-          return if parts.size <= 1
+          return if parts.size <= 1 || parts[0].size <= 5
 
           name_parts = parse_name(parts[0])
           office = parts[1].strip.gsub(/–/, '-')
