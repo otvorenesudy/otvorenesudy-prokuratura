@@ -46,7 +46,7 @@ class CrimesController < ApplicationController
       driver.save_screenshot(path)
 
       File.open(path, 'rb') do |file|
-        send_data(file.read, type: 'image/png', filename: 'otvorena-prokuratura-kriminalita-prokuratura-export.png')
+        send_data(file.read, type: 'image/png', filename: 'otvorena-prokuratura-kriminalita-policia-export.png')
       end
     rescue Exception => e
       raise e

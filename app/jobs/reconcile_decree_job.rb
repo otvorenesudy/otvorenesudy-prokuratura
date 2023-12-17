@@ -40,7 +40,8 @@ class ReconcileDecreeJob < ApplicationJob
     prosecutors =
       [
         *Prosecutor.joins(:offices).merge(Office.where(id: office)).distinct.pluck(:id, :name_parts),
-        *Prosecutor.joins(:offices).merge(Office.where.not(id: office)).distinct.pluck(:id, :name_parts)
+        *Prosecutor.joins(:past_offices).merge(Office.where(id: office)).distinct.pluck(:id, :name_parts),
+        *Prosecutor.joins(:all_offices).merge(Office.where.not(id: office)).distinct.pluck(:id, :name_parts)
       ].map { |(id, name)| [id, [name['first'], name['middle'], name['last']].compact] }
 
     prosecutor =
