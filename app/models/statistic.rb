@@ -27,7 +27,7 @@
 #
 
 class Statistic < ApplicationRecord
-  belongs_to :office, optional: true
+  belongs_to :office
 
   validates :year, presence: true, numericality: { in: 2010..2020 }
   validates :metric,
