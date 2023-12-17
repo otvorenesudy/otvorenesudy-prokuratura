@@ -595,7 +595,7 @@ sk:
       by_paragraphs_subtitle: podľa paragrafov %{paragraphs}
       show_paragraphs: Zobraziť paragrafy
       no_data: Neboli nájdené žiadne štatistiky pre vaše vyhľadávacie kritéria
-      data_disclaimer: TODO - Pridat disclaimer o datach
+      data_disclaimer: Disclaimer
       data_source_disclaimer_html: 'Zdroj dát: <a href="https://www.minv.sk/?statistika-kriminality-v-slovenskej-republike-csv" class="text-muted" target="_blank">https://www.minv.sk/?statistika-kriminality-v-slovenskej-republike-csv</a>'
       metric: Metrika
       search:

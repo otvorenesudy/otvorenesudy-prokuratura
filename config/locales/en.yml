@@ -583,7 +583,7 @@ en:
       by_paragraphs_subtitle: by paragraphs %{paragraphs}
       show_paragraphs: Show Paragraphs
       no_data: No statistics found for the given criteria
-      data_disclaimer: TODO - Pridat disclaimer o datach
+      data_disclaimer: Disclaimer
       data_source_disclaimer_html: 'Data Source: <a href="https://www.minv.sk/?statistika-kriminality-v-slovenskej-republike-csv" class="text-muted" target="_blank">https://www.minv.sk/?statistika-kriminality-v-slovenskej-republike-csv</a>'
       metric: Metrics
       search:
