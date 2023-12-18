@@ -16,8 +16,8 @@ SKK_TO_EUR_BY_YEAR = {
   2005 => 37.848,
   2006 => 34.573,
   2007 => 33.603,
-  2008 => 30.126,
-};
+  2008 => 30.126
+}
 
 module MinvSk
   module Criminality
@@ -49,24 +49,26 @@ module MinvSk
               value = convert_skk_to_eur(value, year: year) if year < 2009
             end
 
-            data << {
-              year: year,
-              paragraph: "#{paragraph} [#{codex}]",
-              metric: breakdown[:value],
-              count: value
-            }
+            data << { year: year, paragraph: "#{paragraph} [#{codex}]", metric: breakdown[:value], count: value }
           end
         end
 
         data
       end
-      
-      class << self 
+
+      class << self
         private
 
         def convert_skk_to_eur(value, year:)
-          denominator = SKK_TO_EUR_BY_YEAR[year] ? SKK_TO_EUR_BY_YEAR[year]: (year < 1993 ? SKK_TO_EUR_BY_YEAR[1993] : SKK_TO_EUR_BY_YEAR[2008])
-      
+          denominator =
+            (
+              if SKK_TO_EUR_BY_YEAR[year]
+                SKK_TO_EUR_BY_YEAR[year]
+              else
+                (year < 1993 ? SKK_TO_EUR_BY_YEAR[1993] : SKK_TO_EUR_BY_YEAR[2008])
+              end
+            )
+
           (value / denominator.to_f).round(2)
         end
 
