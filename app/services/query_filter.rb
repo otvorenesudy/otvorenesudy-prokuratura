@@ -24,7 +24,7 @@ class QueryFilter
         .reorder(
           Arel.sql(columns.map { |column| "similarity(#{column}, lower(unaccent(#{query})))" }.join(' + ') + ' DESC')
         )
-        
+
     ids = search.pluck("#{relation.table_name}_search.id")
 
     relation.where(id: ids) #.reorder(Arel.sql("array_position(ARRAY[#{ids.join(', ')}] :: text[], #{relation.table_name}.id :: text)"))
