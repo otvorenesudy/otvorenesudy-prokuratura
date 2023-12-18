@@ -8,7 +8,7 @@ class CrimesController < ApplicationController
   def suggest
     return head 404 unless suggest_params[:facet].in?(%w[paragraph])
 
-    @search = CrimeSearch.new(index_params)
+    @search = CrimeSearch.new(suggest_params)
 
     render(
       json: {

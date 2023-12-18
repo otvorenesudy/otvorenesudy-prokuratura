@@ -1,11 +1,10 @@
-import ChartController from "./chart_controller";
-import Highcharts from "highcharts";
-import { compact } from "lodash";
-import { convertSkkToEur } from "../helpers/money.helper";
+import ChartController from './chart_controller';
+import Highcharts from 'highcharts';
+import { compact } from 'lodash';
 
 export default class extends ChartController {
   connect() {
-    const { years: categories, data } = JSON.parse(this.element.getAttribute("data-json"));
+    const { years: categories, data } = JSON.parse(this.element.getAttribute('data-json'));
 
     this.chartData = data;
     this.categories = categories;
@@ -14,11 +13,11 @@ export default class extends ChartController {
 
     const yAxis = this.yAxisOptions();
 
-    this.chart = Highcharts.chart(this.element.getElementsByClassName("chart")[0], {
+    this.chart = Highcharts.chart(this.element.getElementsByClassName('chart')[0], {
       colors: this.colors,
 
       chart: {
-        backgroundColor: "transparent",
+        backgroundColor: 'transparent',
         height: 500,
       },
 
@@ -38,9 +37,9 @@ export default class extends ChartController {
 
       legend: {
         enabled: true,
-        align: "left",
-        verticalAlign: "top",
-        width: "50%",
+        align: 'left',
+        verticalAlign: 'top',
+        width: '50%',
         y: 5,
         x: 50,
         itemMarginBottom: 5,
@@ -49,7 +48,7 @@ export default class extends ChartController {
 
       plotOptions: {
         series: {
-          animation: this.element.getAttribute("data-animation") === "false" ? null : { duration: 1000 },
+          animation: this.element.getAttribute('data-animation') === 'false' ? null : { duration: 1000 },
         },
       },
 
@@ -60,7 +59,7 @@ export default class extends ChartController {
   }
 
   prepareSeries() {
-    const comparison = this.element.getAttribute("data-comparison");
+    const comparison = this.element.getAttribute('data-comparison');
 
     this.seriesNames = [...new Set(this.chartData.filter((e) => e.comparison === comparison).map(({ name }) => name))];
 
@@ -74,13 +73,8 @@ export default class extends ChartController {
           series = {
             ...series,
 
-            data: [
-              ...series.data.slice(0, 12).map((e, i) => convertSkkToEur(e, this.categories[i])),
-              ...series.data.slice(12, series.data.length),
-            ],
-
             tooltip: {
-              valueSuffix: " €",
+              valueSuffix: ' €',
             },
 
             yAxis: 1,
@@ -130,7 +124,7 @@ export default class extends ChartController {
 
   lineChartOptions(color) {
     return {
-      type: "areaspline",
+      type: 'areaspline',
       color: color,
       fillColor: {
         linearGradient: {
@@ -140,15 +134,15 @@ export default class extends ChartController {
           y2: 1,
         },
         stops: [
-          [0, Highcharts.Color(color).setOpacity(0.15).get("rgba")],
-          [1, Highcharts.Color(color).setOpacity(0).get("rgba")],
+          [0, Highcharts.Color(color).setOpacity(0.15).get('rgba')],
+          [1, Highcharts.Color(color).setOpacity(0).get('rgba')],
         ],
       },
       fillOpacity: 0,
       marker: {
         radius: 4,
-        symbol: "dot",
-        fillColor: "white",
+        symbol: 'dot',
+        fillColor: 'white',
         lineColor: null,
         lineWidth: 1,
       },
@@ -157,8 +151,8 @@ export default class extends ChartController {
 
   barChartOptions(color) {
     return {
-      type: "column",
-      borderColor: "transparent",
+      type: 'column',
+      borderColor: 'transparent',
       color: {
         linearGradient: {
           x1: 1,
@@ -167,9 +161,9 @@ export default class extends ChartController {
           y2: 1,
         },
         stops: [
-          [0, Highcharts.Color(color).setOpacity(0.65).get("rgba")],
-          [0.5, Highcharts.Color(color).setOpacity(0.45).get("rgba")],
-          [0.75, Highcharts.Color(color).setOpacity(0.25).get("rgba")],
+          [0, Highcharts.Color(color).setOpacity(0.65).get('rgba')],
+          [0.5, Highcharts.Color(color).setOpacity(0.45).get('rgba')],
+          [0.75, Highcharts.Color(color).setOpacity(0.25).get('rgba')],
         ],
       },
     };

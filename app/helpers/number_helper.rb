@@ -12,7 +12,7 @@ module NumberHelper
     number_to_human(
       number,
       format: '%n%u',
-      precision: 0,
+      precision: 1,
       significant: false,
       units: {
         thousand: 'K',

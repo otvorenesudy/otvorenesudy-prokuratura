@@ -1,5 +1,24 @@
 require 'csv'
 
+SKK_TO_EUR_BY_YEAR = {
+  1993 => 37.219,
+  1994 => 38.086,
+  1995 => 37.872,
+  1996 => 39.55,
+  1997 => 38.372,
+  1998 => 43.29,
+  1999 => 42.458,
+  2000 => 43.996,
+  2001 => 42.76,
+  2002 => 41.722,
+  2003 => 41.161,
+  2004 => 38.796,
+  2005 => 37.848,
+  2006 => 34.573,
+  2007 => 33.603,
+  2008 => 30.126,
+};
+
 module MinvSk
   module Criminality
     module Parser
@@ -23,37 +42,54 @@ module MinvSk
           paragraph = row[0].gsub(/[-]+/, '').gsub(/[[:space:]]+/, ' ').gsub(%r{/\d+\z}, '').strip
 
           breakdowns.each do |breakdown|
+            value = row[breakdown[:column]].gsub(/[[:space:]]+/, '').to_i
+
+            if breakdown[:value] == :crime_denominated_damage
+              value *= 1000
+              value = convert_skk_to_eur(value, year: year) if year < 2009
+            end
+
             data << {
               year: year,
               paragraph: "#{paragraph} [#{codex}]",
               metric: breakdown[:value],
-              count: row[breakdown[:column]].gsub(/[[:space:]]+/, '').to_i
+              count: value
             }
           end
         end
 
         data
       end
+      
+      class << self 
+        private
 
-      private
+        def convert_skk_to_eur(value, year:)
+          denominator = SKK_TO_EUR_BY_YEAR[year] ? SKK_TO_EUR_BY_YEAR[year]: (year < 1993 ? SKK_TO_EUR_BY_YEAR[1993] : SKK_TO_EUR_BY_YEAR[2008])
+      
+          (value / denominator.to_f).round(2)
+        end
 
-      def self.map_breakdowns(breakdowns, map, base_column:)
-        breakdowns
-          .map
-          .with_index do |breakdown, i|
-            breakdown.gsub!(/(\A[[:space:]]+|[[:space:]]+\z)/, '')
+        def map_breakdowns(breakdowns, map, base_column:)
+          breakdowns
+            .map
+            .with_index do |breakdown, i|
+              breakdown.gsub!(/(\A[[:space:]]+|[[:space:]]+\z)/, '')
 
-            next if breakdown.blank? || breakdown.in?(['t.j. %'])
+              next if breakdown.blank? || breakdown.in?(['t.j. %'])
 
-            breakdown.gsub!(/\s*?-\s*?/, ' - ')
+              breakdown.gsub!(/\s*?-\s*?/, ' - ')
 
-            mapped_breakdown = map[breakdown]
+              mapped_breakdown = map[breakdown]
 
-            raise "Unknown breakdown: #{breakdown}" unless mapped_breakdown
+              raise "Unknown breakdown: #{breakdown}" unless mapped_breakdown
 
-            { value: mapped_breakdown, column: base_column + i }
-          end
-          .compact
+              value = base_column + i
+
+              { value: mapped_breakdown, column: base_column + i }
+            end
+            .compact
+        end
       end
     end
   end

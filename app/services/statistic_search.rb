@@ -265,7 +265,7 @@ class StatisticSearch
           .all
           .order(Arel.sql("array_position(ARRAY[#{highlights.join(',')}] :: text[], value :: text) ASC NULLS LAST"))
           .order(name: :asc)
-
+          
       paragraphs = ::QueryFilter.filter(scope, { q: suggest }, columns: %i[name]).pluck(:value).to_a
 
       relation = relation.where(paragraph: paragraphs) if suggest
