@@ -81,6 +81,7 @@ module GenproGovSk
             .gsub(/[;]/, '')
             .gsub(/[[:space:]]+/, ' ')
             .titleize
+
         office = OFFICES_MAP[row.css('td')[2].text.strip] || OFFICES_MAP[row.css('td')[3].text.strip]
         url = "https://www.genpro.gov.sk/#{row.css('td')[0].css('a')[0]['href']}"
         html = Curl.get(url).body_str

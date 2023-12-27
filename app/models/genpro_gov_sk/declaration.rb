@@ -48,7 +48,7 @@ module GenproGovSk
         unless prosecutor
           prosecutor = ::Prosecutor.lock.find_or_initialize_by(name: data[:name])
 
-          prosecutor.name_parts = []
+          prosecutor.name_parts = ::Legacy::Normalizer.partition_person_name(data[:name])
           prosecutor.save!
         end
 
