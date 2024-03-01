@@ -50,6 +50,8 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano-sidekiq', '~> 1.0.3'
+  gem 'bcrypt_pbkdf', '~> 1.1.0'
+  gem 'ed25519', '~> 1.2.4'
 end
 
 group :test do
@@ -65,8 +67,6 @@ group :development, :test do
   gem 'factory_bot', '~> 5.2.0'
   gem 'vcr'
   gem 'pry-rails'
-  gem 'lefthook'
-  gem 'prettier'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
