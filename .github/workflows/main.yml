@@ -35,7 +35,9 @@ jobs:
           mv config/credentials/test.ci.key config/credentials/test.key
 
       - name: Install Required Packages
-        run: sudo apt-get install libpq-dev libcurl4 libcurl4-openssl-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libpq-dev libcurl4 libcurl4-openssl-dev
 
       - name: 'Read Ruby Version'
         id: read-ruby-version
