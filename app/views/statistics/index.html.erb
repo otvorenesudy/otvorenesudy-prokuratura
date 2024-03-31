@@ -44,7 +44,7 @@
           <div class="facet-results">
             <ul class="facet-list">
               <li class="facet-item">
-                <%= link_to statistics_path(search_params(@search.params, year: nil)), class: "facet-link#{' active' if @search.params[:year].blank?}" do %>
+                <%= link_to statistics_path(search_params(@search.params, { year: nil })), class: "facet-link#{' active' if @search.params[:year].blank?}" do %>
                   <%= t('.search.year.all') %>
                 <% end %>
               </li>
@@ -53,7 +53,7 @@
             <% if @search.facets_for(:year).tap do |facets| %>
               <%= collapsible_facet_results(facets, selected: @search.params[:year]) do |key, _| %>
                 <li class="facet-item">
-                  <%= link_to statistics_path(search_params(@search.params, year: key)), class: "facet-link#{' active' if search_param?(@search.params, :year, key)}" do %>
+                  <%= link_to statistics_path(search_params(@search.params, { year: key })), class: "facet-link#{' active' if search_param?(@search.params, :year, key)}" do %>
                     <%= key %>
                   <% end %>
                 </li>
@@ -75,7 +75,7 @@
             <ul class="facet-list">
               <% if @search.facets_for(:office_type).each do |key, _| %>
                 <li class="facet-item">
-                  <%= link_to statistics_path(search_params(@search.params, office_type: key)), class: "facet-link#{' active' if search_param?(@search.params, :office_type, key)}" do %>
+                  <%= link_to statistics_path(search_params(@search.params, { office_type: key })), class: "facet-link#{' active' if search_param?(@search.params, :office_type, key)}" do %>
                     <%= t("offices.types.#{key}") %>
                   <% end %>
                 </li>
@@ -99,7 +99,7 @@
             <input class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.office.placeholder' %>" type="text" autocomplete="off">
             <ul class="facet-list">
               <li class="facet-item">
-                <%= link_to statistics_path(search_params(@search.params, office: nil)), class: "facet-link#{' active' if @search.params[:office].blank?}" do %>
+                <%= link_to statistics_path(search_params(@search.params, { office: nil })), class: "facet-link#{' active' if @search.params[:office].blank?}" do %>
                   <%= t('.search.office.all') %>
                 <% end %>
               </li>

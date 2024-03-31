@@ -44,7 +44,7 @@
           <div class="facet-results">
             <ul class="facet-list">
               <li class="facet-item">
-                <%= link_to crimes_path(search_params(@search.params, year: nil)), class: "facet-link#{' active' if @search.params[:year].blank?}" do %>
+                <%= link_to crimes_path(search_params(@search.params, { year: nil })), class: "facet-link#{' active' if @search.params[:year].blank?}" do %>
                   <%= t('statistics.index.search.year.all') %>
                 <% end %>
               </li>
@@ -53,7 +53,7 @@
             <% if @search.facets_for(:year).tap do |facets| %>
               <%= collapsible_facet_results(facets, selected: @search.params[:year]) do |key, _| %>
                 <li class="facet-item">
-                  <%= link_to crimes_path(search_params(@search.params, year: key)), class: "facet-link#{' active' if search_param?(@search.params, :year, key)}" do %>
+                  <%= link_to crimes_path(search_params(@search.params, { year: key })), class: "facet-link#{' active' if search_param?(@search.params, :year, key)}" do %>
                     <%= key %>
                   <% end %>
                 </li>
@@ -77,7 +77,7 @@
                 <div class="facet-results">
                   <%= collapsible_facet_results(facets, selected: @search.params[:metric]) do |key| %>
                     <li class="facet-item">
-                      <%= link_to crimes_path(search_params(@search.params, metric: key)), class: "facet-link#{' active' if search_param?(@search.params, :metric, key)}" do %>
+                      <%= link_to crimes_path(search_params(@search.params, { metric: key })), class: "facet-link#{' active' if search_param?(@search.params, :metric, key)}" do %>
                         <%= trim(t("models.crime.metrics.#{key}"), length: 30) %>
                       <% end %>
                     </li>

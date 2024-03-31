@@ -104,11 +104,11 @@ class Prosecutor < ApplicationRecord
 
     if office
       relation =
-        relation.left_joins(:all_offices).order(
-          "CASE WHEN offices.id = #{ActiveRecord::Base.connection.quote(office.id)} THEN 0 ELSE 1 END ASC"
+        relation.joins(:all_offices).order(
+          Arel.sql("CASE WHEN offices.id = #{ActiveRecord::Base.connection.quote(office.id)} THEN 0 ELSE 1 END ASC")
         )
     else
-      relation = relation.order('LENGTH(name) DESC')
+      relation = relation.order(Arel.sql('LENGTH(name) DESC'))
     end
 
     relation.first

@@ -1,6 +1,0 @@
-pre-commit:
-  commands:
-    prettier:
-      files: git diff --name-only --staged
-      glob: "*.{rb,js}"
-      run: bundle exec rbprettier --write {files}
