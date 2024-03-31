@@ -31,6 +31,7 @@ office.update!(destroyed_at: Time.zone.now)
 special_prosecutors_office = Office.find_or_initialize_by(name: 'Úrad špeciálnej prokuratúry')
 
 special_prosecutors_office.update!(
+  type: :specialized,
   address: 'Štúrova 2',
   zipcode: '812 85',
   city: 'Bratislava 1',

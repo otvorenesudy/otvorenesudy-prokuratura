@@ -51,7 +51,7 @@ class ProsecutorSearch
         .distinct
         .count
         .each
-        .with_object({}) { |(value, count), hash| hash[Office.types.key(value)] = count }
+        .with_object({}) { |(value, count), hash| hash[value] = count }
     end
   end
 

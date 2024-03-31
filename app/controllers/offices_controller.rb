@@ -6,7 +6,7 @@ class OfficesController < ApplicationController
   end
 
   def show
-    @office = Office.active.find(params[:id])
+    @office = Office.find(params[:id])
     @tab = show_params[:tab]
     @paragraphs = Paragraph.where(value: show_params[:paragraph]) if params[:paragraph].present?
     @decrees = @office.decrees
