@@ -69,7 +69,13 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.around(:each) { |example| DatabaseCleaner.cleaning { example.run } }
+  config.around(:each) do |example|
+    options = example.metadata
+
+    Rails.application.load_seed if options[:seeds]
+
+    DatabaseCleaner.cleaning { example.run }
+  end
 end
 
 Shoulda::Matchers.configure do |config|

@@ -1,19 +1,83 @@
 require 'rails_helper'
 
 RSpec.describe 'GenproGovSk Prosecutors', type: :feature do
-  it 'correctly parses all prosecutors', webmock: :disabled do
-    skip
-
+  it 'correctly parses all prosecutors', webmock: :disabled, seeds: true do
     GenproGovSk::Offices.import
 
     GenproGovSk::Prosecutors.import
 
-    expect(::Prosecutor.count).to eql(959)
+    expect(::Prosecutor.count).to eq(996)
 
-    GenproGovSk::Prosecutors::Parser::FIXED_OFFICES_BY_PROSECUTOR_NAME.each do |name, office|
-      prosecutor = ::Prosecutor.find_by(name: name)
+    prosecutor = Prosecutor.find_by(name: 'Mgr. Martin Draľ')
+    expect(prosecutor.name).to eq('Mgr. Martin Draľ')
+    expect(prosecutor.name_parts).to eq(
+      {
+        'last' => 'Draľ',
+        'role' => nil,
+        'first' => 'Martin',
+        'flags' => [],
+        'middle' => nil,
+        'prefix' => 'Mgr.',
+        'suffix' => nil,
+        'addition' => nil,
+        'unprocessed' => 'Draľ Martin, Mgr.'
+      }
+    )
+    expect(prosecutor.offices.map(&:name)).to eq(['Krajská prokuratúra Košice'])
 
-      expect(prosecutor.offices.pluck(:name)).to eql(['Úrad špeciálnej prokuratúry'])
-    end
+    prosecutor = Prosecutor.find_by(name: 'JUDr. Mgr. Svetlana Močková')
+    expect(prosecutor.name).to eq('JUDr. Mgr. Svetlana Močková')
+    expect(prosecutor.name_parts).to eq(
+      {
+        'last' => 'Močková',
+        'role' => nil,
+        'first' => 'Svetlana',
+        'flags' => [],
+        'middle' => nil,
+        'prefix' => 'JUDr. Mgr.',
+        'suffix' => nil,
+        'addition' => nil,
+        'unprocessed' => 'Močková Svetlana, JUDr. Mgr.'
+      }
+    )
+    expect(prosecutor.offices.map(&:name)).to eq(['Okresná prokuratúra Bratislava IV'])
+
+    prosecutor = Prosecutor.find_by(name: 'JUDr. Michal Bačo')
+    expect(prosecutor.name).to eq('JUDr. Michal Bačo')
+    expect(prosecutor.name_parts).to eq(
+      {
+        'last' => 'Bačo',
+        'role' => nil,
+        'first' => 'Michal',
+        'flags' => [],
+        'middle' => nil,
+        'prefix' => 'JUDr.',
+        'suffix' => nil,
+        'addition' => nil,
+        'unprocessed' => 'Bačo Michal, JUDr.'
+      }
+    )
+    expect(prosecutor.appointments.size).to eq(2)
+    expect(prosecutor.appointments.fixed.map { |e| e.office.name }).to eq(['Krajská prokuratúra Prešov'])
+    expect(prosecutor.appointments.temporary[0].place).to eq('EUROJUST')
+
+    prosecutor = Prosecutor.find_by(name: 'JUDr. Tomáš Bartko')
+    expect(prosecutor.name).to eq('JUDr. Tomáš Bartko')
+    expect(prosecutor.name_parts).to eq(
+      {
+        'last' => 'Bartko',
+        'role' => nil,
+        'first' => 'Tomáš',
+        'flags' => [],
+        'middle' => nil,
+        'prefix' => 'JUDr.',
+        'suffix' => nil,
+        'addition' => nil,
+        'unprocessed' => 'Bartko Tomáš, JUDr.'
+      }
+    )
+    expect(prosecutor.appointments.size).to eq(2)
+    expect(prosecutor.appointments.fixed.map { |e| e.office.name }).to eq(['Okresná prokuratúra Prešov'])
+    expect(prosecutor.appointments.temporary.map { |e| e.office.name }).to eq(['Okresná prokuratúra Poprad'])
   end
 end
