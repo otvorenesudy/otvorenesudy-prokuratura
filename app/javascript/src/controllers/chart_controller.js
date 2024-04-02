@@ -1,8 +1,8 @@
-import { Controller } from "stimulus";
+import { Controller } from 'stimulus';
 
 export default class extends Controller {
   initialize() {
-    this.colors = ["#00aeef", "#ac3e53", "#73be1e", "#8392ac", "#d34242", "#e19e41", "#1b325f"];
+    this.colors = ['#00aeef', '#ac3e53', '#73be1e', '#8392ac', '#d34242', '#e19e41', '#1b325f'];
   }
 
   setupChartResizing() {
@@ -13,7 +13,7 @@ export default class extends Controller {
   resizeChart() {
     this.chart.setSize(this.element.offsetWidth);
 
-    const watermarkUrl = this.element.getAttribute("data-watermark-url");
+    const watermarkUrl = this.element.getAttribute('data-watermark-url');
 
     if (!watermarkUrl) return;
     if (this.watermark) this.watermark.destroy();
@@ -26,7 +26,7 @@ export default class extends Controller {
       25
     );
 
-    this.watermark.element.setAttribute("style", "opacity: 0.25;");
+    this.watermark.element.setAttribute('style', 'opacity: 0.25;');
     this.watermark.add();
   }
 }
