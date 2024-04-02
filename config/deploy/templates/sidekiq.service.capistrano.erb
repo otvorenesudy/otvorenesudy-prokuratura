@@ -49,7 +49,6 @@ ExecStart=<%= expanded_bundle_path %> exec sidekiq -e <%= fetch(:sidekiq_env) %>
 UMask=0002
 
 EnvironmentFile=<%= "#{File.join('/home', fetch(:user), '.env')}" %>
-EnvironmentFile=<%= "#{File.join(fetch(:deploy_to), 'current')}/.env"  %>
 
 <% fetch(:sidekiq_service_unit_env_vars, []).each do |environment_variable| %>
   <%="Environment=#{environment_variable}" %>
