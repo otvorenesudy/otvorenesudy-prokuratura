@@ -3,5 +3,6 @@ set :branch, 'main'
 set :app_path, "#{fetch(:application)}-#{fetch(:stage)}"
 set :rails_env, :production
 set :deploy_to, "/home/deploy/projects/#{fetch(:app_path)}"
+set :user, 'deploy'
 
-server 'otvorenesudy.sk', user: 'deploy', roles: %w[app db web worker]
+server 'otvorenesudy.sk', user: fetch(:user), roles: %w[app db web worker]

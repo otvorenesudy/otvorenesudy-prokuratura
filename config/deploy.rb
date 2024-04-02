@@ -1,4 +1,4 @@
-# config valid for current version and patch releases of Capistrano
+# Config valid for current version and patch releases of Capistrano
 lock '~> 3.18.1'
 
 set :application, 'otvorenesudy-prokuratura'
@@ -7,7 +7,7 @@ set :repo_url, 'git@github.com:otvorenesudy/otvorenesudy-prokuratura.git'
 # Sidekiq
 set :sidekiq_processes, 2
 set :sidekiq_config_files, %w[config/sidekiq-1.yml config/sidekiq-2.yml]
-set :sidekiq_service_unit_name, "#{fetch(:application)}.sidekiq"
+set :sidekiq_service_unit_name, -> { "#{fetch(:application)}.sidekiq" }
 
 # Rbenv
 set :rbenv_type, :user
@@ -37,6 +37,7 @@ namespace :deploy do
     invoke 'deploy:updating'
     invoke 'bundler:install'
     invoke 'deploy:database' # This replaces deploy:migrations
+    invoke 'sidekiq:install'
     invoke 'deploy:compile_assets'
     invoke 'deploy:normalize_assets'
     invoke 'deploy:publishing'
