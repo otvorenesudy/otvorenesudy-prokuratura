@@ -31,7 +31,7 @@ gem 'sidekiq'
 gem 'skylight'
 gem 'svgeez'
 gem 'turbolinks'
-gem 'webpacker'
+gem 'webpacker', '6.0.0.rc.6'
 gem 'whenever'
 
 group :development do
