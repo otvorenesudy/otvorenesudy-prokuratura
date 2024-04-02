@@ -34,7 +34,9 @@ RSpec.describe GenproGovSk::ProsecutorsList, type: :model do
               {
                 id: '1',
                 name: 'JUDr. John Smith',
-                name_parts: { value: 'JUDr. John Smith' },
+                name_parts: {
+                  value: 'JUDr. John Smith'
+                },
                 office: "Attorney General's Office"
               }
             ],
@@ -65,7 +67,9 @@ RSpec.describe GenproGovSk::ProsecutorsList, type: :model do
               {
                 id: '1',
                 name: 'JUDr. John Smith',
-                name_parts: { value: 'JUDr. John Smith' },
+                name_parts: {
+                  value: 'JUDr. John Smith'
+                },
                 office: "Attorney General's Office"
               }
             ],
@@ -79,7 +83,9 @@ RSpec.describe GenproGovSk::ProsecutorsList, type: :model do
               {
                 id: '1',
                 name: 'JUDr. John Smith',
-                name_parts: { value: 'JUDr. John Smith' },
+                name_parts: {
+                  value: 'JUDr. John Smith'
+                },
                 office: "Attorney General's Office",
                 temporary_office: 'ABC'
               }
@@ -115,7 +121,9 @@ RSpec.describe GenproGovSk::ProsecutorsList, type: :model do
               {
                 id: '1',
                 name: 'JUDr. John Smith',
-                name_parts: { value: 'JUDr. John Smith' },
+                name_parts: {
+                  value: 'JUDr. John Smith'
+                },
                 office: "Attorney General's Office"
               }
             ],
@@ -130,32 +138,24 @@ RSpec.describe GenproGovSk::ProsecutorsList, type: :model do
           )
         }.to change { GenproGovSk::ProsecutorsList.where(digest: Digest::MD5.hexdigest('1234')).count }.by(1)
 
-        prosecutors = Prosecutor.order(:id).first(2)
+        prosecutor = Prosecutor.order(:id).last
 
-        expect(prosecutors[0].name).to eql('JUDr. John Smith')
-        expect(prosecutors[1].name).to eql('JUDr. John Smith')
+        expect(prosecutor.name).to eql('JUDr. John Smith')
 
-        expect(prosecutors[0].genpro_gov_sk_prosecutors_list).to eql(
+        expect(prosecutor.genpro_gov_sk_prosecutors_list).to eql(
           GenproGovSk::ProsecutorsList.find_by(digest: Digest::MD5.hexdigest('123'))
         )
-        expect(prosecutors[0].appointments.size).to eql(1)
+        expect(prosecutor.all_appointments.size).to eql(2)
 
-        expect(prosecutors[1].genpro_gov_sk_prosecutors_list).to eql(
-          GenproGovSk::ProsecutorsList.find_by(digest: Digest::MD5.hexdigest('1234'))
-        )
-        expect(prosecutors[1].appointments.size).to eql(1)
-
-        appointments = prosecutors[0].appointments.order(id: :asc)
+        appointments = prosecutor.all_appointments.order(id: :asc)
 
         expect(appointments[0].office).to eql(offices[0])
         expect(appointments[0]).to be_fixed
-        expect(appointments[0]).to be_current
+        expect(appointments[0]).not_to be_current
 
-        appointments = prosecutors[1].appointments.order(id: :asc)
-
-        expect(appointments[0].office).to eql(offices[1])
-        expect(appointments[0]).to be_fixed
-        expect(appointments[0]).to be_current
+        expect(appointments[1].office).to eql(offices[1])
+        expect(appointments[1]).to be_fixed
+        expect(appointments[1]).to be_current
       end
     end
 

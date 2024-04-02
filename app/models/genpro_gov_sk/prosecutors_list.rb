@@ -36,9 +36,11 @@ module GenproGovSk
         list.update!(file: file, data: data)
 
         namesakes =
-          data.each.with_object(Hash.new(0)) { |value, hash| hash[value[:name]] += 1 }.select do |_, value|
-            value > 1
-          end.keys
+          data
+            .each
+            .with_object(Hash.new(0)) { |value, hash| hash[value[:name]] += 1 }
+            .select { |_, value| value > 1 }
+            .keys
 
         data.each { |value| value[:namesake] = true if value[:name].in?(namesakes) }
 
@@ -49,7 +51,12 @@ module GenproGovSk
             if value[:namesake]
               prosecutor =
                 ::Prosecutor.joins(:appointments).find_by(
-                  name: value[:name], appointments: { type: :fixed, office_id: offices[0].id, ended_at: nil }
+                  name: value[:name],
+                  appointments: {
+                    type: :fixed,
+                    office_id: offices[0].id,
+                    ended_at: nil
+                  }
                 )
             else
               prosecutor = ::Prosecutor.find_by(name: value[:name])
@@ -58,7 +65,9 @@ module GenproGovSk
             unless prosecutor
               prosecutor =
                 ::Prosecutor.create!(
-                  name: value[:name], genpro_gov_sk_prosecutors_list: list, name_parts: value[:name_parts]
+                  name: value[:name],
+                  genpro_gov_sk_prosecutors_list: list,
+                  name_parts: value[:name_parts]
                 )
             end
 

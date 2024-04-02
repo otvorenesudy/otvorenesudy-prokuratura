@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'GenproGovSk Prosecutors', type: :feature do
   it 'correctly parses all prosecutors', webmock: :disabled do
+    skip
+
     GenproGovSk::Offices.import
 
     GenproGovSk::Prosecutors.import

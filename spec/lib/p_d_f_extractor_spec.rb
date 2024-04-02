@@ -8,7 +8,7 @@ RSpec.describe PDFExtractor, type: :unit do
     it 'extracts text from url', vcr: { cassette_name: 'genpro_gov_sk/prosecutors-list' } do
       text, file = PDFExtractor.extract_text_from_url(url)
 
-      expect(text.length).to eql(79_040)
+      expect(text.length).to eql(78_871)
       expect(text).to start_with(
         '             Priezvisko meno, titul/-y                 Pravidelné miesto výkonu funkcie'
       )

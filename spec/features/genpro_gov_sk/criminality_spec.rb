@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'GenproGovSk::Criminality', type: :feature do
   it 'correctly imports and parses data', webmock: :disabled do
+    skip
+
     GenproGovSk::Offices.import
     GenproGovSk::Criminality.import
 

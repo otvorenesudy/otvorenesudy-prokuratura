@@ -30,7 +30,7 @@ require 'rails_helper'
 RSpec.describe Appointment, type: :model do
   subject { build(:appointment, place: 'place') }
 
-  it { is_expected.to belong_to(:genpro_gov_sk_prosecutors_list) }
+  it { is_expected.to belong_to(:genpro_gov_sk_prosecutors_list).optional(true) }
   it { is_expected.to belong_to(:prosecutor) }
   it { is_expected.to belong_to(:office).optional(true) }
   it { is_expected.to validate_presence_of(:started_at) }
