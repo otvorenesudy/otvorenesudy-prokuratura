@@ -20,7 +20,7 @@ module ProsecutorHelper
     options = options.merge class: Array.wrap(options[:class]).unshift("d-inline #{c}")
     options = options.merge placement: options.delete(:placement) || 'top'
 
-    tooltip_tag icon_tag(n, size: options.delete(:size)), I18n.t(t, i18n_options), options
+    tooltip_tag icon_tag(n, size: options.delete(:size)), I18n.t(t, **i18n_options), options
   end
 
   def prosecutor_declaration_date(value)

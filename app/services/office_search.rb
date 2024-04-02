@@ -84,7 +84,13 @@ class OfficeSearch
     end
 
     def self.facets(relation, suggest:)
-      buckets = [1..5, 6..10, 11..20, 21..30, 31..Appointment.group(:office_id).order('count(*) DESC').count.first[1]]
+      buckets = [
+        1..5,
+        6..10,
+        11..20,
+        21..30,
+        31..Appointment.group(:office_id).order(Arel.sql('count(*) DESC')).count.first[1]
+      ]
 
       facets =
         Office

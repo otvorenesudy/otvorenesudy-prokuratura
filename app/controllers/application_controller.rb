@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action { set_locale(params[:l] || I18n.default_locale) }
+  before_action { set_locale(locale_params[:l] || I18n.default_locale) }
 
   protected
 
@@ -13,5 +13,9 @@ class ApplicationController < ActionController::Base
     I18n.locale = value
   rescue I18n::InvalidLocale
     redirect_to :root
+  end
+
+  def locale_params
+    params.permit(:l)
   end
 end

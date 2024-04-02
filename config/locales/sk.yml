@@ -344,6 +344,7 @@ sk:
       title: Prokuratúry
 
     show:
+      destroyed: Prokuratúra bola zrušená. Dáta sú historické a zobrazované len pre informačné účely.
       contact: Kontakt
       employees: Vedúci pracovníci
       prosecutors: Prokurátori

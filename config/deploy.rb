@@ -1,12 +1,13 @@
 # config valid for current version and patch releases of Capistrano
-lock '~> 3.16.0'
+lock '~> 3.18.1'
 
 set :application, 'otvorenesudy-prokuratura'
 set :repo_url, 'git@github.com:otvorenesudy/otvorenesudy-prokuratura.git'
 
 # Sidekiq
 set :sidekiq_processes, 2
-set :sidekiq_options_per_process, ['-C config/sidekiq-1.yml', '-C config/sidekiq-2.yml']
+set :sidekiq_config_files, %w[config/sidekiq-1.yml config/sidekiq-2.yml]
+set :sidekiq_service_unit_name, "#{fetch(:application)}.sidekiq"
 
 # Rbenv
 set :rbenv_type, :user

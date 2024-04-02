@@ -78,7 +78,7 @@
             <ul class="facet-list">
               <% if @search.facets_for(:type).each do |key, count| %>
                 <li class="facet-item">
-                  <%= link_to offices_path(search_params(@search.params, type: key)), class: "facet-link#{' active' if search_param?(@search.params, :type, key)}" do %>
+                  <%= link_to offices_path(search_params(@search.params, { type: key })), class: "facet-link#{' active' if search_param?(@search.params, :type, key)}" do %>
                     <%= t("offices.types.#{key}") %>
                     <span class="facet-tag"><%= number_with_delimiter(count) %></span>
                   <% end %>
@@ -116,7 +116,7 @@
             <ul class="facet-list">
               <% if @search.facets_for(:prosecutors_count).each do |key, count| %>
                 <li class="facet-item">
-                  <%= link_to offices_path(search_params(@search.params, prosecutors_count: key)), class: "facet-link#{' active' if search_param?(@search.params, :prosecutors_count, key)}" do %>
+                  <%= link_to offices_path(search_params(@search.params, { prosecutors_count: key })), class: "facet-link#{' active' if search_param?(@search.params, :prosecutors_count, key)}" do %>
 
                     <%= range_with_count(key, term_for_count: 'terms.prosecutors') %>
                     <span class="facet-tag"><%= number_with_delimiter(count) %></span>
@@ -142,7 +142,7 @@
             <ul class="facet-list">
               <% if @search.facets_for(:decrees_count).each do |key, count| %>
                 <li class="facet-item">
-                  <%= link_to offices_path(search_params(@search.params, decrees_count: key)), class: "facet-link#{' active' if search_param?(@search.params, :decrees_count, key)}" do %>
+                  <%= link_to offices_path(search_params(@search.params, { decrees_count: key })), class: "facet-link#{' active' if search_param?(@search.params, :decrees_count, key)}" do %>
 
                     <%= range_with_count(key, term_for_count: 'terms.decrees') %>
                     <span class="facet-tag"><%= number_with_delimiter(count) %></span>

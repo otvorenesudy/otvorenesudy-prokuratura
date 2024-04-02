@@ -337,6 +337,7 @@ en:
       title: Prosecutors' Offices
 
     show:
+      destroyed: The prosecutor's office has been cancelled. The data is historical and displayed for informational purposes only.
       contact: Contact
       employees: Leading Employees
       prosecutors: Prosecutors

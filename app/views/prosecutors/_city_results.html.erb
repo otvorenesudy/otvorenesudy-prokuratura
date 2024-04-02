@@ -1,7 +1,7 @@
 <ul class="facet-list" data-target="suggest.results">
   <% if values.each do |city, count| %>
     <li class="facet-item">
-      <%= link_to prosecutors_path(search_params(params, city: city)), class: "facet-link#{' active' if search_param?(params, :city, city)}" do %>
+      <%= link_to prosecutors_path(search_params(params, { city: city })), class: "facet-link#{' active' if search_param?(params, :city, city)}" do %>
         <%= city %>
         <span class="facet-tag"><%= count %></span>
       <% end %>

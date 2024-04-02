@@ -3,7 +3,7 @@ module ExceptionHandler
     begin
       yield
     rescue Exception => e
-      Rollbar.error(e)
+      Sentry.capture_exception(e)
     end
   end
 end

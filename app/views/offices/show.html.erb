@@ -1,3 +1,9 @@
+<% if @office.destroyed_at.present? %>
+  <div class="alert alert-danger" role="alert">
+    <%= t '.destroyed' %>
+  </div>
+<% end %>
+
 <% provide :title, @office.name %>
 
 <h1 class="text-uppercase my-4">
