@@ -47,19 +47,26 @@ class GoogleNews
 
   def self.cache_for(model, size: 50, ids: nil)
     unless ids
-      ids = model.where(news: nil).first(size)
-      ids += model.where.not(news: nil).order("(news -> 'last_updated_at') :: int").limit(size - ids.size).pluck(:id)
+      ids = model.where(news: nil).first(size).pluck(:id)
+      ids +=
+        model
+          .where.not(news: nil)
+          .order(Arel.sql("(news -> 'last_updated_at') :: int"))
+          .limit(size - ids.size)
+          .pluck(:id)
     end
 
-    model.where(id: ids).find_each do |record|
-      results = GoogleNews.search_by(record.to_news_query)
-      urls = results.map { |e| e[:url] }
-      data = record.news ? record.news['data'] : []
-      previous = data.reject { |result| result['url'].in?(urls) }
+    model
+      .where(id: ids)
+      .find_each do |record|
+        results = GoogleNews.search_by(record.to_news_query)
+        urls = results.map { |e| e[:url] }
+        data = record.news ? record.news['data'] : []
+        previous = data.reject { |result| result['url'].in?(urls) }
 
-      record.news = { last_updated_at: Time.zone.now.to_i, data: results + previous }
+        record.news = { last_updated_at: Time.zone.now.to_i, data: results + previous }
 
-      record.save!
-    end
+        record.save!
+      end
   end
 end
