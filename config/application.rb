@@ -36,6 +36,9 @@ module OpenCourts
 
       # Custom Error Pages
       config.exceptions_app = self.routes
+
+      # Skylight
+      config.skylight.probes << 'active_job'
     end
   end
 end
