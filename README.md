@@ -1,5 +1,14 @@
 # Otvorená Prokuratúra
 
+[![Build Status](https://github.com/otvorenesudy/otvorenesudy-prokuratura/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/otvorenesudy/otvorenesudy-prokuratura/actions?query=branch:main)
+[![Code Climate](https://codeclimate.com/github/otvorenesudy/otvorenesudy-prokuratura/badges/gpa.svg)](https://codeclimate.com/github/otvorenesudy/otvorenesudy-prokuratura)
+[![Test Coverage](https://codeclimate.com/github/otvorenesudy/otvorenesudy-prokuratura/badges/coverage.svg)](https://codeclimate.com/github/otvorenesudy/otvorenesudy-prokuratura/coverage)
+
+[![View performance data on Skylight](https://badges.skylight.io/status/T4hV7FBx1p8H.svg)](https://oss.skylight.io/app/applications/T4hV7FBx1p8H)
+[![View performance data on Skylight](https://badges.skylight.io/rpm/T4hV7FBx1p8H.svg)](https://oss.skylight.io/app/applications/T4hV7FBx1p8H)
+[![View performance data on Skylight](https://badges.skylight.io/typical/T4hV7FBx1p8H.svg)](https://oss.skylight.io/app/applications/T4hV7FBx1p8H)
+[![View performance data on Skylight](https://badges.skylight.io/problem/T4hV7FBx1p8H.svg)](https://oss.skylight.io/app/applications/T4hV7FBx1p8H)
+
 Public data project aimed at making information about public prosecutors such as their assignations and property declarations, and annual data about criminality from [General Prosecutors Office of the Slovak Republic](https://www.genpro.gov.sk) more publicly available.
 
 ## Requirements
