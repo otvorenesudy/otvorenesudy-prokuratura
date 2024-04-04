@@ -13,9 +13,9 @@ Public data project aimed at making information about public prosecutors such as
 
 ## Requirements
 
-- Ruby 2.7
-- Rails 6
-- PostgreSQL 9.4 (minimum)
+- Ruby 3.3.0
+- Rails 7.1
+- PostgreSQL 16
 
 ## Installation
 
