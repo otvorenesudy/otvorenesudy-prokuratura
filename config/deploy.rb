@@ -2,7 +2,8 @@
 lock '~> 3.18.1'
 
 set :application, 'otvorenesudy-prokuratura'
-set :repo_url, 'git@github.com:otvorenesudy/otvorenesudy-prokuratura.git'
+set :repo_url, 'git@github.com-otvorenesudy-prokuratura:otvorenesudy/otvorenesudy-prokuratura.git'
+# set :repo_url, 'git@github.com:otvorenesudy/otvorenesudy-prokuratura.git' # Uncomment when deploying locally and not from CI
 
 # Sidekiq
 set :sidekiq_processes, 2
