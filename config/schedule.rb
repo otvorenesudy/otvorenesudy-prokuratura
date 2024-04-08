@@ -34,7 +34,7 @@ every :sunday, at: '2:30am' do
 end
 
 every :sunday, at: '6:00am' do
-  runner 'ExceptionHandler.run { GenproGovSk::Declarations.reconcile! }'
+  runner 'ExceptionHandler.run { GenproGovSk::Declaration.reconcile! }'
 end
 
 every :sunday, at: '3:15am' do
