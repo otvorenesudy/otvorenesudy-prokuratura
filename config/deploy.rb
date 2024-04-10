@@ -7,7 +7,7 @@ set :repo_url, 'git@github.com-otvorenesudy-prokuratura:otvorenesudy/otvorenesud
 
 # Sidekiq
 set :sidekiq_processes, 2
-set :sidekiq_config_files, %w[config/sidekiq-1.yml config/sidekiq-2.yml]
+set :sidekiq_config, %w[config/sidekiq-1.yml config/sidekiq-2.yml]
 set :sidekiq_service_unit_name, -> { "#{fetch(:application)}.sidekiq" }
 
 # Rbenv
