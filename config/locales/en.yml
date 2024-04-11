@@ -595,17 +595,6 @@ en:
 
   static_pages:
     home:
-      feature:
-        headline: "More transparency"
-        footline: "to the Slovak prosecution offices"
-        project: "Otvorená Prokuratúra"
-        list: "%{project} brings:"
-        items:
-          - "list of prosecutors' offices and their valid decrees,"
-          - "list of prosecutors and their estate declarations,"
-          - "overview of criminality from police and prosecutors,"
-          - "analyses and articles about prosecution."
-
       squares:
         criminality: Crime Stats
         offices: Prosecutors' Offices
