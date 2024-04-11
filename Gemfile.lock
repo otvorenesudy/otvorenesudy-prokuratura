@@ -226,6 +226,8 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jsbundling-rails (1.3.0)
+      railties (>= 6.0.0)
     json (2.7.1)
     json-schema (4.3.0)
       addressable (>= 2.8)
@@ -329,8 +331,6 @@ GEM
       nio4r (~> 2.0)
     racc (1.7.3)
     rack (3.0.10)
-    rack-proxy (0.7.7)
-      rack
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -435,7 +435,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    semantic_range (3.0.0)
     sentry-rails (5.17.1)
       railties (>= 5.0)
       sentry-ruby (~> 5.17.1)
@@ -515,11 +514,6 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (6.0.0.rc.6)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     webrick (1.8.1)
     webrobots (0.1.2)
     websocket (1.2.10)
@@ -558,6 +552,7 @@ DEPENDENCIES
   google-api-client
   i18n-tasks
   jbuilder
+  jsbundling-rails
   json-schema
   kaminari
   listen
@@ -582,6 +577,7 @@ DEPENDENCIES
   skylight
   spring
   spring-watcher-listen
+  sprockets-rails
   svgeez
   turbolinks
   tzinfo-data
@@ -589,7 +585,6 @@ DEPENDENCIES
   web-console
   webdrivers
   webmock
-  webpacker (= 6.0.0.rc.6)
   whenever
 
 RUBY VERSION
