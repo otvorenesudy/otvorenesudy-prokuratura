@@ -1,25 +1,21 @@
 class StaticPagesController < ApplicationController
   def show
-    @slug = params[:slug]
+    @slug = show_params[:slug]
 
-    return head 404 unless @slug.in?('about contact copyright faq feedback privacy tos')
+    return head 404 unless @slug.in?(%w[about contact copyright faq feedback privacy tos])
 
-    name = @slug.gsub(/-/, '_')
+    name = "_#{@slug.gsub(/-/, '_')}"
+
+    raise ActionController::RoutingError.new nil unless lookup_context.template_exists?(name, 'static_pages')
 
     @title = translate "static_pages.#{name}", default: ''
-    @template = "static_pages/#{name}"
 
-    begin
-      render
-    rescue ActionView::ActionViewError => e
-      exceptions = [e, e.respond_to?(:original_exception) ? e.original_exception : nil].compact
-      types = exceptions.map(&:class)
+    render "static_pages/#{name}"
+  end
 
-      if types.include?(ActionView::MissingTemplate) || types.include?(ArgumentError)
-        raise ActionController::RoutingError.new nil
-      end
+  private
 
-      raise e
-    end
+  def show_params
+    params.permit(:slug)
   end
 end
