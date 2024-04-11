@@ -607,6 +607,16 @@ sk:
 
   static_pages:
     home:
+      feature:
+         headline: "Viac transparentnosti"
+         footline: "do slovenskej prokuratúry"
+         project: "Otvorená Prokuratúra"
+         list: "%{project} prináša:"
+         items:
+           - "zoznam prokuratúr a ich právoplatných rozhodnutí,"
+           - "zoznam prokurátorov a ich majetkových priznaní,"
+           - "prehľad kriminality z polície a prokuratúr,"
+           - "analýzy a články o prokuratúre."
       squares:
         criminality: Kriminalita
         offices: Prokuratúry
