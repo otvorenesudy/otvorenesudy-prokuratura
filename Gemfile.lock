@@ -498,9 +498,6 @@ GEM
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
@@ -590,7 +587,6 @@ DEPENDENCIES
   spring-watcher-listen
   svgeez
   turbo-rails
-  turbolinks
   tzinfo-data
   vcr
   web-console
