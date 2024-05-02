@@ -30,10 +30,13 @@ Now import the data
 ```ruby
 GenproGovSk::Offices.import
 GenproGovSk::Prosecutors.import
+GenproGovSk::Prosecutors.import_decrees
 GenproGovSk::Declarations.import
 
 # Runs 12 separate processes to levarage all your cores. Adjust for less if needed.
 GenproGovSk::Criminality.import # make sure to run Sidekiq as Declarations are processed in jobs
+
+MinvSk::Criminality.import
 ```
 
 ## Contributing
