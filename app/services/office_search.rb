@@ -76,7 +76,7 @@ class OfficeSearch
       relation.where(
         id:
           relation
-            .joins(:appointments)
+            .joins(:active_appointments)
             .group(:id)
             .having(ranges.map { |range| "#{range} @> count(*) :: int" })
             .select(:id)
@@ -89,14 +89,14 @@ class OfficeSearch
         6..10,
         11..20,
         21..30,
-        31..Appointment.group(:office_id).order(Arel.sql('count(*) DESC')).count.first[1]
+        31..Appointment.current.group(:office_id).order(Arel.sql('count(*) DESC')).count.first[1]
       ]
 
       facets =
         Office
           .group(:prosecutors_count)
           .order(prosecutors_count: :asc)
-          .from(relation.joins(:appointments).group(:id).select('count(*) as prosecutors_count'), :offices)
+          .from(relation.joins(:active_appointments).group(:id).select('count(*) as prosecutors_count'), :offices)
           .count
 
       buckets.map { |range, value| [range.to_s, facets.values_at(*range.to_a).compact.sum] }.to_h

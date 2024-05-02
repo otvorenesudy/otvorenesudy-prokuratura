@@ -1,5 +1,5 @@
 <%= render "decrees_table", loading: true do %>
-  <% @decrees.count.times do %>
+  <% [@decrees.count, 100].min.times do %>
     <tr class="p-2">
       <td colspan="7">
         <div class="bg-loading" style="height: 25px">
