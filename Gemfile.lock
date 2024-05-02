@@ -139,9 +139,12 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     chronic (0.10.2)
+    chunky_png (1.3.15)
     coderay (1.1.3)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
+    convolver-light (0.3.3)
+      narray (>= 0.6.0.8)
     crack (1.0.0)
       bigdecimal
       rexml
@@ -219,6 +222,12 @@ GEM
       rails-i18n
       rainbow (>= 2.2.2, < 4.0)
       terminal-table (>= 1.5.1)
+    iguvium (0.9.3)
+      convolver-light (~> 0.3.1)
+      matrix
+      oily_png (~> 1.2)
+      pdf-reader (~> 2.1)
+      slop (~> 4.2)
     io-console (0.7.2)
     irb (1.12.0)
       rdoc
@@ -280,6 +289,7 @@ GEM
     msgpack (1.7.2)
     multi_json (1.15.0)
     mutex_m (0.2.0)
+    narray (0.6.1.2)
     net-http (0.4.1)
       uri
     net-http-digest_auth (1.4.1)
@@ -304,6 +314,8 @@ GEM
     nokogiri (1.16.3)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
+    oily_png (1.2.1)
+      chunky_png (~> 1.3.7)
     os (1.1.4)
     parallel (1.24.0)
     parser (3.3.0.5)
@@ -462,6 +474,7 @@ GEM
     simplecov-html (0.10.2)
     skylight (6.0.4)
       activesupport (>= 5.2.0)
+    slop (4.10.1)
     smart_properties (1.17.0)
     spreadsheet (1.3.1)
       bigdecimal
@@ -559,6 +572,7 @@ DEPENDENCIES
   geocoder
   google-api-client
   i18n-tasks
+  iguvium
   jbuilder
   json-schema
   kaminari

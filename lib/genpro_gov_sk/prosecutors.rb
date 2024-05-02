@@ -11,9 +11,9 @@ module GenproGovSk
       path = Nokogiri.HTML(html).css('a').find { |e| e.text.ascii =~ /Menny zoznam prokuratorov SR/ }[:href]
       url = "https://www.genpro.gov.sk#{path}"
 
-      text, file = PDFExtractor.extract_text_from_url(url)
-
-      data = Parser.parse(text)
+      rows, file =
+        FileDownloader.download(url, extension: 'pdf') { |path| [PDFParser.parse(path), File.open(path, 'rb').read] }
+      data = Parser.parse(rows)
 
       GenproGovSk::ProsecutorsList.import_from(data: data, file: file, force: force)
     end

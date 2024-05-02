@@ -74,86 +74,45 @@ module GenproGovSk
         'EUROJUST' => 'EUROJUST'
       }
 
-      FIXED_OFFICES_BY_PROSECUTOR_NAME = {
-        'JUDr. Alexander Bíró' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Milan Cisarik' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Bohdan Čeľovský' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Ján Hrivnák' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Tomáš Honz' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Attila Izsák' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Rastislav Hruška, PhD.' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Oliver Janíček' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Peter Jenčík' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Vladimír Kuruc' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Peter Kysel' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Miroslav Ľalík' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Martin Nociar' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Renáta Ontkovičová' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Jaroslav Palkovič, PhD.' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Aurel Pardubský' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Ondrej Repa, PhD.' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Valéria Simonová' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Marek Sivák' => 'Úrad špeciálnej prokuratúry',
-        'Mgr. Michal Stanislav' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Ján Šanta, MBA PhD.' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Vasiľ Špirko' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Michal Šúrek' => 'Úrad špeciálnej prokuratúry',
-        'Mgr. Martin Tamaškovič' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Mária Trstenská' => 'Úrad špeciálnej prokuratúry',
-        'Mgr. Vladimír Turan' => 'Úrad špeciálnej prokuratúry',
-        'JUDr. Marián Varga' => 'Úrad špeciálnej prokuratúry'
-      }
-
-      def self.parse(text)
-        text = cleanup(text)
-        lines = text.split("\n").map(&:strip).select(&:present?)
-
-        lines.each.with_object([]) { |line, array| array << parse_line(line) }.compact
+      def self.parse(rows)
+        rows.map.with_index { |row, i| parse_row(row) }
       end
 
       class << self
         private
 
-        def cleanup(text)
-          text.gsub!(%r{Priezvisko meno, titul\/-y}, '')
-          text.gsub!(/Pravidelné miesto výkonu funkcie/, '')
-          text.gsub!(/Dočasné pridelenie/, '')
+        def parse_row(row)
+          source_name, source_office, source_temporary_office = row
 
-          text
-        end
+          name_parts = parse_name(source_name)
+          name = name_parts.delete(:value)
 
-        def parse_line(line)
-          OFFICES_MAP.keys.each { |name| line.gsub!("#{name}", "   #{name}   ") } if (!line.match(/\s{3,}/))
+          office = parse_office_or_place(source_office)
+          temporary_office = parse_office_or_place(source_temporary_office)
 
-          _, number = *line.match(/\A(\d+)/)
+          office = OFFICES_MAP[office] || office
 
-          line.gsub!(/\A\d+/, '')
+          if office.blank?
+            office = OFFICES_MAP.keys.find { |name| row[0].match?(/#{name}/i) }
 
-          parts = line.split(/\s{3,}/)
+            raise "Office not found for #{row[0]}" if office.blank?
 
-          return if parts.size <= 1 || parts[0].size <= 5
+            name = name.gsub(/#{office}/i, '').strip
+          end
 
-          name_parts = parse_name(parts[0])
-          office = parts[1].strip.gsub(/–/, '-')
-          temporary_office = parts[2]&.strip&.gsub(/–/, '-')
-
-          name = name_parts[:value]
-          office = FIXED_OFFICES_BY_PROSECUTOR_NAME[name] || OFFICES_MAP[office] || office
           temporary_office = OFFICES_MAP[temporary_office] || temporary_office
 
-          {
-            number: number,
-            name: name,
-            name_parts: name_parts.except(:value),
-            office: office,
-            temporary_office: temporary_office
-          }
+          { name: name, name_parts: name_parts, office: office.presence, temporary_office: temporary_office.presence }
         end
 
         def parse_name(value)
           value = 'Sofia Svitnič Martina, Mgr.' if value.strip.squeeze(' ') == 'Svitnič Martina Sofia, Mgr.'
 
           ::Legacy::Normalizer.partition_person_name(value, reverse: true)
+        end
+
+        def parse_office_or_place(value)
+          value.gsub(/–|—/, '-').strip
         end
       end
     end
