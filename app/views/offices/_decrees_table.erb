@@ -1,0 +1,45 @@
+<%= turbo_frame_tag :"office-#{@office.id}-decrees", **(loading ? { src: decrees_office_path(@office, paragraph: show_params[:paragraph]), loading: :lazy } : {}) do %>
+  <div class="table-responsive-md mt-2" data-controller="table">
+    <div class="row mt-3 mb-3 search-query">
+      <div class="col-lg-6 pt-1">
+        <h4><%= t('offices.decrees.table_title') %> <small class="text-muted">(<span class="search-query-count"><%= @decrees.count %></span>)</small></h4>
+
+        <% if @paragraphs.present? %>
+          <h4>
+            <small class="text-muted">
+              <%= t 'offices.decrees.filtered_by' %> <%= @paragraphs.map(&:name).to_sentence %>
+
+              <%= link_to '&times;'.html_safe, decrees_office_path(@office), class: 'cancel' %>
+            </small>
+          </h4>
+        <% end %> 
+      </div>
+      <div class="col-lg-6">
+        <div class="input-group input-group-sm">
+          <%= search_field_tag :q, '', class: 'form-control search-query-input', placeholder: t('offices.decrees.search.placeholder') %>
+          <div class="input-group-append">
+            <%= link_to icon_tag('times'), '#', class: 'btn search-query-reset mt-1', style: "display: none;" %>
+            <button class="btn mt-1 search-query-submit"><%= icon_tag('search') %></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= table_tag class: 'table', 'data-sortlist': '[[2, 1]]' do %>
+      <thead>
+        <tr>
+          <%= table_header_tag t('offices.decrees.prosecutor'), class: 'text-left', sorter: 'text' %>
+          <%= table_header_tag t('offices.decrees.number'), class: 'text-left', sorter: 'text' %>
+          <%= table_header_tag t('offices.decrees.effective_on'), class: 'text-left', sorter: 'date' %>
+          <%= table_header_tag t('offices.decrees.file_number'), class: 'text-left', sorter: 'text' %>
+          <%= table_header_tag t('offices.decrees.paragraph'), class: 'text-left', sorter: 'text' %>
+          <%= table_header_tag t('offices.decrees.resolution'), class: 'text-left', sorter: 'text' %>
+          <%= table_header_tag t('offices.decrees.means_of_resolution'), class: 'text-left', sorter: 'text' %>
+        </tr>
+      </thead>
+      <tbody>
+        <%= yield %>
+      </tbody>
+    <% end %>
+  </div>
+<% end %>

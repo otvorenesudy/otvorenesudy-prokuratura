@@ -4,11 +4,10 @@
 // that code so it'll be compiled.
 
 import Rails from '@rails/ujs';
-import Turbolinks from 'turbolinks';
 import * as ActiveStorage from '@rails/activestorage';
+import '@hotwired/turbo-rails';
 
 Rails.start();
-Turbolinks.start();
 ActiveStorage.start();
 
 require('./src/channels');
@@ -41,3 +40,4 @@ window.addEventListener('load', () => {
     showLink: false,
   });
 });
+import '@hotwired/turbo-rails';

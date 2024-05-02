@@ -1,10 +1,10 @@
-<% if @office.destroyed_at.present? %>
+<% provide :title, @office.name %>
+
+<% if @office.specialized? %>
   <div class="alert alert-danger" role="alert">
-    <%= t '.destroyed' %>
+    <%= t '.specialized_office_info_html' %>
   </div>
 <% end %>
-
-<% provide :title, @office.name %>
 
 <h1 class="text-uppercase my-4">
   <%= yield :title %>

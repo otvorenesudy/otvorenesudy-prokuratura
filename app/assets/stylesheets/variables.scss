@@ -162,7 +162,7 @@ $input-border-color:                   #9cc4e3;
 $input-border-width:                   0;
 
 $input-focus-bg:                       $input-bg;
-$input-focus-border-color:             rgba($primary, .5);
+$input-focus-border-color:             $primary;
 $input-focus-color:                    $input-color;
 $input-focus-width:                    2px;
 $input-focus-box-shadow:               none;

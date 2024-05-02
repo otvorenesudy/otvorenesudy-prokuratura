@@ -1,4 +1,6 @@
 class OfficesController < ApplicationController
+  layout false, only: [:decrees]
+
   def index
     @search = OfficeSearch.new(index_params)
 
@@ -33,6 +35,13 @@ class OfficesController < ApplicationController
     )
   end
 
+  def decrees
+    @office = Office.find(params[:id])
+    @decrees = @office.decrees
+    @paragraphs = Paragraph.where(value: decrees_params[:paragraph]) if decrees_params[:paragraph].present?
+    @decrees = @decrees.where(paragraph: @paragraphs) if @paragraphs.present?
+  end
+
   private
 
   helper_method :index_params, :show_params
@@ -47,5 +56,9 @@ class OfficesController < ApplicationController
 
   def suggest_params
     params.permit(:facet, :suggest)
+  end
+
+  def decrees_params
+    params.permit(paragraph: [])
   end
 end

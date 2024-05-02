@@ -1,0 +1,20 @@
+<%= render "decrees_table", loading: false do %>
+  <% @decrees.includes(:prosecutor, :paragraph).order(effective_on: :asc).each do |decree| %>
+    <tr>
+      <td data-search-value="<%= decree.prosecutor&.name %>"><%= decree.prosecutor ? link_to(decree.prosecutor.name, prosecutor_path(decree.prosecutor), target: :_top) : '&ndash;' %></td>
+      <td><%= link_to decree.number, decree.url, target: :_blank %></td>
+      <td data-value="<%= decree.effective_on %>"><%= tooltip_tag(l(decree.effective_on), t('.published', date: l(decree.published_on))) %></td>
+      <td><%= decree.file_number %></td>
+      <td data-search-value="<%= decree.paragraph&.name %>">
+        <%=
+          decree.paragraph ? tooltip_tag(
+            decree.paragraph.name,
+            decree.paragraph.type_old? ? [I18n.t("statistics.index.search.paragraph.old.title"), decree.paragraph_section].join(' &ndash; '.html_safe) : decree.paragraph_section
+          ) : '&ndash;'.html_safe
+        %>
+      </td>
+      <td data-search-value="<%= decree.resolution %>"><%= decree.resolution %></td>
+      <td data-search-value="<%= decree.means_of_resolution %>"><%= decree.means_of_resolution %></td>
+    </tr>
+  <% end %>
+<% end %>

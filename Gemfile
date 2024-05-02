@@ -30,7 +30,7 @@ gem 'sentry-ruby'
 gem 'sidekiq'
 gem 'skylight'
 gem 'svgeez'
-gem 'turbolinks'
+gem 'turbo-rails'
 gem 'webpacker', '6.0.0.rc.6'
 gem 'whenever'
 
@@ -69,3 +69,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
+# Use Redis for Action Cable
+gem 'redis', '~> 4.0'

@@ -1,11 +1,9 @@
 // disable outlines
-
 * {
   outline: none !important;
 }
 
 // add text decoration on focus to links (do not change this)
-
 a {
   @include hover-focus {
     text-decoration: $link-hover-decoration;
@@ -13,7 +11,6 @@ a {
 }
 
 // remove color change on hover and focus from text links
-
 @each $color, $value in $theme-colors {
   a.text-#{$color} {
     @include hover-focus {
@@ -23,14 +20,12 @@ a {
 }
 
 // set correct color on active buttons with shown menu items
-
 .show > .btn.dropdown-toggle {
   color: inherit !important;
 }
 
 // add text decoration on helper elements without icons (helper elements with icons have display inline class)
 // set default color and correct cursor on helper elements
-
 @each $helper in ("popover" "tooltip") {
   a[href="#"][data-toggle="#{$helper}"] {
     position: relative;
@@ -62,7 +57,6 @@ a {
 }
 
 // add bottom border corners on active tab links
-
 .nav-tabs .nav-link.active {
   position: relative;
 
@@ -83,7 +77,6 @@ a {
 }
 
 // make navbar links follow the link color
-
 .navbar-nav .nav-link {
   &:hover, &.active {
     color: $link-hover-color !important;
@@ -93,14 +86,13 @@ a {
 
 
 // set display to block even for hidden tabs so charts do not lose responsiveness (zero height hides tab content)
-
 .tab-content > .tab-pane:not(.active) {
   display: block;
   overflow-y: hidden;
   height: 0;
 }
 
-// Turbolinks
+// hide turbolinks progress bar
 .turbolinks-progress-bar {
-  background-color: $orange;
+  visibility: hidden;
 }

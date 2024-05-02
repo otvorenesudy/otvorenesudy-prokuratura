@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   resources :offices, only: %i[index show] do
     get :suggest, on: :collection
+    get :decrees, on: :member
   end
 
   resources :prosecutors, only: %i[index show] do

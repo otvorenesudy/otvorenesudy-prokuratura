@@ -342,6 +342,7 @@ sk:
             badge: "TZ '61"
 
       title: Prokuratúry
+      specialized_office_info: "Prokuratúra bola zrušená dňa 20. marca 2024."
 
     show:
       destroyed: Prokuratúra bola zrušená. Dáta sú historické a zobrazované len pre informačné účely.
@@ -364,6 +365,8 @@ sk:
         disclaimer: Články sú získané z výsledkov vyhľadávania v Google z Denníka N, SME a Aktuality pre meno prokuratúry. Môže sa stať, že nie všetky výsledky sú úplne relevantné.
         no_results: Nenájdené žiadne relevantné články v médiách.
         more_from_google: Viac výsledkov z Google
+      
+      specialized_office_info_html: "Prokuratúra bola zrušená dňa 20. marca 2024. Informácie sú historické a zobrazované len pre informačné účely.<br>Viac informácii na stránke <a href='https://www.genpro.gov.sk' target='_blank'>Generálnej prokuratúry SR</a>. " 
 
     decrees:
       title: Právoplatné rozhodnutia
