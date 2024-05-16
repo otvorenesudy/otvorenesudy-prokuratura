@@ -34,7 +34,7 @@ GenproGovSk::Prosecutors.import_decrees
 GenproGovSk::Declarations.import
 
 # Runs 12 separate processes to levarage all your cores. Adjust for less if needed.
-GenproGovSk::Criminality.import # make sure to run Sidekiq as Declarations are processed in jobs
+GenproGovSk::Criminality.import
 
 MinvSk::Criminality.import
 ```

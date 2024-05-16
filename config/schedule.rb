@@ -52,3 +52,7 @@ end
 every :day, at: '4:15am' do
   runner 'ExceptionHandler.run { GoogleNews.cache_for(::Office, size: 20) }'
 end
+
+every :day, at: '1:30am' do
+  rake '-s sitemap:refresh'
+end

@@ -474,6 +474,8 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
+    sitemap_generator (6.3.0)
+      builder (~> 3.0)
     skylight (6.0.4)
       activesupport (>= 5.2.0)
     slop (4.10.1)
@@ -599,6 +601,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq
   simplecov
+  sitemap_generator
   skylight
   spring
   spring-watcher-listen
