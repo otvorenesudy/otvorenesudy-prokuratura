@@ -1,5 +1,5 @@
 # See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
 
-Sitemap: https://otvorenesudy.sk/sitemap.xml.gz
+Sitemap: https://prokuratura.otvorenesudy.sk/sitemap.xml.gz
 User-agent: *
 Allow: /
