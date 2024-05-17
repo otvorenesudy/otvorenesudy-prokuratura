@@ -14,7 +14,7 @@ if Rails.env.production?
     end
   end
 
-  Rack::Attack.blacklist('Block bots accessing search') do |req|
+  Rack::Attack.blocklist('Block bots accessing search') do |req|
     CrawlerDetect.is_crawler?(req.user_agent) && req.path =~ %r{/(offices|prosecutors)(\z|\?)}
   end
 
