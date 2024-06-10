@@ -16,7 +16,7 @@ if Rails.env.production?
 
   Rack::Attack.blocklist('Block bots accessing search') do |req|
     !req.user_agent.match(/uptime/i) && CrawlerDetect.is_crawler?(req.user_agent) &&
-      req.path =~ %r{/(offices|prosecutors)(\z|\?)}
+      req.url =~ %r{/(offices|prosecutors)(\z|\?)}
   end
 
   Rack::Attack.blocklisted_responder = lambda { |request| [503, {}, ['Blocked']] }
