@@ -8,14 +8,13 @@ module Newsable
       find_each do |record|
         next if !record.news || !record.news['data']
 
-        record.news['data'] =
-          record.news['data'].reject do |e|
-            EXCLUDED_URLS.any? do |url|
-              a, b = URI.parse(e['url']), URI.parse(url)
+        record.news['data'] = record.news['data'].reject do |e|
+          EXCLUDED_URLS.any? do |url|
+            a, b = URI.parse(e['url']), URI.parse(url)
 
-              a.host == b.host && (a.path.match(b.path) || b.path.match(a.path))
-            end
+            a.host == b.host && (a.path.match(b.path) || b.path.match(a.path))
           end
+        end
 
         record.save! if record.changed?
       end
