@@ -51,7 +51,6 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '${{ steps.read-ruby-version.outputs.RUBY_VERSION }}'
-          bundler-cache: true
 
       - name: Install Bundle
         run: |
