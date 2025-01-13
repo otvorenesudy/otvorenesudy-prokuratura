@@ -586,7 +586,6 @@ DEPENDENCIES
   kaminari
   listen
   mechanize
-  mini_portile2 (= 2.8.5)
   parallel
   pdf-reader
   pg
