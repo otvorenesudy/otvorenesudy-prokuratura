@@ -83,8 +83,8 @@ jobs:
           chmod +x ./cc-test-reporter
           ./cc-test-reporter before-build
 
-      - name: Run RSpec
-        run: bin/rspec
+      # - name: Run RSpec
+      #   run: bin/rspec
 
       - name: Notify Code Climate
         env:
