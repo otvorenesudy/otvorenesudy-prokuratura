@@ -25,7 +25,7 @@ class ReconcileDecreeJob < ApplicationJob
             /Ú\s*r\s*a\s*d\s*š\s*p\s*e\s*c\s*i\s*á\s*l\s*n\s*e\s*j\s*p\s*r\s*o\s*k\s*u\s*r\s*a\s*t\s*ú\s*r\s*y/i,
             'Úrad špeciálnej prokuratúry'
           )
-          .match(/#{office.name}/i)
+          .match(/(#{[office.name, *office.synonyms].compact.join('|')})/i)
       end
 
     decree.update(office: office)

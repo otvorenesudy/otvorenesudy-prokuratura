@@ -74,6 +74,25 @@ class Office < ApplicationRecord
     employees.active.attorney_general.first
   end
 
+  def synonyms
+    return [] unless regional?
+
+    [
+      {
+        'Krajská prokuratúra v Bratislave' => 'Krajská prokuratúra Bratislava',
+        'Krajská prokuratúra v Trnave' => 'Krajská prokuratúra Trnava',
+        'Krajská prokuratúra v Trenčíne' => 'Krajská prokuratúra Trenčín',
+        'Krajská prokuratúra v Žiline' => 'Krajská prokuratúra Žilina',
+        'Krajská prokuratúra v Banskej Bystrici' => 'Krajská prokuratúra Banská Bystrica',
+        'Krajská prokuratúra v Nitre' => 'Krajská prokuratúra Nitra',
+        'Krajská prokuratúra v Košiciach' => 'Krajská prokuratúra Košice',
+        'Krajská prokuratúra v Prešove' => 'Krajská prokuratúra Prešov'
+      }[
+        name
+      ]
+    ]
+  end
+
   def full_address
     address = additional_address ? "#{self.address} (#{additional_address})" : self.address
 

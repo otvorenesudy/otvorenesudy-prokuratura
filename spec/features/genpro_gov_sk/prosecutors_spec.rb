@@ -5,7 +5,7 @@ RSpec.describe 'GenproGovSk Prosecutors', type: :feature do
     GenproGovSk::Offices.import
     GenproGovSk::Prosecutors.import
 
-    expect(::Prosecutor.count).to eq(999)
+    expect(::Prosecutor.count).to eq(1009)
 
     prosecutor = Prosecutor.find_by(name: 'Mgr. Martin Draľ')
     expect(prosecutor.name).to eq('Mgr. Martin Draľ')
@@ -22,7 +22,7 @@ RSpec.describe 'GenproGovSk Prosecutors', type: :feature do
         'unprocessed' => 'Draľ Martin, Mgr.'
       }
     )
-    expect(prosecutor.offices.map(&:name)).to eq(['Krajská prokuratúra Košice'])
+    expect(prosecutor.offices.map(&:name)).to eq(['Krajská prokuratúra v Košiciach'])
 
     prosecutor = Prosecutor.find_by(name: 'JUDr. Mgr. Svetlana Močková')
     expect(prosecutor.name).to eq('JUDr. Mgr. Svetlana Močková')
@@ -57,7 +57,7 @@ RSpec.describe 'GenproGovSk Prosecutors', type: :feature do
       }
     )
     expect(prosecutor.appointments.size).to eq(2)
-    expect(prosecutor.appointments.fixed.map { |e| e.office.name }).to eq(['Krajská prokuratúra Prešov'])
+    expect(prosecutor.appointments.fixed.map { |e| e.office.name }).to eq(['Krajská prokuratúra v Prešove'])
     expect(prosecutor.appointments.temporary[0].place).to eq('EUROJUST')
 
     prosecutor = Prosecutor.find_by(name: 'JUDr. Tomáš Bartko')

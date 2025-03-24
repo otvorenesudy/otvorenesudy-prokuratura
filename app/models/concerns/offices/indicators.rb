@@ -2,6 +2,16 @@ module Offices
   module Indicators
     extend ActiveSupport::Concern
 
+    def offices_map
+      @offices_map ||=
+        Office
+          .all
+          .each
+          .with_object({}) do |office, acc|
+            [office.id, office.name, *office.synonyms].compact.each { |name| acc[name] = office }
+          end
+    end
+
     def convicted_people_by_years
       @convicted_people_by_years ||=
         statistics.where(metric: :convicted_all).where.not(paragraph: nil).group(:year).order(year: :asc).sum(:count)
@@ -317,7 +327,7 @@ module Offices
           lines[0][3..-1].map do |value|
             name = value.match(/\AKP/) ? value.gsub(/\AKP/, 'Krajská prokuratúra') : "Okresná prokuratúra #{value}"
 
-            Office.find_by!(name: name)
+            offices_map[name]
           end
 
         lines[1..14].each.with_index do |line, i|
@@ -341,7 +351,7 @@ module Offices
         lines[2..-1].each do |row|
           name = row[0..1].join(' ').gsub(/OP/, 'Okresná prokuratúra').gsub(/KP/, 'Krajská prokuratúra').strip
 
-          office = ::Office.find_by!(name: name)
+          office = offices_map[name]
 
           yield(office, row)
         end

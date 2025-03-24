@@ -55,30 +55,32 @@ module Legacy
 
       value.gsub!(/\./, '')
 
-      value.split(/\s+/).map { |word|
-        case word
-        when 'KS'
-          'Krajský súd'
-        when 'OS'
-          'Okresný súd'
-        when 'BA'
-          'Bratislava'
-        when 'KE'
-          'Košice'
-        when 'ZA'
-          'Žilina'
-        when 'BB'
-          'Banská Bystrica'
-        when /\A(I|V)+\z/
-          word
-        when /\ASR\z/i
-          'Slovenskej republiky'
-        when /\A(a|v|nad|pre|súd|okolie|trestný|republiky)\z/i
-          word.downcase
-        else
-          word.titlecase
-        end
-      }.join ' '
+      value
+        .split(/\s+/)
+        .map { |word|
+          case word
+          when 'KS'
+            'Krajský súd'
+          when 'OS'
+            'Okresný súd'
+          when 'BA'
+            'Bratislava'
+          when 'KE'
+            'Košice'
+          when 'ZA'
+            'Žilina'
+          when 'BB'
+            'Banská Bystrica'
+          when /\A(I|V)+\z/
+            word
+          when /\ASR\z/i
+            'Slovenskej republiky'
+          when /\A(a|v|nad|pre|súd|okolie|trestný|republiky)\z/i
+            word.downcase
+          else
+            word.titlecase
+          end
+        }.join ' '
     end
 
     public
@@ -110,32 +112,34 @@ module Legacy
       value.gsub!(/(\.+\s*)+/, '. ')
       value.gsub!(/\s*\-\s*/, '-')
 
-      value.split(/\s+/).each do |part|
-        key = person_name_map_key(part)
+      value
+        .split(/\s+/)
+        .each do |part|
+          key = person_name_map_key(part)
 
-        if prefix = person_name_prefix_map[key]
-          prefixes << prefix
-        elsif suffix = person_name_suffix_map[key]
-          suffixes << suffix
-        else
-          part = part.strip
-
-          if part =~ /\./
-            if part =~ /rod\./i
-              flags << :born
-            elsif part =~ /(ml|st)\./
-              flags << :relative
-              additions << part
-            end
+          if prefix = person_name_prefix_map[key]
+            prefixes << prefix
+          elsif suffix = person_name_suffix_map[key]
+            suffixes << suffix
           else
-            if part.upcase == part
-              uppercase << part.split(/\-/).map(&:titlecase).join(' - ')
+            part = part.strip
+
+            if part =~ /\./
+              if part =~ /rod\./i
+                flags << :born
+              elsif part =~ /(ml|st)\./
+                flags << :relative
+                additions << part
+              end
             else
-              mixedcase << part.split(/\-/).map(&:titlecase).join(' - ')
+              if part.upcase == part
+                uppercase << part.split(/\-/).map(&:titlecase).join(' - ')
+              else
+                mixedcase << part.split(/\-/).map(&:titlecase).join(' - ')
+              end
             end
           end
         end
-      end
 
       prefixes.uniq!
       suffixes.uniq!
@@ -398,10 +402,12 @@ module Legacy
       value = value.clone.ascii.gsub(/[a-z]+/i, '')
 
       times =
-        value.split(/\s*\-\s*|\,\s*|\;\s*|\s+/).map do |time|
-          hour, minute = time.split(/\:/)
-          "#{'%d' % hour.to_i}:#{'%02d' % minute.to_i}"
-        end
+        value
+          .split(/\s*\-\s*|\,\s*|\;\s*|\s+/)
+          .map do |time|
+            hour, minute = time.split(/\:/)
+            "#{'%d' % hour.to_i}:#{'%02d' % minute.to_i}"
+          end
 
       times.each_slice(2).map { |interval| "#{interval.first} - #{interval.last}" }.join ', '
     end

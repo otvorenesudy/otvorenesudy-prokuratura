@@ -73,6 +73,13 @@ module GenproGovSk
                      'popis práva',
                      'právny dôvod nadobudnutia',
                      'dátum nadobudnutia'
+                   ], [
+                     'názov/popis',
+                     'dôvod nadobudnutia',
+                     'dátum nadobudnutia',
+                     'cenaobvyklá',
+                     'cena obstarania',
+                     'veľkosťpodielu'
                    ]
                 lambda do |row|
                   {
@@ -80,7 +87,17 @@ module GenproGovSk
                     acquisition_reason: row.css('td')[1].text.strip.presence,
                     acquisition_date: row.css('td')[2].text.strip.presence,
                     price: row.css('td')[3].try { |e| e.text.strip.presence },
-                    procurement_price: row.css('td')[4].try { |e| e.text.strip.presence }
+                    procurement_price: row.css('td')[4].try { |e| e.text.strip.presence },
+                    share_size: row.css('td')[5].try { |e| e.text.strip.presence }
+                  }
+                end
+              when ['názov/popis', 'dôvod nadobudnutia', 'dátum nadobudnutia', 'veľkosť podielu']
+                lambda do |row|
+                  {
+                    description: row.css('td')[0].text.strip.presence,
+                    acquisition_reason: row.css('td')[1].text.strip.presence,
+                    acquisition_date: row.css('td')[2].text.strip.presence,
+                    share_size: row.css('td')[3].try { |e| e.text.strip.presence }
                   }
                 end
               when ['popis majetku', 'dôvod nadobudnutia', 'dátum nadobudnutia', 'cena obstarania'], [

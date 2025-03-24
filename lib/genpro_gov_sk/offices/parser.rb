@@ -71,7 +71,7 @@ module GenproGovSk
           _, email = *contact.match(/e-mail:(.+)$/)
           _, _, electronic_registry = *contact.match(/(edesk adresa|elektronická podateľňa):(.+)$/)
 
-          data = {
+          {
             address: address,
             zipcode: zipcode,
             city: city,

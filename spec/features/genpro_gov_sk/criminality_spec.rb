@@ -9,7 +9,7 @@ RSpec.describe 'GenproGovSk::Criminality', type: :feature do
 
     validations = [
       { year: 2019, office: 'Okresná prokuratúra Pezinok', metric: :accused_men, count: 249 },
-      { year: 2019, office: 'Krajská prokuratúra Trnava', metric: :reconciliation_approval, count: 21 },
+      { year: 2019, office: 'Krajská prokuratúra v Trnave', metric: :reconciliation_approval, count: 21 },
       { year: 2019, office: 'Okresná prokuratúra Trenčín', metric: :valid_court_decision_all, count: 774 }
     ]
 
