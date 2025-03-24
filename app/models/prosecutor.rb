@@ -53,6 +53,19 @@ class Prosecutor < ApplicationRecord
     all_appointments.past.where.not(office: offices).order(id: :asc)
   end
 
+  def merge_with(prosecutor)
+    return if prosecutor == self
+
+    ActiveRecord::Base.transaction do
+      prosecutor.appointments.update_all(prosecutor_id: id)
+      prosecutor.employments.update_all(prosecutor_id: id)
+      prosecutor.decrees.update_all(prosecutor_id: id)
+
+      prosecutor.reload
+      prosecutor.destroy!
+    end
+  end
+
   def self.as_map_json
     attributes = %w[
       prosecutors.id
