@@ -180,11 +180,6 @@
                   <br>
                 <% end %>
 
-                <% if prosecutor.past_appointments_excluding_current.includes(:office).any? %>
-                  <%= t ".list.past_offices_html", link: prosecutor.past_appointments_excluding_current.map { |e| e.office ? link_to(e.office.name, office_path(e.office)) : e.place }.uniq.to_sentence.html_safe %>
-                  <br>
-                <% end %>
-
                 <% if prosecutor.decrees_count.positive? || prosecutor.declarations&.present? ||  prosecutor.articles.any? %>
                   <%= t '.list.register' %>
                   <%=

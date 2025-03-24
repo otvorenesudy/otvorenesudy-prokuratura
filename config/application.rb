@@ -47,5 +47,3 @@ require 'legacy'
 require 'genpro_gov_sk'
 require 'minv_sk'
 require 'exception_handler'
-
-ActiveRecord.verbose_query_logs = true
