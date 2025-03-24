@@ -42,7 +42,7 @@
             <div class="btn-group btn-group-sm border mb-3 d-flex w-100" role="group">
               <div class="btn-group btn-group-sm flex-grow-1 d-flex" role="group">
                 <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-left-0 border-right border-top-0 border-bottom-0 flex-grow-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <%=  t ".search.sort.#{@search.params[:sort] || :default}" %>
+                  <%= t ".search.sort.#{@search.params[:sort] || :default}" %>
                 </button>
                 <div class="dropdown-menu dropdown-menu-sm">
                   <%= link_to t('.search.sort.default'), prosecutors_path(@search.params.merge(sort: nil)), class: 'dropdown-item' %>
@@ -175,16 +175,16 @@
               </h4>
 
               <div class="search-result-content">
-                <% prosecutor.appointments.current.each do |appointment| %>
+                <% prosecutor.appointments.current.includes(:office).each do |appointment| %>
                   <%= t ".list.office_#{appointment.type}_html", link: appointment.office ? link_to(appointment.office.name, office_path(appointment.office)) : appointment.place %>
                   <br>
                 <% end %>
 
-                <% if prosecutor.past_appointments_excluding_current.any? %>
+                <% if prosecutor.past_appointments_excluding_current.includes(:office).any? %>
                   <%= t ".list.past_offices_html", link: prosecutor.past_appointments_excluding_current.map { |e| e.office ? link_to(e.office.name, office_path(e.office)) : e.place }.uniq.to_sentence.html_safe %>
                   <br>
                 <% end %>
-   
+
                 <% if prosecutor.decrees_count.positive? || prosecutor.declarations&.present? ||  prosecutor.articles.any? %>
                   <%= t '.list.register' %>
                   <%=
