@@ -60,10 +60,9 @@ class Prosecutor < ApplicationRecord
       prosecutor.appointments.update_all(prosecutor_id: id)
       prosecutor.employments.update_all(prosecutor_id: id)
       prosecutor.decrees.update_all(prosecutor_id: id)
-
-      prosecutor.reload
-      prosecutor.destroy!
     end
+
+    prosecutor.reload.destroy!
   end
 
   def self.as_map_json
