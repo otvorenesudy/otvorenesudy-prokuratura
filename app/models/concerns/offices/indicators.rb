@@ -2,16 +2,6 @@ module Offices
   module Indicators
     extend ActiveSupport::Concern
 
-    def offices_map
-      @offices_map ||=
-        Office
-          .all
-          .each
-          .with_object({}) do |office, acc|
-            [office.id, office.name, *office.synonyms].compact.each { |name| acc[name] = office }
-          end
-    end
-
     def convicted_people_by_years
       @convicted_people_by_years ||=
         statistics.where(metric: :convicted_all).where.not(paragraph: nil).group(:year).order(year: :asc).sum(:count)
@@ -225,6 +215,16 @@ module Offices
     end
 
     class_methods do
+      def offices_map
+        @offices_map ||=
+          Office
+            .all
+            .each
+            .with_object({}) do |office, acc|
+              [office.id, office.name, *office.synonyms].compact.each { |name| acc[name] = office }
+            end
+      end
+
       def indicators
         @indicators ||= prepare_indicators
       end
