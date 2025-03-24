@@ -39,9 +39,6 @@ module OpenCourts
 
       # Skylight
       config.skylight.probes << 'active_job'
-
-      # Debugging
-      config.active_job.verbose_enqueue_logs = true
     end
   end
 end
@@ -50,3 +47,5 @@ require 'legacy'
 require 'genpro_gov_sk'
 require 'minv_sk'
 require 'exception_handler'
+
+ActiveRecord.verbose_query_logs = true
