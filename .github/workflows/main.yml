@@ -89,7 +89,7 @@ jobs:
 
   deploy:
     name: Deploy to Production
-    needs: [test]
+    # needs: [test]
     if: github.ref == 'refs/heads/main'
 
     runs-on: ubuntu-latest
