@@ -6,6 +6,7 @@ class ReconcileDecreeJob < ApplicationJob
 
   def perform(decree)
     office = reconcile_office(decree)
+
     reconcile_prosecutor(decree, office)
     reconcile_paragraph(decree)
   end
@@ -41,7 +42,7 @@ class ReconcileDecreeJob < ApplicationJob
       [
         *Prosecutor.joins(:offices).merge(Office.where(id: office)).distinct.pluck(:id, :name_parts),
         *Prosecutor.joins(:past_offices).merge(Office.where(id: office)).distinct.pluck(:id, :name_parts),
-        *Prosecutor.joins(:all_offices).merge(Office.where.not(id: office)).distinct.pluck(:id, :name_parts)
+        *Prosecutor.distinct.pluck(:id, :name_parts)
       ].map { |(id, name)| [id, [name['first'], name['middle'], name['last']].compact] }
 
     prosecutor =
