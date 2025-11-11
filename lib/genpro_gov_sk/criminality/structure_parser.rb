@@ -16,25 +16,27 @@ module GenproGovSk
           last_title = nil
 
           statistics =
-            csv.map do |row|
-              next if row[0]&.strip.blank? && row[1]&.strip.blank?
+            csv
+              .map do |row|
+                next if row[0]&.strip.blank? && row[1]&.strip.blank?
 
-              last_title = row[0] if row[0]&.strip.presence
-              title = normalize_metric(row[0]&.strip.presence ? row[0] : [last_title, row[1]].join(' '))
+                last_title = row[0] if row[0]&.strip.presence
+                title = normalize_metric(row[0]&.strip.presence ? row[0] : [last_title, row[1]].join(' '))
 
-              next if ignore_title?(title)
+                next if ignore_title?(title)
 
-              metric = GenproGovSk::Criminality::STRUCTURES_MAP[title]
+                metric = GenproGovSk::Criminality::STRUCTURES_MAP[title]
 
-              unless metric
-                unknown << title
-                next
+                unless metric
+                  unknown << title
+                  next
+                end
+
+                count = parse_count(row[index])
+
+                { metric: metric, count: count }
               end
-
-              count = parse_count(row[index])
-
-              { metric: metric, count: count }
-            end.compact
+              .compact
 
           %i[accused_recidivists_all].each do |metric|
             count = statistics.find { |e| e[:metric] == metric }.try { |e| e[:count] }

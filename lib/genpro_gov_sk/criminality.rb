@@ -20,37 +20,36 @@ module GenproGovSk
           .flatten
           .compact
 
-      warn "Unknown attributes: #{unknown_attributes.uniq.join(', ')}" if unknown_attributes.any?
+      if unknown_attributes.any?
+        warn "Unknown attributes: \n#{unknown_attributes.uniq.map { |attr| "- #{attr}" }.join("\n")}"
+      end
 
       ::Statistic.import_from(records)
     end
 
     def self.parse_structures
       urls = %w[
-        https://www.genpro.gov.sk/extdoc/14299
-        https://www.genpro.gov.sk/extdoc/14299
-        https://www.genpro.gov.sk/extdoc/14293
-        https://www.genpro.gov.sk/extdoc/14290
-        https://www.genpro.gov.sk/extdoc/14287
-        https://www.genpro.gov.sk/extdoc/14284
-        https://www.genpro.gov.sk/extdoc/14281
-        https://www.genpro.gov.sk/extdoc/14278
-        https://www.genpro.gov.sk/extdoc/14275
-        https://www.genpro.gov.sk/extdoc/14272
-        https://www.genpro.gov.sk/extdoc/14269
-        https://www.genpro.gov.sk/extdoc/14265
-        https://www.genpro.gov.sk/extdoc/14261
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2023/09_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2010/2010_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2011/2011_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2012/2012_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2013/2013_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2014/2014_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2015/2015_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2016/2016_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2017/2017_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2018/2018_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2019/Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2020/12_Struktura_kriminality_a_stíhanych_a_obzalovanych_osob.csv
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2021/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2022/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2023/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2024/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
       ]
 
       urls
         .map do |url|
-          FileDownloader.download(url) do |path|
-            begin
-              StructureParser.parse(File.read(path, encoding: 'Windows-1250').force_encoding('UTF-8'))
-            rescue StandardError
-              binding.pry
-            end
+          FileDownloader.download(URI::Parser.new.escape(url)) do |path|
+            StructureParser.parse(File.read(path, encoding: 'Windows-1250').force_encoding('UTF-8'))
           end
         end
         .flatten
@@ -246,6 +245,7 @@ module GenproGovSk
       'Skladba stíhaných osôb vplyv inej návykovej látky' => :prosecuted_substance_abuse,
       'Skladba stíhaných osôb ženy' => :prosecuted_women,
       'Skladba stíhaných osôb mladiství' => :prosecuted_young,
+      
       'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia' =>
         :prosecution_of_unknown_offender_ended_by_police,
       'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia postúpením' =>
