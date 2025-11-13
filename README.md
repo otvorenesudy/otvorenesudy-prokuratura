@@ -1,8 +1,7 @@
 # Otvorená Prokuratúra
 
 [![Build Status](https://github.com/otvorenesudy/otvorenesudy-prokuratura/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/otvorenesudy/otvorenesudy-prokuratura/actions?query=branch:main)
-[![Code Climate](https://codeclimate.com/github/otvorenesudy/otvorenesudy-prokuratura/badges/gpa.svg)](https://codeclimate.com/github/otvorenesudy/otvorenesudy-prokuratura)
-[![Test Coverage](https://codeclimate.com/github/otvorenesudy/otvorenesudy-prokuratura/badges/coverage.svg)](https://codeclimate.com/github/otvorenesudy/otvorenesudy-prokuratura/coverage)
+[![Codecov](https://codecov.io/gh/otvorenesudy/otvorenesudy-prokuratura/graph/badge.svg?token=YOP4K4DZPR)](https://codecov.io/gh/otvorenesudy/otvorenesudy-prokuratura)
 
 [![View performance data on Skylight](https://badges.skylight.io/status/T4hV7FBx1p8H.svg)](https://oss.skylight.io/app/applications/T4hV7FBx1p8H)
 [![View performance data on Skylight](https://badges.skylight.io/rpm/T4hV7FBx1p8H.svg)](https://oss.skylight.io/app/applications/T4hV7FBx1p8H)
