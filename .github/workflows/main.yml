@@ -28,68 +28,63 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: 'true'
+          submodules: "true"
 
-      - name: Setup Credentials
+      - name: Setup credentials
         run: |
           mv config/credentials/test.ci.yml.enc config/credentials/test.yml.enc
           mv config/credentials/test.ci.key config/credentials/test.key
 
-      - name: Install Required Packages
+      - name: Install required packages
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libpq-dev libcurl4 libcurl4-openssl-dev ghostscript
 
-      - name: 'Read Ruby Version'
+      - name: Read Ruby version
         id: read-ruby-version
         run: echo "RUBY_VERSION=$(cat .ruby-version)" >> $GITHUB_OUTPUT
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '${{ steps.read-ruby-version.outputs.RUBY_VERSION }}'
+          ruby-version: "${{ steps.read-ruby-version.outputs.RUBY_VERSION }}"
           bundler-cache: true
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version-file: 'package.json'
-          cache: 'yarn'
-          registry-url: 'https://registry.npmjs.org'
+          node-version-file: "package.json"
+          cache: "yarn"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install Yarn
         run: npm install -g yarn
 
-      - name: Install Yarn
+      - name: Install Yarn dependencies
         run: yarn install
 
-      - name: Setup Database
+      - name: Setup database
         run: |
           bin/rails db:create db:schema:load
           bin/rails db:test:load_schema
 
-      - name: Prepare Code Climate
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
-          ./cc-test-reporter before-build
-
       - name: Run RSpec
         run: bin/rspec
 
-      - name: Notify Code Climate
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        run: ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/.resultset.json
+          fail_ci_if_error: true
+          verbose: true
 
   deploy:
     name: Deploy to Production
-    # needs: [test]
+    needs: [test]
     if: github.ref == 'refs/heads/main'
 
     runs-on: ubuntu-latest
@@ -100,20 +95,20 @@ jobs:
         with:
           key: ${{ secrets.SSH_KEY }}
           name: github-actions
-          known_hosts: '...'
+          known_hosts: "..."
           config: |
             host ${{ secrets.SSH_HOST }}
               IdentityFile ~/.ssh/github-actions
               IdentitiesOnly yes
               ForwardAgent yes
 
-      - name: Adding Known Hosts
+      - name: Adding known hosts
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }}
 
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: 'true'
+          submodules: "true"
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
