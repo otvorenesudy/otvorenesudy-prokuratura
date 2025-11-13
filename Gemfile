@@ -6,7 +6,7 @@ gem 'rails', '~> 7.1', '>= 7.1.3.2'
 
 gem 'activerecord-import'
 gem 'bootsnap'
-gem 'bootstrap', '~> 4.1.0'
+gem 'bootstrap', '~> 4.3.1'
 gem 'crawler_detect'
 gem 'curb'
 gem 'dalli'
