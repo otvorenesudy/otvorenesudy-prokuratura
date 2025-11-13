@@ -1,1 +1,1 @@
-Geocoder.configure(lookup: :bing, api_key: Rails.application.credentials.dig(:bing, :maps, :key))
+Geocoder.configure(lookup: :geoapify, api_key: Rails.application.credentials.dig(:geoapify, :key))
