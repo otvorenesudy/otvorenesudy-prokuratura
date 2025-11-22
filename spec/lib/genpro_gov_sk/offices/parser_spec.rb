@@ -141,7 +141,6 @@ RSpec.describe GenproGovSk::Offices::Parser do
       expect(data[:registry][:hours][:wednesday]).to eq(expected_json[:registry][:hours][:wednesday])
       expect(data[:registry][:hours][:thursday]).to eq(expected_json[:registry][:hours][:thursday])
       expect(data[:registry][:hours][:friday]).to eq(expected_json[:registry][:hours][:friday])
-      
       expect(data[:employees][0][:name]).to eq(expected_json[:employees][0][:name])
       expect(data[:employees][0][:position]).to eq(expected_json[:employees][0][:position])
       
