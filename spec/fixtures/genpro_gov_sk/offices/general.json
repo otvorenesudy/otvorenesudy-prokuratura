@@ -12,11 +12,11 @@
     "note": "Na základe rozhodnutia generálneho prokurátora Slovenskej republiky pre prijímanie podaní, ktoré sú urobené ústne do zápisnice na Generálnej prokuratúre Slovenskej republiky sa v rámci úradných hodín vymedzuje konkrétny čas od 9:00 h do 11:00 h.",
     "phone": "02/208 37 766, 02/595 32 766",
     "hours": {
-      "pondelok": "8:00 – 15:00",
-      "utorok": "8:00 – 15:00",
-      "streda": "8:00 – 15:00",
-      "štvrtok": "8:00 – 15:00",
-      "piatok": "8:00 – 15:00"
+      "monday": "8:00 – 15:00",
+      "tuesday": "8:00 – 15:00",
+      "wednesday": "8:00 – 15:00",
+      "thursday": "8:00 – 15:00",
+      "friday": "8:00 – 15:00"
     }
   },
   "employees": [
