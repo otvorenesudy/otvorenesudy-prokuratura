@@ -1,0 +1,321 @@
+{
+  "name": "Generálna prokuratúra Slovenskej republiky",
+  "type": "general",
+  "address": "Štúrova 2",
+  "zipcode": "812 85",
+  "city": "Bratislava 1",
+  "phone": "02/208 37 505, 02/595 32 505",
+  "fax": null,
+  "email": "GPSR@genpro.gov.sk",
+  "electronic_registry": "https://www.slovensko.sk/sk/lokator-sluzieb",
+  "registry": {
+    "note": "Na základe rozhodnutia generálneho prokurátora Slovenskej republiky pre prijímanie podaní, ktoré sú urobené ústne do zápisnice na Generálnej prokuratúre Slovenskej republiky sa v rámci úradných hodín vymedzuje konkrétny čas od 9:00 h do 11:00 h.",
+    "phone": "02/208 37 766, 02/595 32 766",
+    "hours": {
+      "pondelok": "8:00 – 15:00",
+      "utorok": "8:00 – 15:00",
+      "streda": "8:00 – 15:00",
+      "štvrtok": "8:00 – 15:00",
+      "piatok": "8:00 – 15:00"
+    }
+  },
+  "employees": [
+    {
+      "name": "Dr. h. c. JUDr. Maroš Žilinka, PhD.",
+      "position": "generálny prokurátor Slovenskej republiky",
+      "rank": 1,
+      "phone": "02/208 37 606, 02/208 37 620"
+    },
+    {
+      "name": "JUDr. Jozef Kandera",
+      "position": "prvý námestník generálneho prokurátora Slovenskej republiky",
+      "rank": 2,
+      "phone": "02/208 37 528"
+    },
+    {
+      "name": "JUDr. Vladimír Javorský, PhD.",
+      "position": "riaditeľ trestného odboru",
+      "rank": 3,
+      "phone": "02/208 37 617"
+    },
+    {
+      "name": "JUDr. Mária Hansková",
+      "position": "zástupkyňa riaditeľa trestného odboru",
+      "rank": 4,
+      "phone": "02/208 37 703"
+    },
+    {
+      "name": "JUDr. Ingrid Adamcová",
+      "position": "poverená výkonom funkcie vedúcej oddelenia všeobecnej kriminality trestného odboru",
+      "rank": 5,
+      "phone": "02/208 37 880"
+    },
+    {
+      "name": "JUDr. Rudolf Bernát, PhD.",
+      "position": "vedúci oddelenia majetkovej kriminality trestného odboru",
+      "rank": 6,
+      "phone": "02/208 37 626"
+    },
+    {
+      "name": "JUDr. Tomáš Jarábek",
+      "position": "vedúci oddelenia násilnej kriminality trestného odboru",
+      "rank": 7,
+      "phone": "02/208 37 669"
+    },
+    {
+      "name": "JUDr. Igor Dorica",
+      "position": "vedúci prieskumného oddelenia trestného odboru",
+      "rank": 8,
+      "phone": "02/208 37 882"
+    },
+    {
+      "name": "JUDr. Oliver Janíček",
+      "position": "riaditeľ odboru závažnej kriminality",
+      "rank": 9,
+      "phone": "02/208 37 902"
+    },
+    {
+      "name": "JUDr. Peter Jenčík",
+      "position": "zástupca riaditeľa odboru závažnej kriminality",
+      "rank": 10,
+      "phone": "02/208 37 903"
+    },
+    {
+      "name": "Mgr. Alica Kováčová, PhD.",
+      "position": "riaditeľka medzinárodného odboru",
+      "rank": 11,
+      "phone": "02/208 37 417"
+    },
+    {
+      "name": "JUDr. Katarína Laiferová",
+      "position": "zástupkyňa riaditeľky medzinárodného odboru",
+      "rank": 12,
+      "phone": "02/208 37 316"
+    },
+    {
+      "name": "JUDr. Jozef Hausleitner",
+      "position": "vedúci oddelenia právneho styku s cudzinou a extradícií medzinárodného odboru",
+      "rank": 13,
+      "phone": "02/208 37 413"
+    },
+    {
+      "name": "JUDr. Ing. Ladislav Majerník",
+      "position": "vedúci oddelenia medzinárodného práva verejného a európskych záležitostí medzinárodného odboru",
+      "rank": 14,
+      "phone": "02/208 37 420"
+    },
+    {
+      "name": "Mgr. Marián Kuna",
+      "position": "riaditeľ registra trestov",
+      "rank": 15,
+      "phone": "02/208 37 240"
+    },
+    {
+      "name": "JUDr. Jarmila Budská",
+      "position": "zástupkyňa riaditeľa registra trestov",
+      "rank": 16,
+      "phone": "02/208 37 134"
+    },
+    {
+      "name": "JUDr. Mária Foltýnová",
+      "position": "vedúca oddelenia správnych činností registra trestov",
+      "rank": 17,
+      "phone": "02/208 37 236"
+    },
+    {
+      "name": "Mgr. Ľubomír Čavara",
+      "position": "vedúci oddelenia prevádzky informačného systému registra trestov",
+      "rank": 18,
+      "phone": "02/208 37 243"
+    },
+    {
+      "name": "Ing. Adam Mrázik",
+      "position": "vedúci oddelenia koncepcie a rozvoja IS RT a mikrofilmovej archivácie a indexácie registra trestov",
+      "rank": 19,
+      "phone": "02/208 37 245"
+    },
+    { "name": "", "position": "", "rank": 20, "phone": " " },
+    {
+      "name": "Mgr. Jozef Sedlák",
+      "position": "námestník generálneho prokurátora Slovenskej republiky",
+      "rank": 21,
+      "phone": "02/208 37 679"
+    },
+    {
+      "name": "JUDr. Matúš Kamenár",
+      "position": "riaditeľ netrestného odboru",
+      "rank": 22,
+      "phone": "02/208 37 520"
+    },
+    {
+      "name": "JUDr. Slavomír Filipčík",
+      "position": "zástupca riaditeľa netrestného odboru",
+      "rank": 23,
+      "phone": "02/208 37 731"
+    },
+    {
+      "name": "JUDr. Peter Mihál",
+      "position": "vedúci oddelenia dozoru orgánov verejnej správy netrestného odboru",
+      "rank": 24,
+      "phone": "02/208 37 527"
+    },
+    {
+      "name": "JUDr. Ivana Klorusová, PhD., LL.M.",
+      "position": "vedúca oddelenia civilného procesu a právneho zastupovania netrestného odboru",
+      "rank": 25,
+      "phone": "02/208 37 532"
+    },
+    {
+      "name": "Mgr. Eva Kukanová",
+      "position": "riaditeľka odboru legislatívy, stratégie a ústavného práva",
+      "rank": 26,
+      "phone": "02/208 37 818"
+    },
+    {
+      "name": "JUDr. Marta Kolcunová, PhD.",
+      "position": "zástupkyňa riaditeľky odboru legislatívy, stratégie a ústavného práva",
+      "rank": 27,
+      "phone": "02/208 37 718"
+    },
+    {
+      "name": "JUDr. Miroslav Fíger",
+      "position": "vedúci oddelenia legislatívy odboru legislatívy, stratégie a ústavného práva",
+      "rank": 28,
+      "phone": "02/208 37 823"
+    },
+    {
+      "name": "JUDr. Lenka Valachovičová",
+      "position": "vedúca oddelenia stratégie a analytických činností odboru legislatívy, stratégie a ústavného práva",
+      "rank": 29,
+      "phone": "02/208 37 667"
+    },
+    {
+      "name": "JUDr. Ľudmila Borodovčáková",
+      "position": "vedúca oddelenia ústavného práva a ochrany ľudských práv odboru legislatívy, stratégie a ústavného práva",
+      "rank": 30,
+      "phone": "02/208 37 713"
+    },
+    {
+      "name": "Ing. Michal Druska",
+      "position": "riaditeľ ekonomického odboru",
+      "rank": 31,
+      "phone": "02/208 37 310"
+    },
+    {
+      "name": "Mgr. Denisa Hadrbolcová, MSc.",
+      "position": "zástupkyňa riaditeľa ekonomického odboru",
+      "rank": 32,
+      "phone": "02/208 37 314"
+    },
+    {
+      "name": "Ing. Lucia Néčová",
+      "position": "vedúca oddelenia rozpočtu a verejného obstarávania ekonomického odboru",
+      "rank": 33,
+      "phone": "02/208 37 332"
+    },
+    {
+      "name": "Mgr. Katarína Juríková",
+      "position": "vedúca oddelenia financovania a kontroly ekonomického odboru",
+      "rank": 34,
+      "phone": "02/208 37 333"
+    },
+    {
+      "name": "Mgr. Martin Tonhajzer",
+      "position": "vedúci oddelenia hospodárskej správy ekonomického odboru",
+      "rank": 35,
+      "phone": "02/208 37 312"
+    },
+    {
+      "name": "Ing. Andrej Fedor",
+      "position": "riaditeľ odboru informatiky",
+      "rank": 36,
+      "phone": "02/208 37 754"
+    },
+    {
+      "name": "JUDr. Silvia Cehláriková",
+      "position": "zástupkyňa riaditeľa odboru informatiky",
+      "rank": 37,
+      "phone": "02/208 37 748"
+    },
+    {
+      "name": "Ing. Miroslav Šmejkal",
+      "position": "vedúci oddelenia stratégie a rozvoja IS a rezortnej štatistiky odboru informatiky",
+      "rank": 38,
+      "phone": "02/208 37 534"
+    },
+    {
+      "name": "Ing. Peter Psota",
+      "position": "vedúci oddelenia prevádzky IS, informačnej bezpečnosti a zverejňovania odboru informatiky",
+      "rank": 39,
+      "phone": "02/208 37 755"
+    },
+    { "name": "", "position": "", "rank": 40, "phone": " " },
+    {
+      "name": "Mgr. Vladimíra Gedrová",
+      "position": "riaditeľka Kancelárie generálneho prokurátora Slovenskej republiky",
+      "rank": 41,
+      "phone": "02/208 37 833"
+    },
+    {
+      "name": "Mgr. Monika Holzerová",
+      "position": "zástupkyňa riaditeľky Kancelárie generálneho prokurátora Slovenskej republiky",
+      "rank": 42,
+      "phone": "02/208 37 563"
+    },
+    { "name": "", "position": "", "rank": 43, "phone": " " },
+    {
+      "name": "JUDr. Elena Černá",
+      "position": "riaditeľka osobného úradu",
+      "rank": 44,
+      "phone": "02/208 37 561"
+    },
+    {
+      "name": "JUDr. Liliana Škodová",
+      "position": "zástupkyňa riaditeľky osobného úradu",
+      "rank": 45,
+      "phone": "02/208 37 756"
+    },
+    {
+      "name": "Ing. Darina Repáková",
+      "position": "vedúca oddelenia prokurátorov a právnych čakateľov prokuratúry",
+      "rank": 46,
+      "phone": "02/208 37 850"
+    },
+    {
+      "name": "JUDr. Miroslava Daněková",
+      "position": "vedúca oddelenia štátnych zamestnancov a ostatných zamestnancov prokuratúry",
+      "rank": 47,
+      "phone": "02/208 37 522"
+    },
+    {
+      "name": "PhDr. Gabriela Urbanská",
+      "position": "vedúca oddelenia vzdelávania a ďalších činností",
+      "rank": 48,
+      "phone": "02/208 37 765"
+    },
+    {
+      "name": "Zuzana Matesová",
+      "position": "vedúca referátu správy registratúry",
+      "rank": 49,
+      "phone": "02/208 37 675"
+    },
+    {
+      "name": "Ing. Daniel König, PhD.",
+      "position": "vedúci referátu vnútorného auditu",
+      "rank": 50,
+      "phone": "02/208 36 672"
+    },
+    {
+      "name": "JUDr. Martina Hrušková",
+      "position": "vedúca referátu ochrany utajovaných skutočností",
+      "rank": 51,
+      "phone": "02/208 37 656"
+    },
+    {
+      "name": "Mgr. Peter Kuna, PhD.",
+      "position": "manažér kybernetickej bezpečnosti a informačnej bezpečnosti",
+      "rank": 52,
+      "phone": "02/208 36 674"
+    }
+  ]
+}
