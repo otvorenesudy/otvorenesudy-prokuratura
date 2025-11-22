@@ -4,12 +4,16 @@ RSpec.describe GenproGovSk::Offices::Parser do
   describe '.parse' do
     it 'parses the general office correctly' do
       html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'general.html'))
-      expected_json = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'general.json')), symbolize_names: true)
-      
+      expected_json =
+        JSON.parse(
+          File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'general.json')),
+          symbolize_names: true
+        )
+
       data = described_class.parse(html)
 
       expect(data[:name]).to eq(expected_json[:name])
-      expect(data[:type]).to eq(expected_json[:type])
+      expect(data[:type]).to eq(expected_json[:type].to_sym)
       expect(data[:address]).to eq(expected_json[:address])
       expect(data[:zipcode]).to eq(expected_json[:zipcode])
       expect(data[:city]).to eq(expected_json[:city])
@@ -40,13 +44,22 @@ RSpec.describe GenproGovSk::Offices::Parser do
     end
 
     it 'parses a regional office (Bratislava) correctly' do
-      html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'krajsk_prokuratra_v_bratislave.html'))
-      expected_json = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'krajsk_prokuratra_v_bratislave.json')), symbolize_names: true)
-      
+      html =
+        File.read(
+          Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'krajsk_prokuratra_v_bratislave.html')
+        )
+      expected_json =
+        JSON.parse(
+          File.read(
+            Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'krajsk_prokuratra_v_bratislave.json')
+          ),
+          symbolize_names: true
+        )
+
       data = described_class.parse(html)
 
       expect(data[:name]).to eq(expected_json[:name])
-      expect(data[:type]).to eq(expected_json[:type])
+      expect(data[:type]).to eq(expected_json[:type].to_sym)
       expect(data[:address]).to eq(expected_json[:address])
       expect(data[:zipcode]).to eq(expected_json[:zipcode])
       expect(data[:city]).to eq(expected_json[:city])
@@ -57,13 +70,20 @@ RSpec.describe GenproGovSk::Offices::Parser do
     end
 
     it 'parses a regional office (Košice) correctly' do
-      html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'krajsk_prokuratra_v_koiciach.html'))
-      expected_json = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'krajsk_prokuratra_v_koiciach.json')), symbolize_names: true)
-      
+      html =
+        File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'krajsk_prokuratra_v_koiciach.html'))
+      expected_json =
+        JSON.parse(
+          File.read(
+            Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'krajsk_prokuratra_v_koiciach.json')
+          ),
+          symbolize_names: true
+        )
+
       data = described_class.parse(html)
 
       expect(data[:name]).to eq(expected_json[:name])
-      expect(data[:type]).to eq(expected_json[:type])
+      expect(data[:type]).to eq(expected_json[:type].to_sym)
       expect(data[:address]).to eq(expected_json[:address])
       expect(data[:zipcode]).to eq(expected_json[:zipcode])
       expect(data[:city]).to eq(expected_json[:city])
@@ -71,13 +91,22 @@ RSpec.describe GenproGovSk::Offices::Parser do
     end
 
     it 'parses a district office (Banská Bystrica) correctly' do
-      html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_bansk_bystrica.html'))
-      expected_json = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_bansk_bystrica.json')), symbolize_names: true)
-      
+      html =
+        File.read(
+          Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_bansk_bystrica.html')
+        )
+      expected_json =
+        JSON.parse(
+          File.read(
+            Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_bansk_bystrica.json')
+          ),
+          symbolize_names: true
+        )
+
       data = described_class.parse(html)
 
       expect(data[:name]).to eq(expected_json[:name])
-      expect(data[:type]).to eq(expected_json[:type])
+      expect(data[:type]).to eq(expected_json[:type].to_sym)
       expect(data[:address]).to eq(expected_json[:address])
       expect(data[:zipcode]).to eq(expected_json[:zipcode])
       expect(data[:city]).to eq(expected_json[:city])
@@ -85,13 +114,18 @@ RSpec.describe GenproGovSk::Offices::Parser do
     end
 
     it 'parses a district office (Košice I) correctly' do
-      html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_koice_i.html'))
-      expected_json = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_koice_i.json')), symbolize_names: true)
-      
+      html =
+        File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_koice_i.html'))
+      expected_json =
+        JSON.parse(
+          File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_koice_i.json')),
+          symbolize_names: true
+        )
+
       data = described_class.parse(html)
 
       expect(data[:name]).to eq(expected_json[:name])
-      expect(data[:type]).to eq(expected_json[:type])
+      expect(data[:type]).to eq(expected_json[:type].to_sym)
       expect(data[:address]).to eq(expected_json[:address])
       expect(data[:zipcode]).to eq(expected_json[:zipcode])
       expect(data[:city]).to eq(expected_json[:city])
@@ -100,12 +134,16 @@ RSpec.describe GenproGovSk::Offices::Parser do
 
     it 'parses a district office (Trnava) correctly' do
       html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_trnava.html'))
-      expected_json = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_trnava.json')), symbolize_names: true)
-      
+      expected_json =
+        JSON.parse(
+          File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_trnava.json')),
+          symbolize_names: true
+        )
+
       data = described_class.parse(html)
 
       expect(data[:name]).to eq(expected_json[:name])
-      expect(data[:type]).to eq(expected_json[:type])
+      expect(data[:type]).to eq(expected_json[:type].to_sym)
       expect(data[:address]).to eq(expected_json[:address])
       expect(data[:zipcode]).to eq(expected_json[:zipcode])
       expect(data[:city]).to eq(expected_json[:city])
