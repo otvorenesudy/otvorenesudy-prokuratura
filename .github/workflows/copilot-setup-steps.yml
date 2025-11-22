@@ -1,4 +1,4 @@
-name: Copilot Setup Steps
+name: GitHub Copilot Setup Steps
 
 on:
   workflow_dispatch:
@@ -22,7 +22,7 @@ on:
         type: string
 
 jobs:
-  setup:
+  copilot-setup-steps:
     name: Prepare test environment
     runs-on: ubuntu-latest
 
