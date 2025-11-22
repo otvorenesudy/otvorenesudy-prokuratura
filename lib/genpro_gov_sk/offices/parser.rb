@@ -7,8 +7,7 @@ module GenproGovSk
         unknown = []
         name = normalize(document.css('.tx-tempest-contacts > h1').text)
 
-        employee_table_rows =
-          document.css('.tx-tempest-contacts .table-responsive:nth-of-type(2) .gp-table tr, .tx-tempest-contacts figure.table:nth-of-type(2) .gp-table tr')
+        employee_table_rows = document.css(table_selector(2)).css('tr')
 
         data = {
           name: name,
@@ -45,6 +44,10 @@ module GenproGovSk
       class << self
         private
 
+        def table_selector(n)
+          ".tx-tempest-contacts .table-responsive:nth-of-type(#{n}) .gp-table, .tx-tempest-contacts figure.table:nth-of-type(#{n}) .gp-table"
+        end
+
         def normalize(string)
           string
             &.gsub(/,{2,}/, ',')
@@ -56,7 +59,7 @@ module GenproGovSk
         end
 
         def parse_contact(document)
-          contact_table = document.css('.tx-tempest-contacts .table-responsive:nth-of-type(1) .gp-table, .tx-tempest-contacts figure.table:nth-of-type(1) .gp-table').first
+          contact_table = document.css(table_selector(1)).first
 
           location =
             contact_table.css('tr:nth-child(1) td:nth-child(1)').text.gsub(/\t+/, "\t").gsub('\s+', ' ').split("\t")

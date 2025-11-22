@@ -3,15 +3,13 @@ require 'rails_helper'
 RSpec.describe GenproGovSk::Offices, webmock: :enabled do
   describe '.import' do
     it 'fetches all 63 office URLs and parses them' do
-      main_html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'general.html'))
+      office_html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'general.html'))
 
       stub_request(:get, 'https://www.genpro.gov.sk/kontakty-a-uradne-hodiny/')
         .to_return(status: 200, body: generate_list_html)
 
-      63.times do |i|
-        url_pattern = %r{https://www\.genpro\.gov\.sk/kontakty-a-uradne-hodiny/detail/\d+/\?cHash=[a-f0-9]+}
-        stub_request(:get, url_pattern).to_return(status: 200, body: main_html)
-      end
+      url_pattern = %r{https://www\.genpro\.gov\.sk/kontakty-a-uradne-hodiny/detail/\d+/\?cHash=[a-f0-9]+}
+      stub_request(:get, url_pattern).to_return(status: 200, body: office_html)
 
       allow(GenproGovSk::Offices::Parser).to receive(:parse).and_return(
         name: 'Test Office',
@@ -46,20 +44,30 @@ RSpec.describe GenproGovSk::Offices, webmock: :enabled do
   end
 
   def generate_list_html
-    offices = (1..63).map do |i|
+    office_rows = (1..63).map do |i|
       name = "Prokuratúra #{i}"
       hash = Digest::MD5.hexdigest(name)[0..31]
-      "<tr class=\"govuk-table__row\"><td><a href=\"/kontakty-a-uradne-hodiny/detail/#{i}/?cHash=#{hash}\">#{name}</a></td></tr>"
+      %{
+        <tr class="govuk-table__row">
+          <td>
+            <a href="/kontakty-a-uradne-hodiny/detail/#{i}/?cHash=#{hash}">#{name}</a>
+          </td>
+        </tr>
+      }
     end.join
 
     <<~HTML
+      <!DOCTYPE html>
       <html>
+      <head><title>Kontakty</title></head>
       <body>
-      <div class="tx-tempest-contacts">
-        <table>
-          #{offices}
-        </table>
-      </div>
+        <div class="tx-tempest-contacts">
+          <table>
+            <tbody>
+              #{office_rows}
+            </tbody>
+          </table>
+        </div>
       </body>
       </html>
     HTML

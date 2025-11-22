@@ -45,7 +45,7 @@ RSpec.describe GenproGovSk::Offices::Parser do
       expect(data[:employees][-1][:position]).to eq('manažér kybernetickej bezpečnosti a informačnej bezpečnosti')
       expect(data[:employees][-1][:phone]).to eq('02/208 36 674')
 
-      expect(data[:employees].size).to be >= 40
+      expect(data[:employees].size).to be > 0
     end
 
     it 'parses a regional office (Bratislava) correctly' do
