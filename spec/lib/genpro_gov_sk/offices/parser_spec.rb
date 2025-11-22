@@ -22,7 +22,11 @@ RSpec.describe GenproGovSk::Offices::Parser do
       expect(data[:electronic_registry]).to eq(expected_json[:electronic_registry])
       expect(data[:registry][:phone]).to eq(expected_json[:registry][:phone])
       expect(data[:registry][:note]).to eq(expected_json[:registry][:note])
-      expect(data[:registry][:hours]).to eq(expected_json[:registry][:hours])
+      expect(data[:registry][:hours][:monday]).to eq(expected_json[:registry][:hours][:monday])
+      expect(data[:registry][:hours][:tuesday]).to eq(expected_json[:registry][:hours][:tuesday])
+      expect(data[:registry][:hours][:wednesday]).to eq(expected_json[:registry][:hours][:wednesday])
+      expect(data[:registry][:hours][:thursday]).to eq(expected_json[:registry][:hours][:thursday])
+      expect(data[:registry][:hours][:friday]).to eq(expected_json[:registry][:hours][:friday])
 
       expect(data[:employees][0][:name]).to eq(expected_json[:employees][0][:name])
       expect(data[:employees][0][:position]).to eq(expected_json[:employees][0][:position])
@@ -65,7 +69,18 @@ RSpec.describe GenproGovSk::Offices::Parser do
       expect(data[:city]).to eq(expected_json[:city])
       expect(data[:phone]).to eq(expected_json[:phone])
       expect(data[:email]).to eq(expected_json[:email])
-      expect(data[:registry][:hours]).to have_key(:monday)
+      expect(data[:registry][:note]).to eq(expected_json[:registry][:note])
+      expect(data[:registry][:phone]).to eq(expected_json[:registry][:phone])
+      expect(data[:registry][:hours][:monday]).to eq(expected_json[:registry][:hours][:monday])
+      expect(data[:registry][:hours][:tuesday]).to eq(expected_json[:registry][:hours][:tuesday])
+      expect(data[:registry][:hours][:wednesday]).to eq(expected_json[:registry][:hours][:wednesday])
+      expect(data[:registry][:hours][:thursday]).to eq(expected_json[:registry][:hours][:thursday])
+      expect(data[:registry][:hours][:friday]).to eq(expected_json[:registry][:hours][:friday])
+      
+      expect(data[:employees][0][:name]).to eq(expected_json[:employees][0][:name])
+      expect(data[:employees][0][:position]).to eq(expected_json[:employees][0][:position])
+      expect(data[:employees][0][:phone]).to eq(expected_json[:employees][0][:phone])
+      
       expect(data[:employees].size).to be > 0
     end
 
@@ -87,6 +102,16 @@ RSpec.describe GenproGovSk::Offices::Parser do
       expect(data[:address]).to eq(expected_json[:address])
       expect(data[:zipcode]).to eq(expected_json[:zipcode])
       expect(data[:city]).to eq(expected_json[:city])
+      expect(data[:registry][:note]).to eq(expected_json[:registry][:note])
+      expect(data[:registry][:hours][:monday]).to eq(expected_json[:registry][:hours][:monday])
+      expect(data[:registry][:hours][:tuesday]).to eq(expected_json[:registry][:hours][:tuesday])
+      expect(data[:registry][:hours][:wednesday]).to eq(expected_json[:registry][:hours][:wednesday])
+      expect(data[:registry][:hours][:thursday]).to eq(expected_json[:registry][:hours][:thursday])
+      expect(data[:registry][:hours][:friday]).to eq(expected_json[:registry][:hours][:friday])
+      
+      expect(data[:employees][0][:name]).to eq(expected_json[:employees][0][:name])
+      expect(data[:employees][0][:position]).to eq(expected_json[:employees][0][:position])
+      
       expect(data[:employees].size).to be > 0
     end
 
@@ -110,6 +135,16 @@ RSpec.describe GenproGovSk::Offices::Parser do
       expect(data[:address]).to eq(expected_json[:address])
       expect(data[:zipcode]).to eq(expected_json[:zipcode])
       expect(data[:city]).to eq(expected_json[:city])
+      expect(data[:registry][:note]).to eq(expected_json[:registry][:note])
+      expect(data[:registry][:hours][:monday]).to eq(expected_json[:registry][:hours][:monday])
+      expect(data[:registry][:hours][:tuesday]).to eq(expected_json[:registry][:hours][:tuesday])
+      expect(data[:registry][:hours][:wednesday]).to eq(expected_json[:registry][:hours][:wednesday])
+      expect(data[:registry][:hours][:thursday]).to eq(expected_json[:registry][:hours][:thursday])
+      expect(data[:registry][:hours][:friday]).to eq(expected_json[:registry][:hours][:friday])
+      
+      expect(data[:employees][0][:name]).to eq(expected_json[:employees][0][:name])
+      expect(data[:employees][0][:position]).to eq(expected_json[:employees][0][:position])
+      
       expect(data[:employees].size).to be > 0
     end
 
@@ -129,6 +164,16 @@ RSpec.describe GenproGovSk::Offices::Parser do
       expect(data[:address]).to eq(expected_json[:address])
       expect(data[:zipcode]).to eq(expected_json[:zipcode])
       expect(data[:city]).to eq(expected_json[:city])
+      expect(data[:registry][:note]).to eq(expected_json[:registry][:note])
+      expect(data[:registry][:hours][:monday]).to eq(expected_json[:registry][:hours][:monday])
+      expect(data[:registry][:hours][:tuesday]).to eq(expected_json[:registry][:hours][:tuesday])
+      expect(data[:registry][:hours][:wednesday]).to eq(expected_json[:registry][:hours][:wednesday])
+      expect(data[:registry][:hours][:thursday]).to eq(expected_json[:registry][:hours][:thursday])
+      expect(data[:registry][:hours][:friday]).to eq(expected_json[:registry][:hours][:friday])
+      
+      expect(data[:employees][0][:name]).to eq(expected_json[:employees][0][:name])
+      expect(data[:employees][0][:position]).to eq(expected_json[:employees][0][:position])
+      
       expect(data[:employees].size).to be > 0
     end
 
@@ -147,6 +192,16 @@ RSpec.describe GenproGovSk::Offices::Parser do
       expect(data[:address]).to eq(expected_json[:address])
       expect(data[:zipcode]).to eq(expected_json[:zipcode])
       expect(data[:city]).to eq(expected_json[:city])
+      expect(data[:registry][:note]).to eq(expected_json[:registry][:note])
+      expect(data[:registry][:hours][:monday]).to eq(expected_json[:registry][:hours][:monday])
+      expect(data[:registry][:hours][:tuesday]).to eq(expected_json[:registry][:hours][:tuesday])
+      expect(data[:registry][:hours][:wednesday]).to eq(expected_json[:registry][:hours][:wednesday])
+      expect(data[:registry][:hours][:thursday]).to eq(expected_json[:registry][:hours][:thursday])
+      expect(data[:registry][:hours][:friday]).to eq(expected_json[:registry][:hours][:friday])
+      
+      expect(data[:employees][0][:name]).to eq(expected_json[:employees][0][:name])
+      expect(data[:employees][0][:position]).to eq(expected_json[:employees][0][:position])
+      
       expect(data[:employees].size).to be > 0
     end
   end
