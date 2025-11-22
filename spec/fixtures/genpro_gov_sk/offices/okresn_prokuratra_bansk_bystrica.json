@@ -71,11 +71,11 @@
     "note": "Čas vymedzený pre prijímanie ústne urobených podaní do zápisnice na Krajskej prokuratúre Banská Bystrica a okresných prokuratúrach v obvode jej pôsobnosti od 9:00 h do 11:00 h a od 13:00 h do 14:30 h.",
     "phone": null,
     "hours": {
-      "pondelok": "8:00 – 15:00",
-      "utorok": "8:00 – 15:00",
-      "streda": "8:00 – 15:00",
-      "štvrtok": "8:00 – 15:00",
-      "piatok": "8:00 – 15:00"
+      "monday": "8:00 – 15:00",
+      "tuesday": "8:00 – 15:00",
+      "wednesday": "8:00 – 15:00",
+      "thursday": "8:00 – 15:00",
+      "friday": "8:00 – 15:00"
     }
   }
 }

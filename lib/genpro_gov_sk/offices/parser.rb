@@ -96,7 +96,7 @@ module GenproGovSk
               note: normalize(document.css('.tx-tempest-contacts > p.text-justify').text),
               phone: registry_phone,
               hours:
-                %w[pondelok utorok streda štvrtok piatok]
+                %i[monday tuesday wednesday thursday friday]
                   .map
                   .with_index do |day, i|
                     {
