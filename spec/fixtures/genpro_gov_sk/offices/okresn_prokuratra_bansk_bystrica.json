@@ -60,12 +60,12 @@
       "phone": "048/2836 301"
     }
   ],
-  "address": "Okresná prokuratúra Banská BystricaPartizánska cesta 1975 63 Banská Bystrica",
-  "zipcode": null,
-  "city": null,
-  "phone": "048/28 36 111fax: 048/28 36 881e-mail: podatelna.opbb@genpro.gov.skedesk adresa: ico://sk/00166456",
-  "fax": "048/28 36 881e-mail: podatelna.opbb@genpro.gov.skedesk adresa: ico://sk/00166456",
-  "email": "podatelna.opbb@genpro.gov.skedesk adresa: ico://sk/00166456",
+  "address": "Partizánska cesta 1",
+  "zipcode": "975 63",
+  "city": "Banská Bystrica",
+  "phone": "048/28 36 111",
+  "fax": "048/28 36 881",
+  "email": "podatelna.opbb@genpro.gov.sk",
   "electronic_registry": "ico://sk/00166456",
   "registry": {
     "note": "Čas vymedzený pre prijímanie ústne urobených podaní do zápisnice na Krajskej prokuratúre Banská Bystrica a okresných prokuratúrach v obvode jej pôsobnosti od 9:00 h do 11:00 h a od 13:00 h do 14:30 h.",

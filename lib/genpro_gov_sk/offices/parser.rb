@@ -61,21 +61,39 @@ module GenproGovSk
         def parse_contact(document)
           contact_table = document.css(table_selector(1)).first
 
-          location =
-            contact_table.css('tr:nth-child(1) td:nth-child(1)').text.gsub(/\t+/, "\t").gsub('\s+', ' ').split("\t")
-
-          address = location[location.size - 2]
-          _, zipcode, city = *location[location.size - 1].match(/\A(\d{3}[[:space:]]*\d{2})[[:space:]]{0,}(.+)\z/)
+          # Get location from first cell, split by line breaks
+          location_cell = contact_table.css('tr:nth-child(1) td:nth-child(1)')
+          location_parts = location_cell.inner_html.split(/<br\s*\/?>/).map { |part| Nokogiri::HTML(part).text.strip }
+          
+          # Structure: [Office name, Address, Zipcode City]
+          address = location_parts[-2]
+          zipcode_city = location_parts[-1]
+          _, zipcode, city = *zipcode_city.match(/\A(\d{3}[[:space:]]*\d{2})[[:space:]]{1,}(.+)\z/) if zipcode_city
 
           address = normalize(address)
           zipcode = normalize(zipcode)
           city = normalize(city)
 
-          contact = contact_table.css('tr:nth-child(1) td:nth-child(2)').text.gsub(/\t+/, "\n").gsub('\s+', ' ')
-          _, phone = *contact.match(/tel\.{0,1}:(.+)$/)
-          _, fax = *contact.match(/fax:(.+)$/)
-          _, email = *contact.match(/e-mail:(.+)$/)
-          _, _, electronic_registry = *contact.match(/(edesk adresa|elektronická podateľňa):(.+)$/)
+          # Get contact info from second cell, split by line breaks
+          contact_cell = contact_table.css('tr:nth-child(1) td:nth-child(2)')
+          contact_parts = contact_cell.inner_html.split(/<br\s*\/?>/).map { |part| Nokogiri::HTML(part).text.strip }
+          
+          phone = nil
+          fax = nil
+          email = nil
+          electronic_registry = nil
+          
+          contact_parts.each do |part|
+            if part =~ /^tel\.{0,1}:\s*(.+)$/
+              phone = $1
+            elsif part =~ /^fax:\s*(.+)$/
+              fax = $1
+            elsif part =~ /^e-mail:\s*(.+)$/
+              email = $1
+            elsif part =~ /^(edesk adresa|elektronická podateľňa):\s*(.+)$/
+              electronic_registry = $2
+            end
+          end
 
           registry_header = contact_table.css('tr').find { |tr| tr.text =~ /podateľňa.*úradné hodiny/ }
           registry_phone =

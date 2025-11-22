@@ -79,12 +79,12 @@
       "phone": "033/59 23 308"
     }
   ],
-  "address": "Okresná prokuratúra TrnavaDolné bašty 1918 67 Trnava",
-  "zipcode": null,
-  "city": null,
-  "phone": "033/59 23 333fax: 033/55 12 676e-mail: podatelna.optt@genpro.gov.skedesk adresa: ico://sk/35629053",
-  "fax": "033/55 12 676e-mail: podatelna.optt@genpro.gov.skedesk adresa: ico://sk/35629053",
-  "email": "podatelna.optt@genpro.gov.skedesk adresa: ico://sk/35629053",
+  "address": "Dolné bašty 1",
+  "zipcode": "918 67",
+  "city": "Trnava",
+  "phone": "033/59 23 333",
+  "fax": "033/55 12 676",
+  "email": "podatelna.optt@genpro.gov.sk",
   "electronic_registry": "ico://sk/35629053",
   "registry": {
     "note": "",
