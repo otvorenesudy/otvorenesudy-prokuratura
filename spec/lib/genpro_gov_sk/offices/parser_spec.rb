@@ -47,6 +47,69 @@ RSpec.describe GenproGovSk::Offices::Parser do
 
       expect(data[:employees].size).to be >= 40
     end
+
+    it 'parses a regional office (Bratislava) correctly' do
+      html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'krajsk_prokuratra_v_bratislave.html'))
+      data = described_class.parse(html)
+
+      expect(data[:name]).to eq('Krajská prokuratúra v Bratislave')
+      expect(data[:type]).to eql(:regional)
+      expect(data[:address]).to be_present
+      expect(data[:zipcode]).to be_present
+      expect(data[:city]).to be_present
+      expect(data[:phone]).to be_present
+      expect(data[:email]).to be_present
+      expect(data[:registry][:hours]).to have_key('pondelok')
+      expect(data[:employees].size).to be > 0
+    end
+
+    it 'parses a regional office (Košice) correctly' do
+      html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'krajsk_prokuratra_v_koiciach.html'))
+      data = described_class.parse(html)
+
+      expect(data[:name]).to eq('Krajská prokuratúra v Košiciach')
+      expect(data[:type]).to eql(:regional)
+      expect(data[:address]).to be_present
+      expect(data[:zipcode]).to be_present
+      expect(data[:city]).to be_present
+      expect(data[:employees].size).to be > 0
+    end
+
+    it 'parses a district office (Banská Bystrica) correctly' do
+      html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_bansk_bystrica.html'))
+      data = described_class.parse(html)
+
+      expect(data[:name]).to eq('Okresná prokuratúra Banská Bystrica')
+      expect(data[:type]).to eql(:district)
+      expect(data[:address]).to be_present
+      expect(data[:zipcode]).to be_present
+      expect(data[:city]).to be_present
+      expect(data[:employees].size).to be > 0
+    end
+
+    it 'parses a district office (Košice I) correctly' do
+      html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_koice_i.html'))
+      data = described_class.parse(html)
+
+      expect(data[:name]).to eq('Okresná prokuratúra Košice I')
+      expect(data[:type]).to eql(:district)
+      expect(data[:address]).to be_present
+      expect(data[:zipcode]).to be_present
+      expect(data[:city]).to be_present
+      expect(data[:employees].size).to be > 0
+    end
+
+    it 'parses a district office (Trnava) correctly' do
+      html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_trnava.html'))
+      data = described_class.parse(html)
+
+      expect(data[:name]).to eq('Okresná prokuratúra Trnava')
+      expect(data[:type]).to eql(:district)
+      expect(data[:address]).to be_present
+      expect(data[:zipcode]).to be_present
+      expect(data[:city]).to be_present
+      expect(data[:employees].size).to be > 0
+    end
   end
 
   context 'with coupled people names and positions' do

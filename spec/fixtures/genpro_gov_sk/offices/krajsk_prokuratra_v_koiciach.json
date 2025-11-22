@@ -1,0 +1,252 @@
+{
+  "name": "Krajská prokuratúra v Košiciach",
+  "type": "regional",
+  "employees": [
+    {
+      "name": "JUDr.  Judita Gulbišová",
+      "name_parts": {
+        "unprocessed": "JUDr. Judita Gulbišová",
+        "prefix": "JUDr.",
+        "first": " Judita",
+        "middle": null,
+        "last": "Gulbišová",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "krajská prokurátorka",
+      "rank": 1,
+      "phone": "055/68 16 317"
+    },
+    {
+      "name": "JUDr. Zuzana Šotiková",
+      "name_parts": {
+        "unprocessed": "JUDr. Zuzana Šotiková",
+        "prefix": "JUDr.",
+        "first": "Zuzana",
+        "middle": null,
+        "last": "Šotiková",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "námestníčka krajskej prokurátorky pre netrestný úsek",
+      "rank": 2,
+      "phone": "055/68 16 270"
+    },
+    {
+      "name": "JUDr. Branislav Bujňák",
+      "name_parts": {
+        "unprocessed": "JUDr. Branislav Bujňák",
+        "prefix": "JUDr.",
+        "first": "Branislav",
+        "middle": null,
+        "last": "Bujňák",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "námestník krajskej prokurátorky pre trestný úsek",
+      "rank": 3,
+      "phone": "055/68 16 315"
+    },
+    {
+      "name": "JUDr. Jarmila Janová",
+      "name_parts": {
+        "unprocessed": "JUDr. Jarmila Janová",
+        "prefix": "JUDr.",
+        "first": "Jarmila",
+        "middle": null,
+        "last": "Janová",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúca organizačného a personálneho oddelenia",
+      "rank": 4,
+      "phone": "055/68 16 273"
+    },
+    {
+      "name": "JUDr. Martina Chmurová",
+      "name_parts": {
+        "unprocessed": "JUDr. Martina Chmurová",
+        "prefix": "JUDr.",
+        "first": "Martina",
+        "middle": null,
+        "last": "Chmurová",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúca trestného oddelenia",
+      "rank": 5,
+      "phone": "055/68 16 383"
+    },
+    {
+      "name": "JUDr. Matúš Hendrichovský",
+      "name_parts": {
+        "unprocessed": "JUDr. Matúš Hendrichovský",
+        "prefix": "JUDr.",
+        "first": "Matúš",
+        "middle": null,
+        "last": "Hendrichovský",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúci netrestného oddelenia",
+      "rank": 6,
+      "phone": "055/68 16 279"
+    },
+    {
+      "name": "JUDr. Branislav Reday",
+      "name_parts": {
+        "unprocessed": "JUDr. Branislav Reday",
+        "prefix": "JUDr.",
+        "first": "Branislav",
+        "middle": null,
+        "last": "Reday",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúci oddelenia dozoru v trestnom konaní vo veciach organizovaného \t\t\tzločinu a príslušníkov ozbrojených bezpečnostných zborov",
+      "rank": 7,
+      "phone": "055/68 16 249"
+    },
+    {
+      "name": "Mgr. Jana Závišová",
+      "name_parts": {
+        "unprocessed": "Mgr. Jana Závišová",
+        "prefix": "Mgr.",
+        "first": "Jana",
+        "middle": null,
+        "last": "Závišová",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúca medzinárodného oddelenia",
+      "rank": 8,
+      "phone": "055/68 16 272"
+    },
+    {
+      "name": "Ing. Michal Telepovský",
+      "name_parts": {
+        "unprocessed": "Ing. Michal Telepovský",
+        "prefix": "Ing.",
+        "first": "Michal",
+        "middle": null,
+        "last": "Telepovský",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúci oddelenia informatiky",
+      "rank": 9,
+      "phone": "055/68 16 353"
+    },
+    {
+      "name": "Ing. Adrián Šenkýr",
+      "name_parts": {
+        "unprocessed": "Ing. Adrián Šenkýr",
+        "prefix": "Ing.",
+        "first": "Adrián",
+        "middle": null,
+        "last": "Šenkýr",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúci oddelenia vnútornej správy",
+      "rank": 10,
+      "phone": "055/68 16 312"
+    },
+    {
+      "name": "Ing. Adriana Sopková",
+      "name_parts": {
+        "unprocessed": "Ing. Adriana Sopková",
+        "prefix": "Ing.",
+        "first": "Adriana",
+        "middle": null,
+        "last": "Sopková",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúca správy registratúry",
+      "rank": 11,
+      "phone": "055/68 16 388"
+    },
+    {
+      "name": "Mgr. Lucia Maindlová",
+      "name_parts": {
+        "unprocessed": "Mgr. Lucia Maindlová",
+        "prefix": "Mgr.",
+        "first": "Lucia",
+        "middle": null,
+        "last": "Maindlová",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "bezpečnostný zamestnanec",
+      "rank": 12,
+      "phone": "055/68 16 278"
+    }
+  ],
+  "address": "Mojmírova 5",
+  "zipcode": "041 62",
+  "city": "Košice",
+  "phone": "055/68 16 111, 055/62 28 471, 055/52 28 215",
+  "fax": "055/78 82 04",
+  "email": "kpkosice@genpro.gov.sk podatelna.kpKE@genpro.gov.sk",
+  "electronic_registry": "ico://sk/00166464",
+  "registry": {
+    "note": "",
+    "phone": null,
+    "hours": {
+      "pondelok": "8:00 – 15:00",
+      "utorok": "8:00 – 15:00",
+      "streda": "8:00 – 15:00",
+      "štvrtok": "8:00 – 15:00",
+      "piatok": "8:00 – 15:00"
+    }
+  }
+}

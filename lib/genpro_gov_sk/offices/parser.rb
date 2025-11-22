@@ -7,11 +7,14 @@ module GenproGovSk
         unknown = []
         name = normalize(document.css('.tx-tempest-contacts > h1').text)
 
+        employee_table_rows =
+          document.css('.tx-tempest-contacts .table-responsive:nth-of-type(2) .gp-table tr, .tx-tempest-contacts figure.table:nth-of-type(2) .gp-table tr')
+
         data = {
           name: name,
           type: type_by(name),
           employees:
-            document.css('.tx-tempest-contacts .table-responsive:nth-of-type(2) .gp-table tr')[1..-1]
+            (employee_table_rows[1..-1] || [])
               .map
               .with_index do |row, rank|
                 next if row.text.gsub(/[[:space:]]*/, '').blank?
@@ -53,7 +56,7 @@ module GenproGovSk
         end
 
         def parse_contact(document)
-          contact_table = document.css('.tx-tempest-contacts .table-responsive:nth-of-type(1) .gp-table')
+          contact_table = document.css('.tx-tempest-contacts .table-responsive:nth-of-type(1) .gp-table, .tx-tempest-contacts figure.table:nth-of-type(1) .gp-table').first
 
           location =
             contact_table.css('tr:nth-child(1) td:nth-child(1)').text.gsub(/\t+/, "\t").gsub('\s+', ' ').split("\t")

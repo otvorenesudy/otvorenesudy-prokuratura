@@ -1,0 +1,252 @@
+{
+  "name": "Krajská prokuratúra v Bratislave",
+  "type": "regional",
+  "employees": [
+    {
+      "name": "JUDr. Rastislav Remeta, PhD.",
+      "name_parts": {
+        "unprocessed": "JUDr. Rastislav Remeta, PhD.",
+        "prefix": "JUDr.",
+        "first": "Rastislav",
+        "middle": null,
+        "last": "Remeta",
+        "suffix": "PhD.",
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "krajský prokurátor",
+      "rank": 1,
+      "phone": "02/208 36 282"
+    },
+    {
+      "name": "Mgr. Miloš Textoris",
+      "name_parts": {
+        "unprocessed": "Mgr. Miloš Textoris",
+        "prefix": "Mgr.",
+        "first": "Miloš",
+        "middle": null,
+        "last": "Textoris",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "námestník krajského prokurátora pre netrestný úsek",
+      "rank": 2,
+      "phone": "02/208 36 308"
+    },
+    {
+      "name": "JUDr. Borislav Usačev, PhD.",
+      "name_parts": {
+        "unprocessed": "JUDr. Borislav Usačev, PhD.",
+        "prefix": "JUDr.",
+        "first": "Borislav",
+        "middle": null,
+        "last": "Usačev",
+        "suffix": "PhD.",
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "námestník krajského prokurátora pre trestný úsek",
+      "rank": 3,
+      "phone": "02/208 36 111"
+    },
+    {
+      "name": "JUDr. Anetta Hullová",
+      "name_parts": {
+        "unprocessed": "JUDr. Anetta Hullová",
+        "prefix": "JUDr.",
+        "first": "Anetta",
+        "middle": null,
+        "last": "Hullová",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúca oddelenia dohľadu v trestnom konaní",
+      "rank": 4,
+      "phone": "02/208 36 111"
+    },
+    {
+      "name": "Mgr. Patrik Hujsa",
+      "name_parts": {
+        "unprocessed": "Mgr. Patrik Hujsa",
+        "prefix": "Mgr.",
+        "first": "Patrik",
+        "middle": null,
+        "last": "Hujsa",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "poverený výkonom funkcie vedúceho oddelenia dozoru v trestnom konaní",
+      "rank": 5,
+      "phone": "02/208 36 111"
+    },
+    {
+      "name": "JUDr. Ľubomír Pagáč, PhD.",
+      "name_parts": {
+        "unprocessed": "JUDr. Ľubomír Pagáč, PhD., LL.M.",
+        "prefix": "JUDr.",
+        "first": "Ľubomír",
+        "middle": null,
+        "last": "Pagáč",
+        "suffix": "PhD.",
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúci netrestného oddelenia",
+      "rank": 6,
+      "phone": "02/208 36 111"
+    },
+    {
+      "name": "JUDr. Alexandra Oleárová",
+      "name_parts": {
+        "unprocessed": "JUDr. Alexandra Oleárová",
+        "prefix": "JUDr.",
+        "first": "Alexandra",
+        "middle": null,
+        "last": "Oleárová",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúca medzinárodného oddelenia",
+      "rank": 7,
+      "phone": "02/208 36 111"
+    },
+    {
+      "name": "JUDr. Juraj Hudec",
+      "name_parts": {
+        "unprocessed": "JUDr. Juraj Hudec",
+        "prefix": "JUDr.",
+        "first": "Juraj",
+        "middle": null,
+        "last": "Hudec",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúci organizačného a personálneho oddelenia",
+      "rank": 8,
+      "phone": "02/208 36 251"
+    },
+    {
+      "name": "Mgr. Karol Hakl",
+      "name_parts": {
+        "unprocessed": "Mgr. Karol Hakl",
+        "prefix": "Mgr.",
+        "first": "Karol",
+        "middle": null,
+        "last": "Hakl",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúci oddelenia informatiky",
+      "rank": 9,
+      "phone": "02/208 36 272"
+    },
+    {
+      "name": "Mgr. Tatiana Olšová",
+      "name_parts": {
+        "unprocessed": "Mgr. Tatiana Olšová",
+        "prefix": "Mgr.",
+        "first": "Tatiana",
+        "middle": null,
+        "last": "Olšová",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúca oddelenia vnútornej správy",
+      "rank": 10,
+      "phone": "02/208 36 111"
+    },
+    {
+      "name": "Mgr. Gabriela Pecha Klenová",
+      "name_parts": {
+        "unprocessed": "Mgr. Gabriela Pecha Klenová",
+        "prefix": "Mgr.",
+        "first": "Gabriela",
+        "middle": "Pecha",
+        "last": "Klenová",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúca správy registratúry",
+      "rank": 11,
+      "phone": "02/208 36 111"
+    },
+    {
+      "name": "Mgr. Viera Kuruczová",
+      "name_parts": {
+        "unprocessed": "Mgr. Viera Kuruczová",
+        "prefix": "Mgr.",
+        "first": "Viera",
+        "middle": null,
+        "last": "Kuruczová",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúca referátu ochrany utajovaných skutočností",
+      "rank": 12,
+      "phone": "02/208 36 111"
+    }
+  ],
+  "address": "Vajnorská 47",
+  "zipcode": "812 56",
+  "city": "Bratislava 1",
+  "phone": "02/208 36 111",
+  "fax": "02/44 25 82 66",
+  "email": "kpbratislava@genpro.gov.sk, podatelna.kpBA@genpro.gov.sk",
+  "electronic_registry": "ico://sk/00166448",
+  "registry": {
+    "note": "Na základe rozhodnutia krajského prokurátora v Bratislave pre prijímanie podaní, ktoré sú urobené ústne do zápisnice na Krajskej prokuratúre v Bratislave a okresných prokuratúrach v obvode jej pôsobnosti sa v rámci úradných hodín vymedzuje konkrétny čas od 09:00 h do 11:00 h.",
+    "phone": null,
+    "hours": {
+      "pondelok": "8:00 – 15:00",
+      "utorok": "8:00 – 15:00",
+      "streda": "8:00 – 15:00",
+      "štvrtok": "8:00 – 15:00",
+      "piatok": "8:00 – 15:00"
+    }
+  }
+}
