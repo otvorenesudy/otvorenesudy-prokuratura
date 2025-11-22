@@ -71,6 +71,13 @@ module GenproGovSk
           _, email = *contact.match(/e-mail:(.+)$/)
           _, _, electronic_registry = *contact.match(/(edesk adresa|elektronická podateľňa):(.+)$/)
 
+          registry_header = contact_table.css('tr').find { |tr| tr.text =~ /podateľňa.*úradné hodiny/ }
+          registry_phone =
+            if registry_header
+              _, phones = *registry_header.text.match(/\(([^)]+)\)/)
+              normalize(phones)
+            end
+
           {
             address: address,
             zipcode: zipcode,
@@ -81,9 +88,9 @@ module GenproGovSk
             electronic_registry: normalize(electronic_registry),
             registry: {
               note: normalize(document.css('.tx-tempest-contacts > p.text-justify').text),
-              phone: nil,
+              phone: registry_phone,
               hours:
-                %i[monday tuesday wednesday thursday friday]
+                %w[pondelok utorok streda štvrtok piatok]
                   .map
                   .with_index do |day, i|
                     {

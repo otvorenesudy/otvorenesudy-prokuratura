@@ -112,6 +112,16 @@ From Rails console (typical order):
 - `GenproGovSk::Criminality.import` (parallelized)
 - `MinvSk::Criminality.import`
 
+## Protected Files
+
+**CRITICAL**: The following files must NEVER be deleted or modified by Copilot:
+
+- `config/credentials/test.ci.key` - CI test credentials key
+- `config/credentials/test.ci.yml.enc` - CI test encrypted credentials
+- `config/credentials/test.yml.enc` - Test environment encrypted credentials
+
+These files are required for CI/CD and test environments. Any changes to these files will break the build pipeline.
+
 ## Common Issues & Solutions
 
 - Missing pg_trgm/unaccent: ensure migration `20200504104808_add_trigram_to_postgres.rb` has run on your DB.

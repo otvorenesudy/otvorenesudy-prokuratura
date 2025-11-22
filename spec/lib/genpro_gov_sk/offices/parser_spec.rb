@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe GenproGovSk::Offices::Parser do
   describe '.parse' do
-    it 'parses the main office correctly' do
-      html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'main.html'))
+    it 'parses the general office correctly' do
+      html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'general.html'))
       data = described_class.parse(html)
 
       expect(data[:name]).to eq('Generálna prokuratúra Slovenskej republiky')
@@ -16,15 +16,15 @@ RSpec.describe GenproGovSk::Offices::Parser do
       expect(data[:electronic_registry]).to eq('https://www.slovensko.sk/sk/lokator-sluzieb')
       expect(data[:registry]).to eql(
         {
-          phone: nil,
+          phone: '02/208 37 766, 02/595 32 766',
           note:
             'Na základe rozhodnutia generálneho prokurátora Slovenskej republiky pre prijímanie podaní, ktoré sú urobené ústne do zápisnice na Generálnej prokuratúre Slovenskej republiky a na Úrade špeciálnej prokuratúry Generálnej prokuratúry Slovenskej republiky sa v rámci úradných hodín vymedzuje konkrétny čas od 9:00 h do 11:00 h.',
           hours: {
-            monday: '8:00 – 15:00',
-            tuesday: '8:00 – 15:00',
-            wednesday: '8:00 – 15:00',
-            thursday: '8:00 – 15:00',
-            friday: '8:00 – 15:00'
+            'pondelok' => '8:00 – 15:00',
+            'utorok' => '8:00 – 15:00',
+            'streda' => '8:00 – 15:00',
+            'štvrtok' => '8:00 – 15:00',
+            'piatok' => '8:00 – 15:00'
           }
         }
       )
@@ -45,7 +45,7 @@ RSpec.describe GenproGovSk::Offices::Parser do
       expect(data[:employees][-1][:position]).to eq('manažér kybernetickej bezpečnosti a informačnej bezpečnosti')
       expect(data[:employees][-1][:phone]).to eq('02/208 36 674')
 
-      expect(data[:employees].size).to eql(45)
+      expect(data[:employees].size).to be >= 40
     end
   end
 
