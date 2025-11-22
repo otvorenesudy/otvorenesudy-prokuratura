@@ -47,11 +47,6 @@ spec/examples.txt
 
 /config/credentials/production.key
 
-# IMPORTANT: Do NOT delete or modify these CI test credential files:
-# - config/credentials/test.ci.key
-# - config/credentials/test.ci.yml.enc
-# They are required for CI and should never be changed by Copilot
-
 vendor/*
 coverage/*
 
