@@ -1,0 +1,100 @@
+{
+  "name": "Okresná prokuratúra Košice I",
+  "type": "district",
+  "employees": [
+    {
+      "name": "JUDr. Jozef Sonderlich",
+      "name_parts": {
+        "unprocessed": "JUDr. Jozef Sonderlich",
+        "prefix": "JUDr.",
+        "first": "Jozef",
+        "middle": null,
+        "last": "Sonderlich",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "okresný prokurátor",
+      "rank": 1,
+      "phone": "055/68 16 370"
+    },
+    {
+      "name": "JUDr. Ľuboš Kmec",
+      "name_parts": {
+        "unprocessed": "JUDr. Ľuboš Kmec",
+        "prefix": "JUDr.",
+        "first": "Ľuboš",
+        "middle": null,
+        "last": "Kmec",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "námestník okresného prokurátora",
+      "rank": 2,
+      "phone": "055/68 16 307"
+    },
+    {
+      "name": "JUDr. Roman Sopoliga",
+      "name_parts": {
+        "unprocessed": "JUDr. Roman Sopoliga",
+        "prefix": "JUDr.",
+        "first": "Roman",
+        "middle": null,
+        "last": "Sopoliga",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "námestník okresného prokurátora",
+      "rank": 3,
+      "phone": "055/68 16 379"
+    },
+    {
+      "name": "Mgr. Jana Sušková",
+      "name_parts": {
+        "unprocessed": "Mgr. Jana Sušková",
+        "prefix": "Mgr.",
+        "first": "Jana",
+        "middle": null,
+        "last": "Sušková",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúca správy registratúry",
+      "rank": 4,
+      "phone": "055/68 16 339"
+    }
+  ],
+  "address": "Mojmírova 5",
+  "zipcode": "04147",
+  "city": "Košice",
+  "phone": "055/68 16 111",
+  "fax": "055/68 16 394",
+  "email": "podatelna.opke1@genpro.gov.sk",
+  "electronic_registry": "ico://sk/00166464",
+  "registry": {
+    "note": "",
+    "phone": null,
+    "hours": {
+      "monday": "8:00 – 15:00",
+      "tuesday": "8:00 – 15:00",
+      "wednesday": "8:00 – 15:00",
+      "thursday": "8:00 – 15:00",
+      "friday": "8:00 – 15:00"
+    }
+  }
+}

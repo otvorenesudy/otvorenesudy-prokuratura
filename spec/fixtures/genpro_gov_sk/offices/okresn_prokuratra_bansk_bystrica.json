@@ -1,0 +1,81 @@
+{
+  "name": "Okresná prokuratúra Banská Bystrica",
+  "type": "district",
+  "employees": [
+    {
+      "name": "JUDr. Miroslav Kmeč",
+      "name_parts": {
+        "unprocessed": "JUDr. Miroslav Kmeč",
+        "prefix": "JUDr.",
+        "first": "Miroslav",
+        "middle": null,
+        "last": "Kmeč",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "okresný prokurátor",
+      "rank": 1,
+      "phone": "048/2836 111"
+    },
+    {
+      "name": "JUDr. Danka Michaličková",
+      "name_parts": {
+        "unprocessed": "JUDr. Danka Michaličková",
+        "prefix": "JUDr.",
+        "first": "Danka",
+        "middle": null,
+        "last": "Michaličková",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "námestníčka okresného prokurátora pre netrestný úsek",
+      "rank": 2,
+      "phone": "048/2836 203"
+    },
+    {
+      "name": "Lucia Ďuricová",
+      "name_parts": {
+        "unprocessed": "Lucia Ďuricová",
+        "prefix": null,
+        "first": "Lucia",
+        "middle": null,
+        "last": "Ďuricová",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúca správy registratúry",
+      "rank": 3,
+      "phone": "048/2836 301"
+    }
+  ],
+  "address": "Partizánska cesta 1",
+  "zipcode": "975 63",
+  "city": "Banská Bystrica",
+  "phone": "048/28 36 111",
+  "fax": "048/28 36 881",
+  "email": "podatelna.opbb@genpro.gov.sk",
+  "electronic_registry": "ico://sk/00166456",
+  "registry": {
+    "note": "Čas vymedzený pre prijímanie ústne urobených podaní do zápisnice na Krajskej prokuratúre Banská Bystrica a okresných prokuratúrach v obvode jej pôsobnosti od 9:00 h do 11:00 h a od 13:00 h do 14:30 h.",
+    "phone": null,
+    "hours": {
+      "monday": "8:00 – 15:00",
+      "tuesday": "8:00 – 15:00",
+      "wednesday": "8:00 – 15:00",
+      "thursday": "8:00 – 15:00",
+      "friday": "8:00 – 15:00"
+    }
+  }
+}
