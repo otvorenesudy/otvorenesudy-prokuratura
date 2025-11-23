@@ -34,10 +34,30 @@ module MinvSk
       statistics =
         links
           .map do |link|
-            csv = Curl.get(link).body_str
-            data = Parser.parse(csv)
+            retries = 0
+            begin
+              curl = Curl::Easy.new(link)
+              curl.timeout = 30
+              curl.connect_timeout = 10
+              curl.perform
+              csv = curl.body_str
 
-            data.select { |e| e[:count].present? }
+              data = Parser.parse(csv)
+
+              sleep 0.5
+
+              data.select { |e| e[:count].present? }
+            rescue Curl::Err::GotNothingError, Curl::Err::TimeoutError => e
+              retries += 1
+              if retries <= 3
+                Rails.logger.info "Retry #{retries}/3 for #{link}: #{e.class}"
+                sleep 2
+                retry
+              else
+                Rails.logger.error "Failed to fetch #{link} after 3 retries: #{e.class}"
+                raise
+              end
+            end
           end
           .flatten
 
