@@ -23,11 +23,11 @@ class Downloader
     rescue Curl::Err::GotNothingError, Curl::Err::TimeoutError, Curl::Err::ConnectionFailedError, DownloadError => e
       if attempt <= retries
         backoff_time = 2**attempt
-        Rails.logger.info "Retry #{attempt}/#{retries} for #{url} after #{backoff_time}s: #{e.class}"
+        Rails.logger.info "Downloader # Retry [#{attempt}/#{retries}] for [#{url}] after [#{backoff_time}s]: [#{e.class}]"
         sleep backoff_time
         retry
       else
-        Rails.logger.error "Failed to download #{url} after #{retries} retries: #{e.class} - #{e.message}"
+        Rails.logger.error "Downloader # Failed to download [#{url}] after [#{retries}] retries: [#{e.class}] - [#{e.message}]"
         raise
       end
     end
