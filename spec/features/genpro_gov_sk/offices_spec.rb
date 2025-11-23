@@ -75,13 +75,13 @@ RSpec.describe 'GenproGovSk Offices', type: :feature do
             employee = office.employees.find_by(rank: expected_employee[:rank])
 
             expect(employee.name).to eq(expected_employee[:name]),
-            "Office '#{expected[:name]}': employee ##{emp_index + 1} name mismatch (expected: #{expected_employee[:name]}, got: #{employee.name})"
+            "Office '#{expected[:name]}': employee ##{employee.rank} name mismatch (expected: #{expected_employee[:name]}, got: #{employee.name})"
             expect(employee.position).to eq(expected_employee[:position]),
-            "Office '#{expected[:name]}': employee ##{emp_index + 1} position mismatch (expected: #{expected_employee[:position]}, got: #{employee.position})"
+            "Office '#{expected[:name]}': employee ##{employee.rank} position mismatch (expected: #{expected_employee[:position]}, got: #{employee.position})"
             expect(employee.phone).to eq(expected_employee[:phone]),
-            "Office '#{expected[:name]}': employee ##{emp_index + 1} phone mismatch (expected: #{expected_employee[:phone]}, got: #{employee.phone})"
+            "Office '#{expected[:name]}': employee ##{employee.rank} phone mismatch (expected: #{expected_employee[:phone]}, got: #{employee.phone})"
             expect(employee.rank).to eq(expected_employee[:rank]),
-            "Office '#{expected[:name]}': employee ##{emp_index + 1} rank mismatch (expected: #{expected_employee[:rank]}, got: #{employee.rank})"
+            "Office '#{expected[:name]}': employee ##{employee.rank} rank mismatch (expected: #{expected_employee[:rank]}, got: #{employee.rank})"
           end
       end
     end
