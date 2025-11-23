@@ -245,7 +245,6 @@ module GenproGovSk
       'Skladba stíhaných osôb vplyv inej návykovej látky' => :prosecuted_substance_abuse,
       'Skladba stíhaných osôb ženy' => :prosecuted_women,
       'Skladba stíhaných osôb mladiství' => :prosecuted_young,
-      
       'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia' =>
         :prosecution_of_unknown_offender_ended_by_police,
       'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia postúpením' =>

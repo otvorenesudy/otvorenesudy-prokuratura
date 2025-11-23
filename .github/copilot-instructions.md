@@ -79,6 +79,28 @@ Always follow these instructions when making code changes.
 
 11. When creating new libraries or modules, ensure they are placed in the appropriate directory under `lib/`. Follow existing naming conventions and structure for consistency.
 
+12. Logging messages should be performed via Rails logger (`Rails.logger.info`, `Rails.logger.error`, etc.) and should provide meaningful context about the operation being performed, especially in background jobs and critical operations. Following rules should be applied:
+
+    12.0. When logging messages in lib or service classes, prefix the log message with the class name for better traceability, e.g.:
+
+    ```
+    Rails.logger.info "GenproGovSk::Prosecutors::Importer # Importing prosecutors ..."
+    ```
+
+    12.1. Any values from variables, readings, data or anyting interpolated into the log messsage should be prefixed and suffixed with square brackets `[]` to make them easily distinguishable in log files.
+
+    12.2. Log messages should be clear and concise, providing enough information to understand the context without being overly verbose.
+
+    12.3. In case there is a long running part of the code, initially print a log message indicating the start of the operation with "..." at the end, and after completion print another log message indicating the end of the operation with time it took in miliseconds, e.g.:
+
+    ```
+    Rails.logger.info "GenproGovSk::Prosecutors::Importer # Importing prosecutors ..."
+
+    # long running operation
+
+    Rails.logger.info "GenproGovSk::Prosecutors::Importer # Importing prosecutors completed in [#{time_taken_ms} ms]"
+    ```
+
 ## Running Application
 
 ```bash
