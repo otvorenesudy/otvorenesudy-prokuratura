@@ -1,15 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe GenproGovSk::Prosecutors::Parser do
+  let(:rows) do
+    JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'prosecutors', 'list.json')))
+  end
+  let(:expected_json) do
+    JSON.parse(
+      File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'prosecutors', 'all_prosecutors.json')),
+      symbolize_names: true
+    )
+  end
+
   describe '.parse' do
     it 'parses prosecutors correctly from PDF extracted rows' do
-      rows = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'prosecutors', 'list.json')))
-      expected_json =
-        JSON.parse(
-          File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'prosecutors', 'all_prosecutors.json')),
-          symbolize_names: true
-        )
-
       data = described_class.parse(rows)
 
       expect(data.size).to eq(expected_json.size)
@@ -17,8 +20,6 @@ RSpec.describe GenproGovSk::Prosecutors::Parser do
     end
 
     it 'correctly extracts name and name_parts' do
-      rows = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'prosecutors', 'list.json')))
-
       data = described_class.parse(rows)
 
       expect(data).to be_an(Array)
@@ -34,8 +35,6 @@ RSpec.describe GenproGovSk::Prosecutors::Parser do
     end
 
     it 'maps offices correctly using OFFICES_MAP' do
-      rows = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'prosecutors', 'list.json')))
-
       data = described_class.parse(rows)
 
       data.each do |prosecutor|
@@ -50,8 +49,6 @@ RSpec.describe GenproGovSk::Prosecutors::Parser do
     end
 
     it 'handles prosecutors with temporary offices' do
-      rows = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'prosecutors', 'list.json')))
-
       data = described_class.parse(rows)
 
       prosecutors_with_temp = data.select { |p| p[:temporary_office].present? }
