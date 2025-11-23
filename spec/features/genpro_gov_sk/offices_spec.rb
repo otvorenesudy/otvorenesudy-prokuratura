@@ -12,7 +12,7 @@ RSpec.describe 'GenproGovSk Offices', type: :feature do
     GenproGovSk::Offices.import
 
     # Fetch all imported offices from database
-    imported_offices = GenproGovSk::Office.all.order(:name)
+    imported_offices = ::Office.all.order(:name)
 
     # Validate count
     expect(imported_offices.count).to eq(expected_offices.count),
