@@ -36,7 +36,21 @@ RSpec.describe Downloader do
     end
 
     context 'with HTTP error' do
-      it 'retries on non-200 response code' do
+      it 'does not raise on 3xx redirect codes' do
+        curl = instance_double(Curl::Easy)
+        allow(Curl::Easy).to receive(:new).with(url).and_return(curl)
+        allow(curl).to receive(:timeout=)
+        allow(curl).to receive(:connect_timeout=)
+        allow(curl).to receive(:perform)
+        allow(curl).to receive(:response_code).and_return(301)
+        allow(curl).to receive(:body_str).and_return(body)
+
+        result = described_class.download(url)
+
+        expect(result).to eq(body)
+      end
+
+      it 'retries on 4xx and 5xx response codes' do
         curl = instance_double(Curl::Easy)
         allow(Curl::Easy).to receive(:new).with(url).and_return(curl)
         allow(curl).to receive(:timeout=)

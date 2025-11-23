@@ -15,7 +15,7 @@ class Downloader
       curl.connect_timeout = 10
       curl.perform
 
-      raise DownloadError, "HTTP #{curl.response_code} for #{url}" if curl.response_code >= 300
+      raise DownloadError, "HTTP #{curl.response_code} for #{url}" if curl.response_code >= 400
 
       body = curl.body_str
 
