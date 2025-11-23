@@ -27,6 +27,8 @@ module MinvSk
         https://www.minv.sk/swift_data/source/policia/statistiky_2020/12_december/3csv_statistika_podla_paragrafov_3_31.12.2020.csv
         https://www.minv.sk/swift_data/source/policia/statistiky_2021/12_december/3csv_statistika_podla_paragrafov_3_31.12.2021.csv
         https://www.minv.sk/swift_data/source/policia/statistiky_2022/12_december/3csv_statistika_podla_paragrafov_3_31.12.2022.csv
+        https://www.minv.sk/swift_data/source/policia/statistiky_2023/12_december/3csv_statistika_podla_paragrafov_3_31.12.2023.csv
+        https://www.minv.sk/swift_data/source/policia/statistiky_2024/05_maj/3csv_statistika_podla_paragrafov_3_31.05.2024.csv
       ]
 
       statistics =
