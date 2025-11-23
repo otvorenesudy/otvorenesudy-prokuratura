@@ -105,12 +105,17 @@ en:
   models:
     statistic:
       metrics:
+        accused_age_14_all: Age 14 years
+        accused_age_14_girls: Girls age 14 years
         accused_age_14_to_15_all: All age from 14 to 15 years
         accused_age_14_to_15_boys: Boys from 14 to 15 years
         accused_age_14_to_15_girls: Girls from 14 to 15 years
+        accused_age_15_to_17_all: Age from 15 to 17 years
+        accused_age_15_to_17_girls: Girls from 15 to 17 years
         accused_age_16_to_18_all: Age from 16 to 18 years
         accused_age_16_to_18_boys: Boys from 16 to 18 years
         accused_age_16_to_18_girls: Girls from 16 to 18 years
+        accused_age_18_to_21_all: Age from 18 to 21 years
         accused_age_19_to_21_all: Age from 19 to 21 years
         accused_age_22_to_30_all: Age from 22 to 30 years
         accused_age_31_to_40_all: Age from 31 to 40 years
@@ -119,6 +124,7 @@ en:
         accused_age_61_and_more_all: Age from 61 and more
         accused_alcohol_abuse: Alcohol Abuse
         accused_all: All
+        accused_attacks_count: Number of attacks in crimes
         accused_by_paragraph_204: Shorten investigation according to §204 of the Penal code
         accused_men: Men
         accused_people_for_intentional_crimes: For intentional crimes
@@ -140,21 +146,37 @@ en:
         conditional_cessation_of_accused_by_prosecutor: Conditional Cessation of Prosecution by prosecutor
         conditional_cessation_of_cooperating_accused_and_proven: Conditional Cessation of Prosecution where cooperating accused proved himself
         conditional_cessation_of_cooperating_accused_by_prosecutor: Conditional Cessation of Prosecution by Prosecutor where cooperating accused proved himself
+        convicted_adult_men: Adult men
+        convicted_adult_women: Adult women
+        convicted_adults_all: Adults
         convicted_all: All
+        convicted_foreigners: Foreigners
+        convicted_legal_entities: Legal entities
         convicted_men: Men
+        convicted_natural_persons: Natural persons
         convicted_women: Women
         convicted_young: Young
+        convicted_young_boys: Young boys
+        convicted_young_girls: Young girls
         exemption: Exemption Persons
-        guilt_and_sentence_agreement: Agreement on Guilt and Puhishment
+        guilt_and_sentence_agreement: Agreement on Guilt and Punishment
         incoming_cases: All incoming cases which were attacked in registries Pv/Kv/Gv
         judged_all: Judged persons
-        prosecuted_all: All
-        prosecuted_foreigners: Foreigners
-        prosecuted_men: Men
+        prosecuted_adult_men: Adult men
+        prosecuted_adult_women: Adult women
+        prosecuted_adults_all: Adults
         prosecuted_alcohol_abuse: Alcohol Influence
+        prosecuted_all: All
+        prosecuted_attacks_count: Number of attacks in crimes
+        prosecuted_foreigners: Foreigners
+        prosecuted_legal_entities: Legal entities
+        prosecuted_men: Men
+        prosecuted_natural_persons: Natural persons
         prosecuted_substance_abuse: Influence of other addictive substance
         prosecuted_women: Women
         prosecuted_young: Young
+        prosecuted_young_boys: Young boys
+        prosecuted_young_girls: Young girls
         prosecution_of_unknown_offender_ended_by_police: Unknown offenders
         prosecution_of_unknown_offender_ended_by_police_by_assignation: Unknown Offender by Assignation
         prosecution_of_unknown_offender_ended_by_police_by_cessation: Unknown Offender by Cessation
