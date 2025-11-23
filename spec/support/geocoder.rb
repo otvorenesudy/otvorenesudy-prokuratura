@@ -1,5 +1,5 @@
 RSpec.configure do |config|
-  config.around(:each) do |example|
+  config.before(:each) do |example|
     options = example.metadata
 
     if options[:geocoder]
@@ -13,7 +13,5 @@ RSpec.configure do |config|
       location_stub = Struct.new(:latitude, :longitude).new(latitude, longitude)
       allow(Geocoder).to receive(:search).and_return([location_stub])
     end
-
-    example.run
   end
 end
