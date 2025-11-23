@@ -105,12 +105,17 @@ sk:
   models:
     statistic:
       metrics:
+        accused_age_14_all: Vek 14 rokov
+        accused_age_14_girls: Dievčatá vo veku 14 rokov
         accused_age_14_to_15_all: Vek od 14 do 15 rokov
         accused_age_14_to_15_boys: Chlapci od 14 do 15 rokov
         accused_age_14_to_15_girls: Dievčatá od 14 o 15 rokov
+        accused_age_15_to_17_all: Vek od 15 do 17 rokov
+        accused_age_15_to_17_girls: Dievčatá od 15 do 17 rokov
         accused_age_16_to_18_all: Vek od 16 do 18 rokov
         accused_age_16_to_18_boys: Chlapci od 16 do 18 rokov
         accused_age_16_to_18_girls: Dievčatá od 16 o 18 rokov
+        accused_age_18_to_21_all: Vek od 18 do 21 rokov
         accused_age_19_to_21_all: Vek od 19 do 21 rokov
         accused_age_22_to_30_all: Vek od 22 do 30 rokov
         accused_age_31_to_40_all: Vek od 31 do 40 rokov
@@ -140,21 +145,37 @@ sk:
         conditional_cessation_of_accused_by_prosecutor: Podmienečné zastavenie TS obvineného prokurátorom
         conditional_cessation_of_cooperating_accused_and_proven: Podmienečné zastavenie TS, kde sa osvedčil spolupracujúci obvinený
         conditional_cessation_of_cooperating_accused_by_prosecutor: Podmienečné zastavenie TS spolupracujúceho obvineného prokurátorom
+        convicted_adult_men: Dospelí muži
+        convicted_adult_women: Dospelé ženy
+        convicted_adults_all: Dospelí
         convicted_all: Všetci
+        convicted_foreigners: Cudzinci
+        convicted_legal_entities: Právnické osoby
         convicted_men: Muži
+        convicted_natural_persons: Fyzické osoby
         convicted_women: Ženy
         convicted_young: Mladiství
+        convicted_young_boys: Mladiství chlapci
+        convicted_young_girls: Mladistvé dievčatá
         exemption: Oslobodené osoby
         guilt_and_sentence_agreement: Dohoda o vine a treste
         incoming_cases: Všetky spisy, ktoré napadli registroch Pv/Kv/Gv
         judged_all: Súdené osoby
+        prosecuted_adult_men: Dospelí muži
+        prosecuted_adult_women: Dospelé ženy
+        prosecuted_adults_all: Dospelí
         prosecuted_alcohol_abuse: Vplyv alkoholu
         prosecuted_all: Všetci
+        prosecuted_attacks_count: Počet útokov pri trestných činoch
         prosecuted_foreigners: Cudzinci
+        prosecuted_legal_entities: Právnické osoby
         prosecuted_men: Muži
+        prosecuted_natural_persons: Fyzické osoby
         prosecuted_substance_abuse: Vplyv inej návykovej látky
         prosecuted_women: Ženy
         prosecuted_young: Mladiství
+        prosecuted_young_boys: Mladiství chlapci
+        prosecuted_young_girls: Mladistvé dievčatá
         prosecution_of_unknown_offender_ended_by_police: Neznámi páchatelia
         prosecution_of_unknown_offender_ended_by_police_by_assignation: Neznámi páchatelia postúpením
         prosecution_of_unknown_offender_ended_by_police_by_cessation: Neznámi páchatelia zastavením
