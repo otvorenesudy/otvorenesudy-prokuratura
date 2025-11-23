@@ -86,8 +86,6 @@ module MinvSk
 
               raise "Unknown breakdown: #{breakdown}" unless mapped_breakdown
 
-              value = base_column + i
-
               { value: mapped_breakdown, column: base_column + i }
             end
             .compact
