@@ -43,10 +43,10 @@ Always follow these instructions when making code changes.
 
 6. Do not put comments or documentation in code. Follow existing patterns. Only in case the logic is very complex or there is a non-obvious reason for something or TODO comments for edge cases.
 
-7. Follow existing code style as defined in `.streerc`. Always format your code via `syntax_tree` by running
+7. **IMPORTANT**: Follow existing code style as defined in `.streerc`. Always format your code via `syntax_tree` by running before comitting:
 
    ```bash
-   bundle exec syntax_tree format --write <files or directories>
+   bundle exec syntax_tree format --write <files or directories changed>
    ```
 
    Format only the files you changed and fetch them via `git diff --name-only HEAD~1` or similar command.
@@ -111,6 +111,16 @@ From Rails console (typical order):
 - `GenproGovSk::Decrees.import`
 - `GenproGovSk::Criminality.import` (parallelized)
 - `MinvSk::Criminality.import`
+
+## Protected Files
+
+**CRITICAL**: The following files must NEVER be deleted or modified by Copilot:
+
+- `config/credentials/test.ci.key` - CI test credentials key
+- `config/credentials/test.ci.yml.enc` - CI test encrypted credentials
+- `config/credentials/test.yml.enc` - Test environment encrypted credentials
+
+These files are required for CI/CD and test environments. Any changes to these files will break the build pipeline. Make sure to exclude them before any commits. Never commit changes to these files to the repository.
 
 ## Common Issues & Solutions
 
