@@ -18,7 +18,7 @@ module GenproGovSk
           next GenproGovSk::ImportPdfDecreeJob.perform_later(decree) if decree[:file_type] === 'pdf'
           next GenproGovSk::ImportRtfDecreeJob.perform_later(decree) if decree[:file_type] === 'rtf'
 
-          raise ArgumentError.new("Unknown decree type: [${#{data[:type]}}]")
+          raise ArgumentError.new("Unknown decree type: [#{decree[:file_type]}]")
         end
       end
     end

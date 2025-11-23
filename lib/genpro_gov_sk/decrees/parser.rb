@@ -15,7 +15,7 @@ module GenproGovSk
 
             data = {
               url: "#{url}#{link[:href]}",
-              number: columns[0].css('a')[0].text.strip,
+              number: columns[0].css('a')[0].text.strip.lines.first.strip,
               effective_on: Date.strptime(columns[1].text.strip.squeeze(' '), '%d. %m. %Y'),
               published_on: Date.strptime(columns[2].text.strip.squeeze(' '), '%d. %m. %Y'),
               file_number: columns[3].text.strip,
