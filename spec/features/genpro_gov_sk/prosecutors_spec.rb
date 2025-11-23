@@ -1,10 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'GenproGovSk Prosecutors', type: :feature do
-  it 'correctly parses all prosecutors', webmock: :disabled do
-    location_stub = Struct.new(:latitude, :longitude).new(48.1486, 17.1077)
-    allow(Geocoder).to receive(:search).and_return([location_stub])
-
+  it 'correctly parses all prosecutors', webmock: :disabled, geocoder: true do
     GenproGovSk::Offices.import
     GenproGovSk::Prosecutors.import
 
