@@ -126,7 +126,7 @@ RSpec.describe GenproGovSk::Criminality::ParagraphsParser do
       it 'parses 2024 accused file with new metrics' do
         path = Rails.root.join(file_2024_accused).to_s
 
-        next unless File.exist?(path)
+        skip "File does not exist: #{file_2024_accused}" unless File.exist?(path)
 
         result = described_class.parse(path)
 
@@ -136,21 +136,18 @@ RSpec.describe GenproGovSk::Criminality::ParagraphsParser do
 
         metrics = result[:statistics].map { |s| s[:metric] }.uniq
 
-        expect(metrics).to include(:prosecuted_legal_entities) if result[:statistics].any? do |s|
-          s[:metric] == :prosecuted_legal_entities
-        end
-        expect(metrics).to include(:prosecuted_natural_persons) if result[:statistics].any? do |s|
-          s[:metric] == :prosecuted_natural_persons
-        end
-        expect(metrics).to include(:prosecuted_adults_all) if result[:statistics].any? do |s|
-          s[:metric] == :prosecuted_adults_all
-        end
+        has_legal_entities = metrics.include?(:prosecuted_legal_entities)
+        has_natural_persons = metrics.include?(:prosecuted_natural_persons)
+        has_adults = metrics.include?(:prosecuted_adults_all)
+
+        expect(has_legal_entities || has_natural_persons || has_adults).to be(true),
+                                                                                'Expected to find at least one of the new 2024 metrics'
       end
 
       it 'parses 2024 convicted file with new metrics' do
         path = Rails.root.join(file_2024_convicted).to_s
 
-        next unless File.exist?(path)
+        skip "File does not exist: #{file_2024_convicted}" unless File.exist?(path)
 
         result = described_class.parse(path)
 
@@ -160,15 +157,12 @@ RSpec.describe GenproGovSk::Criminality::ParagraphsParser do
 
         metrics = result[:statistics].map { |s| s[:metric] }.uniq
 
-        expect(metrics).to include(:convicted_legal_entities) if result[:statistics].any? do |s|
-          s[:metric] == :convicted_legal_entities
-        end
-        expect(metrics).to include(:convicted_natural_persons) if result[:statistics].any? do |s|
-          s[:metric] == :convicted_natural_persons
-        end
-        expect(metrics).to include(:convicted_foreigners) if result[:statistics].any? do |s|
-          s[:metric] == :convicted_foreigners
-        end
+        has_legal_entities = metrics.include?(:convicted_legal_entities)
+        has_natural_persons = metrics.include?(:convicted_natural_persons)
+        has_foreigners = metrics.include?(:convicted_foreigners)
+
+        expect(has_legal_entities || has_natural_persons || has_foreigners).to be(true),
+                                                                                   'Expected to find at least one of the new 2024 metrics'
       end
     end
   end
