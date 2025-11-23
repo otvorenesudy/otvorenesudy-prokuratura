@@ -1,4 +1,5 @@
 require 'minv_sk/criminality/parser'
+require 'downloader'
 
 module MinvSk
   module Criminality
@@ -34,30 +35,14 @@ module MinvSk
       statistics =
         links
           .map do |link|
-            retries = 0
-            begin
-              curl = Curl::Easy.new(link)
-              curl.timeout = 30
-              curl.connect_timeout = 10
-              curl.perform
-              csv = curl.body_str
-
-              data = Parser.parse(csv)
-
-              sleep 0.5
-
-              data.select { |e| e[:count].present? }
-            rescue Curl::Err::GotNothingError, Curl::Err::TimeoutError => e
-              retries += 1
-              if retries <= 3
-                Rails.logger.info "Retry #{retries}/3 for #{link}: #{e.class}"
-                sleep 2
-                retry
-              else
-                Rails.logger.error "Failed to fetch #{link} after 3 retries: #{e.class}"
-                raise
+            data =
+              Downloader.download(link, retries: 3) do |body|
+                parsed = Parser.parse(body)
+                sleep 1
+                parsed
               end
-            end
+
+            data.select { |e| e[:count].present? }
           end
           .flatten
 
