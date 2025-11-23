@@ -61,7 +61,7 @@ RSpec.describe GenproGovSk::Criminality::ParagraphsParser do
         result = described_class.parse(path)
 
         if result.nil?
-          puts "File returned nil (no paragraphs): #{File.basename(file)}"
+          # puts "File returned nil (no paragraphs): #{File.basename(file)}"
           next
         end
 
@@ -75,21 +75,23 @@ RSpec.describe GenproGovSk::Criminality::ParagraphsParser do
     end
 
     it 'parses statistics with valid structure' do
-      test_files.sample(5).each do |file|
-        path = Rails.root.join(file).to_s
+      test_files
+        .sample(5)
+        .each do |file|
+          path = Rails.root.join(file).to_s
 
-        next unless File.exist?(path)
+          next unless File.exist?(path)
 
-        result = described_class.parse(path)
+          result = described_class.parse(path)
 
-        next if result.nil? || result[:statistics].empty?
+          next if result.nil? || result[:statistics].empty?
 
-        result[:statistics].each do |stat|
-          expect(stat).to have_key(:metric)
-          expect(stat).to have_key(:paragraph)
-          expect(stat).to have_key(:count)
+          result[:statistics].each do |stat|
+            expect(stat).to have_key(:metric)
+            expect(stat).to have_key(:paragraph)
+            expect(stat).to have_key(:count)
+          end
         end
-      end
     end
 
     it 'reports minimal unknown attributes for recent years' do
@@ -105,12 +107,12 @@ RSpec.describe GenproGovSk::Criminality::ParagraphsParser do
         next if result.nil?
 
         if result[:unknown].any?
-          puts "Unknown attributes in #{File.basename(file)}:"
-          result[:unknown].uniq.each { |attr| puts "  - #{attr}" }
+          # puts "Unknown attributes in #{File.basename(file)}:"
+          # result[:unknown].uniq.each { |attr| puts "  - #{attr}" }
         end
 
         expect(result[:unknown].uniq.length).to be <= 5,
-                                                  "Too many unknown attributes in #{File.basename(file)}: #{result[:unknown].uniq.join(', ')}"
+        "Too many unknown attributes in #{File.basename(file)}: #{result[:unknown].uniq.join(', ')}"
       end
     end
 
@@ -141,7 +143,7 @@ RSpec.describe GenproGovSk::Criminality::ParagraphsParser do
         has_adults = metrics.include?(:prosecuted_adults_all)
 
         expect(has_legal_entities || has_natural_persons || has_adults).to be(true),
-                                                                                'Expected to find at least one of the new 2024 metrics'
+        'Expected to find at least one of the new 2024 metrics'
       end
 
       it 'parses 2024 convicted file with new metrics' do
@@ -162,7 +164,7 @@ RSpec.describe GenproGovSk::Criminality::ParagraphsParser do
         has_foreigners = metrics.include?(:convicted_foreigners)
 
         expect(has_legal_entities || has_natural_persons || has_foreigners).to be(true),
-                                                                                   'Expected to find at least one of the new 2024 metrics'
+        'Expected to find at least one of the new 2024 metrics'
       end
     end
   end
