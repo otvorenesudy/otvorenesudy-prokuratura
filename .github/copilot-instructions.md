@@ -120,7 +120,7 @@ From Rails console (typical order):
 - `config/credentials/test.ci.yml.enc` - CI test encrypted credentials
 - `config/credentials/test.yml.enc` - Test environment encrypted credentials
 
-These files are required for CI/CD and test environments. Any changes to these files will break the build pipeline. Make sure to exclude them before any commits. Never commit changes to these files to the repository.
+These files are required for CI/CD and test environments. Any changes to these files will break the build pipeline. Make sure to exclude them before any commits. Never commit changes in them in the repository or delete them from the repository.
 
 ## Common Issues & Solutions
 
