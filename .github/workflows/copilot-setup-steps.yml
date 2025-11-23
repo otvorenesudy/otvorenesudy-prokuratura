@@ -48,8 +48,8 @@ jobs:
 
       - name: Setup credentials
         run: |
-          mv config/credentials/test.ci.yml.enc config/credentials/test.yml.enc
-          mv config/credentials/test.ci.key config/credentials/test.key
+          cp config/credentials/test.ci.yml.enc config/credentials/test.yml.enc
+          cp config/credentials/test.ci.key config/credentials/test.key
 
       - name: Install required packages
         run: |
