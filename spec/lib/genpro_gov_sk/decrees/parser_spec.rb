@@ -28,16 +28,29 @@ RSpec.describe GenproGovSk::Decrees::Parser do
         expect(decrees).to be_an(Array)
         expect(decrees.size).to eq(20)
 
+        first_decree = decrees.first
+        expect(first_decree[:url]).to eq('https://www.genpro.gov.sk//download/uznesenie/2025/06/bb_6608_164_05_2025_a_1d0aae4901.pdf')
+        expect(first_decree[:number]).to eq('BB/6608/164/05/2025')
+        expect(first_decree[:effective_on]).to eq(Date.new(2025, 5, 30))
+        expect(first_decree[:published_on]).to eq(Date.new(2025, 6, 4))
+        expect(first_decree[:file_number]).to eq('2 Pv 243/23/6608')
+        expect(first_decree[:resolution].gsub(/[\u00A0\s]+/, ' ')).to eq("Uznesenie prokurátora o osvedčení sa v skúšobnej dobe")
+        expect(first_decree[:means_of_resolution].gsub(/[\u00A0\s]+/, ' ')).to eq("podmienečné zastavenie trestného stíhania, osvedčil sa - § 217/1 (§ 308/3) Tr.por.")
+        expect(first_decree[:file_type]).to eq('pdf')
+
         decrees.each do |decree|
-          expect(decree).to have_key(:url)
-          expect(decree).to have_key(:number)
-          expect(decree).to have_key(:effective_on)
-          expect(decree).to have_key(:published_on)
-          expect(decree).to have_key(:file_number)
-          expect(decree).to have_key(:resolution)
-          expect(decree).to have_key(:means_of_resolution)
-          expect(decree).to have_key(:file_type)
           expect(decree[:file_type]).to eq('pdf')
+          expect(decree[:url]).to be_a(String)
+          expect(decree[:url]).to start_with('https://www.genpro.gov.sk/')
+          expect(decree[:number]).to match(%r{^[A-Z]+/\d+/\d+/\d+/\d+$})
+          expect(decree[:effective_on]).to be_a(Date)
+          expect(decree[:published_on]).to be_a(Date)
+          expect(decree[:file_number]).to be_a(String)
+          expect(decree[:file_number]).not_to be_empty
+          expect(decree[:resolution]).to be_a(String)
+          expect(decree[:resolution]).not_to be_empty
+          expect(decree[:means_of_resolution]).to be_a(String)
+          expect(decree[:means_of_resolution]).not_to be_empty
         end
       end
 
@@ -49,9 +62,19 @@ RSpec.describe GenproGovSk::Decrees::Parser do
         expect(decrees.size).to eq(20)
 
         decrees.each do |decree|
-          expect(decree[:file_type]).to eq('pdf')
+          expect(decree[:url]).to be_a(String)
+          expect(decree[:url]).to start_with('https://www.genpro.gov.sk/')
+          expect(decree[:url]).to match(/\.pdf$/)
+          expect(decree[:number]).to match(%r{^[A-Z]+/\d+/\d+/\d+/\d+$})
           expect(decree[:effective_on]).to be_a(Date)
           expect(decree[:published_on]).to be_a(Date)
+          expect(decree[:file_number]).to be_a(String)
+          expect(decree[:file_number]).not_to be_empty
+          expect(decree[:resolution]).to be_a(String)
+          expect(decree[:resolution]).not_to be_empty
+          expect(decree[:means_of_resolution]).to be_a(String)
+          expect(decree[:means_of_resolution]).not_to be_empty
+          expect(decree[:file_type]).to eq('pdf')
         end
       end
     end
@@ -82,15 +105,29 @@ RSpec.describe GenproGovSk::Decrees::Parser do
         expect(decrees).to be_an(Array)
         expect(decrees.size).to eq(20)
 
+        first_decree = decrees.first
+        expect(first_decree[:url]).to eq('https://www.genpro.gov.sk//download/uznesenie/2014/10/ZA_5505_407_10_2014_a.rtf')
+        expect(first_decree[:number]).to eq('ZA/5505/407/10/2014')
+        expect(first_decree[:effective_on]).to eq(Date.new(2014, 10, 14))
+        expect(first_decree[:published_on]).to eq(Date.new(2014, 10, 29))
+        expect(first_decree[:file_number]).to eq('2 Pv 554/13/5505')
+        expect(first_decree[:resolution].gsub(/[\u00A0\s]+/, ' ')).to eq("Uznesenie o schválení zmieru")
+        expect(first_decree[:means_of_resolution].gsub(/[\u00A0\s]+/, ' ')).to eq("zmier schválený a zastavenie trestného stíhania - § 220 s poukazom na § 215/ 1g Tr.por.")
+        expect(first_decree[:file_type]).to eq('rtf')
+
         decrees.each do |decree|
-          expect(decree).to have_key(:url)
-          expect(decree).to have_key(:number)
-          expect(decree).to have_key(:effective_on)
-          expect(decree).to have_key(:published_on)
-          expect(decree).to have_key(:file_number)
-          expect(decree).to have_key(:resolution)
-          expect(decree).to have_key(:means_of_resolution)
-          expect(decree).to have_key(:file_type)
+          expect(decree[:url]).to be_a(String)
+          expect(decree[:url]).to start_with('https://www.genpro.gov.sk/')
+          expect(decree[:url]).to match(/\.rtf$/)
+          expect(decree[:number]).to match(%r{^[A-Z]+/\d+/\d+/\d+/\d+$})
+          expect(decree[:effective_on]).to be_a(Date)
+          expect(decree[:published_on]).to be_a(Date)
+          expect(decree[:file_number]).to be_a(String)
+          expect(decree[:file_number]).not_to be_empty
+          expect(decree[:resolution]).to be_a(String)
+          expect(decree[:resolution]).not_to be_empty
+          expect(decree[:means_of_resolution]).to be_a(String)
+          expect(decree[:means_of_resolution]).not_to be_empty
           expect(decree[:file_type]).to eq('rtf')
         end
       end
@@ -201,14 +238,20 @@ RSpec.describe GenproGovSk::Decrees::Parser do
           expect(decrees.size).to be > 0
 
           decrees.each do |decree|
-            expect(decree).to have_key(:url)
-            expect(decree).to have_key(:number)
-            expect(decree).to have_key(:effective_on)
-            expect(decree).to have_key(:published_on)
-            expect(decree).to have_key(:file_number)
-            expect(decree).to have_key(:resolution)
-            expect(decree).to have_key(:means_of_resolution)
-            expect(decree).to have_key(:file_type)
+            expect(decree[:url]).to be_a(String)
+            expect(decree[:url]).to start_with('https://www.genpro.gov.sk/')
+            expect(decree[:url]).to match(/\.(pdf|rtf)$/)
+            expect(decree[:number]).to be_a(String)
+            expect(decree[:number]).to match(%r{^[A-Z]+/\d+/\d+/\d+/\d+$})
+            expect(decree[:effective_on]).to be_a(Date)
+            expect(decree[:published_on]).to be_a(Date)
+            expect(decree[:file_number]).to be_a(String)
+            expect(decree[:file_number]).not_to be_empty
+            expect(decree[:resolution]).to be_a(String)
+            expect(decree[:resolution]).not_to be_empty
+            expect(decree[:means_of_resolution]).to be_a(String)
+            expect(decree[:means_of_resolution]).not_to be_empty
+            expect(['pdf', 'rtf']).to include(decree[:file_type])
           end
         end
       end
