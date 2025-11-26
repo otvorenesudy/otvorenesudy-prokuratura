@@ -1,0 +1,144 @@
+{
+  "year": 2024,
+  "lists": [
+    {
+      "category": "Zoznam nehnuteľností",
+      "items": [
+        {
+          "description": "Pozemok/Lesný pozemok",
+          "acquisition_reason": "Kúpna zmluva",
+          "acquisition_date": "2010",
+          "price": "0",
+          "procurement_price": "64.428,26 €",
+          "share_size": "1/1"
+        },
+        {
+          "description": "Pozemok/Ostatné plochy",
+          "acquisition_reason": "Darovacia zmluva",
+          "acquisition_date": "2012",
+          "price": "8.939,45 €",
+          "procurement_price": "0",
+          "share_size": "1/2"
+        },
+        {
+          "description": "Pozemok/Zastavané plochy",
+          "acquisition_reason": "Darovacia zmluva",
+          "acquisition_date": "2012",
+          "price": "32.941,25 €",
+          "procurement_price": "0",
+          "share_size": "1/2"
+        },
+        {
+          "description": "Pozemok/Zastavané plochy",
+          "acquisition_reason": "Darovacia zmluva",
+          "acquisition_date": "2012",
+          "price": "5.143,24 €",
+          "procurement_price": "0",
+          "share_size": "1/2"
+        },
+        {
+          "description": "Nebytový priestor/Predajňa",
+          "acquisition_reason": "Darovacia zmluva",
+          "acquisition_date": "2012",
+          "price": "69.617,92 €",
+          "procurement_price": "0",
+          "share_size": "1/2"
+        },
+        {
+          "description": "Pozemok/Zastavané plochy",
+          "acquisition_reason": "Darovacia zmluva",
+          "acquisition_date": "2012",
+          "price": "4.326,86 €",
+          "procurement_price": "0",
+          "share_size": "1/1"
+        },
+        {
+          "description": "Nebytový priestor/Sklad",
+          "acquisition_reason": "Darovacia zmluva",
+          "acquisition_date": "2012",
+          "price": "26.848,63 €",
+          "procurement_price": "0",
+          "share_size": "1/1"
+        },
+        {
+          "description": "Rodinný dom",
+          "acquisition_reason": "Kúpna zmluva",
+          "acquisition_date": "2020",
+          "price": "0",
+          "procurement_price": "60.000,- €",
+          "share_size": "1/1"
+        },
+        {
+          "description": "Pozemok/Zastavaná plocha a nádvorie",
+          "acquisition_reason": "Kúpna zmluva",
+          "acquisition_date": "2020",
+          "price": "0",
+          "procurement_price": "zahrnutá v cene rodinného domu na LV 1442",
+          "share_size": "1/1"
+        },
+        {
+          "description": "Pozemok/Záhrada",
+          "acquisition_reason": "Kúpna zmluva",
+          "acquisition_date": "2020",
+          "price": "0",
+          "procurement_price": "zahrnutá v cene rodinného domu na LV 1442",
+          "share_size": "1/1"
+        },
+        {
+          "description": "Pozemok/Zastavaná plocha a nádvorie",
+          "acquisition_reason": "Kúpna zmluva",
+          "acquisition_date": "2020",
+          "price": "0",
+          "procurement_price": "zahrnutá v cene rodinného domu na LV 1442",
+          "share_size": "1/1"
+        },
+        {
+          "description": "Pozemok/Zastavaná plocha a nádvorie",
+          "acquisition_reason": "Kúpna zmluva",
+          "acquisition_date": "2020",
+          "price": "0",
+          "procurement_price": "zahrnutá v cene rodinného domu na LV 1442",
+          "share_size": "1/1"
+        },
+        {
+          "description": "Pozemok/Záhrada",
+          "acquisition_reason": "Kúpna zmluva",
+          "acquisition_date": "2020",
+          "price": "0",
+          "procurement_price": "zahrnutá v cene rodinného domu na LV 1442",
+          "share_size": "1/1"
+        }
+      ]
+    },
+    {
+      "category": "Súhrn hnuteľných vecí, majetkových práv a iných majetkových hodnôt",
+      "items": [
+        {
+          "description": "150 ks Umeleckých diel/Obrazy",
+          "acquisition_date": "od 2006 do 2012",
+          "price": "cca 100.000,- €"
+        },
+        {
+          "description": "30 ks Umeleckých diel/Sochy",
+          "acquisition_date": "od 2006 do 2012",
+          "price": "cca 10.000,- €"
+        }
+      ]
+    },
+    {
+      "category": "Záväzkové vzťahy prokurátora",
+      "items": [
+        {
+          "description": "Úver v banke",
+          "acquisition_date": "06.07.2022",
+          "price": null
+        }
+      ]
+    }
+  ],
+  "incomes": null,
+  "statements": [
+    "Vyhlasujem, že spĺňam podmienky osvedčenia podľa § 27 ods. 1 zák. č. 154/2001 Z.z.",
+    "Vyhlasujem, že z činností podľa § 27 ods. 2 zák. č. 154/2001 Z.z. mi plynú príjmy a pôžitky."
+  ]
+}
