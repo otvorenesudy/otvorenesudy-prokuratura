@@ -76,7 +76,7 @@ module GenproGovSk
               metric = map[data[:report]][title]
 
               unless metric
-                unknown << title
+                unknown << title if title.present?
                 next
               end
 

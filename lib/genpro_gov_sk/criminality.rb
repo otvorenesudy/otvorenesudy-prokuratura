@@ -20,9 +20,8 @@ module GenproGovSk
           .flatten
           .compact
 
-      if unknown_attributes.any?
-        warn "Unknown attributes: \n#{unknown_attributes.uniq.map { |attr| "- #{attr}" }.join("\n")}"
-      end
+      non_empty_unknown = unknown_attributes.uniq.reject(&:blank?)
+      raise "Unknown attributes: \n#{non_empty_unknown.map { |attr| "- #{attr}" }.join("\n")}" if non_empty_unknown.any?
 
       ::Statistic.import_from(records)
     end
@@ -247,6 +246,13 @@ module GenproGovSk
       'Skladba stíhaných osôb vplyv inej návykovej látky' => :prosecuted_substance_abuse,
       'Skladba stíhaných osôb ženy' => :prosecuted_women,
       'Skladba stíhaných osôb mladiství' => :prosecuted_young,
+      'Skladba stíhaných osôb právnické osoby' => :prosecuted_legal_entities,
+      'Skladba stíhaných osôb mladiství chlapci' => :prosecuted_young_boys,
+      'Skladba stíhaných osôb mladistvé dievčatá' => :prosecuted_young_girls,
+      'vplyv alkoholu' => :prosecuted_alcohol_abuse,
+      'vplyv inej návykovej látky' => :prosecuted_substance_abuse,
+      'cudzinci' => :prosecuted_foreigners,
+      'obžalovaní recidivisti' => :accused_recidivists_all,
       'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia' =>
         :prosecution_of_unknown_offender_ended_by_police,
       'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia postúpením' =>
