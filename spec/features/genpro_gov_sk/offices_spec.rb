@@ -2,24 +2,19 @@ require 'rails_helper'
 
 RSpec.describe 'GenproGovSk Offices', type: :feature do
   it 'imports all offices from live website and validates against expected data' do
-    # Load expected data
     expected_offices =
       JSON.parse(
         File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'all_offices.json')),
         symbolize_names: true
       )
 
-    # Run the actual import (makes live HTTP requests)
     GenproGovSk::Offices.import
 
-    # Fetch all imported offices from database
     imported_offices = ::Office.all.order(:name)
 
-    # Validate count
     expect(imported_offices.count).to eq(expected_offices.count),
     "Expected #{expected_offices.count} offices, but got #{imported_offices.count}"
 
-    # Validate each office
     expected_offices.each_with_index do |expected, index|
       office = imported_offices.find { |o| o.name == expected[:name] }
 
@@ -44,7 +39,6 @@ RSpec.describe 'GenproGovSk Offices', type: :feature do
       expect(office.electronic_registry).to eq(expected[:electronic_registry]),
       "Office '#{expected[:name]}': electronic_registry mismatch (expected: #{expected[:electronic_registry]}, got: #{office.electronic_registry})"
 
-      # Validate registry hours if present
       if expected[:registry]
         expect(office.registry).to be_present, "Office '#{expected[:name]}': registry data missing"
 
@@ -64,7 +58,6 @@ RSpec.describe 'GenproGovSk Offices', type: :feature do
         end
       end
 
-      # Validate employees
       if expected[:employees]
         expect(office.employees.count).to eq(expected[:employees].count),
         "Office '#{expected[:name]}': expected #{expected[:employees].count} employees, but got #{office.employees.count}"

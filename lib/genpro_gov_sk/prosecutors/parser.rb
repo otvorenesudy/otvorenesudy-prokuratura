@@ -121,6 +121,8 @@ module GenproGovSk
         end
 
         def parse_office_or_place(value)
+          return nil unless value.present?
+
           value.gsub(/–|—/, '-').strip
         end
       end
