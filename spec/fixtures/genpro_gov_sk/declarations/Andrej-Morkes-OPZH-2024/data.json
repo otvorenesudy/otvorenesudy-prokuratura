@@ -1,0 +1,122 @@
+{
+  "year": 2024,
+  "lists": [
+    {
+      "category": "Zoznam nehnuteľností",
+      "items": [
+        {
+          "description": "4-izb. byt v bytovom dome",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "13.03.2019",
+          "price": "-",
+          "procurement_price": "78 000 Eur",
+          "share_size": "1/2"
+        },
+        {
+          "description": "pozemok - záhrada",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "08.09.2021",
+          "price": "-",
+          "procurement_price": "57 000 Eur",
+          "share_size": "1/1"
+        },
+        {
+          "description": "pozemok - ostatná plocha",
+          "acquisition_reason": "geometrický plán - vyčlenenie z pôvodnej parcely č. CKN 3624/5",
+          "acquisition_date": "08.09.2021",
+          "price": "-",
+          "procurement_price": "-",
+          "share_size": "1/1"
+        },
+        {
+          "description": "pozemok - zastavaná plocha a nádvorie",
+          "acquisition_reason": "geometrický plán - vyčlenenie z pôvodnej parcely č. CKN 3624/5",
+          "acquisition_date": "08.09.2021",
+          "price": "-",
+          "procurement_price": "-",
+          "share_size": "1/1"
+        },
+        {
+          "description": "rozostavaný rodinný dom",
+          "acquisition_reason": "výstavba - zmluva o dielo",
+          "acquisition_date": "2024",
+          "price": "-",
+          "procurement_price": "196 462 Eur",
+          "share_size": "1/1"
+        }
+      ]
+    },
+    {
+      "category": "Hnuteľné veci",
+      "items": [
+        {
+          "description": "osobné motorové vozidlo VW Passat, r. v. 2015",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "06.02.2018",
+          "price": "-",
+          "procurement_price": "18 430 Eur",
+          "share_size": null
+        }
+      ]
+    },
+    {
+      "category": "Majetkové práva a iné majetkové hodnoty",
+      "items": [
+        {
+          "description": "vklady v peňažných ústavoch",
+          "acquisition_reason": "úspory z platu, výťažok z predaja garáže s pozemkom",
+          "acquisition_date": "k 31.12.2024",
+          "price": "62 693,70 Eur (stav)",
+          "procurement_price": "62 693,70 Eur",
+          "share_size": null
+        },
+        {
+          "description": "investičný fond - EIC",
+          "acquisition_reason": "úspory z platu",
+          "acquisition_date": "k 31.12.2024",
+          "price": "3 935 Eur (stav)",
+          "procurement_price": "4 480 Eur",
+          "share_size": null
+        },
+        {
+          "description": "investičný fond - EIC",
+          "acquisition_reason": "úspory",
+          "acquisition_date": "k 31.12.2024",
+          "price": "2 871 Eur",
+          "procurement_price": "2 000 Eur",
+          "share_size": null
+        }
+      ]
+    },
+    {
+      "category": "Záväzkové vzťahy prokurátora",
+      "items": [
+        {
+          "description": "hypotekárny úver (výstavba rodinného domu)",
+          "acquisition_date": "08.07.2024",
+          "price": null
+        },
+        {
+          "description": "súkromná pôžička",
+          "acquisition_date": "09.09.2024",
+          "price": null
+        },
+        {
+          "description": "súkromná pôžička",
+          "acquisition_date": "10.09.2024",
+          "price": null
+        },
+        {
+          "description": "hypotekárny úver (refinancovanie kúpy bytu a kúpa pozemku)",
+          "acquisition_date": "17.08.2021",
+          "price": null
+        }
+      ]
+    }
+  ],
+  "incomes": null,
+  "statements": [
+    "Vyhlasujem, že spĺňam podmienky osvedčenia podľa § 27 ods. 1 zák. č. 154/2001 Z.z.",
+    "Vyhlasujem, že z činností podľa § 27 ods. 2 zák. č. 154/2001 Z.z. mi plynú príjmy a pôžitky."
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "year": 2024,
+  "lists": [
+    {
+      "category": "Zoznam nehnuteľností",
+      "items": [
+        {
+          "description": "rodinný dom",
+          "acquisition_reason": "dar",
+          "acquisition_date": "1996-12-03T00:00:00",
+          "price": "50.000,-€",
+          "procurement_price": "0,-€",
+          "share_size": "1/2"
+        },
+        {
+          "description": "záhrada",
+          "acquisition_reason": "dar",
+          "acquisition_date": "1996-12-03T00:00:00",
+          "price": "3.000,-€",
+          "procurement_price": "0,-€",
+          "share_size": "1/2"
+        },
+        {
+          "description": "záhrada",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "2003-11-12T00:00:00",
+          "price": "400,-€",
+          "procurement_price": "400,-€",
+          "share_size": "1/2"
+        }
+      ]
+    },
+    {
+      "category": "Hnuteľné veci",
+      "items": [
+        {
+          "description": "BMW X5",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "07.08.2020",
+          "price": "23000",
+          "procurement_price": "23000",
+          "share_size": null
+        }
+      ]
+    },
+    {
+      "category": "Záväzkové vzťahy prokurátora",
+      "items": [
+        {
+          "description": "Úver",
+          "acquisition_date": "29.07.2020",
+          "price": null
+        }
+      ]
+    }
+  ],
+  "incomes": null,
+  "statements": [
+    "Vyhlasujem, že spĺňam podmienky osvedčenia podľa § 27 ods. 1 zák. č. 154/2001 Z.z.",
+    "Vyhlasujem, že z činností podľa § 27 ods. 2 zák. č. 154/2001 Z.z. mi plynú príjmy a pôžitky."
+  ]
+}

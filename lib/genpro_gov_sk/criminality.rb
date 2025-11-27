@@ -1,8 +1,8 @@
 module GenproGovSk
   module Criminality
-    def self.import
+    def self.import(structure_urls: nil, paragraph_paths: nil)
       unknown_attributes = []
-      statistics = [parse_structures, parse_paragraphs].flatten
+      statistics = [parse_structures(structure_urls), parse_paragraphs(paragraph_paths)].flatten
       records =
         statistics
           .map do |attributes|
@@ -20,31 +20,32 @@ module GenproGovSk
           .flatten
           .compact
 
-      if unknown_attributes.any?
-        warn "Unknown attributes: \n#{unknown_attributes.uniq.map { |attr| "- #{attr}" }.join("\n")}"
-      end
+      non_empty_unknown = unknown_attributes.uniq.reject(&:blank?)
+      raise "Unknown attributes: \n#{non_empty_unknown.map { |attr| "- #{attr}" }.join("\n")}" if non_empty_unknown.any?
 
       ::Statistic.import_from(records)
     end
 
-    def self.parse_structures
-      urls = %w[
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2010/2010_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2011/2011_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2012/2012_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2013/2013_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2014/2014_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2015/2015_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2016/2016_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2017/2017_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2018/2018_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2019/Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2020/12_Struktura_kriminality_a_stíhanych_a_obzalovanych_osob.csv
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2021/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2022/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2023/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-        https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2024/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-      ]
+    def self.parse_structures(structure_urls = nil)
+      urls =
+        structure_urls ||
+          %w[
+            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2010/2010_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2011/2011_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2012/2012_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2013/2013_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2014/2014_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2015/2015_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2016/2016_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2017/2017_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2018/2018_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2019/Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2020/12_Struktura_kriminality_a_stíhanych_a_obzalovanych_osob.csv
+            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2021/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2022/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2023/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2024/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+          ]
 
       urls
         .map do |url|
@@ -55,11 +56,13 @@ module GenproGovSk
         .flatten
     end
 
-    def self.parse_paragraphs
-      path = Rails.root.join('data', 'genpro_gov_sk', 'criminality', 'paragraphs', '*.xls*')
+    def self.parse_paragraphs(paragraph_paths = nil)
+      path = paragraph_paths || Rails.root.join('data', 'genpro_gov_sk', 'criminality', 'paragraphs', '*.xls*')
       files = Dir.glob(path).to_a.reject { |e| e.match(/obvod/) }
 
-      Parallel.map(files, in_processes: 8) { |file| ParagraphsParser.parse(file)&.merge(file: file) }.compact
+      Parallel
+        .map(files, in_processes: Parallel.processor_count) { |file| ParagraphsParser.parse(file)&.merge(file: file) }
+        .compact
     end
 
     def self.paragraphs_map
@@ -245,7 +248,13 @@ module GenproGovSk
       'Skladba stíhaných osôb vplyv inej návykovej látky' => :prosecuted_substance_abuse,
       'Skladba stíhaných osôb ženy' => :prosecuted_women,
       'Skladba stíhaných osôb mladiství' => :prosecuted_young,
-      
+      'Skladba stíhaných osôb právnické osoby' => :prosecuted_legal_entities,
+      'Skladba stíhaných osôb mladiství chlapci' => :prosecuted_young_boys,
+      'Skladba stíhaných osôb mladistvé dievčatá' => :prosecuted_young_girls,
+      'vplyv alkoholu' => :prosecuted_alcohol_abuse,
+      'vplyv inej návykovej látky' => :prosecuted_substance_abuse,
+      'cudzinci' => :prosecuted_foreigners,
+      'obžalovaní recidivisti' => :accused_recidivists_all,
       'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia' =>
         :prosecution_of_unknown_offender_ended_by_police,
       'Počet trestných stíhaní ukončených na polícii – neznámi páchatelia postúpením' =>
@@ -313,24 +322,29 @@ module GenproGovSk
       'Obžalovaných osôb - vplyv alkoholu' => :accused_alcohol_abuse,
       'Obžalovaných osôb - obzvlášť nebezpeční recidivisti' => :accused_recidivists_dangerous,
       'Zvlášť nebezpeční recidivisti' => :accused_recidivists_dangerous,
+      'Obzvlášť nebezpeční recidivisti' => :accused_recidivists_dangerous,
       'Obžalovaných osôb - z toho muži' => :accused_men,
       'Obžalovaných osôb' => :accused_all,
       'Obžalovaných osôb za úmyselné tr. činy' => :accused_people_for_intentional_crimes,
       'Obžalovaných osôb - úmyselné tr. činy' => :accused_people_for_intentional_crimes,
+      'Úmyselné tr. činy' => :accused_people_for_intentional_crimes,
       'Obžalovaných osôb za úmyselné tr. činy - úmyselné tr. činy rovnakého druhu' =>
         :accused_people_for_intentional_crimes_of_same_nature,
       'Obžalovaných osôb - úmyselné tr. činy rovnakého druhu' => :accused_people_for_intentional_crimes_of_same_nature,
+      'Úmyselné tr. činy rovnakého druhu' => :accused_people_for_intentional_crimes_of_same_nature,
       'Obžalovaných osôb - recidivisti' => :accused_recidivists_only,
       'Recidivisti' => :accused_recidivists_only,
       'Obžalovaných osôb - iné návykové látky' => :accused_substance_abuse,
       'Obžalovaných osôb - vplyv inej návykovej látky' => :accused_substance_abuse,
+      'Vplyv inej návykovej látky' => :accused_substance_abuse,
       'Obžalovaných osôb - z toho ženy' => :accused_women,
       'Obžalovaných osôb - ženy' => :accused_women,
+      'Vplyv alkoholu' => :accused_alcohol_abuse,
       'Podmienečné zastavenie TS' => :conditional_cessation_by_prosecutor,
       'Podmienečné zastavenie tr. stíhania' => :conditional_cessation_by_prosecutor,
-      'Podmienečné zastavenie TS - spolupracujúcich obvinených' =>
-        :conditional_cessation_of_accused_and_proven_by_prosecutor,
       'Podmienečné zastavenie TS - spolupracujúcich osôb' =>
+        :conditional_cessation_of_cooperating_accused_by_prosecutor,
+      'Podmienečné zastavenie TS - spolupracujúcich obvinených' =>
         :conditional_cessation_of_cooperating_accused_by_prosecutor,
       'Podmienečné zastavenie tr. stíhania - spolupracujúcich osôb' =>
         :conditional_cessation_of_cooperating_accused_by_prosecutor,
@@ -338,18 +352,40 @@ module GenproGovSk
       'Odstíhané známe osoby - vplyv alkoholu' => :prosecuted_alcohol_abuse,
       'Odstíhané známe osoby' => :prosecuted_all,
       'Odstíhané známe osoby - muži' => :prosecuted_men,
-      # 'Odstíhané známe osoby - počet útokov pri tr. činoch' => :prosecuted_people_for_attacks_in_crimes,
       'Odstíhané známe osoby - vplyv inej návykovej látky' => :prosecuted_substance_abuse,
       'Odstíhané známe osoby - ženy' => :prosecuted_women,
       'Odstíhané známe osoby - mladiství' => :prosecuted_young,
       'Rozhodnutie o schválení zmieru a zastavení trestného stíhania' => :reconciliation_approval,
       'Schválenie zmieru' => :reconciliation_approval,
+      'Schválenie zmieru a zastavenie TS prokurátorom' => :reconciliation_approval,
       'Oslobodených osôb' => :exemption,
       'Ukončené tr. stíhanie osôb' => :prosecuted_all,
       'Ukončené tr. stíhanie osôb - ženy' => :prosecuted_women,
       'Ukončené tr. stíhanie osôb - mladiství' => :prosecuted_young,
       'Ukončené tr. stíhanie osôb - vplyv alkoholu' => :prosecuted_alcohol_abuse,
-      'Ukončené tr. stíhanie osôb - iné návykové látky' => :prosecuted_substance_abuse
+      'Ukončené tr. stíhanie osôb - iné návykové látky' => :prosecuted_substance_abuse,
+      'Z toho právnické osoby' => :prosecuted_legal_entities,
+      'Z toho fyzické osoby' => :prosecuted_natural_persons,
+      'Z toho dospelí' => :prosecuted_adults_all,
+      '- Dospelí muži' => :prosecuted_adult_men,
+      '- Dospelé ženy' => :prosecuted_adult_women,
+      'Z toho dospelí - Dospelí muži' => :prosecuted_adult_men,
+      'Z toho dospelí - Dospelé ženy' => :prosecuted_adult_women,
+      'Z toho mladiství' => :prosecuted_young,
+      '- Mladiství chlapci' => :prosecuted_young_boys,
+      '- Mladistvé dievčatá' => :prosecuted_young_girls,
+      'Z toho mladiství - Mladiství chlapci' => :prosecuted_young_boys,
+      'Z toho mladiství - Mladistvé dievčatá' => :prosecuted_young_girls,
+      'Cudzinci' => :prosecuted_foreigners,
+      'Počet útokov pri tr. činoch' => :prosecuted_attacks_count,
+      'Odstíhané známe osoby - počet útokov pri tr. činoch' => :prosecuted_attacks_count,
+      'Obžalovaných osôb - počet útokov pri tr. činoch' => :accused_attacks_count,
+      'Vek 14' => :accused_age_14_all,
+      '- dievčatá' => :accused_age_14_girls,
+      'Vek 14 - dievčatá' => :accused_age_14_girls,
+      'Vek 15 - 17' => :accused_age_15_to_17_all,
+      'Vek 15 - 17 - dievčatá' => :accused_age_15_to_17_girls,
+      'Vek 18 - 21' => :accused_age_18_to_21_all
     }
 
     PARAGRAPHS_BY_CONVICTED_MAP = {
@@ -359,6 +395,19 @@ module GenproGovSk
       'Odsúdených osôb - muži' => :convicted_men,
       'Odsúdených osôb - ženy' => :convicted_women,
       'Odsúdených osôb - mladiství' => :convicted_young,
+      'Z toho právnické osoby' => :convicted_legal_entities,
+      'Z toho fyzické osoby' => :convicted_natural_persons,
+      'Z toho dospelí' => :convicted_adults_all,
+      '- Dospelí muži' => :convicted_adult_men,
+      '- Dospelé ženy' => :convicted_adult_women,
+      'Z toho dospelí - Dospelí muži' => :convicted_adult_men,
+      'Z toho dospelí - Dospelé ženy' => :convicted_adult_women,
+      'Z toho mladiství' => :convicted_young,
+      '- Mladiství chlapci' => :convicted_young_boys,
+      '- Mladistvé dievčatá' => :convicted_young_girls,
+      'Z toho mladiství - Mladiství chlapci' => :convicted_young_boys,
+      'Z toho mladiství - Mladistvé dievčatá' => :convicted_young_girls,
+      'Cudzinci' => :convicted_foreigners,
       'Tresty OS podľa §47/2 T.z.' => :sentence_by_os_47_2_tz,
       'Trest - Peňažný' => :sentence_financial,
       'Tresty NEPO' => :sentence_nepo,

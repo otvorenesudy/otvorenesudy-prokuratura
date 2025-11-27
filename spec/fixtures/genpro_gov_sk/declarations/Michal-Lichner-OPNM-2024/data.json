@@ -1,0 +1,163 @@
+{
+  "year": 2024,
+  "lists": [
+    {
+      "category": "Zoznam nehnuteľností",
+      "items": [
+        {
+          "description": "Stavba - rodinný dom",
+          "acquisition_reason": "výstavba",
+          "acquisition_date": "20.05.2021",
+          "price": "0",
+          "procurement_price": "200.000",
+          "share_size": "1/1"
+        },
+        {
+          "description": "stavba - prístrešok pre auto",
+          "acquisition_reason": "výstavba",
+          "acquisition_date": "20.05.2021",
+          "price": "0",
+          "procurement_price": "30.000",
+          "share_size": "1/1"
+        },
+        {
+          "description": "pozemok - orná pôda",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "31.1.2019",
+          "price": "0",
+          "procurement_price": "11616",
+          "share_size": "1/2"
+        },
+        {
+          "description": "pozemok - orná pôda",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "31.1.2019",
+          "price": "0",
+          "procurement_price": "6144",
+          "share_size": "1/2"
+        },
+        {
+          "description": "pozemok - ostatná plocha",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "31.1.2019",
+          "price": "0",
+          "procurement_price": "2496",
+          "share_size": "1/2"
+        },
+        {
+          "description": "pozemok - zastavaná plocha a nádvorie",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "31.1.2019",
+          "price": "0",
+          "procurement_price": "4344",
+          "share_size": "1/2"
+        },
+        {
+          "description": "pozemok - zastavaná plocha a nádvorie",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "31.1.2019",
+          "price": "0",
+          "procurement_price": "360",
+          "share_size": "1/2"
+        },
+        {
+          "description": "pozemok - orná pôda",
+          "acquisition_reason": "darovacia zmluva",
+          "acquisition_date": "24.05.2019",
+          "price": "667",
+          "procurement_price": "0",
+          "share_size": "1/2"
+        },
+        {
+          "description": "pozemok - orná pôda",
+          "acquisition_reason": "darovacia zmluva",
+          "acquisition_date": "24.05.2019",
+          "price": "51",
+          "procurement_price": "0",
+          "share_size": "1/2"
+        },
+        {
+          "description": "pozemok - orná pôda",
+          "acquisition_reason": "darovacia zmluva",
+          "acquisition_date": "1.2.2019",
+          "price": "5808",
+          "procurement_price": "0",
+          "share_size": "1/4"
+        },
+        {
+          "description": "pozemok - orná pôda",
+          "acquisition_reason": "darovacia zmluva",
+          "acquisition_date": "1.2.2019",
+          "price": "3072",
+          "procurement_price": "0",
+          "share_size": "1/4"
+        },
+        {
+          "description": "pozemok - ostatná plocha",
+          "acquisition_reason": "darovacia zmluva",
+          "acquisition_date": "1.2.2019",
+          "price": "1248",
+          "procurement_price": "0",
+          "share_size": "1/4"
+        },
+        {
+          "description": "pozemok - zastavaná plocha a nádvorie",
+          "acquisition_reason": "darovacia zmluva",
+          "acquisition_date": "1.2.2019",
+          "price": "2172",
+          "procurement_price": "0",
+          "share_size": "1/4"
+        },
+        {
+          "description": "pozemok - zastavaná plocha a nádvorie",
+          "acquisition_reason": "darovacia zmluva",
+          "acquisition_date": "1.2.2019",
+          "price": "180",
+          "procurement_price": "0",
+          "share_size": "1/4"
+        }
+      ]
+    },
+    {
+      "category": "Hnuteľné veci",
+      "items": [
+        {
+          "description": "OMV zn. Volkswagen Polo",
+          "acquisition_reason": "Kúpna zmluva",
+          "acquisition_date": "05.04.2024",
+          "price": "0",
+          "procurement_price": "29265",
+          "share_size": null
+        },
+        {
+          "description": "OMV zn. MAZDA CX5",
+          "acquisition_reason": "Kúpna zmluva",
+          "acquisition_date": "02.05.2024",
+          "price": "0",
+          "procurement_price": "17000",
+          "share_size": null
+        }
+      ]
+    },
+    {
+      "category": "Záväzkové vzťahy prokurátora",
+      "items": [
+        {
+          "description": "hypotekárny úver",
+          "acquisition_date": "12.02.2020",
+          "price": null
+        },
+        {
+          "description": "hypotekárny úver",
+          "acquisition_date": "19.04.2024",
+          "price": null
+        }
+      ]
+    }
+  ],
+  "incomes": null,
+  "statements": [
+    "Vyhlasujem, že spĺňam podmienky osvedčenia podľa § 27 ods. 1 zák. č. 154/2001 Z.z.",
+    "Vyhlasujem, že z činností podľa § 27 ods. 2 zák. č. 154/2001 Z.z. mi plynú príjmy a pôžitky."
+  ]
+}

@@ -334,6 +334,7 @@ GEM
       ttfunk
     pg (1.5.6)
     popper_js (1.16.1)
+    prettier_print (1.2.1)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -510,6 +511,8 @@ GEM
     svgeez (4.1.0)
       listen (~> 3.5)
       mercenary (~> 0.4.0)
+    syntax_tree (6.3.0)
+      prettier_print (>= 1.2.0)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
     thor (1.3.1)
@@ -615,6 +618,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen
   svgeez
+  syntax_tree
   turbo-rails
   tzinfo-data
   vcr

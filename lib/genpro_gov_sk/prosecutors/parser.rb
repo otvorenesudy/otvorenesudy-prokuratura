@@ -94,8 +94,7 @@ module GenproGovSk
 
           office = parse_office_or_place(source_office)
           temporary_office = parse_office_or_place(source_temporary_office)
-
-          office = OFFICES_MAP[office] || office
+          office = OFFICES_MAP[office]
 
           if office.blank?
             office = OFFICES_MAP.keys.find { |name| row[0].match?(/#{name}/i) }
@@ -103,12 +102,13 @@ module GenproGovSk
             raise "Office not found for #{row[0]}" if office.blank?
 
             source_name = source_name.gsub(/#{office}/i, '').strip
+            office = OFFICES_MAP[office]
           end
 
           name_parts = parse_name(source_name)
           name = name_parts.delete(:value)
 
-          temporary_office = OFFICES_MAP[temporary_office] || temporary_office
+          temporary_office = OFFICES_MAP[temporary_office]
 
           { name: name, name_parts: name_parts, office: office.presence, temporary_office: temporary_office.presence }
         end
@@ -121,6 +121,8 @@ module GenproGovSk
         end
 
         def parse_office_or_place(value)
+          return nil unless value.present?
+
           value.gsub(/–|—/, '-').strip
         end
       end

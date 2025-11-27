@@ -45,7 +45,7 @@ class Statistic < ApplicationRecord
       Statistic.delete_all
       Statistic.lock
 
-      offices = ::Office.pluck(:id, :name).each.with_object({}) { |(id, name), hash| hash[name] = id }
+      offices = Office.all_by_name_map
 
       records.each { |record| record[:office_id] = offices[record[:office]] }
 

@@ -28,7 +28,7 @@ module GenproGovSk
                 metric = GenproGovSk::Criminality::STRUCTURES_MAP[title]
 
                 unless metric
-                  unknown << title
+                  unknown << title if title.present?
                   next
                 end
 

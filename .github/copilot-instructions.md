@@ -43,10 +43,10 @@ Always follow these instructions when making code changes.
 
 6. Do not put comments or documentation in code. Follow existing patterns. Only in case the logic is very complex or there is a non-obvious reason for something or TODO comments for edge cases.
 
-7. Follow existing code style as defined in `.streerc`. Always format your code via `syntax_tree` by running
+7. **IMPORTANT**: Follow existing code style as defined in `.streerc`. Always format your code via `syntax_tree` by running before comitting:
 
    ```bash
-   bundle exec syntax_tree format --write <files or directories>
+   bundle exec syntax_tree format --write <files or directories changed>
    ```
 
    Format only the files you changed and fetch them via `git diff --name-only HEAD~1` or similar command.
@@ -78,6 +78,28 @@ Always follow these instructions when making code changes.
     10.2. For Node packages, run `yarn add <package>`, and commit both `package.json` and `yarn.lock`.
 
 11. When creating new libraries or modules, ensure they are placed in the appropriate directory under `lib/`. Follow existing naming conventions and structure for consistency.
+
+12. Logging messages should be performed via Rails logger (`Rails.logger.info`, `Rails.logger.error`, etc.) and should provide meaningful context about the operation being performed, especially in background jobs and critical operations. Following rules should be applied:
+
+    12.0. When logging messages in lib or service classes, prefix the log message with the class name for better traceability, e.g.:
+
+    ```
+    Rails.logger.info "GenproGovSk::Prosecutors::Importer # Importing prosecutors ..."
+    ```
+
+    12.1. Any values from variables, readings, data or anyting interpolated into the log messsage should be prefixed and suffixed with square brackets `[]` to make them easily distinguishable in log files.
+
+    12.2. Log messages should be clear and concise, providing enough information to understand the context without being overly verbose.
+
+    12.3. In case there is a long running part of the code, initially print a log message indicating the start of the operation with "..." at the end, and after completion print another log message indicating the end of the operation with time it took in miliseconds, e.g.:
+
+    ```
+    Rails.logger.info "GenproGovSk::Prosecutors::Importer # Importing prosecutors ..."
+
+    # long running operation
+
+    Rails.logger.info "GenproGovSk::Prosecutors::Importer # Importing prosecutors completed in [#{time_taken_ms} ms]"
+    ```
 
 ## Running Application
 
@@ -111,6 +133,16 @@ From Rails console (typical order):
 - `GenproGovSk::Decrees.import`
 - `GenproGovSk::Criminality.import` (parallelized)
 - `MinvSk::Criminality.import`
+
+## Protected Files
+
+**CRITICAL**: The following files must NEVER be deleted or modified by Copilot:
+
+- `config/credentials/test.ci.key` - CI test credentials key
+- `config/credentials/test.ci.yml.enc` - CI test encrypted credentials
+- `config/credentials/test.yml.enc` - Test environment encrypted credentials
+
+These files are required for CI/CD and test environments. Any changes to these files will break the build pipeline. Make sure to exclude them before any commits. Never commit changes in them in the repository or delete them from the repository.
 
 ## Common Issues & Solutions
 
