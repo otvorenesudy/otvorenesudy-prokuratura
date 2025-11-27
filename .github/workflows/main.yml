@@ -1,6 +1,10 @@
 name: CI & CD
 
-on: [push]
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 9 * * 1" # Every Monday at 09:00 UTC
 
 env:
   RAILS_ENV: test
