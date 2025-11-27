@@ -1,0 +1,144 @@
+{
+  "year": 2024,
+  "lists": [
+    {
+      "category": "Zoznam nehnuteľností",
+      "items": [
+        {
+          "description": "Pozemok",
+          "acquisition_reason": "kúpa",
+          "acquisition_date": "2015",
+          "price": null,
+          "procurement_price": "54.200",
+          "share_size": "1/1"
+        },
+        {
+          "description": "Rodinný dom",
+          "acquisition_reason": "výstavba",
+          "acquisition_date": "začiatok výstavby v júni 2017, právoplatné kolaudačné rozhodnutie v decembri 2019",
+          "price": null,
+          "procurement_price": "170.000",
+          "share_size": "1/1"
+        },
+        {
+          "description": "Pozemok",
+          "acquisition_reason": "dedenie",
+          "acquisition_date": "10.9.2022",
+          "price": "162,20",
+          "procurement_price": null,
+          "share_size": "1/6"
+        },
+        {
+          "description": "Pozemok",
+          "acquisition_reason": "dedenie",
+          "acquisition_date": "10.9.2022",
+          "price": "152,96",
+          "procurement_price": null,
+          "share_size": "1/6"
+        },
+        {
+          "description": "Pozemok",
+          "acquisition_reason": "dedenie",
+          "acquisition_date": "27.6.2024",
+          "price": "500",
+          "procurement_price": "500",
+          "share_size": "1/36"
+        },
+        {
+          "description": "Pozemok",
+          "acquisition_reason": "dedenie",
+          "acquisition_date": "27.6.2024",
+          "price": "500",
+          "procurement_price": "500",
+          "share_size": "1/36"
+        },
+        {
+          "description": "Pozemok",
+          "acquisition_reason": "dedenie",
+          "acquisition_date": "27.6.2024",
+          "price": "500",
+          "procurement_price": "500",
+          "share_size": "1/36"
+        },
+        {
+          "description": "Pozemok",
+          "acquisition_reason": "dedenie",
+          "acquisition_date": "27.6.2024",
+          "price": "3500",
+          "procurement_price": "3500",
+          "share_size": "5/72"
+        },
+        {
+          "description": "Pozemok",
+          "acquisition_reason": "dedenie",
+          "acquisition_date": "27.6.2024",
+          "price": "3500",
+          "procurement_price": "3500",
+          "share_size": "5/72"
+        },
+        {
+          "description": "Rodinný dom",
+          "acquisition_reason": "dedenie",
+          "acquisition_date": "27.6.2024",
+          "price": "3500",
+          "procurement_price": "3500",
+          "share_size": "5/72"
+        },
+        {
+          "description": "Rodinný dom",
+          "acquisition_reason": "dedenie",
+          "acquisition_date": "27.6.2024",
+          "price": "500",
+          "procurement_price": "500",
+          "share_size": "1/36"
+        }
+      ]
+    },
+    {
+      "category": "Hnuteľné veci",
+      "items": [
+        {
+          "description": "auto",
+          "acquisition_reason": "úspory z výplat, dôchodok",
+          "acquisition_date": "12.09.2012",
+          "price": null,
+          "procurement_price": "12445",
+          "share_size": null
+        }
+      ]
+    },
+    {
+      "category": "Majetkové práva a iné majetkové hodnoty",
+      "items": [
+        {
+          "description": "úspory",
+          "acquisition_reason": "príjem z výkonu funkcie prokurátora, dôchodok",
+          "acquisition_date": "do 31.12.2024",
+          "price": "26000",
+          "procurement_price": "26000",
+          "share_size": null
+        }
+      ]
+    },
+    {
+      "category": "Záväzkové vzťahy prokurátora",
+      "items": [
+        {
+          "description": "stavebný úver",
+          "acquisition_date": "22.06.2015",
+          "price": null
+        },
+        {
+          "description": "hypotekárny úver",
+          "acquisition_date": "23.05.2018",
+          "price": null
+        }
+      ]
+    }
+  ],
+  "incomes": null,
+  "statements": [
+    "Vyhlasujem, že spĺňam podmienky osvedčenia podľa § 27 ods. 1 zák. č. 154/2001 Z.z.",
+    "Vyhlasujem, že z činností podľa § 27 ods. 2 zák. č. 154/2001 Z.z. mi plynú príjmy a pôžitky."
+  ]
+}

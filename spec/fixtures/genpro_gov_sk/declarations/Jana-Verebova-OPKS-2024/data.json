@@ -1,0 +1,132 @@
+{
+  "year": 2024,
+  "lists": [
+    {
+      "category": "Zoznam nehnuteľností",
+      "items": [
+        {
+          "description": "Záhrada",
+          "acquisition_reason": "darovacia zmluva  V140/07, darovacia zmluva V3135/2019",
+          "acquisition_date": "08.02.2007,06.09.2019",
+          "price": "5.000",
+          "procurement_price": null,
+          "share_size": "v celosti"
+        },
+        {
+          "description": "Zastavané plochy a nádvoria",
+          "acquisition_reason": "darovacia zmluva V 140/07, darovacia zmluva V3135/2019",
+          "acquisition_date": "08.02.2007, 06.09.2019",
+          "price": "5.000",
+          "procurement_price": null,
+          "share_size": "v celosti"
+        },
+        {
+          "description": "Rodinný dom",
+          "acquisition_reason": "darovacia zmluva V 140/07, darovacia zmluva V 3135/2019",
+          "acquisition_date": "08.02.2007, 06.09.2019",
+          "price": "130.000",
+          "procurement_price": null,
+          "share_size": "v celosti"
+        },
+        {
+          "description": "garáž",
+          "acquisition_reason": "dohoda o vyporiadaní BSM V 245/2020",
+          "acquisition_date": "07.02.2020",
+          "price": "30.000",
+          "procurement_price": null,
+          "share_size": "v celosti"
+        },
+        {
+          "description": "orná pôda",
+          "acquisition_reason": "darovacia zmluva V 3135/2019",
+          "acquisition_date": "06.09.2019",
+          "price": "2.625",
+          "procurement_price": null,
+          "share_size": "8/27, 23/54, 19/90"
+        },
+        {
+          "description": "orná pôda",
+          "acquisition_reason": "darovacia zmluva",
+          "acquisition_date": "06.09.2019",
+          "price": "410",
+          "procurement_price": null,
+          "share_size": "1/2"
+        },
+        {
+          "description": "trvalý trávny porast",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "03.06.2020",
+          "price": "1875,56",
+          "procurement_price": "1875,56",
+          "share_size": "1/2"
+        }
+      ]
+    },
+    {
+      "category": "Hnuteľné veci",
+      "items": [
+
+      ]
+    },
+    {
+      "category": "Záväzkové vzťahy prokurátora",
+      "items": [
+        {
+          "description": "VUB hypotéka",
+          "acquisition_date": "09.03.2020",
+          "price": null
+        },
+        {
+          "description": "VUB pôžička na investíciu do domácnosti",
+          "acquisition_date": "11.03.2020",
+          "price": null
+        },
+        {
+          "description": "VUB spotrebný úver",
+          "acquisition_date": "21.04.2022",
+          "price": null
+        },
+        {
+          "description": "VÚB Pôžička",
+          "acquisition_date": "22.11.2023",
+          "price": null
+        }
+      ]
+    },
+    {
+      "category": "Zoznam nehnuteľností",
+      "items": [
+        {
+          "description": "byt č. 3",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "2016",
+          "share_size": "1/1"
+        },
+        {
+          "description": "radová garáž",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "2017",
+          "share_size": "1/1"
+        }
+      ]
+    },
+    {
+      "category": "Hnuteľné veci",
+      "items": [
+        {
+          "description": "osobné vozidlo AUDI A6",
+          "acquisition_reason": "Advokátska kancelária VEREB s.r.o.",
+          "acquisition_date": "27.04.2015",
+          "price": "50.000",
+          "procurement_price": "50.000",
+          "share_size": null
+        }
+      ]
+    }
+  ],
+  "incomes": null,
+  "statements": [
+    "Vyhlasujem, že spĺňam podmienky osvedčenia podľa § 27 ods. 1 zák. č. 154/2001 Z.z.",
+    "Vyhlasujem, že z činností podľa § 27 ods. 2 zák. č. 154/2001 Z.z. mi plynú príjmy a pôžitky."
+  ]
+}
