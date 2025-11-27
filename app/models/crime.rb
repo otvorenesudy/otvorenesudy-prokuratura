@@ -31,12 +31,14 @@ class Crime < ApplicationRecord
       Crime.delete_all
       Crime.lock
 
-      Crime.import(
-        records.map { |e| e.slice(:year, :metric, :paragraph, :count) },
-        in_batches: 10_000,
-        validate: false,
-        on_duplicate_key_ignore: true
-      )
+      Rails.logger.silence do
+        Crime.import(
+          records.map { |e| e.slice(:year, :metric, :paragraph, :count) },
+          in_batches: 10_000,
+          validate: false,
+          on_duplicate_key_ignore: true
+        )
+      end
     end
   end
 

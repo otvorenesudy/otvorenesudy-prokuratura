@@ -49,13 +49,15 @@ class Statistic < ApplicationRecord
 
       records.each { |record| record[:office_id] = offices[record[:office]] }
 
-      Statistic.import(
-        records.map { |e| { paragraph: nil }.merge(e.slice(:year, :office_id, :metric, :paragraph, :count)) },
-        in_batches: 10_000,
-        validate: false,
-        on_duplicate_key_ignore: true,
-        returning: []
-      )
+      Rails.logger.silence do
+        Statistic.import(
+          records.map { |e| { paragraph: nil }.merge(e.slice(:year, :office_id, :metric, :paragraph, :count)) },
+          in_batches: 10_000,
+          validate: false,
+          on_duplicate_key_ignore: true,
+          returning: []
+        )
+      end
     end
   end
 
