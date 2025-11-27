@@ -50,13 +50,13 @@ class Statistic < ApplicationRecord
       records.each { |record| record[:office_id] = offices[record[:office]] }
 
       Rails.logger.silence do
-        Statistic.import(
-          records.map { |e| { paragraph: nil }.merge(e.slice(:year, :office_id, :metric, :paragraph, :count)) },
-          in_batches: 10_000,
-          validate: false,
-          on_duplicate_key_ignore: true,
-          returning: []
-        )
+        records.each do |record|
+          Statistic.upsert(
+            { paragraph: nil }.merge(record.slice(:year, :office_id, :metric, :paragraph, :count)),
+            unique_by: %i[year office_id metric paragraph],
+            returning: false
+          )
+        end
       end
     end
   end

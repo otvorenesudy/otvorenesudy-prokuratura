@@ -17,21 +17,5 @@ module GenproGovSk
 
       GenproGovSk::ProsecutorsList.import_from(data: data, file: file, force: force)
     end
-
-    def self.import_decrees
-      url =
-        'https://www.genpro.gov.sk/dokumenty/pravoplatne-uznesenia-prokuratora-ktorymi-sa-skoncilo-trestne-stihanie-vedene-proti-urcitej-2f09.html'
-      html = Curl.get(url).body_str
-      links = Nokogiri.HTML(html).css('a[href^="?date_to"]').map { |e| e[:href] }
-
-      links.each do |link|
-        list_url = "#{url}#{link}"
-        html = Curl.get(list_url).body_str
-
-        decrees = DecreesParser.parse(html, url: url)
-
-        decrees.each { |decree| GenproGovSk::ImportDecreeJob.perform_later(decree) }
-      end
-    end
   end
 end

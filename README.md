@@ -29,10 +29,10 @@ Now import the data
 ```ruby
 GenproGovSk::Offices.import
 GenproGovSk::Prosecutors.import
-GenproGovSk::Prosecutors.import_decrees
+GenproGovSk::Decrees.import
 GenproGovSk::Declarations.import
 
-# Runs 12 separate processes to levarage all your cores. Adjust for less if needed.
+# Runs N separate processes to levarage all your cores
 GenproGovSk::Criminality.import
 
 MinvSk::Criminality.import

@@ -32,12 +32,13 @@ class Crime < ApplicationRecord
       Crime.lock
 
       Rails.logger.silence do
-        Crime.import(
-          records.map { |e| e.slice(:year, :metric, :paragraph, :count) },
-          in_batches: 10_000,
-          validate: false,
-          on_duplicate_key_ignore: true
-        )
+        records.each do |record|
+          Crime.upsert(
+            record.slice(:year, :metric, :paragraph, :count),
+            unique_by: %i[year metric paragraph],
+            returning: false
+          )
+        end
       end
     end
   end
