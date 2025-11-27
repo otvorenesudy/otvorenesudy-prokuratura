@@ -16,31 +16,31 @@ RSpec.describe 'GenproGovSk::Criminality', type: :feature do
       { year: 2011, office: 'Okresná prokuratúra Trenčín', metric: :incoming_cases, count: 2454 },
       { year: 2011, office: 'Okresná prokuratúra Bratislava IV', metric: :reconciliation_approval, count: 7 },
       { year: 2012, office: 'Okresná prokuratúra Žilina', metric: :prosecuted_all, count: 1864 },
-      { year: 2012, office: 'Krajská prokuratúra v Banskej Bystrici', metric: :incoming_cases, count: 55 },
-      { year: 2013, office: 'Krajská prokuratúra v Trnave', metric: :guilt_and_sentence_agreement, count: 6 },
+      { year: 2012, office: 'Krajská prokuratúra v Banskej Bystrici', metric: :incoming_cases, count: 11_760 },
+      { year: 2013, office: 'Krajská prokuratúra v Trnave', metric: :guilt_and_sentence_agreement, count: 559 },
       { year: 2013, office: 'Okresná prokuratúra Bratislava IV', metric: :cessation_of_prosecution, count: 34 },
       { year: 2014, office: 'Okresná prokuratúra Poprad', metric: :prosecuted_all, count: 936 },
       { year: 2014, office: 'Okresná prokuratúra Dunajská Streda', metric: :accused_all, count: 889 },
       { year: 2015, office: 'Okresná prokuratúra Trenčín', metric: :accused_recidivists_all, count: 387 },
-      { year: 2015, office: 'Krajská prokuratúra v Prešove', metric: :accused_all, count: 44 },
+      { year: 2015, office: 'Krajská prokuratúra v Prešove', metric: :accused_all, count: 4570 },
       { year: 2016, office: 'Okresná prokuratúra Spišská Nová Ves', metric: :accused_all, count: 681 },
       { year: 2016, office: 'Okresná prokuratúra Bratislava II', metric: :reconciliation_approval, count: 1 },
       { year: 2017, office: 'Okresná prokuratúra Bratislava II', metric: :guilt_and_sentence_agreement, count: 17 },
       { year: 2017, office: 'Okresná prokuratúra Michalovce', metric: :guilt_and_sentence_agreement, count: 60 },
       { year: 2018, office: 'Generálna prokuratúra Slovenskej republiky', metric: :prosecuted_all, count: 363 },
-      { year: 2018, office: 'Krajská prokuratúra v Bratislave', metric: :incoming_cases, count: 57 },
-      { year: 2019, office: 'Krajská prokuratúra v Trnave', metric: :accused_all, count: 64 },
-      { year: 2019, office: 'Krajská prokuratúra v Košiciach', metric: :valid_court_decision_all, count: 25 },
-      { year: 2020, office: 'Krajská prokuratúra v Žiline', metric: :reconciliation_approval, count: 2 },
+      { year: 2018, office: 'Krajská prokuratúra v Bratislave', metric: :incoming_cases, count: 11_500 },
+      { year: 2019, office: 'Krajská prokuratúra v Trnave', metric: :accused_all, count: 3130 },
+      { year: 2019, office: 'Krajská prokuratúra v Košiciach', metric: :valid_court_decision_all, count: 4810 },
+      { year: 2020, office: 'Krajská prokuratúra v Žiline', metric: :reconciliation_approval, count: 183 },
       { year: 2020, office: 'Okresná prokuratúra Trnava', metric: :closed_cases, count: 1975 },
       { year: 2021, office: 'Okresná prokuratúra Bratislava I', metric: :guilt_and_sentence_agreement, count: 5 },
       { year: 2021, office: 'Okresná prokuratúra Bratislava I', metric: :assignation_of_prosecution, count: 11 },
-      { year: 2022, office: 'Krajská prokuratúra v Banskej Bystrici', metric: :cessation_of_prosecution, count: 4 },
-      { year: 2022, office: 'Krajská prokuratúra v Banskej Bystrici', metric: :incoming_cases, count: 85 },
+      { year: 2022, office: 'Krajská prokuratúra v Banskej Bystrici', metric: :cessation_of_prosecution, count: 265 },
+      { year: 2022, office: 'Krajská prokuratúra v Banskej Bystrici', metric: :incoming_cases, count: 7039 },
       { year: 2023, office: 'Okresná prokuratúra Prievidza', metric: :reconciliation_approval, count: 3 },
       { year: 2023, office: 'Okresná prokuratúra Nitra', metric: :assignation_of_prosecution, count: 12 },
       { year: 2024, office: 'Okresná prokuratúra Bratislava IV', metric: :prosecuted_all, count: 284 },
-      { year: 2024, office: 'Krajská prokuratúra v Prešove', metric: :incoming_cases, count: 52 }
+      { year: 2024, office: 'Krajská prokuratúra v Prešove', metric: :incoming_cases, count: 5836 }
     ]
 
     paragraph_validations = [
@@ -91,30 +91,31 @@ RSpec.describe 'GenproGovSk::Criminality', type: :feature do
     structure_validations.each do |attributes|
       office = Office.find_by(name: attributes[:office])
 
-      expect(
+      statistic =
         Statistic.find_by(
           year: attributes[:year],
           office_id: office.id,
           metric: attributes[:metric].to_s,
-          count: attributes[:count]
+          paragraph: nil
         )
-      ).to be_present,
-      "Structure validation failed for: #{attributes.inspect}"
+
+      expect(statistic).to be_present, "Structure validation failed for: #{attributes.inspect}"
+      expect(statistic.count).to eql(attributes[:count])
     end
 
     paragraph_validations.each do |attributes|
       office = Office.find_by(name: attributes[:office])
 
-      expect(
+      statistic =
         Statistic.find_by(
           year: attributes[:year],
           office_id: office.id,
           metric: attributes[:metric].to_s,
-          paragraph: attributes[:paragraph],
-          count: attributes[:count]
+          paragraph: attributes[:paragraph]
         )
-      ).to be_present,
-      "Paragraph validation failed for: #{attributes.inspect}"
+
+      expect(statistic).to be_present, "Paragraph validation failed for: #{attributes.inspect}"
+      expect(statistic.count).to eql(attributes[:count])
     end
   end
 end
