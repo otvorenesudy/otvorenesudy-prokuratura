@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'GenproGovSk Declarations', type: :feature, webmock: :disabled, geocoder: true do
+RSpec.describe 'GenproGovSk Declarations', type: :feature, webmock: :disabled do
   describe 'ImportDeclarationsJob' do
     it 'imports declarations for Maroš Žilinka from live website' do
       create(:office, name: 'Úrad špeciálnej prokuratúry')
