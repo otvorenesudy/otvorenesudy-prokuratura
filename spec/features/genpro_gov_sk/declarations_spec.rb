@@ -11,12 +11,12 @@ RSpec.describe 'GenproGovSk Declarations', type: :feature, webmock: :disabled, g
 
       expect(GenproGovSk::Declaration.count).to be > 0
 
-      declaration = GenproGovSk::Declaration.first
-      expect(declaration.data).to have_key('year')
-      expect(declaration.data).to have_key('lists')
-      expect(declaration.data).to have_key('statements')
-      expect(declaration.data).to have_key('name')
-      expect(declaration.data).to have_key('office')
+      declaration = GenproGovSk::Declaration.find_by("data->>'year' = ?", '2019')
+      expect(declaration.data['year']).to eq(2019)
+      expect(declaration.data['name'].downcase).to include('žilinka')
+      expect(declaration.data['office']).to eq('Úrad špeciálnej prokuratúry')
+      expect(declaration.data['lists']).to be_present
+      expect(declaration.data['statements']).to be_present
 
       GenproGovSk::Declaration.reconcile!
 
