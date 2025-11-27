@@ -119,6 +119,10 @@ class Office < ApplicationRecord
       end
   end
 
+  def self.all_by_name_map
+    all.each.with_object({}) { |office, hash| [office.name, *office.synonyms].each { |name| hash[name] = office.id } }
+  end
+
   private
 
   def validate_registry

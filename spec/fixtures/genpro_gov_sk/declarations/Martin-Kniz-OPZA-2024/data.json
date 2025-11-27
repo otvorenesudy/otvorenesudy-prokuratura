@@ -1,0 +1,67 @@
+{
+  "year": 2024,
+  "lists": [
+    {
+      "category": "Zoznam nehnuteľností",
+      "items": [
+        {
+          "description": "byt č. 24",
+          "acquisition_reason": "Kúpna zmluva",
+          "acquisition_date": "30.9.2010",
+          "price": null,
+          "procurement_price": "49.000 €",
+          "share_size": "1/2"
+        },
+        {
+          "description": "garáž - nebytový priestor",
+          "acquisition_reason": "Kúpna zmluva",
+          "acquisition_date": "30.9.2010",
+          "price": null,
+          "procurement_price": "4.200 €",
+          "share_size": "1/2"
+        },
+        {
+          "description": "chalupa",
+          "acquisition_reason": "Kúpna zmluva",
+          "acquisition_date": "13.09.2024",
+          "price": "130.000 €",
+          "procurement_price": "130.000 €",
+          "share_size": "1/1"
+        }
+      ]
+    },
+    {
+      "category": "Hnuteľné veci",
+      "items": [
+        {
+          "description": "osobný automobil",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "15.12.2014",
+          "price": null,
+          "procurement_price": "15.200 €",
+          "share_size": null
+        }
+      ]
+    },
+    {
+      "category": "Záväzkové vzťahy prokurátora",
+      "items": [
+        {
+          "description": "hypotekárny úver",
+          "acquisition_date": "03.09.2010",
+          "price": null
+        },
+        {
+          "description": "hypotekárny úver",
+          "acquisition_date": "09.08.2024",
+          "price": null
+        }
+      ]
+    }
+  ],
+  "incomes": null,
+  "statements": [
+    "Vyhlasujem, že spĺňam podmienky osvedčenia podľa § 27 ods. 1 zák. č. 154/2001 Z.z.",
+    "Vyhlasujem, že z činností podľa § 27 ods. 2 zák. č. 154/2001 Z.z. mi plynú príjmy a pôžitky."
+  ]
+}

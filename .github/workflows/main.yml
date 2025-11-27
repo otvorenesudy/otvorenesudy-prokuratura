@@ -1,6 +1,10 @@
 name: CI & CD
 
-on: [push]
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 9 * * 1" # Every Monday at 09:00 UTC
 
 env:
   RAILS_ENV: test
@@ -25,7 +29,6 @@ jobs:
           POSTGRES_DB: opencourts_prokuratura_test
         ports:
           - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
       - name: Checkout repository

@@ -1,0 +1,88 @@
+{
+  "year": 2024,
+  "lists": [
+    {
+      "category": "Zoznam nehnuteľností",
+      "items": [
+        {
+          "description": "Byt",
+          "acquisition_reason": "kúpa",
+          "acquisition_date": "19. 07. 2006",
+          "price": null,
+          "procurement_price": "400.000,- SKK (13.227,57 eur)",
+          "share_size": "1/1"
+        },
+        {
+          "description": "Trvalé trávnaté porasty",
+          "acquisition_reason": "kúpa",
+          "acquisition_date": "14. 04. 2014",
+          "price": null,
+          "procurement_price": "19.000,- eur",
+          "share_size": "1/1"
+        },
+        {
+          "description": "Zastavané plochy a nádvoria",
+          "acquisition_reason": "kúpa",
+          "acquisition_date": "14. 04. 2014",
+          "price": null,
+          "procurement_price": "súčasť ceny trvalých trávnatých porastov",
+          "share_size": "1/1"
+        },
+        {
+          "description": "Zastavané plochy a nádvoria, rodinný dom",
+          "acquisition_reason": "zmluva o dielo",
+          "acquisition_date": "01. 10. 2020",
+          "price": "-",
+          "procurement_price": "155.933,- eur",
+          "share_size": "1/1"
+        }
+      ]
+    },
+    {
+      "category": "Hnuteľné veci",
+      "items": [
+        {
+          "description": "dopravný prostriedok",
+          "acquisition_reason": "kúpa",
+          "acquisition_date": "26. 10. 2018",
+          "price": null,
+          "procurement_price": "12.000,- eur",
+          "share_size": null
+        },
+        {
+          "description": "dopravný prostriedok",
+          "acquisition_reason": "leasingová zmluva",
+          "acquisition_date": "24.09.2024",
+          "price": "-",
+          "procurement_price": "56.099,20 eur",
+          "share_size": null
+        }
+      ]
+    },
+    {
+      "category": "Záväzkové vzťahy prokurátora",
+      "items": [
+        {
+          "description": "hypotekárny úver",
+          "acquisition_date": "11.11.2020",
+          "price": null
+        },
+        {
+          "description": "hypotekárny úver",
+          "acquisition_date": "09.04.2021",
+          "price": null
+        },
+        {
+          "description": "leasing motorového vozidla",
+          "acquisition_date": "24.09.2024",
+          "price": null
+        }
+      ]
+    }
+  ],
+  "incomes": null,
+  "statements": [
+    "Vyhlasujem, že spĺňam podmienky osvedčenia podľa § 27 ods. 1 zák. č. 154/2001 Z.z.",
+    "Vyhlasujem, že z činností podľa § 27 ods. 2 zák. č. 154/2001 Z.z. mi plynú príjmy a pôžitky."
+  ]
+}

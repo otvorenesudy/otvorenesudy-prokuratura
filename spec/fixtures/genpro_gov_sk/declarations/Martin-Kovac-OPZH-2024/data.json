@@ -1,0 +1,128 @@
+{
+  "year": 2024,
+  "lists": [
+    {
+      "category": "Zoznam nehnuteľností",
+      "items": [
+        {
+          "description": "byt",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "06.03.2012",
+          "price": null,
+          "procurement_price": "33.000,- €",
+          "share_size": "1/1"
+        },
+        {
+          "description": "byt",
+          "acquisition_reason": "kúpa na exek. dražbe",
+          "acquisition_date": "27.05.2013",
+          "price": null,
+          "procurement_price": "23.800,- €",
+          "share_size": "1/2"
+        },
+        {
+          "description": "byt",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "02.12.2016",
+          "price": null,
+          "procurement_price": "110.000,- €",
+          "share_size": "1/2"
+        },
+        {
+          "description": "podiel na pozemku",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "06.03.2014",
+          "price": null,
+          "procurement_price": "v cene bytu",
+          "share_size": "6303/794178"
+        },
+        {
+          "description": "podiel na pozemku",
+          "acquisition_reason": "kúpa na exek. dražbe",
+          "acquisition_date": "27.05.2013",
+          "price": null,
+          "procurement_price": "v cene bytu",
+          "share_size": "6820/556544"
+        },
+        {
+          "description": "podiel na pozemnku",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "02.12.2016",
+          "price": null,
+          "procurement_price": "v cene bytu",
+          "share_size": "5780/74290"
+        },
+        {
+          "description": "podiel na pozemku",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "02.12.2016",
+          "price": null,
+          "procurement_price": "v cene bytu",
+          "share_size": "5780/74290"
+        },
+        {
+          "description": "podiel na pozemku",
+          "acquisition_reason": "kúpna zmluva",
+          "acquisition_date": "02.12.2016",
+          "price": null,
+          "procurement_price": "v cene bytu",
+          "share_size": "1/48"
+        }
+      ]
+    },
+    {
+      "category": "Majetkové práva a iné majetkové hodnoty",
+      "items": [
+        {
+          "description": "pohľadávka",
+          "acquisition_reason": "pôžička",
+          "acquisition_date": "15.08.2022",
+          "price": "35.000,-€",
+          "procurement_price": "35.000,-€",
+          "share_size": null
+        },
+        {
+          "description": "vklady v peňažných ústavoch",
+          "acquisition_reason": "úspory z platu",
+          "acquisition_date": "priebežne",
+          "price": "28.000,- €",
+          "procurement_price": "28.000,- €",
+          "share_size": null
+        },
+        {
+          "description": "vklady v peňažných ústavoch",
+          "acquisition_reason": "úspory z platu",
+          "acquisition_date": "priebežne",
+          "price": "45.000,- €",
+          "procurement_price": "45.000,- €",
+          "share_size": null
+        }
+      ]
+    },
+    {
+      "category": "Záväzkové vzťahy prokurátora",
+      "items": [
+        {
+          "description": "hypotéka",
+          "acquisition_date": "03/2012",
+          "price": null
+        },
+        {
+          "description": "hypotéka",
+          "acquisition_date": "06/2013",
+          "price": null
+        },
+        {
+          "description": "hypotéka",
+          "acquisition_date": "11/2016",
+          "price": null
+        }
+      ]
+    }
+  ],
+  "incomes": null,
+  "statements": [
+    "Vyhlasujem, že spĺňam podmienky osvedčenia podľa § 27 ods. 1 zák. č. 154/2001 Z.z.",
+    "Vyhlasujem, že z činností podľa § 27 ods. 2 zák. č. 154/2001 Z.z. mi plynú príjmy a pôžitky."
+  ]
+}

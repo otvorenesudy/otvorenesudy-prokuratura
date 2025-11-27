@@ -5,7 +5,11 @@ module GenproGovSk
         pages = Iguvium.read(path)
         tables = pages.map { |page| page.extract_tables!.first }
 
-        tables.map { |table| table.to_a }.flatten(1).reject { |row| row[0] =~ /^Priezvisko meno/i }
+        tables
+          .map { |table| table.to_a }
+          .flatten(1)
+          .map { |row| row.map(&:presence).compact }
+          .reject { |row| row[0] =~ /^Priezvisko meno/i }
       end
     end
   end

@@ -1,0 +1,100 @@
+{
+  "name": "Okresná prokuratúra Trnava",
+  "type": "district",
+  "employees": [
+    {
+      "name": "JUDr. Ingrid Sedlárová",
+      "name_parts": {
+        "unprocessed": "JUDr. Ingrid Sedlárová",
+        "prefix": "JUDr.",
+        "first": "Ingrid",
+        "middle": null,
+        "last": "Sedlárová",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "okresná prokurátorka",
+      "rank": 1,
+      "phone": "033/59 23 306"
+    },
+    {
+      "name": "Mgr. Elena Bednáriková",
+      "name_parts": {
+        "unprocessed": "Mgr. Elena Bednáriková",
+        "prefix": "Mgr.",
+        "first": "Elena",
+        "middle": null,
+        "last": "Bednáriková",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "námestníčka okresnej prokurátorky",
+      "rank": 2,
+      "phone": "033/59 23 310"
+    },
+    {
+      "name": "JUDr. Ing. Ivan Homola",
+      "name_parts": {
+        "unprocessed": "JUDr. Ing. Ivan Homola",
+        "prefix": "JUDr. Ing.",
+        "first": "Ivan",
+        "middle": null,
+        "last": "Homola",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "námestník okresnej prokurátorky",
+      "rank": 3,
+      "phone": "033/59 23 309"
+    },
+    {
+      "name": "Eva Hadvigová",
+      "name_parts": {
+        "unprocessed": "Eva Hadvigová",
+        "prefix": null,
+        "first": "Eva",
+        "middle": null,
+        "last": "Hadvigová",
+        "suffix": null,
+        "addition": null,
+        "flags": [
+
+        ],
+        "role": null
+      },
+      "position": "vedúca správy registratúry",
+      "rank": 4,
+      "phone": "033/59 23 308"
+    }
+  ],
+  "address": "Dolné bašty 1",
+  "zipcode": "918 67",
+  "city": "Trnava",
+  "phone": "033/59 23 333",
+  "fax": "033/55 12 676",
+  "email": "podatelna.optt@genpro.gov.sk",
+  "electronic_registry": "ico://sk/35629053",
+  "registry": {
+    "note": "",
+    "phone": null,
+    "hours": {
+      "monday": "8:00 – 15:00",
+      "tuesday": "8:00 – 15:00",
+      "wednesday": "8:00 – 15:00",
+      "thursday": "8:00 – 15:00",
+      "friday": "8:00 – 15:00"
+    }
+  }
+}
