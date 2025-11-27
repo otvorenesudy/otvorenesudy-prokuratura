@@ -8,7 +8,8 @@ module GenproGovSk
         tables
           .map { |table| table.to_a }
           .flatten(1)
-          .reject { |row| row[0].to_s.strip.empty? || row[0] =~ /^Priezvisko meno/i }
+          .map { |row| row.map(&:presence).compact }
+          .reject { |row| row[0] =~ /^Priezvisko meno/i }
       end
     end
   end
