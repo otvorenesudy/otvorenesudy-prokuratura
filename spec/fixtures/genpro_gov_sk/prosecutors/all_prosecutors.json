@@ -752,8 +752,8 @@
       ],
       "role": null
     },
-    "office": "Okresná prokuratúra Nitra",
-    "temporary_office": "Krajská prokuratúra v Nitre"
+    "office": "Krajská prokuratúra v Nitre",
+    "temporary_office": null
   },
   {
     "name": "JUDr. Dagmar Belobradová",
@@ -1782,24 +1782,6 @@
     "temporary_office": null
   },
   {
-    "name": "Mgr. Štefan Čepček",
-    "name_parts": {
-      "unprocessed": "Čepček Štefan, Mgr.",
-      "prefix": "Mgr.",
-      "first": "Štefan",
-      "middle": null,
-      "last": "Čepček",
-      "suffix": null,
-      "addition": null,
-      "flags": [
-
-      ],
-      "role": null
-    },
-    "office": "Krajská prokuratúra v Nitre",
-    "temporary_office": null
-  },
-  {
     "name": "JUDr. Alexander Čerevka",
     "name_parts": {
       "unprocessed": "Čerevka Alexander, JUDr.",
@@ -1815,24 +1797,6 @@
       "role": null
     },
     "office": "Okresná prokuratúra Prešov",
-    "temporary_office": null
-  },
-  {
-    "name": "JUDr. Elena Černá",
-    "name_parts": {
-      "unprocessed": "Černá Elena, JUDr.",
-      "prefix": "JUDr.",
-      "first": "Elena",
-      "middle": null,
-      "last": "Černá",
-      "suffix": null,
-      "addition": null,
-      "flags": [
-
-      ],
-      "role": null
-    },
-    "office": "Generálna prokuratúra Slovenskej republiky",
     "temporary_office": null
   },
   {
@@ -8460,6 +8424,24 @@
     "temporary_office": null
   },
   {
+    "name": "JUDr. Elena Kráľová",
+    "name_parts": {
+      "unprocessed": "Kráľová Elena, JUDr.",
+      "prefix": "JUDr.",
+      "first": "Elena",
+      "middle": null,
+      "last": "Kráľová",
+      "suffix": null,
+      "addition": null,
+      "flags": [
+
+      ],
+      "role": null
+    },
+    "office": "Generálna prokuratúra Slovenskej republiky",
+    "temporary_office": null
+  },
+  {
     "name": "Mgr. Patrik Kremeň",
     "name_parts": {
       "unprocessed": "Kremeň Patrik, Mgr.",
@@ -8475,7 +8457,7 @@
       "role": null
     },
     "office": "Okresná prokuratúra Prievidza",
-    "temporary_office": null
+    "temporary_office": "Okresná prokuratúra Nové Mesto nad Váhom"
   },
   {
     "name": "JUDr. Michal Kresánek",
@@ -12435,7 +12417,7 @@
       "role": null
     },
     "office": "Okresná prokuratúra Košice I",
-    "temporary_office": null
+    "temporary_office": "Generálna prokuratúra Slovenskej republiky"
   },
   {
     "name": "JUDr. Adam Petrovič, PhD.",
