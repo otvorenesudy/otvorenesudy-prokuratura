@@ -139,10 +139,7 @@ jobs:
               repo,
               title,
               body,
-              // Adjust the assignee to match the Copilot coding agent
-              // user for this repository/organization if different.
-              assignees: ['copilot'],
-              labels: ['copilot', 'automation', 'ci-failure'],
+              assignees: ['github-copilot']
             });
 
             core.info(`Created issue [#${issue.data.number}] for CI failure.`);
