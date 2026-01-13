@@ -14,14 +14,14 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      COPILOT_TOKEN: ${{ secrets.COPILOT_AUTO_TOKEN }}
+      COPILOT_TOKEN: ${{ secrets.COPILOT_TOKEN }}
 
     steps:
       - name: Ensure Copilot token is available
         if: env.COPILOT_TOKEN == ''
         run: |
-          echo "COPILOT_AUTO_TOKEN secret is not configured."
-          echo "Please add COPILOT_AUTO_TOKEN to this repository's Secrets before using this workflow."
+          echo "COPILOT_TOKEN secret is not configured."
+          echo "Please add COPILOT_TOKEN to this repository's Secrets before using this workflow."
           exit 1
 
       - name: Create issue for GitHub Copilot Coding Agent
@@ -145,4 +145,4 @@ jobs:
               labels: ['copilot', 'automation', 'ci-failure'],
             });
 
-            core.info(`Created issue #${issue.data.number} for CI failure.`);
+            core.info(`Created issue [#${issue.data.number}] for CI failure.`);
