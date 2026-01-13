@@ -137,11 +137,20 @@ jobs:
             const repoInfoQuery = `
               query($owner: String!, $name: String!) {
                 repository(owner: $owner, name: $name) {
-                  id
+                  id  
+
                   suggestedActors(capabilities: [CAN_BE_ASSIGNED], first: 100) {
                     nodes {
                       login
-                      id
+                      __typename
+
+                      ... on Bot {
+                        id
+                      }
+
+                      ... on User {
+                        id
+                      }
                     }
                   }
                 }
@@ -157,11 +166,24 @@ jobs:
 
               if (repoId && repoInfo?.repository?.suggestedActors?.nodes) {
                 const copilotBot = repoInfo.repository.suggestedActors.nodes.find(
-                  (node) => node.login === 'copilot-swe-agent'
+                  (node) => node.__typename === 'Bot' && node.login === 'copilot-swe-agent'
                 );
 
+                const user = repoInfo.repository.suggestedActors.nodes.find(
+                  (node) => node.__typename === 'User' && node.login === 'smolnar'
+                );
+
+                if (user) {
+                  core.info(`Found smolnar with [${user.id}] ID among suggested actors.`);
+
+                  assigneeIds.push(user.id);
+                } else {
+                  core.info('smolnar is not available as a suggested actor.');
+                }
+
                 if (copilotBot) {
-                  assigneeIds = [copilotBot.id];
+                  assigneeIds.push(copilotBot.id);
+
                   core.info(`Found copilot-swe-agent with [${copilotBot.id}] ID. Assigning issue ...`);
                 } else {
                   core.info('copilot-swe-agent is not available as a suggested actor. Creating unassigned issue ...');
