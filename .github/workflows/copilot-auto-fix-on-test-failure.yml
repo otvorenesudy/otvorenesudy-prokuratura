@@ -174,11 +174,11 @@ jobs:
                 );
 
                 if (user) {
-                  core.info(`Found smolnar with [${user.id}] ID among suggested actors.`);
+                  core.info(`Found smolnar with [${user.id}] ID among suggested actors`);
 
                   assigneeIds.push(user.id);
                 } else {
-                  core.info('smolnar is not available as a suggested actor.');
+                  core.info('smolnar is not available as a suggested actor');
                 }
 
                 if (copilotBot) {
@@ -197,7 +197,7 @@ jobs:
             }
 
             if (!repoId) {
-              core.setFailed('Could not resolve repository id from GraphQL. Cannot create issue.');
+              core.setFailed('Could not resolve repository id from GraphQL. Cannot create issue');
               return;
             }
 
@@ -227,7 +227,7 @@ jobs:
                 return;
               }
 
-              core.info(`Created issue for CI failure via GraphQL${assigneeIds.length ? ' and assigned copilot-swe-agent' : ''} at [${issueUrl}] issue.`);
+              core.info(`Created issue for CI failure via GraphQL${assigneeIds.length ? ' and assigned copilot-swe-agent' : ''} at [${issueUrl}] issue`);
             } catch (error) {
               core.setFailed(`GraphQL error while creating issue: ${error.message || error}`);
             }
