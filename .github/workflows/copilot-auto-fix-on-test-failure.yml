@@ -48,91 +48,91 @@ jobs:
               : '- See workflow run logs for details.';
 
             const body = `
-# CI failure detected in workflow "${run.name}"
+              # CI failure detected in workflow "${run.name}"
 
-The GitHub Actions CI workflow **${run.name}** failed.
+              The GitHub Actions CI workflow **${run.name}** failed.
 
-- **Repository:** ${owner}/${repo}
-- **Branch:** \`${run.head_branch || 'unknown-branch'}\`
-- **Commit:** \`${run.head_sha || 'unknown-sha'}\`
-- **Workflow run URL:** ${run.html_url}
-- **Failed job(s):**
-${failedJobsList}
+              - **Repository:** ${owner}/${repo}
+              - **Branch:** \`${run.head_branch || 'unknown-branch'}\`
+              - **Commit:** \`${run.head_sha || 'unknown-sha'}\`
+              - **Workflow run URL:** ${run.html_url}
+              - **Failed job(s):**
+              ${failedJobsList}
 
----
+              ---
 
-## Instructions for GitHub Copilot Coding Agent
+              ## Instructions for GitHub Copilot Coding Agent
 
-You are GitHub Copilot, assigned to automatically investigate and fix this failing CI run.
+              You are GitHub Copilot, assigned to automatically investigate and fix this failing CI run.
 
-### Project context
+              ### Project context
 
-- This is a Ruby on Rails 7.1 application targeting PostgreSQL 16.
-- The application is called **Otvorená Prokuratúra** and exposes public data about Slovak prosecutors and criminality statistics.
-- Key tech stack: Ruby 3.3.x, Rails 7.1, PostgreSQL 16, Redis (Sidekiq), Node ≥ 20.10, Webpacker 6, Stimulus/Turbo, Bootstrap 4.
-- RSpec is used for tests. Typical test command: \`bin/rspec\`.
+              - This is a Ruby on Rails 7.1 application targeting PostgreSQL 16.
+              - The application is called **Otvorená Prokuratúra** and exposes public data about Slovak prosecutors and criminality statistics.
+              - Key tech stack: Ruby 3.3.x, Rails 7.1, PostgreSQL 16, Redis (Sidekiq), Node ≥ 20.10, Webpacker 6, Stimulus/Turbo, Bootstrap 4.
+              - RSpec is used for tests. Typical test command: \`bin/rspec\`.
 
-Additionally, there is a reusable workflow at **.github/workflows/copilot-setup-steps.yml** that prepares the test environment (Ruby, Node, PostgreSQL, credentials, DB setup). Use it if helpful in any follow-up workflows you create.
+              Additionally, there is a reusable workflow at **.github/workflows/copilot-setup-steps.yml** that prepares the test environment (Ruby, Node, PostgreSQL, credentials, DB setup). Use it if helpful in any follow-up workflows you create.
 
-### Your goals
+              ### Your goals
 
-Please perform the following steps to diagnose and fix the CI failure:
+              Please perform the following steps to diagnose and fix the CI failure:
 
-1. **Analyze the failing CI run**
-   - Open the workflow run URL above and review the logs for the failing job(s), especially the RSpec test output.
-   - Identify which specs, files, or examples are failing and capture their full error messages and stack traces.
+              1. **Analyze the failing CI run**
+                - Open the workflow run URL above and review the logs for the failing job(s), especially the RSpec test output.
+                - Identify which specs, files, or examples are failing and capture their full error messages and stack traces.
 
-2. **Classify the root cause**
-   - Determine whether failures are due to:
-     - Application code changes (bugs, missing logic, regressions),
-     - Test code issues (flaky tests, incorrect expectations, outdated assertions),
-     - **Out-of-date or incorrect test data/fixtures** (for example, when external or production data has changed but fixtures or expectations were not updated), or
-     - Environment / configuration problems (e.g., missing migrations, search index refresh issues, credentials, etc.).
+              2. **Classify the root cause**
+                - Determine whether failures are due to:
+                  - Application code changes (bugs, missing logic, regressions),
+                  - Test code issues (flaky tests, incorrect expectations, outdated assertions),
+                  - **Out-of-date or incorrect test data/fixtures** (for example, when external or production data has changed but fixtures or expectations were not updated), or
+                  - Environment / configuration problems (e.g., missing migrations, search index refresh issues, credentials, etc.).
 
-3. **If failures are caused by code or tests**
-   - Inspect the affected application files under \`app/\` and the related specs under \`spec/\`.
-   - Propose and implement minimal, well-structured fixes that align with the repository guidelines (keep controllers thin, push business logic into \`app/services\`, respect existing Search pattern, etc.).
-   - Update or add RSpec tests as needed to accurately cover the fixed behavior.
-   - Re-run the relevant tests locally (or via GitHub Actions in a branch) to ensure they pass.
+              3. **If failures are caused by code or tests**
+                - Inspect the affected application files under \`app/\` and the related specs under \`spec/\`.
+                - Propose and implement minimal, well-structured fixes that align with the repository guidelines (keep controllers thin, push business logic into \`app/services\`, respect existing Search pattern, etc.).
+                - Update or add RSpec tests as needed to accurately cover the fixed behavior.
+                - Re-run the relevant tests locally (or via GitHub Actions in a branch) to ensure they pass.
 
-4. **If failures are caused by data/fixtures being out of date**
-   - Carefully analyze the failing specs, focusing on any references to fixtures, seed data, or hard-coded expectations tied to real-world data (e.g., prosecutors, offices, decrees, criminality stats).
-   - Locate the relevant fixtures or test data files under \`spec/fixtures\`, \`spec/support\`, or other data helper locations in this repository.
-   - Infer which real-world data has changed. When appropriate and allowed by project conventions:
-     - Use the public data sources mentioned in the README, such as the General Prosecutor's Office of the Slovak Republic site at https://www.genpro.gov.sk, and any publicly accessible production deployment of this project, to understand the updated real data.
-     - Compare the current external data with the existing fixture values to identify what is now inconsistent.
-   - Update the relevant fixtures, factories, or test expectations so that they reflect the current real data while preserving the intent of the tests.
-   - Ensure any changes remain deterministic and do not make the tests dependent on live external services at runtime (fixtures should remain static, but derived from the up-to-date data you observe now).
+              4. **If failures are caused by data/fixtures being out of date**
+                - Carefully analyze the failing specs, focusing on any references to fixtures, seed data, or hard-coded expectations tied to real-world data (e.g., prosecutors, offices, decrees, criminality stats).
+                - Locate the relevant fixtures or test data files under \`spec/fixtures\`, \`spec/support\`, or other data helper locations in this repository.
+                - Infer which real-world data has changed. When appropriate and allowed by project conventions:
+                  - Use the public data sources mentioned in the README, such as the General Prosecutor's Office of the Slovak Republic site at https://www.genpro.gov.sk, and any publicly accessible production deployment of this project, to understand the updated real data.
+                  - Compare the current external data with the existing fixture values to identify what is now inconsistent.
+                - Update the relevant fixtures, factories, or test expectations so that they reflect the current real data while preserving the intent of the tests.
+                - Ensure any changes remain deterministic and do not make the tests dependent on live external services at runtime (fixtures should remain static, but derived from the up-to-date data you observe now).
 
-5. **If failures are caused by environment/configuration issues**
-   - Check for missing migrations, configuration mismatches, or search index (materialized view) refresh requirements.
-   - Where appropriate, add or adjust migrations, configuration, or helper rake tasks to make the test environment consistent and reliable.
-   - Avoid changing sensitive credentials files (for example, encrypted credentials in config/credentials/**) as they are protected in CI.
+              5. **If failures are caused by environment/configuration issues**
+                - Check for missing migrations, configuration mismatches, or search index (materialized view) refresh requirements.
+                - Where appropriate, add or adjust migrations, configuration, or helper rake tasks to make the test environment consistent and reliable.
+                - Avoid changing sensitive credentials files (for example, encrypted credentials in config/credentials/**) as they are protected in CI.
 
-6. **Prepare and open a pull request**
-   - Create a new branch from the failing commit or the latest commit on the failing branch.
-   - Implement the fixes identified above (code, tests, fixtures, or configuration) in a minimal and focused way.
-   - Run \`bin/rspec\` and ensure all tests pass locally / in CI for that branch.
-   - Open a pull request back to the original branch with:
-     - A clear title describing the fix (for example, "Fix CI failures in prosecutor search specs" or "Update fixtures to reflect new prosecutor data").
-     - A detailed description summarizing:
-       - The root cause of the failures,
-       - What you changed (code, tests, data/fixtures, environment),
-       - How you verified the fix (tests or other checks), and
-       - Any potential follow-up work or caveats.
+              6. **Prepare and open a pull request**
+                - Create a new branch from the failing commit or the latest commit on the failing branch.
+                - Implement the fixes identified above (code, tests, fixtures, or configuration) in a minimal and focused way.
+                - Run \`bin/rspec\` and ensure all tests pass locally / in CI for that branch.
+                - Open a pull request back to the original branch with:
+                  - A clear title describing the fix (for example, "Fix CI failures in prosecutor search specs" or "Update fixtures to reflect new prosecutor data").
+                  - A detailed description summarizing:
+                    - The root cause of the failures,
+                    - What you changed (code, tests, data/fixtures, environment),
+                    - How you verified the fix (tests or other checks), and
+                    - Any potential follow-up work or caveats.
 
-7. **Link back to this CI failure**
-   - In the PR description, reference this issue and the failing workflow run URL so humans can trace the history easily.
+              7. **Link back to this CI failure**
+                - In the PR description, reference this issue and the failing workflow run URL so humans can trace the history easily.
 
-### Acceptance criteria
+              ### Acceptance criteria
 
-- All previously failing specs in the referenced CI run pass on the new branch.
-- No unrelated tests are broken by the changes.
-- Changes follow the repository's established patterns (particularly around service objects and search filters).
-- If fixtures were updated, they now reflect the current external data while still being stable for automated tests.
+              - All previously failing specs in the referenced CI run pass on the new branch.
+              - No unrelated tests are broken by the changes.
+              - Changes follow the repository's established patterns (particularly around service objects and search filters).
+              - If fixtures were updated, they now reflect the current external data while still being stable for automated tests.
 
-When you are done, close this issue from the PR (e.g., by including \"Fixes #<issue-number>\" in the PR description).
-`.trim();
+              When you are done, close this issue from the PR (e.g., by including \"Fixes #<issue-number>\" in the PR description).
+            `.trim();
 
             const issue = await github.rest.issues.create({
               owner,
