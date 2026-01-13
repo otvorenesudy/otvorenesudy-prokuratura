@@ -41,6 +41,8 @@ class Crime < ApplicationRecord
         end
       end
     end
+
+    nil
   end
 
   GROUPS = {

@@ -58,6 +58,8 @@ class Statistic < ApplicationRecord
           )
         end
       end
+
+      nil
     end
   end
 
