@@ -447,7 +447,7 @@
       "role": null
     },
     "office": "Okresná prokuratúra Zvolen",
-    "temporary_office": null
+    "temporary_office": "Krajská prokuratúra v Banskej Bystrici"
   },
   {
     "name": "JUDr. Andrea Barbaričová",
@@ -1491,7 +1491,7 @@
       "role": null
     },
     "office": "Okresná prokuratúra Trenčín",
-    "temporary_office": null
+    "temporary_office": "Krajská prokuratúra v Trenčíne"
   },
   {
     "name": "Mgr. Boris Buvala",
@@ -8330,8 +8330,8 @@
       ],
       "role": null
     },
-    "office": "Okresná prokuratúra Nitra",
-    "temporary_office": "Okresná prokuratúra Levice"
+    "office": "Okresná prokuratúra Levice",
+    "temporary_office": null
   },
   {
     "name": "JUDr. Jaroslav Kozolka, MBA",
@@ -10940,7 +10940,7 @@
       ],
       "role": null
     },
-    "office": "Okresná prokuratúra Nové Mesto nad Váhom",
+    "office": "Okresná prokuratúra Pezinok",
     "temporary_office": null
   },
   {
@@ -12489,7 +12489,7 @@
       "role": null
     },
     "office": "Krajská prokuratúra v Bratislave",
-    "temporary_office": null
+    "temporary_office": "Generálna prokuratúra Slovenskej republiky"
   },
   {
     "name": "JUDr. Richard Piliar",
@@ -13569,6 +13569,24 @@
       "role": null
     },
     "office": "Okresná prokuratúra Svidník",
+    "temporary_office": null
+  },
+  {
+    "name": "JUDr. Katarína Roskoványi, MBA",
+    "name_parts": {
+      "unprocessed": "Roskoványi Katarína, JUDr., MBA",
+      "prefix": "JUDr.",
+      "first": "Katarína",
+      "middle": null,
+      "last": "Roskoványi",
+      "suffix": "MBA",
+      "addition": null,
+      "flags": [
+
+      ],
+      "role": null
+    },
+    "office": "Generálna prokuratúra Slovenskej republiky",
     "temporary_office": null
   },
   {
@@ -18320,7 +18338,7 @@
       ],
       "role": null
     },
-    "office": "Okresná prokuratúra Levice",
+    "office": "Okresná prokuratúra Nitra",
     "temporary_office": null
   },
   {
