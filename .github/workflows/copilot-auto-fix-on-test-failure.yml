@@ -9,7 +9,7 @@ on:
 
 jobs:
   open-copilot-issue:
-    name: Open issue for Copilot on CI failure
+    name: Open Issue for Copilot on CI Failure
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     runs-on: ubuntu-latest
 
@@ -134,12 +134,78 @@ jobs:
               When you are done, close this issue from the PR (e.g., by including \"Fixes #<issue-number>\" in the PR description).
             `.trim();
 
-            const issue = await github.rest.issues.create({
-              owner,
-              repo,
-              title,
-              body,
-              assignees: ['github-copilot']
-            });
+            const repoInfoQuery = `
+              query($owner: String!, $name: String!) {
+                repository(owner: $owner, name: $name) {
+                  id
+                  suggestedActors(capabilities: [CAN_BE_ASSIGNED], first: 100) {
+                    nodes {
+                      login
+                      id
+                    }
+                  }
+                }
+              }
+            `;
 
-            core.info(`Created issue [#${issue.data.number}] for CI failure.`);
+            let repoId = null;
+            let assigneeIds = [];
+
+            try {
+              const repoInfo = await github.graphql(repoInfoQuery, { owner, name: repo });
+              repoId = repoInfo?.repository?.id ?? null;
+
+              if (repoId && repoInfo?.repository?.suggestedActors?.nodes) {
+                const copilotBot = repoInfo.repository.suggestedActors.nodes.find(
+                  (node) => node.login === 'copilot-swe-agent'
+                );
+
+                if (copilotBot) {
+                  assigneeIds = [copilotBot.id];
+                  core.info(`Found copilot-swe-agent with [${copilotBot.id}] ID. Assigning issue ...`);
+                } else {
+                  core.info('copilot-swe-agent is not available as a suggested actor. Creating unassigned issue ...');
+                }
+              } else {
+                core.info('Could not resolve suggested actors. Creating issue without assignee ...');
+              }
+            } catch (error) {
+              core.setFailed(`GraphQL error while fetching suggested actors: ${error.message || error}`);
+              return;
+            }
+
+            if (!repoId) {
+              core.setFailed('Could not resolve repository id from GraphQL. Cannot create issue.');
+              return;
+            }
+
+            const createIssueMutation = `
+              mutation($repoId: ID!, $title: String!, $body: String!, $assigneeIds: [ID!]) {
+                createIssue(input: { repositoryId: $repoId, title: $title, body: $body, assigneeIds: $assigneeIds }) {
+                  issue {
+                    number
+                    url
+                  }
+                }
+              }
+            `;
+
+            try {
+              const response = await github.graphql(createIssueMutation, {
+                repoId,
+                title,
+                body,
+                assigneeIds,
+              });
+
+              const issueUrl = response?.createIssue?.issue?.url ?? null;
+
+              if (!issueUrl) {
+                core.setFailed('GraphQL createIssue returned no issue URL.');
+                return;
+              }
+
+              core.info(`Created issue for CI failure via GraphQL${assigneeIds.length ? ' and assigned copilot-swe-agent' : ''} at [${issueUrl}] issue.`);
+            } catch (error) {
+              core.setFailed(`GraphQL error while creating issue: ${error.message || error}`);
+            }
