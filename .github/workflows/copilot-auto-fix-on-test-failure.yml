@@ -1,4 +1,4 @@
-name: Auto-open Copilot issue on CI failure
+name: Auto-open Copilot Issue on CI Failure
 
 on:
   workflow_run:
