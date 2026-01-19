@@ -1716,7 +1716,7 @@
     "address": "Damborského 1",
     "zipcode": "949 66",
     "city": "Nitra",
-    "phone": "037/65 22 730",
+    "phone": "037/65 22 729",
     "fax": "037/65 22 726",
     "email": "kpnitra@genpro.gov.sk podatelna.kpNR@genpro.gov.sk",
     "electronic_registry": "ico://sk/35629061",
@@ -2683,6 +2683,25 @@
       "phone": null
     },
     "employees": [
+      {
+        "name": "JUDr. Marcel Gondžur",
+        "name_parts": {
+          "last": "Gondžur",
+          "role": null,
+          "first": "Marcel",
+          "flags": [
+
+          ],
+          "middle": null,
+          "prefix": "JUDr.",
+          "suffix": null,
+          "addition": null,
+          "unprocessed": "JUDr. Marcel Gondžur"
+        },
+        "position": "krajský prokurátor",
+        "rank": 1,
+        "phone": "041/56 26 448"
+      },
       {
         "name": "Mgr. Viera Kubalová",
         "name_parts": {
@@ -7413,25 +7432,6 @@
       "phone": null
     },
     "employees": [
-      {
-        "name": "JUDr. Marcel Gondžur",
-        "name_parts": {
-          "last": "Gondžur",
-          "role": null,
-          "first": "Marcel",
-          "flags": [
-
-          ],
-          "middle": null,
-          "prefix": "JUDr.",
-          "suffix": null,
-          "addition": null,
-          "unprocessed": "JUDr. Marcel Gondžur"
-        },
-        "position": "okresný prokurátor",
-        "rank": 1,
-        "phone": "041/56 21 349"
-      },
       {
         "name": "JUDr. Ladislav Ľorko",
         "name_parts": {
