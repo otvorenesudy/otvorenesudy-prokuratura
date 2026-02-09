@@ -4,10 +4,13 @@ require 'bundler/setup'
 require_relative '../config/environment'
 require 'json'
 require 'fileutils'
+require 'legacy'
 
 puts "Fetching current prosecutor list from genpro.gov.sk..."
 
 begin
+  using ::Legacy::String
+  
   # Download and parse the current PDF
   html = Curl.get('https://www.genpro.gov.sk/menny-zoznam-prokuratorov-slovenskej-republiky').body_str
   path = Nokogiri.HTML(html).css('a').find { |e| e.text.ascii =~ /Menny zoznam prokuratorov SR/ }[:href]
