@@ -13,7 +13,15 @@ begin
   
   # Download and parse the current PDF
   html = Curl.get('https://www.genpro.gov.sk/menny-zoznam-prokuratorov-slovenskej-republiky').body_str
-  path = Nokogiri.HTML(html).css('a').find { |e| e.text.ascii =~ /Menny zoznam prokuratorov SR/ }[:href]
+  link = Nokogiri.HTML(html).css('a').find { |e| e.text.ascii =~ /Menny zoznam prokuratorov SR/ }
+  
+  unless link && link[:href]
+    puts "\n❌ Error: Could not find prosecutor list PDF link on genpro.gov.sk"
+    puts "   The website structure may have changed."
+    exit 1
+  end
+  
+  path = link[:href]
   url = "https://www.genpro.gov.sk#{path}"
   
   puts "Downloading PDF from: #{url}"
