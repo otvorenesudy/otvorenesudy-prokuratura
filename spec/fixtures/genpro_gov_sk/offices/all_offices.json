@@ -6,7 +6,6 @@
     "zipcode": "812 85",
     "city": "Bratislava 1",
     "phone": "02/208 37 505, 02/595 32 505",
-    "fax": null,
     "email": "GPSR@genpro.gov.sk",
     "electronic_registry": "https://www.slovensko.sk/sk/lokator-sluzieb",
     "registry": {
@@ -960,7 +959,7 @@
     "address": "Partizánska cesta 1",
     "zipcode": "975 62",
     "city": "Banská Bystrica",
-    "phone": "048/28 36 111",
+    "phone": "048/28 36 104",
     "fax": "048/28 36 880",
     "email": "kpbbystrica@genpro.gov.sk podatelna.kpBB@genpro.gov.sk",
     "electronic_registry": "ico://sk/00166456",
@@ -993,7 +992,7 @@
         },
         "position": "krajský prokurátor v Banskej Bystrici",
         "rank": 1,
-        "phone": "048/2836 170"
+        "phone": "048/28 36 170"
       },
       {
         "name": "JUDr. Kamil Baran",
@@ -1010,9 +1009,9 @@
           "addition": null,
           "unprocessed": "JUDr. Kamil Baran"
         },
-        "position": "poverený výkonom funkcie námestníka krajského prokurátora pre trestný úsek",
+        "position": "námestník krajského prokurátora",
         "rank": 2,
-        "phone": "048/2836 436"
+        "phone": "048/28 36 104"
       },
       {
         "name": "JUDr. Elena Remetová",
@@ -1031,7 +1030,7 @@
         },
         "position": "námestníčka krajského prokurátora pre netrestný úsek",
         "rank": 3,
-        "phone": "048/2836 505"
+        "phone": "048/28 36 505"
       },
       {
         "name": "JUDr. Katarína Hrušecká",
@@ -1050,7 +1049,7 @@
         },
         "position": "vedúca organizačného a personálneho oddelenia",
         "rank": 4,
-        "phone": "048/2836 516"
+        "phone": "048/28 36 516"
       },
       {
         "name": "JUDr. Jana Kopernická, PhD.",
@@ -1069,7 +1068,7 @@
         },
         "position": "vedúca medzinárodného oddelenia",
         "rank": 5,
-        "phone": "048/2836 432"
+        "phone": "048/28 36 432"
       },
       {
         "name": "Mgr. Jakub Mikuda",
@@ -1088,14 +1087,14 @@
         },
         "position": "vedúci oddelenia oddelenia prvostupňového a boja proti organizovanému zločinu",
         "rank": 6,
-        "phone": "048/2836 621"
+        "phone": "048/28 36 621"
       },
       {
-        "name": "JUDr. Kamil Baran",
+        "name": "JUDr. Jana Kupcová",
         "name_parts": {
-          "last": "Baran",
+          "last": "Kupcová",
           "role": null,
-          "first": "Kamil",
+          "first": "Jana",
           "flags": [
 
           ],
@@ -1103,11 +1102,11 @@
           "prefix": "JUDr.",
           "suffix": null,
           "addition": null,
-          "unprocessed": "JUDr. Kamil Baran"
+          "unprocessed": "JUDr. Jana Kupcová"
         },
-        "position": "vedúci trestného oddelenia",
+        "position": "poverená výkonom funkcie vedúcej trestného oddelenia",
         "rank": 7,
-        "phone": "048/2836 436"
+        "phone": "048/28 36 410"
       },
       {
         "name": "JUDr. Jana Gallová",
@@ -1126,7 +1125,7 @@
         },
         "position": "vedúca netrestného oddelenia",
         "rank": 8,
-        "phone": "048/2836 172"
+        "phone": "048/28 36 172"
       },
       {
         "name": "Ing. Kristína Mlynárčiková",
@@ -1145,7 +1144,7 @@
         },
         "position": "vedúca oddelenia vnútornej správy",
         "rank": 9,
-        "phone": "048/2836 511"
+        "phone": "048/28 36 511"
       },
       {
         "name": "Ing. Ladislav Szatmári",
@@ -1164,7 +1163,7 @@
         },
         "position": "vedúci oddelenia informatiky",
         "rank": 10,
-        "phone": "048/2836 527"
+        "phone": "048/28 36 527"
       },
       {
         "name": "Mgr. Elena Lénártová",
@@ -1183,7 +1182,7 @@
         },
         "position": "vedúca správy registratúry",
         "rank": 11,
-        "phone": "048/2836 175"
+        "phone": "048/28 36 175"
       },
       {
         "name": "Mgr. Lenka Cabanová",
@@ -1202,7 +1201,7 @@
         },
         "position": "referát ochrany utajovaných skutočností",
         "rank": 12,
-        "phone": "048/2836 532"
+        "phone": "048/28 36 532"
       }
     ]
   },
@@ -1516,7 +1515,7 @@
         },
         "position": "námestníčka krajskej prokurátorky pre netrestný úsek",
         "rank": 2,
-        "phone": "055/68 16 270"
+        "phone": "055/68 16 100"
       },
       {
         "name": "JUDr. Branislav Bujňák",
@@ -1535,7 +1534,7 @@
         },
         "position": "námestník krajskej prokurátorky pre trestný úsek",
         "rank": 3,
-        "phone": "055/68 16 315"
+        "phone": "055/68 16 100"
       },
       {
         "name": "JUDr. Jarmila Janová",
@@ -1573,7 +1572,7 @@
         },
         "position": "vedúca trestného oddelenia",
         "rank": 5,
-        "phone": "055/68 16 383"
+        "phone": "055/68 16 100"
       },
       {
         "name": "JUDr. Matúš Hendrichovský",
@@ -1592,7 +1591,7 @@
         },
         "position": "vedúci netrestného oddelenia",
         "rank": 6,
-        "phone": "055/68 16 279"
+        "phone": "055/68 16 100"
       },
       {
         "name": "JUDr. Branislav Reday",
@@ -1611,7 +1610,7 @@
         },
         "position": "vedúci oddelenia dozoru v trestnom konaní vo veciach organizovanéhozločinu a príslušníkov ozbrojených bezpečnostných zborov",
         "rank": 7,
-        "phone": "055/68 16 249"
+        "phone": "055/68 16 100"
       },
       {
         "name": "Mgr. Jana Závišová",
@@ -1630,7 +1629,7 @@
         },
         "position": "vedúca medzinárodného oddelenia",
         "rank": 8,
-        "phone": "055/68 16 272"
+        "phone": "055/68 16 100"
       },
       {
         "name": "Ing. Michal Telepovský",
@@ -1649,7 +1648,7 @@
         },
         "position": "vedúci oddelenia informatiky",
         "rank": 9,
-        "phone": "055/68 16 353"
+        "phone": "055/68 16 100"
       },
       {
         "name": "Ing. Adrián Šenkýr",
@@ -1668,7 +1667,7 @@
         },
         "position": "vedúci oddelenia vnútornej správy",
         "rank": 10,
-        "phone": "055/68 16 312"
+        "phone": "055/68 16 100"
       },
       {
         "name": "Ing. Adriana Sopková",
@@ -1687,7 +1686,7 @@
         },
         "position": "vedúca správy registratúry",
         "rank": 11,
-        "phone": "055/68 16 388"
+        "phone": "055/68 16 100"
       },
       {
         "name": "Mgr. Lucia Maindlová",
@@ -1706,7 +1705,7 @@
         },
         "position": "bezpečnostný zamestnanec",
         "rank": 12,
-        "phone": "055/68 16 278"
+        "phone": "055/68 16 100"
       }
     ]
   },
@@ -1716,7 +1715,7 @@
     "address": "Damborského 1",
     "zipcode": "949 66",
     "city": "Nitra",
-    "phone": "037/65 22 730",
+    "phone": "037/65 22 729",
     "fax": "037/65 22 726",
     "email": "kpnitra@genpro.gov.sk podatelna.kpNR@genpro.gov.sk",
     "electronic_registry": "ico://sk/35629061",
@@ -2684,6 +2683,25 @@
     },
     "employees": [
       {
+        "name": "JUDr. Marcel Gondžur",
+        "name_parts": {
+          "last": "Gondžur",
+          "role": null,
+          "first": "Marcel",
+          "flags": [
+
+          ],
+          "middle": null,
+          "prefix": "JUDr.",
+          "suffix": null,
+          "addition": null,
+          "unprocessed": "JUDr. Marcel Gondžur"
+        },
+        "position": "krajský prokurátor",
+        "rank": 1,
+        "phone": "041/56 26 448"
+      },
+      {
         "name": "Mgr. Viera Kubalová",
         "name_parts": {
           "last": "Kubalová",
@@ -2722,11 +2740,11 @@
         "phone": "041/56 26 448"
       },
       {
-        "name": "JUDr. Jozef Vrabec",
+        "name": "JUDr. Stanislav Jakubčík",
         "name_parts": {
-          "last": "Vrabec",
+          "last": "Jakubčík",
           "role": null,
-          "first": "Jozef",
+          "first": "Stanislav",
           "flags": [
 
           ],
@@ -2734,9 +2752,9 @@
           "prefix": "JUDr.",
           "suffix": null,
           "addition": null,
-          "unprocessed": "JUDr. Jozef Vrabec"
+          "unprocessed": "JUDr. Stanislav Jakubčík"
         },
-        "position": "vedúci medzinárodného oddelenia",
+        "position": "poverený výkonom funkcie vedúceho medzinárodného oddelenia",
         "rank": 4,
         "phone": "041/56 26 448"
       },
@@ -2962,7 +2980,7 @@
     "address": "Partizánska cesta 1",
     "zipcode": "975 63",
     "city": "Banská Bystrica",
-    "phone": "048/28 36 111",
+    "phone": "048/28 36 310",
     "fax": "048/28 36 881",
     "email": "podatelna.opbb@genpro.gov.sk",
     "electronic_registry": "ico://sk/00166456",
@@ -2995,7 +3013,7 @@
         },
         "position": "okresný prokurátor",
         "rank": 1,
-        "phone": "048/2836 111"
+        "phone": "048/28 36 324"
       },
       {
         "name": "JUDr. Danka Michaličková",
@@ -3014,7 +3032,7 @@
         },
         "position": "námestníčka okresného prokurátora pre netrestný úsek",
         "rank": 2,
-        "phone": "048/2836 203"
+        "phone": "048/28 36 203"
       },
       {
         "name": "JUDr. Alexandra Jelšovská",
@@ -3052,7 +3070,7 @@
         },
         "position": "vedúca správy registratúry",
         "rank": 4,
-        "phone": "048/2836 301"
+        "phone": "048/28 36 301"
       }
     ]
   },
@@ -3486,7 +3504,7 @@
     "address": "Prokofievova 4",
     "zipcode": "851 01",
     "city": "Bratislava 5",
-    "phone": "02/208 36 555",
+    "phone": "02/208 36 557",
     "fax": "02/63 81 02 55",
     "email": "podatelna.opba5@genpro.gov.sk",
     "electronic_registry": "ico://sk/00166448",
@@ -3519,7 +3537,7 @@
         },
         "position": "okresná prokurátorka",
         "rank": 1,
-        "phone": "02/208 36 555"
+        "phone": "02/208 36 557"
       },
       {
         "name": "JUDr. Viktor Laifer",
@@ -3538,7 +3556,7 @@
         },
         "position": "námestník okresnej prokurátorky",
         "rank": 2,
-        "phone": "02/208 36 555"
+        "phone": "02/208 36 557"
       },
       {
         "name": "Mgr. Jarmila Poráziková",
@@ -3557,7 +3575,7 @@
         },
         "position": "námestníčka okresnej prokurátorky",
         "rank": 3,
-        "phone": "02/208 36 555"
+        "phone": "02/208 36 557"
       },
       {
         "name": "Jana Schmögerová",
@@ -3576,7 +3594,7 @@
         },
         "position": "vedúca správy registratúry",
         "rank": 4,
-        "phone": "02/208 36 555"
+        "phone": "02/208 36 557"
       }
     ]
   },
@@ -3587,7 +3605,6 @@
     "zipcode": "977 31",
     "city": "Brezno",
     "phone": "048/28 36 711",
-    "fax": null,
     "email": "podatelna.opbr@genpro.gov.sk",
     "electronic_registry": "ico://sk/00166456",
     "registry": {
@@ -3669,7 +3686,6 @@
     "city": "Čadca",
     "phone": "041/43 23 691",
     "fax": "041/43 22 779",
-    "email": null,
     "electronic_registry": "ico://sk/35996072",
     "registry": {
       "note": "",
@@ -4608,6 +4624,25 @@
         "phone": "036/63 12 411"
       },
       {
+        "name": "JUDr. Katarína Behulová",
+        "name_parts": {
+          "last": "Behulová",
+          "role": null,
+          "first": "Katarína",
+          "flags": [
+
+          ],
+          "middle": null,
+          "prefix": "JUDr.",
+          "suffix": null,
+          "addition": null,
+          "unprocessed": "JUDr. Katarína Behulová"
+        },
+        "position": "poverená výkonom funkcie námestníčky okresnej prokurátorky v Leviciach",
+        "rank": 3,
+        "phone": "036/63 12 411"
+      },
+      {
         "name": "Ing. Miroslava Šuníková",
         "name_parts": {
           "last": "Šuníková",
@@ -4623,7 +4658,7 @@
           "unprocessed": "Ing. Miroslava Šuníková"
         },
         "position": "vedúca správy registratúry",
-        "rank": 3,
+        "rank": 4,
         "phone": "036/63 12 411"
       }
     ]
@@ -5751,7 +5786,7 @@
           "addition": null,
           "unprocessed": "JUDr. Viktor Švirk"
         },
-        "position": "poverený výkonom funkcie námestníka okresného prokurátora",
+        "position": "námestník okresného prokurátora v Poprade",
         "rank": 2,
         "phone": "052/77 21 847"
       },
@@ -7317,7 +7352,6 @@
     "zipcode": "965 01",
     "city": "Žiar nad Hronom",
     "phone": "045/28 36 211",
-    "fax": null,
     "email": "podatelna.opzh@genpro.gov.sk",
     "electronic_registry": "ico://sk/00166456",
     "registry": {
@@ -7413,25 +7447,6 @@
       "phone": null
     },
     "employees": [
-      {
-        "name": "JUDr. Marcel Gondžur",
-        "name_parts": {
-          "last": "Gondžur",
-          "role": null,
-          "first": "Marcel",
-          "flags": [
-
-          ],
-          "middle": null,
-          "prefix": "JUDr.",
-          "suffix": null,
-          "addition": null,
-          "unprocessed": "JUDr. Marcel Gondžur"
-        },
-        "position": "okresný prokurátor",
-        "rank": 1,
-        "phone": "041/56 21 349"
-      },
       {
         "name": "JUDr. Ladislav Ľorko",
         "name_parts": {
