@@ -1062,10 +1062,10 @@
     "temporary_office": null
   },
   {
-    "name": "JUDr. doc. Radovan Blažek, PhD.",
+    "name": "doc. JUDr. Radovan Blažek, PhD.",
     "name_parts": {
-      "unprocessed": "Blažek Radovan, JUDr. Doc., PhD.",
-      "prefix": "JUDr. doc.",
+      "unprocessed": "Blažek Radovan, doc. JUDr., PhD.",
+      "prefix": "doc. JUDr.",
       "first": "Radovan",
       "middle": null,
       "last": "Blažek",
@@ -1203,7 +1203,7 @@
       "role": null
     },
     "office": "Okresná prokuratúra Trebišov",
-    "temporary_office": null
+    "temporary_office": "Krajská prokuratúra v Košiciach"
   },
   {
     "name": "Mgr. Štefan Božík",
@@ -2016,10 +2016,10 @@
     "temporary_office": null
   },
   {
-    "name": "JUDr. Peter Dana",
+    "name": "JUDr. Mgr. Peter Dana",
     "name_parts": {
-      "unprocessed": "Dana Peter, JUDr.",
-      "prefix": "JUDr.",
+      "unprocessed": "Dana Peter, JUDr. Mgr.",
+      "prefix": "JUDr. Mgr.",
       "first": "Peter",
       "middle": null,
       "last": "Dana",
@@ -2031,24 +2031,6 @@
       "role": null
     },
     "office": "Okresná prokuratúra Bratislava II",
-    "temporary_office": null
-  },
-  {
-    "name": "JUDr. Peter Danielčák",
-    "name_parts": {
-      "unprocessed": "Danielčák Peter, JUDr.",
-      "prefix": "JUDr.",
-      "first": "Peter",
-      "middle": null,
-      "last": "Danielčák",
-      "suffix": null,
-      "addition": null,
-      "flags": [
-
-      ],
-      "role": null
-    },
-    "office": "Okresná prokuratúra Kežmarok",
     "temporary_office": null
   },
   {
@@ -2934,10 +2916,10 @@
     "temporary_office": null
   },
   {
-    "name": "Mgr. PhDr. Adrian Faga",
+    "name": "PhDr. Mgr. Adrian Faga",
     "name_parts": {
-      "unprocessed": "Faga Adrian, Mgr. PhDr.",
-      "prefix": "Mgr. PhDr.",
+      "unprocessed": "Faga Adrian, PhDr. Mgr.",
+      "prefix": "PhDr. Mgr.",
       "first": "Adrian",
       "middle": null,
       "last": "Faga",
@@ -3992,7 +3974,7 @@
       ],
       "role": null
     },
-    "office": "Okresná prokuratúra Žilina",
+    "office": "Krajská prokuratúra v Žiline",
     "temporary_office": null
   },
   {
@@ -4784,7 +4766,7 @@
       ],
       "role": null
     },
-    "office": "Okresná prokuratúra Spišská Nová Ves",
+    "office": "Okresná prokuratúra Košice I",
     "temporary_office": null
   },
   {
@@ -6048,24 +6030,6 @@
     "temporary_office": null
   },
   {
-    "name": "JUDr. Tatiana Jamborová",
-    "name_parts": {
-      "unprocessed": "Jamborová Tatiana, JUDr.",
-      "prefix": "JUDr.",
-      "first": "Tatiana",
-      "middle": null,
-      "last": "Jamborová",
-      "suffix": null,
-      "addition": null,
-      "flags": [
-
-      ],
-      "role": null
-    },
-    "office": "Krajská prokuratúra v Trnave",
-    "temporary_office": null
-  },
-  {
     "name": "JUDr. Michal Jamrich",
     "name_parts": {
       "unprocessed": "Jamrich Michal, JUDr.",
@@ -6264,10 +6228,10 @@
     "temporary_office": null
   },
   {
-    "name": "JUDr. PhDr. Jaroslav Jarabinský",
+    "name": "PhDr. JUDr. Jaroslav Jarabinský",
     "name_parts": {
-      "unprocessed": "Jarabinský Jaroslav, JUDr., PhDr.",
-      "prefix": "JUDr. PhDr.",
+      "unprocessed": "Jarabinský Jaroslav, PhDr. JUDr.",
+      "prefix": "PhDr. JUDr.",
       "first": "Jaroslav",
       "middle": null,
       "last": "Jarabinský",
@@ -7719,7 +7683,7 @@
       "role": null
     },
     "office": "Okresná prokuratúra Prešov",
-    "temporary_office": null
+    "temporary_office": "Krajská prokuratúra v Prešove"
   },
   {
     "name": "JUDr. Daniel Komora",
@@ -10836,10 +10800,10 @@
     "temporary_office": null
   },
   {
-    "name": "JUDr. Martin Mihók, PhD.",
+    "name": "PhDr. JUDr. Martin Mihók, PhD.",
     "name_parts": {
-      "unprocessed": "Mihók Martin, JUDr., PhD. LL.M.",
-      "prefix": "JUDr.",
+      "unprocessed": "Mihók Martin, PhDr. JUDr., PhD. LL.M.",
+      "prefix": "PhDr. JUDr.",
       "first": "Martin",
       "middle": null,
       "last": "Mihók",
@@ -11160,10 +11124,10 @@
     "temporary_office": null
   },
   {
-    "name": "JUDr. PhDr. Rudolf Mirdala, PhD.",
+    "name": "PhDr. JUDr. Rudolf Mirdala, PhD.",
     "name_parts": {
-      "unprocessed": "Mirdala Rudolf, JUDr., PhDr., PhD.",
-      "prefix": "JUDr. PhDr.",
+      "unprocessed": "Mirdala Rudolf, PhDr. JUDr., PhD.",
+      "prefix": "PhDr. JUDr.",
       "first": "Rudolf",
       "middle": null,
       "last": "Mirdala",
@@ -11247,24 +11211,6 @@
       "role": null
     },
     "office": "Okresná prokuratúra Trenčín",
-    "temporary_office": null
-  },
-  {
-    "name": "JUDr. Jaroslav Mojto, MBA",
-    "name_parts": {
-      "unprocessed": "Mojto Jaroslav, JUDr., LL.M., MBA",
-      "prefix": "JUDr.",
-      "first": "Jaroslav",
-      "middle": null,
-      "last": "Mojto",
-      "suffix": "MBA",
-      "addition": null,
-      "flags": [
-
-      ],
-      "role": null
-    },
-    "office": "Generálna prokuratúra Slovenskej republiky",
     "temporary_office": null
   },
   {
@@ -11862,10 +11808,10 @@
     "temporary_office": null
   },
   {
-    "name": "Mgr. PhDr. Mária Orlická",
+    "name": "PhDr. Mgr. Mária Orlická",
     "name_parts": {
-      "unprocessed": "Orlická Mária, Mgr., PhDr.",
-      "prefix": "Mgr. PhDr.",
+      "unprocessed": "Orlická Mária, PhDr. Mgr.",
+      "prefix": "PhDr. Mgr.",
       "first": "Mária",
       "middle": null,
       "last": "Orlická",
@@ -15356,7 +15302,7 @@
   {
     "name": "doc. JUDr. Ján Šanta, MBA PhD. MSc",
     "name_parts": {
-      "unprocessed": "Šanta Ján, doc., JUDr., MBA, LL.M., PhD., MSc.",
+      "unprocessed": "Šanta Ján, doc. JUDr., MBA, LL.M., PhD., MSc.",
       "prefix": "doc. JUDr.",
       "first": "Ján",
       "middle": null,
@@ -16070,7 +16016,7 @@
       ],
       "role": null
     },
-    "office": "Okresná prokuratúra Martin",
+    "office": "Okresná prokuratúra Žilina",
     "temporary_office": null
   },
   {
@@ -17874,24 +17820,6 @@
     "temporary_office": null
   },
   {
-    "name": "JUDr. Jozef Vrabec",
-    "name_parts": {
-      "unprocessed": "Vrabec Jozef, JUDr.",
-      "prefix": "JUDr.",
-      "first": "Jozef",
-      "middle": null,
-      "last": "Vrabec",
-      "suffix": null,
-      "addition": null,
-      "flags": [
-
-      ],
-      "role": null
-    },
-    "office": "Krajská prokuratúra v Žiline",
-    "temporary_office": null
-  },
-  {
     "name": "JUDr. Martin Vrabeľ",
     "name_parts": {
       "unprocessed": "Vrabeľ Martin, JUDr.",
@@ -18339,7 +18267,7 @@
       "role": null
     },
     "office": "Okresná prokuratúra Nitra",
-    "temporary_office": null
+    "temporary_office": "Krajská prokuratúra v Nitre"
   },
   {
     "name": "JUDr. Marián Zvoda",
