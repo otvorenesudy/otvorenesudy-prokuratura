@@ -1,15 +1,17 @@
 ---
 name: testing
-description: Guide for writing tests. Use this skill when asked to write tests or review written tests in the respository under spec/.
+description: Instructions for writing tests. Use these instructions when asked to write tests or review written tests for Ruby or Ruby on Rails code.
+applyTo: "spec/**/*_spec.rb"
 ---
 
-# Copilot Skill: Otvorena Prokuratura – RSpec Testing Style
+# RSpec Testing Style
 
 Use this skill whenever generating tests. Follow existing patterns in this repo and principles from betterspecs.org.
 
 ## General RSpec Conventions
 
 - Use `require 'rails_helper'` for model, lib, and integration specs.
+- Use `require 'spec_helper'` for any simple objects or library code.
 - Use `RSpec.describe ClassName, type: :model do` (or other appropriate type).
 - Prefer `subject { build(:model) }` or `subject(:name) { ... }` when it makes expectations concise.
 - Use `let` for lazily evaluated setup data; use descriptive names.
@@ -17,6 +19,19 @@ Use this skill whenever generating tests. Follow existing patterns in this repo 
 - Use one assertion per example where practical, but allow a small cluster where it clearly checks a single behavior.
 - Use `FactoryBot` factories instead of manual model construction.
 - Use `expect(...).to` and `expect { ... }.to` (for side effects and errors).
+- Always use present simple verbs in third person, e.g. `it 'fails'`, never `it 'should return ...'`. 
+- Define the messages with clear descriptions, use `context` for different scenarios, e.g. 
+
+```
+RSpec.describe "Downloader" do
+  context "when website is unavailable" do
+    it "fails" do
+    end
+  end
+end
+```
+
+- Use `context` for describing situation and `describe` to separate logical parts, e.g. see `Validations`.
 
 ## Model Specs
 
@@ -230,7 +245,7 @@ end
 - **Use `described_class`**: Refer to the subject under test via `described_class` instead of hardcoding the class name inside the block.
 - **Isolate external services**: Stub network calls, file system, and external APIs; never hit real services.
 
-## Writing New Specs in This Repo
+## Writing New Specs
 
 When Copilot generates new specs:
 
