@@ -1927,23 +1927,6 @@
         "phone": "051/28 36 113"
       },
       {
-        "name": "Ing. Milan Cenker",
-        "name_parts": {
-          "unprocessed": "Ing. Milan Cenker",
-          "prefix": "Ing.",
-          "first": "Milan",
-          "middle": null,
-          "last": "Cenker",
-          "suffix": null,
-          "addition": null,
-          "flags": [],
-          "role": null
-        },
-        "position": "poverený vedúci oddelenia informatiky",
-        "rank": 10,
-        "phone": "051/77 21 877"
-      },
-      {
         "name": "PhDr. Anna Cupráková",
         "name_parts": {
           "unprocessed": "PhDr. Anna Cupráková",
@@ -1957,7 +1940,7 @@
           "role": null
         },
         "position": "vedúca správy registratúry",
-        "rank": 11,
+        "rank": 10,
         "phone": "051/28 36 113"
       },
       {
@@ -1974,7 +1957,7 @@
           "role": null
         },
         "position": "bezpečnostný zamestnanec",
-        "rank": 12,
+        "rank": 11,
         "phone": "051/28 36 113"
       }
     ]
