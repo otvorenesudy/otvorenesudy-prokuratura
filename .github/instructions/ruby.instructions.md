@@ -11,10 +11,11 @@ Use this skill whenever generating Ruby or Ruby on Rails code.
 ## General Ruby & Formatting
 
 - Ruby 3.3, Rails 7.1, standard OOP style.
+- Use snake_case for variables/methods and CamelCase for classes/modules.
 - Two-space indentation, no tabs (configured in `.streerc`).
 - Line width: 120 characters (configured in `.streerc`).
 - Prefer single quotes for strings unless interpolation or special escaping is required.
-- **Avoid inline comments** in application code. Only use comments in very complex or non-obvious places, or for TODO comments for edge cases.
+- **Avoid inline comments** in application code. Only use comments in very complex or non-obvious places, or for TODO comments for edge cases that are not yet covered.
 - Keep methods short and focused. Extract private helpers instead of deeply nested conditionals.
 - Use newlines to visually and semantically separate parts of code.
 - Use early returns (`return head 404 unless ...`) to simplify branching.
@@ -64,6 +65,11 @@ end
 - Avoid deeply nested conditionals; prefer guard clauses and small extracted methods.
 - Use safe navigation (`&.`) instead of multiple `nil` checks when it improves readability.
 - Prefer `.present?`, `.blank?`, `.any?`, and related predicates over manual `nil`/empty checks.
+- Prefer enums and typed attributes for better model clarity and validations.
+- Avoid using `puts` for debugging — use `byebug`, `pry`, or logger utilities.
+- Use `Rails.cache` to store expensive computations or frequently accessed data.
+- Construct file paths with `Rails.root.join(...)` instead of hardcoding.
+- Use Rails generators to scaffold resources consistently.
 - Always format code using `syntax_tree` by running:
   ```bash
   bundle exec syntax_tree format --write <files or directories>
@@ -118,7 +124,9 @@ When generating new controllers:
 - Use strong params with `params.permit` grouped in private methods (`index_params`, `show_params`, etc.).
 - Keep instance variable setup explicit and ordered.
 - Follow RESTful conventions in routing and controller actions.
+- Apply the "fat model, skinny controller" pattern thoughtfully and with clean abstractions.
 - Use `before_action` callbacks sparingly; do not place business logic in callbacks.
+- Use `before_action` filters to load and authorize resources when appropriate.
 
 ## ApplicationController & Locale Handling
 
@@ -218,31 +226,65 @@ Document only complex or non-obvious code paths in models with concise comments.
 - Place authorization logic in `app/policies` if you introduce policy objects.
 - Isolate complex ActiveRecord queries in `app/queries` or service objects when they become hard to express as simple scopes.
 - Put custom validators in `app/validators` and custom data types in `app/types` when you need to extend ActiveModel type behavior.
+- Structure the GraphQL API by organizing schemas, queries, and mutations inside `app/graphql`.
 
 ## API Development
 
 - Structure routes using RESTful `resources` and namespacing (for example `/api/v1/`) when exposing APIs.
 - Return appropriate HTTP status codes for each response (for example 200 OK, 201 Created, 404 Not Found, 422 Unprocessable Entity).
+- Return errors in a structured JSON format including error codes, messages, and details.
 - Use strong parameters to sanitize and whitelist input.
+- Serialize responses using `ActiveModel::Serializer` or `fast_jsonapi` for consistent output.
+- Use custom serializers or presenters to decouple internal logic from response formatting.
 - Avoid N+1 queries by eager loading associations with `includes` where necessary.
-- Use pagination for endpoints returning large datasets.
+- Use pagination gems (e.g., `kaminari` or `pagy`) for endpoints returning large datasets.
+- Rate limit and throttle sensitive endpoints using middleware or gems like `rack-attack`.
 - Offload slow or non-blocking operations (such as sending emails or calling external APIs) to background jobs.
 - Log relevant request or job metadata via the Rails logger to aid debugging and observability.
+- Document endpoints using OpenAPI (Swagger), `rswag`, or `apipie-rails`.
+- Use CORS headers (`rack-cors`) to allow cross-origin access to your API when needed.
 - Ensure sensitive data is never exposed in JSON responses or error messages.
 
 ## Frontend Development
 
 - Use `app/javascript` as the main directory for managing JavaScript packs, modules, and Stimulus controllers.
+- Structure JavaScript by components or domains, not by file types, to keep things modular.
 - Prefer Hotwire (Turbo, Stimulus) and unobtrusive JavaScript patterns for UI behavior.
-- Keep view templates focused and extract repetitive markup into partials.
+- Use Stimulus controllers for binding behavior to HTML and managing UI logic declaratively.
+- Organize styles using SCSS modules, Tailwind, or BEM conventions under `app/assets/stylesheets`.
+- Keep view templates focused and extract repetitive markup into partials or view components.
 - Use semantic HTML and follow accessibility best practices.
 - Avoid inline JavaScript and inline styles; keep behavior in `.js` files and styles in stylesheets.
 - Use `data-*` attributes to connect HTML to Stimulus controllers and other frontend behavior.
 - Optimize assets via the asset pipeline or bundler configuration and prefer the helpers provided by Rails for asset paths.
+- Use environment-specific asset loading to prevent unnecessary scripts or styles in production.
+- Follow a design system or component library to keep UI consistent and scalable.
+- Optimize time-to-first-paint and asset loading using lazy loading, Turbo Frames, and deferring JS.
+- Test frontend functionality using system tests (Capybara) or integration tests with tools like Cypress or Playwright.
+
+## Commands
+
+- Use `rails generate` to create new models, controllers, and migrations.
+- Use `rails db:migrate` to apply database migrations.
+- Use `rails db:seed` to populate the database with initial data.
+- Use `rails db:rollback` to revert the last migration.
+- Use `rails console` to interact with the Rails application in a REPL environment.
+- Use `rails server` to start the development server.
+- Use `rails test` to run the test suite.
+- Use `rails routes` to list all defined routes in the application.
+- Use `rails assets:precompile` to compile assets for production.
 
 ## Testing
 
 - Always write tests for new functionality and bug fixes, following the patterns in this repository.
 - Use RSpec with `FactoryBot` and the guidelines in `rspec.instructions.md` for organizing and structuring specs.
 - Prefer fast, deterministic tests; stub or mock external services instead of calling them directly.
+- Avoid hitting external APIs in tests — use `WebMock`, `VCR`, or `stub_request` to isolate test environments.
 - Cover important flows through request or feature/system specs where it adds value, but keep the majority of logic in unit-level tests for models, services, and other plain Ruby objects.
+- Run test coverage tools like `SimpleCov` to ensure adequate code coverage.
+- Avoid `sleep` in tests; use `perform_enqueued_jobs` or `ActiveJob::TestHelper` with RSpec.
+- Use database cleaning tools (`DatabaseCleaner` or `transactional_fixtures`) to maintain clean state between tests.
+- Test background jobs using `have_enqueued_job` matchers.
+- Use custom RSpec matchers for reusable and expressive test logic.
+- Avoid brittle tests — don't rely on specific timestamps, randomized data, or order unless explicitly necessary.
+- Keep tests fast, reliable, and as DRY as production code.

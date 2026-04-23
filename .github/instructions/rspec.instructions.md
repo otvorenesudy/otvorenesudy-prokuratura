@@ -1,6 +1,6 @@
 ---
-name: testing
-description: Instructions for writing tests. Use these instructions when asked to write tests or review written tests for Ruby or Ruby on Rails code.
+name: RSpec Testing
+description: Instructions for writing tests in RSpec. Use these instructions when asked to write tests or review written tests for Ruby or Ruby on Rails code with RSpec library.
 applyTo: "spec/**/*_spec.rb"
 ---
 
