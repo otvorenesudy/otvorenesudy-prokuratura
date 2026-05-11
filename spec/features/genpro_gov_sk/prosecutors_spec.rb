@@ -5,10 +5,9 @@ RSpec.describe 'GenproGovSk Prosecutors', type: :feature do
     GenproGovSk::Offices.import
     GenproGovSk::Prosecutors.import
 
-    expected_prosecutors =
-      JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'prosecutors', 'all_prosecutors.json')))
-
-    expect(::Prosecutor.count).to eq(expected_prosecutors.size)
+    prosecutors_list = GenproGovSk::ProsecutorsList.order(:created_at).last
+    expect(prosecutors_list).to be_present
+    expect(::Prosecutor.count).to eq(prosecutors_list.data.size)
 
     prosecutor = Prosecutor.find_by(name: 'Mgr. Martin Draľ')
     expect(prosecutor.name).to eq('Mgr. Martin Draľ')
