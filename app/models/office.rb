@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: offices
@@ -48,7 +50,7 @@ class Office < ApplicationRecord
 
   has_many :employees, dependent: :destroy
   has_many :appointments, dependent: :destroy
-  has_many :active_appointments, -> { current }, class_name: :Appointment, dependent: :destroy
+  has_many :active_appointments, -> { current }, class_name: :Appointment, dependent: :destroy, inverse_of: :office
   has_many :prosecutors, through: :active_appointments
   has_many :statistics, dependent: :destroy
   has_many :decrees, dependent: :nullify
@@ -114,13 +116,13 @@ class Office < ApplicationRecord
           address: <<-TEXT
           #{values[3] ? "#{values[2]} (#{values[3]})" : values[2]},
           #{values[4]} #{values[5]}
-        TEXT
+          TEXT
         }
       end
   end
 
   def self.all_by_name_map
-    all.each.with_object({}) { |office, hash| [office.name, *office.synonyms].each { |name| hash[name] = office.id } }
+    find_each.with_object({}) { |office, hash| [office.name, *office.synonyms].each { |name| hash[name] = office.id } }
   end
 
   private

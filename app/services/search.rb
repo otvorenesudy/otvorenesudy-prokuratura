@@ -23,24 +23,24 @@ class Search
 
   def facets_for(key, suggest: nil, limit: nil, selected_first: false)
     key = key.to_sym
-    except = filters[key].try(:except) || key
-    limit ||= (filters[key].respond_to?(:facets_limit) ? filters[key].facets_limit : 10)
-
-    all =
-      filters[key]
-      .facets(all(except: except).reorder(''), suggest: suggest || params["#{key}_suggest"])
-      .each
-      .with_object({}) { |(key, value), hash| hash[key.to_s] = value }
-
+    all = facet_counts(key, suggest || params["#{key}_suggest"])
+    limit ||= filters[key].respond_to?(:facets_limit) ? filters[key].facets_limit : 10
     facets = limit ? all.first(limit).to_h : all
 
     return facets if params[key].blank? || suggest.present?
 
-    selected =
-      params[key].select { |e| !e.match(/\A_/) }.each.with_object({}) { |value, hash| hash[value] = all[value] || nil }
+    selected = params[key].reject { |value| value.start_with?('_') }.index_with { |value| all[value] }
 
-    return selected.merge(facets.except(*selected.keys)) if selected_first
+    selected_first ? selected.merge(facets.except(*selected.keys)) : selected.except(*facets.keys).merge(facets)
+  end
 
-    selected.except(*facets.keys).merge(facets)
+  private
+
+  # The facet's values and their counts in the results of every other filter.
+  def facet_counts(key, suggest)
+    filter = filters[key]
+    relation = all(except: filter.try(:except) || key).reorder('')
+
+    filter.facets(relation, suggest:).to_h { |value, count| [value.to_s, count] }
   end
 end

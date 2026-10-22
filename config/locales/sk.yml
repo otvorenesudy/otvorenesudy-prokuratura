@@ -544,9 +544,9 @@ sk:
       page_title: "Prokuratúra · Kriminalita"
       title: Prokuratúra
       subtitle: "Štatistika – %{metric}"
-      subtitle_with_paragraphs: "Štatistika – %{metric} pre paragrafy %{paragraphs}"
+      subtitle_with_paragraphs_html: "Štatistika – %{metric} pre paragrafy %{paragraphs}"
       subtitle_for_default_params: "Vývoj trestania korupčných trestných činov"
-      subtitle_for_default_params_with_paragraphs: "Vývoj trestania korupčných trestných činov %{paragraphs}"
+      subtitle_for_default_params_with_paragraphs_html: "Vývoj trestania korupčných trestných činov %{paragraphs}"
       show_paragraphs: Zobraziť paragrafy
       no_data: Neboli nájdené žiadne štatistiky pre vaše vyhľadávacie kritéria
       enlarge_chart: Zväčšiť
@@ -625,7 +625,7 @@ sk:
       title: "Polícia"
       subtitle_for_default_params: "Vývoj vyšetrovania korupčných trestných činov"
       monetary_subtitle: Hmnotné škody
-      by_paragraphs_subtitle: podľa paragrafov %{paragraphs}
+      by_paragraphs_subtitle_html: podľa paragrafov %{paragraphs}
       show_paragraphs: Zobraziť paragrafy
       no_data: Neboli nájdené žiadne štatistiky pre vaše vyhľadávacie kritéria
       data_disclaimer: Disclaimer

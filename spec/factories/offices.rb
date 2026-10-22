@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: offices
@@ -39,7 +41,7 @@
 #
 FactoryBot.define do
   factory :office do
-    association :'genpro_gov_sk_office'
+    genpro_gov_sk_office
 
     type { :district }
 

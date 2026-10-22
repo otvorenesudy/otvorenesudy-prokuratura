@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # The name normalizer's String extension: the text with its letters stripped of diacritics and anything outside ASCII
 # dropped, to compare titles and names regardless of how they're written.
 module Legacy

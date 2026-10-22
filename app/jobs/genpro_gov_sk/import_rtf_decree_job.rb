@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'r_t_f_extractor'
 
 module GenproGovSk

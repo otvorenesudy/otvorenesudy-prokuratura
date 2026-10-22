@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'p_d_f_extractor'
 require 'r_t_f_extractor'
 
@@ -38,23 +40,25 @@ class ReconcileDecreeJob < ApplicationJob
   def reconcile_prosecutor(decree, office)
     signature = decree.signature
 
-    prosecutors =
-      [
-        *Prosecutor.joins(:offices).merge(Office.where(id: office)).distinct.pluck(:id, :name_parts),
-        *Prosecutor.joins(:past_offices).merge(Office.where(id: office)).distinct.pluck(:id, :name_parts),
-        *Prosecutor.distinct.pluck(:id, :name_parts)
-      ].map { |(id, name)| [id, [name['first'], name['middle'], name['last']].compact] }
-
     prosecutor =
-      prosecutors.find do |(id, name)|
+      candidate_prosecutors(office).find do |(_id, name)|
         name.permutation(name.size).any? { |e| signature.match(/#{e.join(' ').squeeze(' ')}/i) }
       end
 
-    if prosecutor
-      decree.update(prosecutor_id: prosecutor[0])
+    return unless prosecutor
 
-      Prosecutor.reset_counters(prosecutor[0], :decrees)
-    end
+    decree.update(prosecutor_id: prosecutor[0])
+
+    Prosecutor.reset_counters(prosecutor[0], :decrees)
+  end
+
+  # The prosecutors to look for in the signature, those at the office or formerly there first, with their names' parts.
+  def candidate_prosecutors(office)
+    [
+      *Prosecutor.joins(:offices).merge(Office.where(id: office)).distinct.pluck(:id, :name_parts),
+      *Prosecutor.joins(:past_offices).merge(Office.where(id: office)).distinct.pluck(:id, :name_parts),
+      *Prosecutor.distinct.pluck(:id, :name_parts)
+    ].map { |(id, name)| [id, [name['first'], name['middle'], name['last']].compact] }
   end
 
   def reconcile_paragraph(decree)
@@ -65,7 +69,7 @@ class ReconcileDecreeJob < ApplicationJob
     after_paragraph = matches[3]
 
     _, _, paragraph_section = *after_paragraph.match(/((.+?)(Trestného zákona|Tr. zák))?/i)
-    paragraph_type = after_paragraph.match(/1961/) ? 'old' : 'new'
+    paragraph_type = after_paragraph.include?('1961') ? 'old' : 'new'
     paragraph = Paragraph.find_by(type: paragraph_type, value: "#{matches[2]} [#{paragraph_type}]")
 
     return unless paragraph

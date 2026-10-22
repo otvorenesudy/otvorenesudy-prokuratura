@@ -530,9 +530,9 @@ en:
       title: Prosecutors
       page_title: "Prosecutors · Criminality"
       subtitle: "Metric – %{metric}"
-      subtitle_with_paragraphs: "Metric – %{metric} – by paragraphs %{paragraphs}"
+      subtitle_with_paragraphs_html: "Metric – %{metric} – by paragraphs %{paragraphs}"
       subtitle_for_default_params: Overview by Corruption Prosecution
-      subtitle_for_default_params_with_paragraphs: "Overview by Corruption Prosecution %{paragraphs}"
+      subtitle_for_default_params_with_paragraphs_html: "Overview by Corruption Prosecution %{paragraphs}"
       show_paragraphs: Show Paragraphs
       no_data: "No statitics found for the given criteria"
       enlarge_chart: Enlarge
@@ -611,7 +611,7 @@ en:
       title: "Police"
       subtitle_for_default_params: "Overview by Corruption Criminality"
       monetary_subtitle: Material Damages
-      by_paragraphs_subtitle: by paragraphs %{paragraphs}
+      by_paragraphs_subtitle_html: by paragraphs %{paragraphs}
       show_paragraphs: Show Paragraphs
       no_data: No statistics found for the given criteria
       data_disclaimer: Disclaimer

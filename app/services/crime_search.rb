@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CrimeSearch
-  attr_reader :search, :params, :current_statistic_metrics, :current_statistic_paragraphs, :default_params
+  attr_reader :search, :current_statistic_metrics, :current_statistic_paragraphs, :default_params
 
   def initialize(params)
     @default_params = {
@@ -77,9 +77,9 @@ class CrimeSearch
             groupped.map do |metric, values|
               {
                 name: metric_to_human(metric),
-                group: Crime::GROUPS.find { |group, values| metric.to_sym.in?(values) }[0],
+                group: Crime::GROUPS.find { |_group, values| metric.to_sym.in?(values) }[0],
                 metric: metric,
-                monetary: metric === 'crime_denominated_damage',
+                monetary: metric == 'crime_denominated_damage',
                 data: years.map { |e| values[e] }
               }
             end
@@ -95,8 +95,8 @@ class CrimeSearch
     end
   end
 
-  def has_metric?(value)
-    @metrics ||= search.all.unscope(where: :metric).pluck(Arel.sql('DISTINCT crimes.metric')).map(&:to_sym)
+  def metric?(value)
+    @metrics ||= all.unscope(where: :metric).pluck(Arel.sql('DISTINCT crimes.metric')).map(&:to_sym)
 
     params[:metric].blank? || value.in?(@metrics)
   end
@@ -104,7 +104,7 @@ class CrimeSearch
   private
 
   def metric_to_human(value)
-    group = Crime::GROUPS.find { |group, values| value.to_sym.in?(values) }[0]
+    group = Crime::GROUPS.find { |_group, values| value.to_sym.in?(values) }[0]
 
     "#{I18n.t("crimes.index.search.#{group}.title")} – #{I18n.t("models.crime.metrics.#{value}")}"
   end
@@ -114,7 +114,7 @@ class CrimeSearch
       params[:metric] = [*@default_params[:metric], 'crime_denominated_damage']
     end
 
-    params.each do |key, value|
+    params.each_key do |key|
       if params[key].present? && '_all'.in?(params[key]) && (params[key].size > 1 || key.in?(%w[paragraph]))
         params[key] -= %w[_all]
       end
@@ -130,18 +130,18 @@ class CrimeSearch
       relation.where(year: params[:year])
     end
 
-    def self.facets(relation, suggest:)
+    def self.facets(relation, **)
       relation.reorder(year: :desc).group(:year).count
     end
   end
 
   class MetricFilter
     def self.filter(relation, params)
-      return relation unless params[:metric].present?
+      return relation if params[:metric].blank?
 
       metric = params[:metric]
 
-      relation = relation.where(metric: metric)
+      relation.where(metric: metric)
     end
   end
 
@@ -172,7 +172,6 @@ class CrimeSearch
 
       scope =
         Paragraph
-        .all
         .order(Arel.sql("array_position(ARRAY[#{highlights.join(',')}] :: text[], value :: text) ASC NULLS LAST"))
         .order(name: :asc)
 

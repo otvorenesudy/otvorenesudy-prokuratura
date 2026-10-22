@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: decrees
@@ -39,7 +41,7 @@
 class Decree < ApplicationRecord
   belongs_to :prosecutor, optional: true, counter_cache: true
   belongs_to :office, optional: true, counter_cache: true
-  belongs_to :genpro_gov_sk_decree, class_name: :'GenproGovSk::Decree', required: true
+  belongs_to :genpro_gov_sk_decree, class_name: :'GenproGovSk::Decree', optional: false
   belongs_to :paragraph, optional: true
 
   enum :file_type, { pdf: 0, rtf: 1 }
@@ -68,5 +70,4 @@ class Decree < ApplicationRecord
   def signature
     normalized_text.last(100)
   end
-
 end

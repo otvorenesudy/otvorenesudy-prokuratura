@@ -82,10 +82,10 @@ module GenproGovSk
         'Okresná prokuratúra Trebišov' => 'Okresná prokuratúra Trebišov',
         'Justičná akadémia SR' => 'Justičná akadémia SR',
         'EUROJUST' => 'EUROJUST'
-      }
+      }.freeze
 
       def self.parse(rows)
-        rows.map.with_index { |row, i| parse_row(row) }
+        rows.map { |row| parse_row(row) }
       end
 
       class << self
@@ -138,7 +138,7 @@ module GenproGovSk
         end
 
         def parse_office_or_place(value)
-          return nil unless value.present?
+          return nil if value.blank?
 
           value.gsub(/–|—/, '-').strip
         end

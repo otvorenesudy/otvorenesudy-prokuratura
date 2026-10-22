@@ -62,7 +62,7 @@
       </div>
 
       <% Crime::GROUPS.each do |group, metrics| %>
-        <% metrics.select { |metric| @search.has_metric?(metric) }.tap do |facets| %>
+        <% metrics.select { |metric| @search.metric?(metric) }.tap do |facets| %>
           <% if facets.any? %>
             <div class="facet">
               <h6 class="facet-title" role="button" data-bs-toggle="collapse" data-bs-target="#crimes-<%= group %>-content" aria-expanded="true" aria-controls="crimes-<%= group %>-content">

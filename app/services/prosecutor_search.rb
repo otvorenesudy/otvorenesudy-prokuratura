@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProsecutorSearch
   attr_reader :search
 
@@ -41,7 +43,7 @@ class ProsecutorSearch
       relation.joins(:offices).where(offices: { type: params[:type] }).distinct
     end
 
-    def self.facets(relation, suggest:)
+    def self.facets(relation, **)
       relation
         .joins(:offices)
         .group('offices.type')

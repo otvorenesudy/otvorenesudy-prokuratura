@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 class Unoconv
   def self.convert(path)
     text = `timeout 10s unoconv -p 2002 -n --stdout -f text #{path}`
 
-    raise ArgumentError, "Unoconv failed with [#{$?.exitstatus}] status for [#{path}]" unless $?.exitstatus.zero?
+    status = Process.last_status.exitstatus
+
+    raise ArgumentError, "Unoconv failed with [#{status}] status for [#{path}]" unless status.zero?
 
     text
   end

@@ -8,6 +8,25 @@ RSpec.describe GenproGovSk::Criminality::StructureParser do
       described_class.parse(fixture("genpro_gov_sk/criminality/structure-#{year}.csv").read(encoding: 'Windows-1250'))
     end
 
+    it 'sums the accused recidivists from their kinds where the table lacks their total' do
+      offices = GenproGovSk::Criminality::OFFICES_MAP.keys
+      text = [
+        ['Za obdobie: od 01.01.2024 do 31.12.2024', '', *offices],
+        ['Obžalovaní recidivisti recidivisti', '', *Array.new(offices.size, '3')],
+        ['Obžalovaní recidivisti obzvlášť nebezpeční recidivisti', '', *Array.new(offices.size, '1')]
+      ].map { |row| row.join(';') }.join("\n")
+
+      general = described_class.parse(text).find do |data|
+        data[:office] == 'Generálna prokuratúra Slovenskej republiky'
+      end
+
+      expect(general[:statistics]).to contain_exactly(
+        { metric: :accused_recidivists_only, count: 3 },
+        { metric: :accused_recidivists_dangerous, count: 1 },
+        { metric: :accused_recidivists_all, count: 4 }
+      )
+    end
+
     it 'parses the 2024 structure with its new metrics, for every office' do
       result = parse(2024)
       general = result.first
@@ -15,7 +34,7 @@ RSpec.describe GenproGovSk::Criminality::StructureParser do
       expect(result.size).to eq(63)
       expect(general[:year]).to eq('2024')
       expect(general[:unknown]).to be_empty
-      expect(general[:statistics].map { |statistic| statistic[:metric] }).to include(
+      expect(general[:statistics].pluck(:metric)).to include(
         :prosecuted_legal_entities, :prosecuted_young_boys, :prosecuted_young_girls, :prosecuted_alcohol_abuse,
         :prosecuted_substance_abuse, :prosecuted_foreigners, :accused_recidivists_all
       )
@@ -70,7 +89,7 @@ RSpec.describe GenproGovSk::Criminality::StructureParser do
     end
 
     it 'does not ignore valid metrics' do
-      expect(described_class.ignore_title?('Skladba stíhaných osôb muži')).to be_falsey
+      expect(described_class).not_to be_ignore_title('Skladba stíhaných osôb muži')
     end
   end
 end

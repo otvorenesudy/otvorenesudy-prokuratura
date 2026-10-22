@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: crimes
@@ -33,7 +35,7 @@ class Crime < ApplicationRecord
 
       Rails.logger.silence do
         records.each do |record|
-          Crime.upsert(
+          Crime.upsert( # rubocop:disable Rails/SkipsModelValidations -- thousands of parsed rows
             record.slice(:year, :metric, :paragraph, :count),
             unique_by: %i[year metric paragraph],
             returning: false
@@ -71,5 +73,5 @@ class Crime < ApplicationRecord
       persons_adolescent_offender_alcohol_abuse
       persons_adolescent_offender_drug_abuse
     ]
-  }
+  }.freeze
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 set :stage, :production
 set :branch, 'main'
 set :app_path, "#{fetch(:application)}-#{fetch(:stage)}"

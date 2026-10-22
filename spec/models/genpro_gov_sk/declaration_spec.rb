@@ -48,7 +48,7 @@ RSpec.describe GenproGovSk::Declaration do
 
       described_class.reconcile!
 
-      expect(novak.reload.declarations.map { |data| data['year'] }).to eq([2023])
+      expect(novak.reload.declarations.pluck('year')).to eq([2023])
       expect(novak.all_appointments.past).to be_empty
     end
 
@@ -59,7 +59,7 @@ RSpec.describe GenproGovSk::Declaration do
 
       2.times { described_class.reconcile! }
 
-      expect(novak.reload.declarations.map { |data| data['year'] }).to contain_exactly(2022, 2023)
+      expect(novak.reload.declarations.pluck('year')).to contain_exactly(2022, 2023)
     end
   end
 end

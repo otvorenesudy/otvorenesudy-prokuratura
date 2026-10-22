@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe MinvSk::Criminality::Parser do
@@ -145,6 +147,14 @@ RSpec.describe MinvSk::Criminality::Parser do
           5
         )
       end
+    end
+
+    it 'refuses a table with a breakdown it does not know' do
+      rows = CSV.parse(fixture('minv_sk/criminality/2002.csv').binread.force_encoding('Windows-1250').encode('UTF-8'))
+      rows[6][1] = 'Neznáme'
+      csv = CSV.generate { |output| rows.each { |row| output << row } }.encode('Windows-1250')
+
+      expect { described_class.parse(csv) }.to raise_error(RuntimeError, 'Unknown breakdown: Neznáme')
     end
   end
 end

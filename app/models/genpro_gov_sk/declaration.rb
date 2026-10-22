@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: genpro_gov_sk_declarations
@@ -23,9 +25,7 @@ module GenproGovSk
       digest = Digest::MD5.hexdigest(file)
       genpro_gov_sk_declaration = find_by(digest: digest)
 
-      if genpro_gov_sk_declaration && data.as_json == genpro_gov_sk_declaration.data
-        return
-      end
+      return if genpro_gov_sk_declaration && data.as_json == genpro_gov_sk_declaration.data
 
       genpro_gov_sk_declaration ||= new(digest: digest, file: file)
 
@@ -38,31 +38,10 @@ module GenproGovSk
     def self.reconcile!
       find_each do |genpro_gov_sk_declaration|
         data = genpro_gov_sk_declaration.data.deep_symbolize_keys
-
         office = ::Office.find_by(name: data[:office])
-        prosecutor = ::Prosecutor.find_by_fuzzy_name(data[:name], office: office)
+        prosecutor = ::Prosecutor.fuzzy_find(data[:name], office:) || create_prosecutor(data[:name])
 
-        started_at = Time.parse("#{data[:year]}-01-01")
-        ended_at = Time.parse("#{data[:year]}-12-31")
-
-        unless prosecutor
-          prosecutor = ::Prosecutor.lock.find_or_initialize_by(name: data[:name])
-
-          prosecutor.name_parts = ::Legacy::Normalizer.partition_person_name(data[:name])
-          prosecutor.save!
-        end
-
-        place = office ? nil : data[:office]
-
-        if office.present? || place.present?
-          prosecutor.appointments.find_or_create_by!(
-            office: office,
-            place: place,
-            started_at: started_at,
-            ended_at: ended_at,
-            type: :fixed
-          )
-        end
+        appoint(prosecutor, office:, place: (data[:office] unless office), year: data[:year])
 
         prosecutor.declarations = (prosecutor.declarations || []).reject { |value| value['year'] == data[:year] }
         prosecutor.declarations << data.merge(genpro_gov_sk_declaration_id: genpro_gov_sk_declaration.id)
@@ -71,6 +50,30 @@ module GenproGovSk
       end
 
       Prosecutor.refresh_search_view
+    end
+
+    class << self
+      private
+
+      def create_prosecutor(name)
+        ::Prosecutor.lock.find_or_initialize_by(name:).tap do |prosecutor|
+          prosecutor.name_parts = ::Legacy::Normalizer.partition_person_name(name)
+          prosecutor.save!
+        end
+      end
+
+      # The declaration's year at its office, or at a place outside the offices; nothing when it names neither.
+      def appoint(prosecutor, office:, place:, year:)
+        return if office.blank? && place.blank?
+
+        prosecutor.appointments.find_or_create_by!(
+          office:,
+          place:,
+          started_at: Time.zone.parse("#{year}-01-01"),
+          ended_at: Time.zone.parse("#{year}-12-31"),
+          type: :fixed
+        )
+      end
     end
   end
 end

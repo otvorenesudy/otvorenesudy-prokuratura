@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module OfficeHelper
-  def offices_path(*args, &block)
-    path = super(*args, &block)
+  def offices_path(*args, &)
+    path = super
 
     args.any? && args[0].any? ? "#{path}#facets" : path
   end

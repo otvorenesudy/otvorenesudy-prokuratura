@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GenproGovSk
   class ImportDeclarationsJob < ApplicationJob
     queue_as :default
@@ -75,24 +77,22 @@ module GenproGovSk
     def perform(url)
       content = Nokogiri.HTML(Curl.get(url).body_str)
 
-      content.css('.govuk-table__row')[1..-1].each do |row|
-        name =
-          "#{row.css('td')[1].text.strip} #{row.css('td')[0].text.strip}"
-            .gsub(/[;]/, '')
-            .gsub(/[[:space:]]+/, ' ')
-            .titleize
+      content.css('.govuk-table__row')[1..].each { |row| import(row.css('td')) }
+    end
 
-        office = OFFICES_MAP[row.css('td')[2].text.strip] || OFFICES_MAP[row.css('td')[3].text.strip]
-        url = "https://www.genpro.gov.sk/#{row.css('td')[0].css('a')[0]['href']}"
-        html = Curl.get(url).body_str
+    private
 
-        declaration = GenproGovSk::Declarations::Parser.parse(html)
+    # A row of the listing: the prosecutor's last and first name, their office's code (in the third or fourth cell) and
+    # the link to their declaration.
+    def import(cells)
+      name = "#{cells[1].text.strip} #{cells[0].text.strip}".delete(';').gsub(/[[:space:]]+/, ' ').titleize
+      office = OFFICES_MAP[cells[2].text.strip] || OFFICES_MAP[cells[3].text.strip]
+      url = "https://www.genpro.gov.sk/#{cells[0].css('a')[0]['href']}"
+      html = Curl.get(url).body_str
 
-        GenproGovSk::Declaration.import_from(
-          data: declaration.merge(name: name, office: office.presence, url: url),
-          file: html
-        )
-      end
+      declaration = GenproGovSk::Declarations::Parser.parse(html)
+
+      GenproGovSk::Declaration.import_from(data: declaration.merge(name:, office: office.presence, url:), file: html)
     end
   end
 end

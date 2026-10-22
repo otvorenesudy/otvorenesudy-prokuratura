@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: appointments
@@ -27,7 +29,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe Appointment, type: :model do
+RSpec.describe Appointment do
   subject { build(:appointment, place: 'place') }
 
   it { is_expected.to belong_to(:genpro_gov_sk_prosecutors_list).optional(true) }

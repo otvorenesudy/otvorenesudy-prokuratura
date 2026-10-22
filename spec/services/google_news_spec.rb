@@ -37,8 +37,8 @@ RSpec.describe GoogleNews do
         [['SME', 'Obžaloba v Žiline'], ['Denník N', 'Prokurátor podal obžalobu'], ['Aktuality', 'Súd v Žiline'],
          [nil, 'Staršia správa']]
       )
-      expect(news['data'].map { |article| article['snippet'] }.first(2)).to eq([' O Obžaloba v Žiline viac ',
-                                                                                'Popis z Denníka N'])
+      expect(news['data'].pluck('snippet').first(2)).to eq([' O Obžaloba v Žiline viac ',
+                                                            'Popis z Denníka N'])
     end
 
     it 'takes the title and the snippet from the search, where the page names no title of its own' do
@@ -55,6 +55,16 @@ RSpec.describe GoogleNews do
       expect(office.reload.news['data'].map { |article| article.values_at('title', 'snippet') }).to eq(
         [['Bez metaúdajov', ' O Bez metaúdajov viac '], ['Bez titulku', ' O Bez titulku viac ']]
       )
+    end
+
+    it 'names no source for an article of another newspaper' do
+      office = Office.find_by!(name: 'Okresná prokuratúra Žilina')
+      stub_request(:get, search).to_return(results(item('https://www.pravda.sk/clanok/1/', 'Obžaloba')))
+
+      described_class.cache_for(Office, ids: [office.id])
+
+      expect(office.reload.news['data'].map { |article| article.values_at('source', 'title') })
+        .to eq([[nil, 'Obžaloba']])
     end
 
     it 'looks for the General Prosecutor\'s Office by its short name' do
@@ -86,7 +96,8 @@ RSpec.describe GoogleNews do
       prosecutor = create(:prosecutor, name_parts: { first: 'Ján', last: 'Novák' })
 
       expect(described_class.search_url_for(prosecutor)).to eq(
-        'https://google.com/search?q=Ján Novák prokurátor prokuratúra site:dennikn.sk OR site:aktuality.sk OR site:sme.sk'
+        'https://google.com/search?q=Ján Novák prokurátor prokuratúra ' \
+        'site:dennikn.sk OR site:aktuality.sk OR site:sme.sk'
       )
     end
   end

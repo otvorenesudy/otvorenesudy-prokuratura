@@ -190,8 +190,8 @@ RSpec.describe 'Prosecutors' do
     end
 
     it 'shows each year\'s estate declaration in its tab', :js do
-      novak = prosecutor('Ján Novák', office: kosice,
-                                      declarations: [declaration(2022, office: kosice), declaration(2023, office: kosice)])
+      declarations = [declaration(2022, office: kosice), declaration(2023, office: kosice)]
+      novak = prosecutor('Ján Novák', office: kosice, declarations:)
 
       visit prosecutor_path(novak)
 
@@ -238,14 +238,12 @@ RSpec.describe 'Prosecutors' do
     end
 
     it 'links the news about the prosecutor, only to web addresses' do
-      novak = prosecutor('Ján Novák', office: kosice, news: {
-                           'data' => [
-                             { 'title' => 'Prokurátor podal obžalobu', 'url' => 'https://dennikn.sk/1', 'source' => 'Denník N',
-                               'snippet' => 'Obžaloba' },
-                             { 'title' => 'Podvrh', 'url' => 'javascript:alert(1)', 'source' => 'SME',
-                               'snippet' => 'Nič' }
-                           ]
-                         })
+      articles = [
+        { 'title' => 'Prokurátor podal obžalobu', 'url' => 'https://dennikn.sk/1', 'source' => 'Denník N',
+          'snippet' => 'Obžaloba' },
+        { 'title' => 'Podvrh', 'url' => 'javascript:alert(1)', 'source' => 'SME', 'snippet' => 'Nič' }
+      ]
+      novak = prosecutor('Ján Novák', office: kosice, news: { 'data' => articles })
 
       visit prosecutor_path(novak)
 

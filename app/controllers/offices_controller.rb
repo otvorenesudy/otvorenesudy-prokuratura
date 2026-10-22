@@ -10,7 +10,7 @@ class OfficesController < ApplicationController
   end
 
   def show
-    @office = Office.find(params[:id])
+    @office = Office.find(params.expect(:id))
     @tab = show_params[:tab]
     @paragraphs = Paragraph.where(value: show_params[:paragraph]) if params[:paragraph].present?
     @decrees = @office.decrees
@@ -31,7 +31,7 @@ class OfficesController < ApplicationController
   end
 
   def decrees
-    @office = Office.find(params[:id])
+    @office = Office.find(params.expect(:id))
     @decrees = @office.decrees
     @paragraphs = Paragraph.where(value: decrees_params[:paragraph]) if decrees_params[:paragraph].present?
     @decrees = @decrees.where(paragraph: @paragraphs) if @paragraphs.present?

@@ -1,62 +1,31 @@
+# frozen_string_literal: true
+
 module StatisticsHelper
   def statistics_subtitle(search)
-    metric = search.current_statistic_metric
-    paragraphs = search.current_statistic_paragraphs
-    group = Statistic::GROUPS.find { |group, values| metric.to_sym.in?(values) }[0]
     key = search.default_params? ? 'statistics.index.subtitle_for_default_params' : 'statistics.index.subtitle'
+    metric = statistics_metric_title(search) unless search.default_params?
+    paragraphs = Array(search.current_statistic_paragraphs).compact - %w[_all]
 
-    unless search.default_params?
-      translation = I18n.t("statistics.index.search.#{group}.metrics.#{metric}", default: nil)
+    return t(key, metric:) if paragraphs.empty?
 
-      unless translation
-        translation = I18n.t("models.statistic.metrics.#{metric}")
-        translation = "#{I18n.t("statistics.index.search.#{group}.title")} – #{translation}" unless group == :other
-      end
+    list = paragraphs_subtitle_list(paragraphs) do |value|
+      statistics_path(search_params(search.params.merge(paragraph: paragraphs), { paragraph: value }))
     end
 
-    paragraphs -= %w[_all] if paragraphs
+    t("#{key}_with_paragraphs_html", metric:, paragraphs: list)
+  end
 
-    return I18n.t(key, metric: translation) if paragraphs&.compact.blank?
+  private
 
-    paragraph_names = paragraphs.map { |value| Paragraph.by_value[value] }
+  def statistics_metric_title(search)
+    metric = search.current_statistic_metric
+    group = Statistic::GROUPS.find { |_, values| metric.to_sym.in?(values) }[0]
+    title = I18n.t("statistics.index.search.#{group}.metrics.#{metric}", default: nil)
 
-    paragraphs_list =
-      content_tag :div, class: 'mt-3' do
-        content_tag :small do
-          content_tag :ul, class: 'list-unstyled ms-3 paragraphs-list' do
-            paragraph_names.map do |name|
-              content_tag(:li, class: 'mt-1 d-flex') do
-                (
-                  content_tag(:span, name, class: 'text-truncate') +
-                    (
-                      if Paragraph.type_of(Paragraph.by_name[name]) == :old
-                        content_tag(:span, class: 'ms-2 facet-tag') do
-                          tooltip_tag(
-                            I18n.t('statistics.index.search.paragraph.old.badge'),
-                            I18n.t('statistics.index.search.paragraph.old.title')
-                          )
-                        end
-                      else
-                        ''
-                      end
-                    ) +
-                    link_to(
-                      '&times;'.html_safe,
-                      statistics_path(
-                        search_params(
-                          @search.params.merge(paragraph: paragraphs),
-                          { paragraph: Paragraph.by_name[name] }
-                        )
-                      ),
-                      class: 'flex-fill ms-2 cancel'
-                    )
-                ).html_safe
-              end
-            end.join.html_safe
-          end
-        end
-      end
+    return title if title
 
-    I18n.t("#{key}_with_paragraphs", metric: translation, paragraphs: paragraphs_list).html_safe
+    title = I18n.t("models.statistic.metrics.#{metric}")
+
+    group == :other ? title : "#{I18n.t("statistics.index.search.#{group}.title")} – #{title}"
   end
 end

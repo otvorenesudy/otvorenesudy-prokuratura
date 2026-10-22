@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: genpro_gov_sk_offices
@@ -21,38 +23,40 @@ module GenproGovSk
 
     def self.import_from(data:, file:)
       digest = Digest::MD5.hexdigest(file)
-      genpro_gov_sk_office = find_by(digest: digest)
+      genpro_gov_sk_office = find_by(digest:)
 
       return if genpro_gov_sk_office && data.as_json == genpro_gov_sk_office.data
 
-      genpro_gov_sk_office ||= new(digest: digest, file: file)
+      genpro_gov_sk_office ||= new(digest:, file:)
 
       ActiveRecord::Base.transaction do
         genpro_gov_sk_office.lock!
-        genpro_gov_sk_office.update!(data: data)
+        genpro_gov_sk_office.update!(data:)
 
         office = ::Office.find_or_initialize_by(name: data[:name])
 
         office.lock!
-        office.update!(data.except(:employees).merge(genpro_gov_sk_office: genpro_gov_sk_office))
+        office.update!(data.except(:employees).merge(genpro_gov_sk_office:))
 
-        office.employees.lock!
-
-        employees =
-          data[:employees].map do |params|
-            employee = office.employees.active.find_or_initialize_by(params.slice(:name, :position))
-
-            employee.update!(params)
-
-            employee
-          end
-
-        office.employees.where.not(id: employees).update_all(disabled_at: Time.zone.now)
+        import_employees(office, data[:employees])
       end
 
       # TODO: Soft-destroy all offices that are not imported
 
       ::Office.refresh_search_view
     end
+
+    # The office's staff as its page lists it; whoever the page no longer lists has left.
+    def self.import_employees(office, staff)
+      office.employees.lock!
+
+      employees = staff.map do |params|
+        office.employees.active.find_or_initialize_by(params.slice(:name, :position)).tap { |e| e.update!(params) }
+      end
+
+      # rubocop:disable-next Rails/SkipsModelValidations -- marks who left, in bulk
+      office.employees.where.not(id: employees).update_all(disabled_at: Time.zone.now)
+    end
+    private_class_method :import_employees
   end
 end

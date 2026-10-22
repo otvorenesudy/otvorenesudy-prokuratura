@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Search
   class ParagraphFilter
     def initialize(model)

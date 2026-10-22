@@ -22,7 +22,7 @@ module GenproGovSk
           .flatten
           .compact
 
-      non_empty_unknown = unknown_attributes.uniq.reject(&:blank?)
+      non_empty_unknown = unknown_attributes.uniq.compact_blank
       raise "Unknown attributes: \n#{non_empty_unknown.map { |attr| "- #{attr}" }.join("\n")}" if non_empty_unknown.any?
 
       ::Statistic.import_from(records)
@@ -60,7 +60,7 @@ module GenproGovSk
 
     def self.parse_paragraphs(paragraph_paths = nil)
       path = paragraph_paths || Rails.root.join('data/genpro_gov_sk/criminality/paragraphs/*.xls*')
-      files = Dir.glob(path).to_a.reject { |e| e.match(/obvod/) }
+      files = Dir.glob(path).to_a.reject { |e| e.include?('obvod') }
 
       Parallel
         .map(files, in_processes: Parallel.processor_count) { |file| ParagraphsParser.parse(file)&.merge(file: file) }
@@ -139,7 +139,7 @@ module GenproGovSk
       '8810' => 'Okresná prokuratúra Spišská Nová Ves',
       '8811' => 'Okresná prokuratúra Trebišov',
       'KP KE' => 'Krajská prokuratúra v Košiciach'
-    }
+    }.freeze
 
     STRUCTURES_MAP = {
       'Obžalovaní recidivisti' => :accused_recidivists_all,
@@ -227,7 +227,7 @@ module GenproGovSk
       'Počet oznámení o schválení dohody o vine a treste súdom' =>
         :valid_court_decision_only_convicted_with_guilt_and_sentence_agreement,
       'Právoplatné rozhodnutia súdu – spolu rozhodnutie "inak"' => :valid_other_court_decision
-    }
+    }.freeze
 
     PARAGRAPHS_BY_ACCUSED_AND_PROSECUTED_MAP = {
       'Vek 14 - 15' => :accused_age_14_to_15_all,
@@ -321,7 +321,7 @@ module GenproGovSk
       'Vek 15 - 17' => :accused_age_15_to_17_all,
       'Vek 15 - 17 - dievčatá' => :accused_age_15_to_17_girls,
       'Vek 18 - 21' => :accused_age_18_to_21_all
-    }
+    }.freeze
 
     PARAGRAPHS_BY_CONVICTED_MAP = {
       'Súdených osôb' => :judged_all,
@@ -375,6 +375,6 @@ module GenproGovSk
       'Počet oslobodených osôb' => :valid_court_decision_on_exemption,
       'Počet upustení od potrestania' => :valid_court_decision_on_waiver_of_sentence,
       'Počet inak skončených' => :valid_other_court_decision
-    }
+    }.freeze
   end
 end

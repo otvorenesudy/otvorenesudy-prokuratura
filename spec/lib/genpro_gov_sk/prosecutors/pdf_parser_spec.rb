@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe GenproGovSk::Prosecutors::PDFParser do
-  let(:pdf_path) { Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'prosecutors', 'list.pdf').to_s }
+  let(:pdf_path) { Rails.root.join('spec/fixtures/genpro_gov_sk/prosecutors/list.pdf').to_s }
   let(:expected_json) do
-    JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'prosecutors', 'list.json')))
+    JSON.parse(Rails.root.join('spec/fixtures/genpro_gov_sk/prosecutors/list.json').read)
   end
 
   describe '.parse' do

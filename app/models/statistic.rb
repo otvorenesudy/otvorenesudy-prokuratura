@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: statistics
@@ -51,8 +53,8 @@ class Statistic < ApplicationRecord
 
       Rails.logger.silence do
         records.each do |record|
-          Statistic.upsert(
-            { paragraph: nil }.merge(record.slice(:year, :office_id, :metric, :paragraph, :count)),
+          Statistic.upsert( # rubocop:disable Rails/SkipsModelValidations -- tens of thousands of parsed rows
+            record.slice(:year, :office_id, :metric, :paragraph, :count).reverse_merge(paragraph: nil),
             unique_by: %i[year office_id metric paragraph],
             returning: false
           )

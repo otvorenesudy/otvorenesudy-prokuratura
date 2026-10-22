@@ -11,7 +11,7 @@ RSpec.describe 'Pages' do
       expect(page).to have_text('Otvorená Prokuratúra brings:')
       expect(page).to have_css('.feature .text-uppercase', text: 'Otvorená Prokuratúra')
 
-      within('.square', text: 'Crime Stats', match: :first) { |square| square.click }
+      within('.square', text: 'Crime Stats', match: :first, &:click)
 
       expect(page).to have_css('h1', text: 'Prosecutors')
       expect(page).to have_current_path(statistics_path(l: :en))
@@ -39,8 +39,12 @@ RSpec.describe 'Pages' do
       JS
 
       expect(page).to have_css('[data-controller="home-chart"] canvas[data-chart-drawn]', count: 4)
-      expect(series).to eq([['2022', 'Priemer 2022'], ['Priemer za okresné prokuratúry', 'Priemer za krajské prokuratúry'],
-                            ['Nápad vecí dozoru', 'Prenesené veci z predchádzajúceho obdobia'], %w[Pomer Priemer]])
+      expect(series).to eq(
+        [
+          ['2022', 'Priemer 2022'], ['Priemer za okresné prokuratúry', 'Priemer za krajské prokuratúry'],
+          ['Nápad vecí dozoru', 'Prenesené veci z predchádzajúceho obdobia'], %w[Pomer Priemer]
+        ]
+      )
     end
   end
 
@@ -99,12 +103,19 @@ RSpec.describe 'Pages' do
 
   describe 'the cookie consent', :js do
     # The banner hides from bots, which a browser driven by Selenium says it is (navigator.webdriver).
+    let(:scripts) { [] }
+
     before do
-      @script = page.driver.browser.execute_cdp('Page.addScriptToEvaluateOnNewDocument',
-                                                source: "Object.defineProperty(navigator, 'webdriver', { get: () => false })")
+      source = "Object.defineProperty(navigator, 'webdriver', { get: () => false })"
+
+      scripts << page.driver.browser.execute_cdp('Page.addScriptToEvaluateOnNewDocument', source:)
     end
 
-    after { page.driver.browser.execute_cdp('Page.removeScriptToEvaluateOnNewDocument', identifier: @script['identifier']) }
+    after do
+      scripts.each do |script|
+        page.driver.browser.execute_cdp('Page.removeScriptToEvaluateOnNewDocument', identifier: script['identifier'])
+      end
+    end
 
     it 'asks for consent once, and keeps the answer across pages' do
       visit root_path

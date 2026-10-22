@@ -3,7 +3,7 @@
 # The pages and documents of genpro.gov.sk and minv.sk the importers read, saved in spec/fixtures, served with WebMock.
 module FixtureHelpers
   def fixture(path)
-    Rails.root.join('spec/fixtures', path)
+    file_fixture(path)
   end
 
   def stub_source(url, path)

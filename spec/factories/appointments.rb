@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: appointments
@@ -27,7 +29,7 @@
 #
 FactoryBot.define do
   factory :appointment do
-    association :'genpro_gov_sk_prosecutors_list'
+    genpro_gov_sk_prosecutors_list
 
     office
     prosecutor

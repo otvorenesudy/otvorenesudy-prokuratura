@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Search
   class DecreesCountFilter
     def initialize(buckets)
@@ -17,10 +19,10 @@ class Search
       relation.where(decrees_count: ranges)
     end
 
-    def facets(relation, suggest:)
+    def facets(relation, **)
       facets = relation.group(:decrees_count).count
 
-      @buckets.map { |range, value| [range.to_s, facets.values_at(*range.to_a).compact.sum] }.to_h
+      @buckets.to_h { |range, _value| [range.to_s, facets.values_at(*range.to_a).compact.sum] }
     end
   end
 end

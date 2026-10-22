@@ -1,67 +1,29 @@
+# frozen_string_literal: true
+
 module CrimesHelper
   def crimes_subtitle(search)
-    metrics = search.current_statistic_metrics.map(&:to_sym)
-    paragraphs = search.current_statistic_paragraphs
-    groups = Crime::GROUPS.select { |group, values| (metrics & values).any? }.keys
-    key = search.default_params? ? 'crimes.index.subtitle_for_default_params' : 'crimes.index.subtitle'
+    title = crimes_metrics_title(search)
+    paragraphs = Array(search.current_statistic_paragraphs).compact - %w[_all]
 
-    translations = groups.map { |group| I18n.t("crimes.index.search.#{group}.title", default: nil) }.compact
+    return title if paragraphs.empty?
 
-    if search.monetary_metric_present?
-      search.current_statistic_metrics.size > 1 ?
-        translations << I18n.t('crimes.index.monetary_subtitle') :
-        translations = [I18n.t('crimes.index.monetary_subtitle')]
+    list = paragraphs_subtitle_list(paragraphs) do |value|
+      crimes_path(search_params(search.params.merge(paragraph: paragraphs), { paragraph: value }))
     end
 
-    paragraphs -= %w[_all] if paragraphs
+    safe_join([title, t('crimes.index.by_paragraphs_subtitle_html', paragraphs: list)], ' ')
+  end
 
-    return translations.to_sentence.html_safe if paragraphs&.compact.blank?
+  private
 
-    paragraph_names = paragraphs.map { |value| Paragraph.by_value[value] }
+  def crimes_metrics_title(search)
+    metrics = search.current_statistic_metrics.map(&:to_sym)
+    groups = Crime::GROUPS.select { |_, values| metrics.intersect?(values) }.keys
+    titles = groups.filter_map { |group| I18n.t("crimes.index.search.#{group}.title", default: nil) }
 
-    paragraphs_list =
-      content_tag :div, class: 'mt-3' do
-        content_tag :small do
-          content_tag :ul, class: 'list-unstyled ms-3 paragraphs-list' do
-            paragraph_names
-              .map do |name|
-                content_tag(:li, class: 'mt-1 d-flex') do
-                  (
-                    content_tag(:span, name, class: 'text-truncate') +
-                      (
-                        if Paragraph.type_of(Paragraph.by_name[name]) == :old
-                          content_tag(:span, class: 'ms-2 facet-tag') do
-                            tooltip_tag(
-                              I18n.t('statistics.index.search.paragraph.old.badge'),
-                              I18n.t('statistics.index.search.paragraph.old.title')
-                            )
-                          end
-                        else
-                          ''
-                        end
-                      ) +
-                      link_to(
-                        '&times;'.html_safe,
-                        crimes_path(
-                          search_params(
-                            @search.params.merge(paragraph: paragraphs),
-                            { paragraph: Paragraph.by_name[name] }
-                          )
-                        ),
-                        class: 'flex-fill ms-2 cancel'
-                      )
-                  ).html_safe
-                end
-              end
-              .join
-              .html_safe
-          end
-        end
-      end
+    return titles.to_sentence unless search.monetary_metric_present?
+    return I18n.t('crimes.index.monetary_subtitle') if metrics.one?
 
-    [
-      translations.to_sentence,
-      I18n.t('crimes.index.by_paragraphs_subtitle', paragraphs: paragraphs_list).html_safe
-    ].join(' ').html_safe
+    [*titles, I18n.t('crimes.index.monetary_subtitle')].to_sentence
   end
 end

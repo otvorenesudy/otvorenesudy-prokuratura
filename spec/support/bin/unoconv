@@ -12,4 +12,4 @@ text = content.gsub(/\\u(-?\d+)\??/) { [Regexp.last_match(1).to_i % 65_536].pack
               .gsub(/\\[a-z]+-?\d* ?/, '')
               .delete('{}')
 
-puts text.strip
+$stdout.puts text.strip

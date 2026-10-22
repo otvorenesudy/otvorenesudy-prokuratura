@@ -3,59 +3,53 @@
 require 'rails_helper'
 
 RSpec.describe GenproGovSk::Declarations::Parser do
-  FIXTURES_PATH = Rails.root.join('spec/fixtures/genpro_gov_sk/declarations')
+  def parse(declaration)
+    described_class.parse(fixture("genpro_gov_sk/declarations/#{declaration}/data.html").read)
+  end
+
+  # What a declaration's saved data is checked for: the year, the statements, and each list's items.
+  def summary(data)
+    data = data.deep_stringify_keys
+    lists = data['lists'].map do |list|
+      [list['category'], list['items'].map { |item| item.values_at('description', 'acquisition_date') }]
+    end
+
+    { year: data['year'], statements: data['statements'], lists: }
+  end
+
+  def list(result, category)
+    result[:lists].find { |list| list[:category] == category }
+  end
 
   describe '.parse' do
-    Dir
-      .glob(FIXTURES_PATH.join('*'))
-      .each do |dir|
-        dir_name = File.basename(dir)
+    Rails.root.glob('spec/fixtures/genpro_gov_sk/declarations/*').each do |directory|
+      context "with the declaration #{directory.basename}" do
+        it 'reads the year, the statements and the items of each list' do
+          expected = JSON.parse(directory.join('data.json').read)
 
-        context "with #{dir_name} declaration" do
-          let(:html) { File.read(File.join(dir, 'data.html')) }
-          let(:expected_json) { JSON.parse(File.read(File.join(dir, 'data.json'))) }
-
-          it 'correctly parses the declaration' do
-            result = described_class.parse(html)
-
-            expect(result[:year]).to eq(expected_json['year'])
-            expect(result[:lists].length).to eq(expected_json['lists'].length)
-            expect(result[:statements]).to eq(expected_json['statements'])
-
-            result[:lists].each_with_index do |list, index|
-              expected_list = expected_json['lists'][index]
-
-              expect(list[:category]).to eq(expected_list['category'])
-              expect(list[:items].length).to eq(expected_list['items'].length)
-
-              list[:items].each_with_index do |item, item_index|
-                expected_item = expected_list['items'][item_index]
-
-                expect(item[:description]).to eq(expected_item['description'])
-                expect(item[:acquisition_date]).to eq(expected_item['acquisition_date'])
-              end
-            end
-          end
+          expect(summary(parse(directory.basename))).to eq(summary(expected))
         end
       end
+    end
 
     describe 'a table of rights' do
-      let(:document) { Nokogiri::HTML(File.read(FIXTURES_PATH.join('Andrea-Jancova-OPZA-2024', 'data.html'))) }
+      let(:document) { Nokogiri::HTML(fixture('genpro_gov_sk/declarations/Andrea-Jancova-OPZA-2024/data.html').read) }
       let(:rights) do
-        document.css('h3').find { |h3| h3.text.strip == 'Majetkové práva a iné majetkové hodnoty' }
+        document.css('h3').find { |heading| heading.text.strip == 'Majetkové práva a iné majetkové hodnoty' }
                 .xpath('following-sibling::table[1]').first
       end
 
       def items(document)
-        described_class.parse(document.to_html)[:lists]
-                       .find { |list| list[:category] == 'Majetkové práva a iné majetkové hodnoty' }[:items]
+        list(described_class.parse(document.to_html), 'Majetkové práva a iné majetkové hodnoty')[:items]
       end
 
       it 'reads the procurement price of a table without the usual price' do
         rights.css('tr').each { |row| row.css('th, td')[3].remove }
 
-        expect(items(document)).to eq([{ description: 'úspory', acquisition_reason: 'príjem z výkonu funkcie prokurátora, dôchodok',
-                                         acquisition_date: 'do 31.12.2024', procurement_price: '26000' }])
+        expect(items(document)).to eq(
+          [{ description: 'úspory', acquisition_reason: 'príjem z výkonu funkcie prokurátora, dôchodok',
+             acquisition_date: 'do 31.12.2024', procurement_price: '26000' }]
+        )
       end
 
       it 'refuses a table whose columns it does not know' do
@@ -65,55 +59,24 @@ RSpec.describe GenproGovSk::Declarations::Parser do
       end
     end
 
-    it 'extracts the year correctly' do
-      html = File.read(FIXTURES_PATH.join('Maroš-Žilinka-USPGP-2019', 'data.html'))
-      result = described_class.parse(html)
+    it 'reads the year and the statements of a declaration of 2019' do
+      result = parse('Maroš-Žilinka-USPGP-2019')
+
       expect(result[:year]).to eq(2019)
+      expect(result[:statements]).to match([include('Vyhlasujem'), be_present])
     end
 
-    it 'extracts lists categories' do
-      html = File.read(FIXTURES_PATH.join('Andrej-Morkes-OPZH-2024', 'data.html'))
-      result = described_class.parse(html)
+    it 'reads the lists of a declaration of 2024, the shares of real estate and the obligations' do
+      result = parse('Andrej-Morkes-OPZH-2024')
 
-      categories = result[:lists].map { |list| list[:category] }
-      expect(categories).to include('Zoznam nehnuteľností')
-      expect(categories).to include('Hnuteľné veci')
-      expect(categories).to include('Majetkové práva a iné majetkové hodnoty')
+      expect(result[:lists].pluck(:category))
+        .to include('Zoznam nehnuteľností', 'Hnuteľné veci', 'Majetkové práva a iné majetkové hodnoty')
+      expect(list(result, 'Zoznam nehnuteľností')[:items].pluck(:share_size)).to include(be_present)
+      expect(list(result, 'Záväzkové vzťahy prokurátora')[:items]).to be_present
     end
 
-    it 'extracts statements' do
-      html = File.read(FIXTURES_PATH.join('Maroš-Žilinka-USPGP-2019', 'data.html'))
-      result = described_class.parse(html)
-
-      expect(result[:statements].length).to eq(2)
-      expect(result[:statements].first).to include('Vyhlasujem')
-    end
-
-    it 'handles declarations with share_size field' do
-      html = File.read(FIXTURES_PATH.join('Andrej-Morkes-OPZH-2024', 'data.html'))
-      result = described_class.parse(html)
-
-      real_estate_items = result[:lists].find { |l| l[:category] == 'Zoznam nehnuteľností' }[:items]
-      items_with_share = real_estate_items.select { |i| i[:share_size].present? }
-
-      expect(items_with_share).not_to be_empty
-    end
-
-    it 'handles declarations with záväzkové vzťahy (obligations)' do
-      html = File.read(FIXTURES_PATH.join('Andrej-Morkes-OPZH-2024', 'data.html'))
-      result = described_class.parse(html)
-
-      obligations = result[:lists].find { |l| l[:category] == 'Záväzkové vzťahy prokurátora' }
-      expect(obligations).not_to be_nil
-      expect(obligations[:items].length).to be > 0
-    end
-
-    it 'parses older declaration format correctly' do
-      html = File.read(FIXTURES_PATH.join('Maros-Zilinka-GP-2011', 'data.html'))
-      result = described_class.parse(html)
-
-      expect(result[:year]).to eq(2011)
-      expect(result[:lists]).not_to be_empty
+    it 'reads a declaration of the older form, of 2011' do
+      expect(parse('Maros-Zilinka-GP-2011')).to include(year: 2011, lists: be_present)
     end
   end
 end

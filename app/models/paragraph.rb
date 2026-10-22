@@ -35,19 +35,19 @@ class Paragraph < ApplicationRecord
   end
 
   def self.by_name
-    @paragraphs_by_name ||= Paragraph.pluck(:name, :value).to_h
+    @by_name ||= Paragraph.pluck(:name, :value).to_h
   end
 
   def self.by_value
-    @paragraphs_by_value ||= by_name.map(&:reverse).to_h
+    @by_value ||= by_name.invert
   end
 
   def self.by_type
-    @paragraphs_by_type ||= Paragraph.pluck(:value, :type).map { |value, type| [value, type.to_sym] }.to_h
+    @by_type ||= Paragraph.pluck(:value, :type).to_h { |value, type| [value, type.to_sym] }
   end
 
   # The lookups above are read once per process; this reads them again.
   def self.reset!
-    @paragraphs_by_name = @paragraphs_by_value = @paragraphs_by_type = nil
+    @by_name = @by_value = @by_type = nil
   end
 end

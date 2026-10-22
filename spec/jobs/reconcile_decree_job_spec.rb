@@ -28,7 +28,9 @@ RSpec.describe ReconcileDecreeJob do
     prosecutor = create(:prosecutor, name_parts: { first: 'Eva', middle: 'Mária', last: 'Malá' })
     create(:appointment, prosecutor:, office: zilina, ended_at: 1.year.ago)
 
-    decree = reconcile("Okresná prokuratúra Žilina rozhodla takto: zastavuje sa. #{'x' * 120} Malá Eva Mária, prokurátorka")
+    decree = reconcile(
+      "Okresná prokuratúra Žilina rozhodla takto: zastavuje sa. #{'x' * 120} Malá Eva Mária, prokurátorka"
+    )
 
     expect(decree.prosecutor).to eq(prosecutor)
   end
@@ -47,7 +49,9 @@ RSpec.describe ReconcileDecreeJob do
   end
 
   it 'finds a paragraph of the Criminal Code of 1961' do
-    decree = reconcile('Trestný čin: prijímania úplatku podľa § 160 ods. 1 Trestného zákona č. 140/1961 Zb. sa zastavuje.')
+    decree = reconcile(
+      'Trestný čin: prijímania úplatku podľa § 160 ods. 1 Trestného zákona č. 140/1961 Zb. sa zastavuje.'
+    )
 
     expect(decree.paragraph.value).to eq('§ 160 [old]')
     expect(decree.paragraph_section).to eq('ods. 1')

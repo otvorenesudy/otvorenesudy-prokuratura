@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: offices
@@ -39,8 +41,8 @@
 #
 require 'rails_helper'
 
-RSpec.describe Office, type: :model do
-  subject { build(:office) }
+RSpec.describe Office do
+  subject(:office) { build(:office) }
 
   describe 'Validations' do
     it { is_expected.to belong_to(:genpro_gov_sk_office).optional(true) }
@@ -50,7 +52,7 @@ RSpec.describe Office, type: :model do
     it { is_expected.to validate_presence_of(:registry) }
 
     it 'validates correct schema of registry' do
-      subject.registry = {
+      office.registry = {
         phone: '123',
         hours: {
           monday: '8:00 - 15:00',
@@ -61,9 +63,9 @@ RSpec.describe Office, type: :model do
         }
       }
 
-      expect(subject).to be_valid
+      expect(office).to be_valid
 
-      subject.registry = {
+      office.registry = {
         phone: '123',
         hours: {
           monday: '8:00 - 15:00',
@@ -74,8 +76,8 @@ RSpec.describe Office, type: :model do
         }
       }
 
-      expect(subject).not_to be_valid
-      expect(subject.errors.full_messages).to eql(['Registry is invalid'])
+      expect(office).not_to be_valid
+      expect(office.errors.full_messages).to eql(['Registry is invalid'])
     end
   end
 end

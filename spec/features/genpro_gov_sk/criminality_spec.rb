@@ -1,16 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe 'GenproGovSk::Criminality', type: :feature do
-  it 'correctly imports and parses data' do
-    GenproGovSk::Offices.import
-
-    paragraphs_path = Rails.root.join('data', 'genpro_gov_sk', 'criminality', 'paragraphs', '*.xls*')
-    all_paragraph_files = Dir.glob(paragraphs_path).to_a.reject { |e| e.match(/obvod/) }
-    selected_paragraph_files = all_paragraph_files.sample(10, random: Random.new(42))
-
-    GenproGovSk::Criminality.import(paragraph_paths: selected_paragraph_files)
-
-    structure_validations = [
+RSpec.describe 'GenproGovSk::Criminality' do
+  let(:structures) do
+    [
       { year: 2010, office: 'Okresná prokuratúra Michalovce', metric: :accused_all, count: 803 },
       { year: 2010, office: 'Okresná prokuratúra Trenčín', metric: :accused_all, count: 676 },
       { year: 2011, office: 'Okresná prokuratúra Trenčín', metric: :incoming_cases, count: 2454 },
@@ -42,8 +36,10 @@ RSpec.describe 'GenproGovSk::Criminality', type: :feature do
       { year: 2024, office: 'Okresná prokuratúra Bratislava IV', metric: :prosecuted_all, count: 284 },
       { year: 2024, office: 'Krajská prokuratúra v Prešove', metric: :incoming_cases, count: 5836 }
     ]
+  end
 
-    paragraph_validations = [
+  let(:paragraphs) do
+    [
       {
         year: 2013,
         office: 'Okresná prokuratúra Žiar nad Hronom',
@@ -87,35 +83,28 @@ RSpec.describe 'GenproGovSk::Criminality', type: :feature do
         count: 3
       }
     ]
+  end
 
-    structure_validations.each do |attributes|
-      office = Office.find_by(name: attributes[:office])
+  def counted(statistics)
+    statistics.map do |attributes|
+      office = Office.find_by!(name: attributes[:office])
+      statistic = Statistic.find_by(
+        year: attributes[:year], office:, metric: attributes[:metric].to_s, paragraph: attributes[:paragraph]
+      )
 
-      statistic =
-        Statistic.find_by(
-          year: attributes[:year],
-          office_id: office.id,
-          metric: attributes[:metric].to_s,
-          paragraph: nil
-        )
-
-      expect(statistic).to be_present, "Structure validation failed for: #{attributes.inspect}"
-      expect(statistic.count).to eql(attributes[:count])
+      attributes.merge(count: statistic&.count)
     end
+  end
 
-    paragraph_validations.each do |attributes|
-      office = Office.find_by(name: attributes[:office])
+  it 'imports the counts of every office and of the paragraphs of some' do
+    GenproGovSk::Offices.import
 
-      statistic =
-        Statistic.find_by(
-          year: attributes[:year],
-          office_id: office.id,
-          metric: attributes[:metric].to_s,
-          paragraph: attributes[:paragraph]
-        )
+    paragraph_files = Rails.root.glob('data/genpro_gov_sk/criminality/paragraphs/*.xls*').map(&:to_s)
+    paragraph_files = paragraph_files.reject { |path| path.include?('obvod') }.sample(10, random: Random.new(42))
 
-      expect(statistic).to be_present, "Paragraph validation failed for: #{attributes.inspect}"
-      expect(statistic.count).to eql(attributes[:count])
-    end
+    GenproGovSk::Criminality.import(paragraph_paths: paragraph_files)
+
+    expect(counted(structures)).to eq(structures)
+    expect(counted(paragraphs)).to eq(paragraphs)
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SearchHelper
   def search_params(params, other, replace: false)
     params = params.to_h.with_indifferent_access
@@ -17,7 +19,7 @@ module SearchHelper
   end
 
   def search_param?(params, key, value)
-    return unless params[key]
+    return false unless params[key]
 
     value = value.to_s
 
