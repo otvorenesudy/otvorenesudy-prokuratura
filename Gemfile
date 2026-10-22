@@ -70,7 +70,8 @@ group :development, :test do
   gem 'factory_bot'
   gem 'vcr'
   gem 'pry-rails'
-  gem 'syntax_tree'
+  gem 'rubocop', require: false
+  gem 'syntax_tree', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
