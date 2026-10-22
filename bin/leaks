@@ -43,7 +43,6 @@ forbidden='
 allowed='
 (^|/)\.env(\.test)?\.(example|sample)$                  a template for .env or .env.test, with local defaults only
 ^\.env\.ci$                                             the settings of CI, with the login of its throwaway database
-^config/credentials/test\.ci\.key$                      decrypts test.ci.yml.enc, the test credentials CI runs with
 '
 
 # The pinned Betterleaks, downloaded on first use into the repository's git directory, which its worktrees share.
