@@ -279,17 +279,43 @@ RSpec.describe 'Offices' do
     it 'draws its indicators by year beside the average of its type', :js do
       visit office_path(bratislava)
 
-      canvas = find('canvas[data-chart-drawn]')
-      labels = page.evaluate_script(<<~JS, canvas)
-        window.Stimulus.getControllerForElementAndIdentifier(arguments[0].parentElement, 'indicators-chart')
-          .chart.data.datasets.map((dataset) => dataset.label)
-      JS
+      expect(chart_labels).to include(
+        I18n.t('active_record.models.prosecutor.indicators.incoming_cases.office'),
+        I18n.t('active_record.models.prosecutor.indicators.incoming_cases.regional')
+      )
+    end
 
-      expect(labels).to include(I18n.t('active_record.models.prosecutor.indicators.incoming_cases.office'))
+    it 'draws the indicators of the General Prosecutor\'s Office alone, with no other office of its type', :js do
+      general = Office.find_by!(name: 'Generálna prokuratúra Slovenskej republiky')
+      create(:statistic, office: general, year: 2019, metric: 'convicted_all', paragraph: '§ 212 [new]', count: 7)
+
+      visit office_path(general)
+
+      expect(chart_labels).to eq([I18n.t('active_record.models.prosecutor.indicators.average_convicted_people.office')])
+    end
+
+    it 'draws the indicators of the Specialized Prosecutor\'s Office alone, with no other office of its type', :js do
+      specialized = Office.find_by!(name: 'Úrad špeciálnej prokuratúry')
+      create(:statistic, office: specialized, year: 2019, metric: 'convicted_all', paragraph: '§ 212 [new]', count: 3)
+
+      visit office_path(specialized)
+
+      expect(page).to have_text('The prosecutor\'s office was abolished on 20 March 2024.')
+      expect(chart_labels).to eq([I18n.t('active_record.models.prosecutor.indicators.average_convicted_people.office')])
     end
   end
 
   def names_in_table
     all('tbody tr td:nth-child(2) a').map(&:text)
+  end
+
+  # The labels of the series in the office's indicators chart, once Chart.js drew it.
+  def chart_labels
+    canvas = find('canvas[data-chart-drawn]')
+
+    page.evaluate_script(<<~JS, canvas)
+      window.Stimulus.getControllerForElementAndIdentifier(arguments[0].parentElement, 'indicators-chart')
+        .chart.data.datasets.map((dataset) => dataset.label)
+    JS
   end
 end

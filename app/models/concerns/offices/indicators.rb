@@ -125,9 +125,12 @@ module Offices
           name = "active_record.models.prosecutor.indicators.#{key}"
           office = { id:, name: I18n.t("#{name}.office"), data: chart_values(public_send(values)) }
           office[:visible] = false unless id == :convicted
-          average = { name: I18n.t("#{name}.#{type}"), data: chart_values(self.class.public_send(averages)[type]) }
 
-          [office, average.merge(dependent: id)]
+          # The general and the specialized office are each alone of their type, which has no average.
+          average = self.class.public_send(averages)[type]
+          next [office] if average.blank?
+
+          [office, { name: I18n.t("#{name}.#{type}"), data: chart_values(average), dependent: id }]
         end
 
       { years: CHART_YEARS, data: data.select { |series| series[:data].present? } }
