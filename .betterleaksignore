@@ -1,0 +1,13 @@
+# Betterleaks findings that were reviewed and kept, by fingerprint (commit:file:rule:line, or file:rule:line for one
+# not committed yet). bin/leaks passes this file to Betterleaks. Every entry has its reason above it; a real secret is
+# removed and revoked, not listed here.
+#
+# Everything below was in the history before bin/leaks existed, reviewed on 2026-10-22: none of it is a secret.
+
+# Placeholders in the comments of the Capistrano and Rollbar templates.
+2e233afcea74f08720d645b1f587659b3ff40f73:config/deploy/staging.rb:generic-password:54
+9e3161d8a463de515d59a138b7ee7a5657dddf19:config/initializers/rollbar.rb:generic-password:60
+
+# The password of the test database, which exists only in CI's service container.
+40f235c150b4032f2a0ee16034b5cef69897c95e:.github/workflows/main.yml:generic-password:20
+063aac166c12e22fddfcc1868fc58c56360964c5:.github/workflows/copilot-setup-steps.yml:generic-password:38

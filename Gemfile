@@ -72,6 +72,8 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rubocop', require: false
   gem 'syntax_tree', require: false
+  gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
