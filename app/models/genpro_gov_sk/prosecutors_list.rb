@@ -27,10 +27,7 @@ module GenproGovSk
       return if exists?(digest:) && !force
 
       ActiveRecord::Base.transaction do
-        ::Prosecutor.lock
-        ::Office.lock
-        ::Appointment.lock
-        ::Employee.lock
+        lock_tables
 
         time = Time.zone.now
         list = find_or_initialize_by(digest:)
@@ -50,6 +47,13 @@ module GenproGovSk
 
     class << self
       private
+
+      # Other writers, another import among them, wait until the import commits; readers, the site among them, don't.
+      def lock_tables
+        ActiveRecord::Base.connection.execute(
+          'LOCK TABLE prosecutors, offices, appointments, employees IN SHARE ROW EXCLUSIVE MODE'
+        )
+      end
 
       # Prosecutors of the same name are told apart by their office.
       def mark_namesakes(data)
