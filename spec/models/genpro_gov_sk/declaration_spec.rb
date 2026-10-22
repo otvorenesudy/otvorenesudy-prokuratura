@@ -52,6 +52,16 @@ RSpec.describe GenproGovSk::Declaration do
       expect(novak.all_appointments.past).to be_empty
     end
 
+    it 'keeps one appointment a year at the declaration\'s office, however often it reconciles' do
+      novak = prosecutor(zilina)
+      declaration(name: 'Ján Novák', office: zilina.name)
+
+      2.times { described_class.reconcile! }
+
+      expect(novak.all_appointments.past.map { |appointment| [appointment.office, appointment.started_at.year] })
+        .to eq([[zilina, 2023]])
+    end
+
     it 'keeps one declaration a year' do
       novak = prosecutor(zilina)
       declaration(name: 'Ján Novák', office: zilina.name, year: 2022)

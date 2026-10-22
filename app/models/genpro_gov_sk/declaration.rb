@@ -62,11 +62,11 @@ module GenproGovSk
         end
       end
 
-      # The declaration's year at its office, or at a place outside the offices; nothing when it names neither.
+      # The declaration's year at its office, or at a place outside the offices, once; nothing when it names neither.
       def appoint(prosecutor, office:, place:, year:)
         return if office.blank? && place.blank?
 
-        prosecutor.appointments.find_or_create_by!(
+        prosecutor.all_appointments.find_or_create_by!(
           office:,
           place:,
           started_at: Time.zone.parse("#{year}-01-01"),
