@@ -146,9 +146,9 @@ When it stops you:
 
 **Nothing deploys to production automatically for now**: the deploy job in `.github/workflows/ci.yml` is off until
 the server runs the Rails 8 upgrade; deploy by hand with `bundle exec cap production deploy`. Changes reach `main`
-only through a reviewed pull request; never push to `main`. CI (`.github/workflows/ci.yml`) runs `bin/test`, and
-`.github/workflows/security.yml` runs `bin/leaks`, Brakeman and bundler-audit. The ruleset on `main` requires a pull
-request and its Secrets check.
+only through a pull request; never push to `main`. A pull request needs no review: its checks decide. CI
+(`.github/workflows/ci.yml`) runs `bin/test`, and `.github/workflows/security.yml` runs `bin/leaks`, Brakeman and
+bundler-audit. The ruleset on `main` requires a pull request and its Secrets check, and no approval.
 
 1. **One worktree per change**, off the latest `main`, on a branch named with the `branch-naming` skill:
 
@@ -161,6 +161,8 @@ request and its Secrets check.
 2. **Commit** with the `conventional-commit` skill, staging files by name.
 3. **Push and open a pull request** when the user asks: `git push -u origin <branch>`, then `gh pr create` with a
    summary and the test plan (the commands you ran and their result).
+4. **Merge** when the user asks, once every check is green: `gh pr checks <number> --watch`, then
+   `gh pr merge <number> --squash --delete-branch`, so `main` keeps one commit per pull request.
 
 Keep a pull request to one concern. When it's merged, remove the worktree:
 `git worktree remove .claude/worktrees/<short-description>`.
@@ -177,6 +179,6 @@ Claude Code reads `CLAUDE.md`, which imports this file. Other agents read this f
 | Permissions, sandbox, hooks | `.claude/settings.json`; personal overrides in `.claude/settings.local.json` (not committed) |
 | Hooks | `bin/leaks --install` (at session start); `.claude/hooks/block-sensitive-files.sh` and `block-hook-bypass.sh` (before shell commands); `scan-for-leaks.sh` (before edits); `format.sh` (after edits) |
 
-The settings deny the secrets above, allow `bin/leaks`, `bin/lint` and `bin/test` without asking, ask before `cap`
-and pushes to `main`, keep the sandbox's network to RubyGems, npm, GitHub, genpro.gov.sk and minv.sk, and run only
-`bin/test` outside the sandbox. No test covers the agent setup: when you change it, try it in a session.
+The settings deny the secrets above, allow `bin/leaks`, `bin/lint`, `bin/test`, `gh pr checks` and `gh pr merge`
+without asking, ask before `cap` and pushes to `main`, keep the sandbox's network to RubyGems, npm, GitHub,
+genpro.gov.sk and minv.sk, and run only `bin/test` outside the sandbox. No test covers the agent setup: when you change it, try it in a session.
