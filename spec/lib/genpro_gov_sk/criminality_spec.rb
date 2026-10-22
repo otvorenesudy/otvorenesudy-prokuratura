@@ -26,6 +26,14 @@ RSpec.describe GenproGovSk::Criminality do
       expect(count(bratislava, 2019, 'accused_all', '§ 212 [new]')).to eq(1)
     end
 
+    it 'imports statistics that pass validation, those of the years after 2020 too' do
+      stub_source(url, 'genpro_gov_sk/criminality/structure-2024.csv')
+
+      described_class.import(structure_urls: [url], paragraph_paths: paragraphs)
+
+      expect(Statistic.find_by!(office: general, year: 2024, metric: 'accused_all')).to be_valid
+    end
+
     it 'refuses a structure with a metric it does not know' do
       text = fixture('genpro_gov_sk/criminality/structure-2024.csv').read(encoding: 'Windows-1250')
       unknown = text.sub('Počet obžalovaných osôb', 'Počet neznámych osôb').encode('Windows-1250')
