@@ -31,7 +31,14 @@
 class Statistic < ApplicationRecord
   belongs_to :office
 
-  validates :year, presence: true, numericality: { in: 2010..2020 }
+  # 2010 is the first year the sources cover; a later year is valid once it has begun.
+  validates :year,
+            presence: true,
+            numericality: {
+              only_integer: true,
+              greater_than_or_equal_to: 2010,
+              less_than_or_equal_to: -> { Time.zone.today.year }
+            }
   validates :metric,
             presence: true,
             uniqueness: {
