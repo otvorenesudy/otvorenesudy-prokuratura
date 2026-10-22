@@ -41,10 +41,12 @@ module Legacy
       representantive
     end
 
+    # The court's town as the name gives it, Trenčín's and Trnava's abbreviations and forms written out.
     def municipality_of(representantive)
       return 'Trenčíne' if representantive.match?(/(TN|Trenčín(e)?)/)
+      return 'Trnave' if representantive.match?(/(TT|Trnav(a|e){1})/)
 
-      'Trnave' if representantive.match?(/(TT|Trnav(a|e){1})/)
+      representantive
     end
 
     def normalize_name(name)

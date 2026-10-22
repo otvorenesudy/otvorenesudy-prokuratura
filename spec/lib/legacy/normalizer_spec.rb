@@ -20,6 +20,7 @@ RSpec.describe Legacy::Normalizer do
         value: 'Mgr. Ján Novák, hovorca krajského súdu v Trnave', prefix: 'Mgr.', first: 'Ján', last: 'Novák',
         flags: [:representantive], role: 'Hovorca krajského súdu v Trnave'
       )
+      expect(partition('Eva Malá, hovorca KS v Žiline')).to include(role: 'Hovorca krajského súdu v Žiline')
       expect(partition('hovorca KS Trenčín')).to eq(
         value: 'Hovorca krajského súdu v Trenčíne', last: '', flags: [:representantive],
         role: 'Hovorca krajského súdu v Trenčíne'
