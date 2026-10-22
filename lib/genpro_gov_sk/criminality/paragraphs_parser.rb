@@ -153,10 +153,9 @@ module GenproGovSk
           COMPLEMENTS.each { |part, complement| add_complement(statistic, part, complement) }
         end
 
+        # The reports have no row for these totals.
         SUMMED.each do |metric|
-          @data[:statistics].map { |e| e[:paragraph] }.uniq.each do |paragraph|
-            add_sum(metric, paragraph) unless find(metric, paragraph)&.dig(:count)
-          end
+          @data[:statistics].map { |e| e[:paragraph] }.uniq.each { |paragraph| add_sum(metric, paragraph) }
         end
       end
 
