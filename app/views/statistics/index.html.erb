@@ -1,22 +1,16 @@
 <% provide :title, t('.page_title') %>
 
-<%
-  @time = Benchmark.realtime do
-    @data = @search.data
-  end * 1000
-%>
-
 <div class="container px-sm-0" data-controller="facets">
   <div class="clearfix">
-    <div id="facets" class="float-lg-left col-lg-3 mb-5 mb-lg-0 px-0 pr-lg-4 collapse show">
-      <div class="facet" data-controller="suggest" data-url="<%= suggest_statistics_path(@search.params.merge(facet: :paragraph)) %>">
-        <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-paragraph-content">
+    <div id="facets" class="float-lg-start col-lg-3 mb-5 mb-lg-0 px-0 pe-lg-4 collapse show" data-facets-target="facets" data-action="hide.bs.collapse->facets#hide show.bs.collapse->facets#show">
+      <div class="facet" data-controller="facet-suggest" data-facet-suggest-url-value="<%= suggest_statistics_path(@search.params.merge(facet: :paragraph)) %>">
+        <h6 class="facet-title" role="button" data-bs-toggle="collapse" data-bs-target="#statistic-paragraph-content" aria-expanded="true" aria-controls="statistic-paragraph-content">
           <%= t ".search.paragraph.title" %>
         </h6>
 
         <div id="statistic-paragraph-content" class="facet-content collapse show">
           <div class="facet-results">
-            <input value="<%= params[:paragraph_suggest] %>" class="facet-suggest ui-autocomplete-input" name="paragraph" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
+            <input value="<%= params[:paragraph_suggest] %>" class="facet-suggest" name="paragraph" data-facet-suggest-target="input" data-action="input->facet-suggest#search" placeholder="<%= t '.search.paragraph.placeholder' %>" type="text" autocomplete="off">
 
             <% if (facets = @search.facets_for(:paragraph, selected_first: true)).any? %>
               <ul class="facet-list">
@@ -28,7 +22,9 @@
               </ul>
             <% end %>
 
-            <%= render "paragraph_results", values: facets, params: @search.params %>
+            <div data-facet-suggest-target="results" aria-live="polite">
+              <%= render "paragraph_results", values: facets, params: @search.params %>
+            </div>
 
             <small class="text-muted mt-2"><%= t '.search.paragraph.disclaimer' %></small>
           </div>
@@ -36,7 +32,7 @@
       </div>
 
       <div class="facet">
-        <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-year-content">
+        <h6 class="facet-title" role="button" data-bs-toggle="collapse" data-bs-target="#statistic-year-content" aria-expanded="true" aria-controls="statistic-year-content">
           <%= t '.search.year.title' %>
         </h6>
 
@@ -66,7 +62,7 @@
       </div>
 
       <div class="facet">
-        <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-office-type-content">
+        <h6 class="facet-title" role="button" data-bs-toggle="collapse" data-bs-target="#statistic-office-type-content" aria-expanded="true" aria-controls="statistic-office-type-content">
           <%= t '.search.office_type.title' %>
         </h6>
 
@@ -89,14 +85,14 @@
         </div>
       </div>
 
-      <div class="facet" data-controller="suggest" data-url="<%= suggest_statistics_path(@search.params.merge(facet: :office)) %>">
-        <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-office-content">
+      <div class="facet" data-controller="facet-suggest" data-facet-suggest-url-value="<%= suggest_statistics_path(@search.params.merge(facet: :office)) %>">
+        <h6 class="facet-title" role="button" data-bs-toggle="collapse" data-bs-target="#statistic-office-content" aria-expanded="true" aria-controls="statistic-office-content">
           <%= t '.search.office.title' %>
         </h6>
 
         <div id="statistic-office-content" class="facet-content collapse show">
           <div class="facet-results">
-            <input class="facet-suggest ui-autocomplete-input" name="office" data-target="suggest.query" data-action="keyup->suggest#onChange" placeholder="<%= t '.search.office.placeholder' %>" type="text" autocomplete="off">
+            <input class="facet-suggest" name="office" data-facet-suggest-target="input" data-action="input->facet-suggest#search" placeholder="<%= t '.search.office.placeholder' %>" type="text" autocomplete="off">
             <ul class="facet-list">
               <li class="facet-item">
                 <%= link_to statistics_path(search_params(@search.params, { office: nil })), class: "facet-link#{' active' if @search.params[:office].blank?}" do %>
@@ -111,7 +107,9 @@
               </li>
             </ul>
 
-            <%= render 'office_results', values: @search.facets_for(:office, selected_first: true), params: @search.params %>
+            <div data-facet-suggest-target="results" aria-live="polite">
+              <%= render 'office_results', values: @search.facets_for(:office, selected_first: true), params: @search.params %>
+            </div>
           </div>
         </div>
       </div>
@@ -120,7 +118,7 @@
         <% metrics.select { |metric| @search.has_metric?(metric) }.tap do |facets| %>
           <% if facets.any? %>
             <div class="facet">
-              <h6 class="facet-title" data-toggle="collapse" data-target="#statistic-<%= group %>-content">
+              <h6 class="facet-title" role="button" data-bs-toggle="collapse" data-bs-target="#statistic-<%= group %>-content" aria-expanded="true" aria-controls="statistic-<%= group %>-content">
                 <%= t ".search.#{group}.title" %>
               </h6>
 
@@ -140,30 +138,30 @@
         <% end %>
       <% end %>
     </div>
-    <div class="float-lg-right col-lg-9 px-0" data-results-for-facets>
+    <div class="float-lg-end col-lg-9 px-0" data-facets-target="results">
       <div class="d-flex flex-wrap align-items-center justify-content-between">
-        <h1 class="display-2 text-uppercase mr-sm-4 mt-1 pr-5">
+        <h1 class="display-2 text-uppercase me-sm-4 mt-1 pe-5">
           <%= t '.title' %>
         </h1>
 
         <div class="btn-toolbar" role="toolbar">
           <% if @search.params.any? { |_, v| v.present? } %>
-            <div class="btn-group btn-group-sm border mb-3 mr-2" role="group">
+            <div class="btn-group btn-group-sm border mb-3 me-2" role="group">
               <%= link_to t('layouts.search.reset'), statistics_path, class: 'btn btn-secondary btn-sm shadow-none border-0 w-100', 'data-turbo': false %>
             </div>
           <% end %>
 
           <div class="btn-group btn-group-sm border mb-3" role="group">
-            <a href="#" class="btn btn-secondary btn-sm shadow-none border-0 w-100" data-toggle="collapse" data-target="#facets" aria-controls="#facets" aria-expanded="true">
+            <a href="#facets" class="btn btn-secondary btn-sm shadow-none border-0 w-100" data-bs-toggle="collapse" role="button" aria-controls="facets" aria-expanded="true">
               <span class="show"><%= t '.shrink_chart' %></span>
               <span class="hide"><%= t '.enlarge_chart' %></span>
             </a>
           </div>
 
-          <div class="btn-group btn-group-sm border mb-3 ml-2">
+          <div class="btn-group btn-group-sm border mb-3 ms-2">
             <div class="btn-group btn-group-sm flex-grow-1 d-flex" role="group">
-              <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-0 flex-grow-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <%=  t ".comparison.title" %>
+              <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-0 flex-grow-1" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= t '.comparison.title' %>
               </button>
               <div class="dropdown-menu dropdown-menu-sm">
                 <%= link_to t('.comparison.global'), statistics_path(@search.params.merge(comparison: nil)), class: "dropdown-item #{'active' if @search.comparison == 'global'}" %>
@@ -175,10 +173,10 @@
             </div>
           </div>
 
-          <div class="btn-group btn-group-sm border mb-3 ml-2">
+          <div class="btn-group btn-group-sm border mb-3 ms-2">
             <div class="btn-group btn-group-sm flex-grow-1 d-flex" role="group">
-              <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-0 flex-grow-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <%=  t 'Export' %>
+              <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-0 flex-grow-1" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= t 'layouts.search.export' %>
               </button>
               <div class="dropdown-menu dropdown-menu-sm">
                 <%= link_to 'PNG', png_statistics_path(index_params), class: 'dropdown-item', target: :_blank %>
@@ -188,13 +186,7 @@
           </div>
         </div>
 
-        <div
-          class="w-100"
-          data-controller="statistics-chart"
-          data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>"
-          data-comparison="<%= @search.comparison %>"
-          data-json="<%= @data.to_json %>"
-        >
+        <div class="w-100">
           <h1 class="text-uppercase">
             <small class="text-muted">
               <% if @search.default_params? && params[:show_default_paragraphs].blank? %>
@@ -210,34 +202,41 @@
           <% end %>
 
           <% if @search.data[:data].reject { |e| e[:global] }.any? %>
-            <div class="mt-5 chart"></div>
+            <%= tag.div class: 'mt-5 chart', data: {
+                  controller: 'statistics-chart',
+                  statistics_chart_data_value: @data.to_json,
+                  statistics_chart_comparison_value: @search.comparison,
+                  statistics_chart_watermark_value: image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg")
+                } do %>
+              <canvas data-statistics-chart-target="canvas" role="img" aria-label="<%= t 'statistics.index.title' %>"></canvas>
+            <% end %>
 
-            <small class="mt-2 text-muted float-right text-right">
+            <small class="mt-2 text-muted float-end text-end">
               <%= t '.data_disclaimer' %>
             </small>
           <% else %>
             <p class="text-center text-muted mt-5 p-5"><%= t '.no_data' %></p>
           <% end %>
 
-          <div class="table-responsive-md mt-5 table-scrollable" data-controller="table">
+          <div class="table-responsive-md mt-5 table-scrollable">
             <%= table_tag class: 'table' do %>
               <thead>
                 <tr>
-                  <%= table_header_tag t('.search.office.title'), class: 'text-left', sorter: 'text' %>
+                  <%= table_header_tag t('.search.office.title'), class: 'text-start' %>
                   <% @data[:years].each do |year| %>
-                    <%= table_header_tag year, class: 'text-left', sorter: 'number' %>
+                    <%= table_header_tag year, class: 'text-start', sorter: 'digit' %>
                   <% end %>
                 </tr>
               </thead>
               <tbody>
                 <% @data[:data].select { |e| e[:table] == true }.each do |value| %>
                   <tr>
-                    <th class="text-left" scope="row" data-value="<% value[:office] ? value[:office] : 'a' %>">
+                    <th class="text-start" scope="row">
                       <%= minified_office_name(value[:name]) %>
                     </th>
 
                     <% value[:data].each do |count| %>
-                      <td  data-value="<%= count || -1 %>"><%= count ? trim(number_with_delimiter(count), length: 5) : '&ndash;'.html_safe %></td>
+                      <td data-value="<%= count || -1 %>"><%= count ? trim(number_with_delimiter(count), length: 5) : '–' %></td>
                     <% end %>
                   </tr>
                 <% end %>
@@ -246,11 +245,11 @@
           </div>
 
           <div class="d-flex flex-wrap align-items-center justify-content-between">
-            <div class="small text-muted mr-3 mt-3">
+            <div class="small text-muted me-3 mt-3">
               <%= t 'layouts.search.found_html', count: number_with_delimiter(@search.current.count), total: I18n.t('statistics.count', count: number_with_delimiter(@count)) %>
             </div>
 
-            <div class="small mt-3 text-muted float-right text-right">
+            <div class="small mt-3 text-muted float-end text-end">
               <%= t '.data_source_disclaimer_html' %>
             </div>
           </div>

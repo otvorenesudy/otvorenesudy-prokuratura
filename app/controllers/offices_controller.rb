@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OfficesController < ApplicationController
   layout false, only: [:decrees]
 
@@ -17,22 +19,15 @@ class OfficesController < ApplicationController
   end
 
   def suggest
-    return head 404 unless suggest_params[:facet].in?(%w[city paragraph])
+    return head :not_found unless suggest_params[:facet].in?(%w[city paragraph])
 
     @search = OfficeSearch.new(index_params)
+    facet = suggest_params[:facet]
 
-    render(
-      json: {
-        html:
-          render_to_string(
-            partial: "#{suggest_params[:facet]}_results",
-            locals: {
-              values: @search.facets_for(suggest_params[:facet], suggest: suggest_params[:suggest]),
-              params: @search.params
-            }
-          )
-      }
-    )
+    render partial: "#{facet}_results", locals: {
+      values: @search.facets_for(facet, suggest: suggest_params[:suggest]),
+      params: @search.params
+    }
   end
 
   def decrees

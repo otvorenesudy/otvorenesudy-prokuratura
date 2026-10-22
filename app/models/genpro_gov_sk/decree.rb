@@ -23,7 +23,7 @@ module GenproGovSk
       digest = Digest::MD5.hexdigest(file)
       genpro_gov_sk_decree = find_by(digest: digest)
 
-      return if genpro_gov_sk_decree && data.deep_stringify_keys == genpro_gov_sk_decree.data.deep_stringify_keys
+      return if genpro_gov_sk_decree && data.as_json == genpro_gov_sk_decree.data
 
       genpro_gov_sk_decree ||= new(digest: digest, file: file.force_encoding('ISO-8859-1').encode('UTF-8'))
 

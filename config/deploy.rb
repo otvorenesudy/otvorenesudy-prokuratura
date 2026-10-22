@@ -1,43 +1,47 @@
-# Config valid for current version and patch releases of Capistrano
-lock '~> 3.18.1'
+# frozen_string_literal: true
+
+# Deployed with `bundle exec cap production deploy`, from main.
+lock '~> 3.20'
 
 set :application, 'otvorenesudy-prokuratura'
-set :repo_url, 'git@github.com-otvorenesudy-prokuratura:otvorenesudy/otvorenesudy-prokuratura.git'
-# set :repo_url, 'git@github.com:otvorenesudy/otvorenesudy-prokuratura.git' # Uncomment when deploying locally and not from CI
+set :repo_url,
+    'git@github.com-otvorenesudy-prokuratura:otvorenesudy/otvorenesudy-prokuratura.git'
+# set :repo_url, 'git@github.com:otvorenesudy/otvorenesudy-prokuratura.git' # Uncomment when deploying locally
 
-# Sidekiq
-set :sidekiq_processes, 2
-set :sidekiq_config, %w[config/sidekiq-1.yml config/sidekiq-2.yml]
-set :sidekiq_service_unit_name, -> { "#{fetch(:application)}.sidekiq" }
+set :ssh_options, { forward_agent: true }
 
-# Rbenv
 set :rbenv_type, :user
 set :rbenv_ruby, File.read('.ruby-version').strip
 
-# Whenever
-set :whenever_identifier, -> { "#{fetch(:application)}-#{fetch(:stage)}" }
-
-# Links
-set :linked_files, fetch(:linked_files, []).push('config/master.key', 'config/credentials/production.key')
-set :linked_dirs,
-    fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'tmp/downloads', 'vendor/bundle')
+# The secrets' key (config/credentials/production.yml.enc is committed); the database login comes from the deploy
+# user's ~/.env.
+set :linked_files,
+    fetch(:linked_files, []).push('config/credentials/production.key')
+set :linked_dirs, fetch(:linked_dirs, []).push(
+  'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'tmp/downloads', 'vendor/bundle'
+)
 
 set :keep_releases, 2
-set :ssh_options, { forward_agent: true }
+
+set :whenever_identifier, -> { "#{fetch(:application)}-#{fetch(:stage)}" }
+
+# Two Sidekiq processes, each the deploy user's systemd service (sidekiq:install installs them once).
+set :sidekiq_config_files, %w[sidekiq-1.yml sidekiq-2.yml]
+set :sidekiq_service_unit_name, -> { "#{fetch(:application)}.sidekiq" }
+set :sidekiq_service_unit_env_files, -> { ["/home/#{fetch(:user)}/.env"] }
 
 namespace :deploy do
-  before 'deploy:assets:precompile', 'deploy:yarn'
   after 'deploy:publishing', 'deploy:restart'
   after 'finishing', 'deploy:cleanup'
   after 'finishing', 'cache:clear'
 
-  desc 'Deploy app for first time'
+  desc 'Deploy to a new server: create and load the database instead of migrating it'
   task :cold do
     invoke 'deploy:starting'
     invoke 'deploy:started'
     invoke 'deploy:updating'
     invoke 'bundler:install'
-    invoke 'deploy:database' # This replaces deploy:migrations
+    invoke 'deploy:prepare_database'
     invoke 'sidekiq:install'
     invoke 'deploy:compile_assets'
     invoke 'deploy:normalize_assets'
@@ -47,35 +51,25 @@ namespace :deploy do
     invoke 'deploy:finished'
   end
 
-  desc 'Setup database'
-  task :database do
+  desc 'Create the database and load db/structure.sql with the seeds, or migrate an existing one'
+  task :prepare_database do
     on roles(:db) do
       within release_path do
-        with rails_env: (fetch(:rails_env) || fetch(:stage)) do
-          execute :rake, 'db:create'
-          execute :rake, 'db:migrate'
-          execute :rake, 'db:seed'
+        with rails_env: fetch(:rails_env) || fetch(:stage) do
+          execute :rake, 'db:prepare'
         end
-      end
-    end
-  end
-
-  desc 'Run rake yarn install'
-  task :yarn do
-    on roles(:web) do
-      within release_path do
-        execute("cd #{release_path} && yarn install --silent --no-progress --no-audit --no-optional")
       end
     end
   end
 end
 
 namespace :cache do
+  desc 'Clear the Rails cache'
   task :clear do
-    on roles(:app) do |host|
-      with rails_env: fetch(:rails_env) do
-        within current_path do
-          execute :bundle, :exec, 'rake cache:clear'
+    on roles(:app) do
+      within current_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'cache:clear'
         end
       end
     end

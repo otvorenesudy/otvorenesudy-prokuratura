@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'MinvSk::Criminality', type: :feature do
-  it 'correctly imports and parses data', webmock: :disabled do
+  it 'correctly imports and parses data' do
     MinvSk::Criminality.import
 
     validations = [

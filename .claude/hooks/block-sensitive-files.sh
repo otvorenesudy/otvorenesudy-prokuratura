@@ -11,8 +11,7 @@
 #   config/configuration.yml      otvorenesudy's secrets; its .example and .travis templates are fine
 #   secret_token.rb               otvorenesudy's session secret initializer, and the token in its history
 #   config/credentials*, *.yml.enc, *.key, credentials:show and credentials:edit
-#                                 Rails credentials and the keys that decrypt them (otvorenesudy-api,
-#                                 otvorenesudy-prokuratura, including the committed test.ci.key)
+#                                 Rails credentials and the keys that decrypt them (every repository)
 #   *.pem, *.p12, *.pfx, id_rsa, *_rsa, *_ed25519, .netrc, .npmrc, .pgpass, .vault_pass*
 #                                 certificates, private keys and logins
 #   db-backup-<date>.gz           production database dumps

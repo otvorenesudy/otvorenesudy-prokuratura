@@ -10,7 +10,8 @@ RSpec.describe 'GenproGovSk Offices', type: :feature do
 
     GenproGovSk::Offices.import
 
-    imported_offices = ::Office.all.order(:name)
+    # The suite's database holds the seeds' offices too; these are the ones the import read.
+    imported_offices = ::Office.where.not(genpro_gov_sk_office_id: nil).order(:name)
 
     expect(imported_offices.count).to eq(expected_offices.count),
     "Expected #{expected_offices.count} offices, but got #{imported_offices.count}"

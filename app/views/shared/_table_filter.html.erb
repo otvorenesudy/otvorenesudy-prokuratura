@@ -1,0 +1,6 @@
+<%# The box that filters a table's rows (the table-filter controller on an element around both). %>
+<div class="input-group input-group-sm">
+  <%= search_field_tag :q, '', id: nil, class: 'form-control search-query-input', placeholder:, 'aria-label': placeholder, autocomplete: 'off', data: { table_filter_target: 'input', action: 'input->table-filter#search' } %>
+  <%= link_to icon_tag('times'), '#', class: 'btn search-query-reset', hidden: true, 'aria-label': t('shared.table_filter.reset'), data: { table_filter_target: 'reset', action: 'table-filter#reset' } %>
+  <span class="btn search-query-submit" aria-hidden="true"><%= icon_tag('search') %></span>
+</div>

@@ -1,18 +1,12 @@
 <div class="statistics-export">
   <div class="d-flex flex-wrap align-items-center justify-content-between">
-  <h1 class="display-2 text-uppercase mr-sm-4 mt-1 pr-5">
+  <h1 class="display-2 text-uppercase me-sm-4 mt-1 pe-5">
     <%= t 'statistics.index.title' %>
   </h1>
 
   <%= brand_tag('transparency-international-slovensko', width: 197.92, height: 47.5, variant: I18n.locale) %>
 
-  <div
-    class="w-100"
-    data-controller="statistics-chart"
-    data-json="<%= @data.to_json %>"
-    data-comparison="<%= @search.comparison %>"
-    data-animation="false"
-  >
+  <div class="w-100">
     <h1 class="text-uppercase">
       <small class="text-muted">
         <% if @search.default_params? && params[:show_default_paragraphs].blank? %>
@@ -24,9 +18,16 @@
     </h1>
 
     <% if @search.data[:data].select { |e| e[:office] }.any? %>
-      <div class="mt-5 chart"></div>
+      <%= tag.div class: 'mt-5 chart', data: {
+            controller: 'statistics-chart',
+            statistics_chart_data_value: @data.to_json,
+            statistics_chart_comparison_value: @search.comparison,
+            statistics_chart_animated_value: false
+          } do %>
+        <canvas data-statistics-chart-target="canvas" role="img" aria-label="<%= t 'statistics.index.title' %>"></canvas>
+      <% end %>
 
-      <small class="mt-2 text-muted float-right text-right">
+      <small class="mt-2 text-muted float-end text-end">
         <%= t 'statistics.index.data_disclaimer' %>
         <br>
         <% if params[:embedded] %>

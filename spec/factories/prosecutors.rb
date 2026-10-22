@@ -27,5 +27,6 @@ FactoryBot.define do
     association :'genpro_gov_sk_prosecutors_list'
 
     sequence(:name) { |n| "JUDr. John Doe #{n}" }
+    name_parts { { first: name.split[1], last: name.split.last } }
   end
 end

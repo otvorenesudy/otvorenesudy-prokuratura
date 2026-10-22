@@ -1,0 +1,14 @@
+// A collapse's toggle says what it will do: its .show content while its target is shown, its .hide content while hidden.
+[data-bs-toggle='collapse'] {
+  &:not(.collapsed) {
+    .show {
+      display: none;
+    }
+  }
+
+  &.collapsed {
+    .hide {
+      display: none;
+    }
+  }
+}

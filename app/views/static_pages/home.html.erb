@@ -1,40 +1,31 @@
+<%
+  slides = [
+    ['slides/vytrvame-darujte-pastircak.png', 'V snahe o lepšie Slovensko vytrváme', 'https://transparency.darujme.sk/vytrvame/?referral_tag_id=c13469f4-d80f-4275-96d8-d3839823a3a3'],
+    ['slides/2-percenta-2023.png', '2% pre Transparency International', 'https://transparency.sk/sk/2percenta'],
+    ['slides/prokuratura-navod.svg', 'Návod na portál Otvorená Prokuratúra', 'https://www.youtube.com/watch?v=AbPwNs768h4'],
+    ['slides/rytieri.png', 'Rytieri a bojovníčky Transparency', 'https://transparency.sk/sk/rytieri'],
+    ['slides/justicia-a-infozakon.svg', 'Justícia a infozákon', 'https://transparency.sk/sk/akademia/temy/justicia'],
+    ['slides/rodinne-vazby-sudcov.svg', 'Rodinné väzby sudcov', 'http://sudy.transparency.sk'],
+    ['slides/korupcia-zabija-spravodlivost.svg', 'Korupcia zabíja spravodlivosť', 'https://transparency.darujme.sk/2319/?donation=40&periodicity=periodical'],
+    ['slides/spravy-z-boja-proti-korupcii.svg', 'Správy z boja proti korupcii', 'https://eepurl.com/doWD8X']
+  ]
+%>
+
 <div class="row">
   <div class="col">
-    <div id="carousel" class="carousel carousel-fade slide mb-5" data-ride="carousel">
+    <div id="carousel" class="carousel carousel-fade slide mb-5" data-bs-ride="carousel">
       <div class="carousel-inner mb-3 text-center">
-        <div class="carousel-item active">
-          <%= link_to image_tag(asset_path('slides/vytrvame-darujte-pastircak.png'), alt: 'V snahe o lepšie Slovensko vytrváme', style: 'width: 100%; max-width: 100%; max-height: 100%'), 'https://transparency.darujme.sk/vytrvame/?referral_tag_id=c13469f4-d80f-4275-96d8-d3839823a3a3', class: 'd-block w-100', target: :_blank %>
-        </div>
-        <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/2-percenta-2023.png'), alt: '2% pre Transparency International', style: 'width: 100%; max-width: 100%; max-height: 100%'), 'https://transparency.sk/sk/2percenta', class: 'd-block w-100', target: :_blank %>
-        </div>
-        <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/prokuratura-navod.svg'), alt: 'Návod na portál Otvorená Prokuratúra', style: 'width: 100%; max-width: 100%; max-height: 100%'), 'https://www.youtube.com/watch?v=AbPwNs768h4', class: 'd-block w-100', target: :_blank %>
-        </div>
-        <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/rytieri.png'), alt: 'Rytieri a bojovníčky Transparency', style: 'width: 100%; max-width: 100%; max-height: 100%'), 'https://transparency.sk/sk/rytieri', class: 'd-block w-100', target: :_blank %>
-        </div>
-        <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/justicia-a-infozakon.svg'), alt: 'Justícia a infozákon', style: 'width: 100%; max-width: 100%; max-height: 100%'), 'https://transparency.sk/sk/akademia/temy/justicia', class: 'd-block w-100', target: :_blank %>
-        </div>
-        <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/rodinne-vazby-sudcov.svg'), alt: 'Rodinné väzby sudcov', style: 'width: 100%; max-width: 100%; max-height: 100%'), 'http://sudy.transparency.sk', class: 'd-block w-100', target: :_blank %>
-        </div>
-        <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/korupcia-zabija-spravodlivost.svg'), alt: 'Korupcia zabíja spravodlivosť', style: 'width: 100%; max-width: 100%; max-height: 100%'), 'https://transparency.darujme.sk/2319/?donation=40&periodicity=periodical', class: 'd-block w-100', target: :_blank %>
-        </div>
-        <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/spravy-z-boja-proti-korupcii.svg'), alt: 'Správy z boja proti korupcii', style: 'width: 100%; max-width: 100%; max-height: 100%'), 'https://eepurl.com/doWD8X', class: 'd-block w-100', target: :_blank %>
-        </div>
+        <% slides.each_with_index do |(image, text, url), index| %>
+          <div class="carousel-item<%= ' active' if index.zero? %>">
+            <%= link_to image_tag(image, alt: text, class: 'd-block w-100'), url, class: 'd-block w-100' %>
+          </div>
+        <% end %>
       </div>
-      <ol class="carousel-indicators">
-        <li data-target="#carousel" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel" data-slide-to="1"></li>
-        <li data-target="#carousel" data-slide-to="2"></li>
-        <li data-target="#carousel" data-slide-to="3"></li>
-        <li data-target="#carousel" data-slide-to="4"></li>
-        <li data-target="#carousel" data-slide-to="5"></li>
-      </ol>
+      <div class="carousel-indicators">
+        <% slides.each_with_index do |(_, text, _), index| %>
+          <%= button_tag '', type: 'button', class: ('active' if index.zero?), data: { bs_target: '#carousel', bs_slide_to: index }, 'aria-current': (true if index.zero?), 'aria-label': text %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
@@ -48,7 +39,7 @@
          <%= t('.feature.footline') %>
        </h1>
        <h4 class="mb-3">
-         <%= t('.feature.list', project: content_tag(:span, t('.feature.project'), class: 'text-uppercase')).html_safe %>
+         <%= t('.feature.list_html', project: tag.span(t('.feature.project'), class: 'text-uppercase')) %>
        </h4>
        <div class="d-flex align-items-center">
          <ol class="list-unstyled mb-0">
@@ -61,12 +52,12 @@
    </div>
 
    <div class="col-12 col-lg-5 col-xl-6 mt-4 mt-lg-0">
-     <div class="row font-weight-bold text-center text-uppercase">
+     <div class="row fw-bold text-center text-uppercase">
        <%= link_to icon_tag('prosecutors', size: 60) + content_tag(:span, t('.squares.prosecutors')), prosecutors_path, class: 'square mx-3 mb-4' %>
        <%= link_to icon_tag('general-office', size: 60) + content_tag(:span, t('.squares.offices')), offices_path, class: 'square mx-3 mb-4' %>
        <div class="d-block w-100"></div>
        <%= link_to icon_tag('criminality', size: 60) + content_tag(:span, t('.squares.criminality')), statistics_path, class: 'square mx-3 mb-4' %>
-       <%= link_to icon_tag('magnifier', size: 60) + content_tag(:span, t('.squares.search')), 'https://transparency.blog.sme.sk/', class: 'square mx-3 mb-4', target: :_blank %>
+       <%= link_to icon_tag('magnifier', size: 60) + content_tag(:span, t('.squares.search')), 'https://transparency.blog.sme.sk/', class: 'square mx-3 mb-4' %>
      </div>
   </div>
 </div>
@@ -74,27 +65,35 @@
 <div class="row mt-5">
   <div class="col-12">
     <h2 class="mb-4 text-uppercase"><%= t '.average_incoming_cases_chart_title' %></h2>
-    <div data-controller="home-average-incoming-cases-chart" data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>"></div>
+    <%= tag.div class: 'chart chart-md', data: { controller: 'home-chart', home_chart_name_value: 'average-incoming-cases', home_chart_watermark_value: image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") } do %>
+      <canvas data-home-chart-target="canvas" role="img" aria-label="<%= t '.average_incoming_cases_chart_title' %>"></canvas>
+    <% end %>
   </div>
 </div>
 
 <div class="row mt-5">
   <div class="col-12">
     <h2 class="mb-4 text-uppercase"><%= t '.average_incoming_cases_comparison_chart_title' %></h2>
-    <div data-controller="home-average-incoming-cases-comparison-chart" data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>"></div>
+    <%= tag.div class: 'chart chart-sm', data: { controller: 'home-chart', home_chart_name_value: 'average-incoming-cases-comparison', home_chart_watermark_value: image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") } do %>
+      <canvas data-home-chart-target="canvas" role="img" aria-label="<%= t '.average_incoming_cases_comparison_chart_title' %>"></canvas>
+    <% end %>
   </div>
 </div>
 
 <div class="row mt-5">
   <div class="col-12">
     <h2 class="mb-4 text-uppercase"><%= t '.ratio_of_rest_to_incoming_cases_chart_title' %></h2>
-    <div data-controller="home-ratio-of-rest-to-incoming-cases-chart" data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>"></div>
+    <%= tag.div class: 'chart chart-md', data: { controller: 'home-chart', home_chart_name_value: 'ratio-of-rest-to-incoming-cases', home_chart_watermark_value: image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") } do %>
+      <canvas data-home-chart-target="canvas" role="img" aria-label="<%= t '.ratio_of_rest_to_incoming_cases_chart_title' %>"></canvas>
+    <% end %>
   </div>
 </div>
 
 <div class="row mt-5">
   <div class="col-12">
     <h2 class="mb-4 text-uppercase"><%= t '.filed_cases_to_incoming_cases_chart_title' %></h2>
-    <div data-controller="home-filed-cases-to-incoming-cases-chart" data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>"></div>
+    <%= tag.div class: 'chart chart-md', data: { controller: 'home-chart', home_chart_name_value: 'filed-cases-to-incoming-cases', home_chart_watermark_value: image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") } do %>
+      <canvas data-home-chart-target="canvas" role="img" aria-label="<%= t '.filed_cases_to_incoming_cases_chart_title' %>"></canvas>
+    <% end %>
   </div>
 </div>

@@ -1,49 +1,52 @@
+# frozen_string_literal: true
+
 require 'minv_sk/criminality/parser'
 require 'downloader'
 
 module MinvSk
   module Criminality
-    def self.import
-      links = %w[
-        https://www.minv.sk/swift_data/source/policia/statistiky/rok_1997/statistika_podla_paragrafov_3_31.12.1997.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky/rok_1998/3csv_statistika_podla_paragrafov_31.12.1998.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky/rok_1999/3csv_statistika_podla_paragrafov_31.12.1999.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky/rok_2000/3csv_statistika_podla_paragrafov_31.12.2000.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky/rok_2001/3csv_statistika_podla_paragrafov_31.12.2001.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky/rok_2002/3csv_statistika_podla_paragrafov_31.12.2002.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky/rok_2003/3csv_statistika_podla_paragrafov_31.12.2003.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky/rok_2004/3csv_statistika_podla_paragrafov_31.12.2004.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky/rok_2005/3csv_statistika_podla_paragrafov_31.12.2005.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky/rok_2006/3csv_statistika_podla_paragrafov_31.12.2006.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky/rok_2007/3csv_statistika_podla_paragrafov_31.12.2007.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky/rok_2008/3csv_statistika_podla_paragrafov_31.12.2008.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky/12_12/3csv_statistika_podla_paragrafov_31.12.2012.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky/2013/12_december/3_statistika_podla_paragrafov_3_31.12.2013.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky/2014/12_december/3csv_statistika_podla_paragrafov_3_31.12.2014.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky_2015/december/csv3_statistika_podla_paragrafov_3_31.12.2015.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky_2016/12_december/csv3_statistika_podla_paragrafov_3_31.12.2016.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky_2017/12_december/csv3_statistika_podla_paragrafov_3_31.12.2017.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky_2018/12_december/3_csv_statistika_podla_paragrafov_3_31.12.2018.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky_2019/12_december/3csv_statistika_podla_paragrafov_3_31.12.2019.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky_2020/12_december/3csv_statistika_podla_paragrafov_3_31.12.2020.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky_2021/12_december/3csv_statistika_podla_paragrafov_3_31.12.2021.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky_2022/12_december/3csv_statistika_podla_paragrafov_3_31.12.2022.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky_2023/12_december/3csv_statistika_podla_paragrafov_3_31.12.2023.csv
-        https://www.minv.sk/swift_data/source/policia/statistiky_2024/05_maj/3csv_statistika_podla_paragrafov_3_31.05.2024.csv
-      ]
+    # The police's statistics by paragraph, one file a year.
+    LINKS = %w[
+      https://www.minv.sk/swift_data/source/policia/statistiky/rok_1997/statistika_podla_paragrafov_3_31.12.1997.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky/rok_1998/3csv_statistika_podla_paragrafov_31.12.1998.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky/rok_1999/3csv_statistika_podla_paragrafov_31.12.1999.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky/rok_2000/3csv_statistika_podla_paragrafov_31.12.2000.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky/rok_2001/3csv_statistika_podla_paragrafov_31.12.2001.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky/rok_2002/3csv_statistika_podla_paragrafov_31.12.2002.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky/rok_2003/3csv_statistika_podla_paragrafov_31.12.2003.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky/rok_2004/3csv_statistika_podla_paragrafov_31.12.2004.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky/rok_2005/3csv_statistika_podla_paragrafov_31.12.2005.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky/rok_2006/3csv_statistika_podla_paragrafov_31.12.2006.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky/rok_2007/3csv_statistika_podla_paragrafov_31.12.2007.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky/rok_2008/3csv_statistika_podla_paragrafov_31.12.2008.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky/12_12/3csv_statistika_podla_paragrafov_31.12.2012.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky/2013/12_december/3_statistika_podla_paragrafov_3_31.12.2013.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky/2014/12_december/3csv_statistika_podla_paragrafov_3_31.12.2014.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky_2015/december/csv3_statistika_podla_paragrafov_3_31.12.2015.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky_2016/12_december/csv3_statistika_podla_paragrafov_3_31.12.2016.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky_2017/12_december/csv3_statistika_podla_paragrafov_3_31.12.2017.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky_2018/12_december/3_csv_statistika_podla_paragrafov_3_31.12.2018.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky_2019/12_december/3csv_statistika_podla_paragrafov_3_31.12.2019.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky_2020/12_december/3csv_statistika_podla_paragrafov_3_31.12.2020.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky_2021/12_december/3csv_statistika_podla_paragrafov_3_31.12.2021.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky_2022/12_december/3csv_statistika_podla_paragrafov_3_31.12.2022.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky_2023/12_december/3csv_statistika_podla_paragrafov_3_31.12.2023.csv
+      https://www.minv.sk/swift_data/source/policia/statistiky_2024/05_maj/3csv_statistika_podla_paragrafov_3_31.05.2024.csv
+    ].freeze
 
+    def self.import(links: LINKS)
       statistics =
         links
-          .map do |link|
-            data =
-              Downloader.download(link, retries: 3) do |body|
-                parsed = Parser.parse(body)
-                sleep 1
-                parsed
-              end
+        .map do |link|
+          data =
+            Downloader.download(link, retries: 3) do |body|
+              parsed = Parser.parse(body)
+              sleep 1
+              parsed
+            end
 
-            data.select { |e| e[:count].present? }
-          end
+          data.select { |e| e[:count].present? }
+        end
           .flatten
 
       ::Crime.import_from(statistics)

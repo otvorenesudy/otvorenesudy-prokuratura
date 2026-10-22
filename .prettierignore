@@ -1,1 +1,3 @@
-/config/version.rb
+# Third-party code, kept as published.
+app/assets/stylesheets/vendor/
+vendor/

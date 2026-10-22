@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CrimeSearch
   attr_reader :search, :params, :current_statistic_metrics, :current_statistic_paragraphs, :default_params
 
@@ -54,34 +56,18 @@ class CrimeSearch
       current_statistic_paragraphs == default_params[:paragraph]
   end
 
-  def paragraphs_present?
-    current_statistic_paragraphs.present? && current_statistic_paragraphs != %w[_all]
-  end
-
   def monetary_metric_present?
     current_statistic_metrics.include?('crime_denominated_damage')
-  end
-
-  def comparison
-    params[:comparison] || 'metrics'
   end
 
   def data
     @data ||=
       begin
-        if comparison === 'metrics'
-          all = current.group(:metric, :year).sum(:count)
-          groupped =
-            all
-              .each
-              .with_object({}) do |((metric, year), count), hash|
-                hash[metric] = (hash[metric] || {}).merge(year => count)
-              end
-        end
-
-        if comparison === 'paragraphs'
-          # TODO
-        end
+        all = current.group(:metric, :year).sum(:count)
+        groupped =
+          all.each.with_object({}) do |((metric, year), count), hash|
+            hash[metric] = (hash[metric] || {}).merge(year => count)
+          end
 
         years = all.keys.map(&:last).uniq.sort
 
@@ -93,7 +79,6 @@ class CrimeSearch
                 name: metric_to_human(metric),
                 group: Crime::GROUPS.find { |group, values| metric.to_sym.in?(values) }[0],
                 metric: metric,
-                comparison: comparison,
                 monetary: metric === 'crime_denominated_damage',
                 data: years.map { |e| values[e] }
               }
@@ -113,7 +98,7 @@ class CrimeSearch
   def has_metric?(value)
     @metrics ||= search.all.unscope(where: :metric).pluck(Arel.sql('DISTINCT crimes.metric')).map(&:to_sym)
 
-    params[:metric].blank? ? true : value.in?(@metrics)
+    params[:metric].blank? || value.in?(@metrics)
   end
 
   private
@@ -136,13 +121,6 @@ class CrimeSearch
     end
 
     params[:show_default_paragraphs] = nil unless default_params?
-  end
-
-  def format_paragraph_name_for_chart(value)
-    name = Paragraph.name_of(value)
-    name += " [#{I18n.t('statistics.index.search.paragraph.old.badge')}]" if Paragraph.type_of(value) == :old
-
-    name
   end
 
   class YearFilter
@@ -194,9 +172,9 @@ class CrimeSearch
 
       scope =
         Paragraph
-          .all
-          .order(Arel.sql("array_position(ARRAY[#{highlights.join(',')}] :: text[], value :: text) ASC NULLS LAST"))
-          .order(name: :asc)
+        .all
+        .order(Arel.sql("array_position(ARRAY[#{highlights.join(',')}] :: text[], value :: text) ASC NULLS LAST"))
+        .order(name: :asc)
 
       paragraphs = ::QueryFilter.filter(scope, { q: suggest }, columns: %i[name]).pluck(:value).to_a
 

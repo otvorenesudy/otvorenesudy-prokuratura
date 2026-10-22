@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe GenproGovSk::Declarations::Parser do
-  FIXTURES_PATH = Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'declarations')
+  FIXTURES_PATH = Rails.root.join('spec/fixtures/genpro_gov_sk/declarations')
 
   describe '.parse' do
     Dir
@@ -36,6 +38,32 @@ RSpec.describe GenproGovSk::Declarations::Parser do
           end
         end
       end
+
+    describe 'a table of rights' do
+      let(:document) { Nokogiri::HTML(File.read(FIXTURES_PATH.join('Andrea-Jancova-OPZA-2024', 'data.html'))) }
+      let(:rights) do
+        document.css('h3').find { |h3| h3.text.strip == 'Majetkové práva a iné majetkové hodnoty' }
+                .xpath('following-sibling::table[1]').first
+      end
+
+      def items(document)
+        described_class.parse(document.to_html)[:lists]
+                       .find { |list| list[:category] == 'Majetkové práva a iné majetkové hodnoty' }[:items]
+      end
+
+      it 'reads the procurement price of a table without the usual price' do
+        rights.css('tr').each { |row| row.css('th, td')[3].remove }
+
+        expect(items(document)).to eq([{ description: 'úspory', acquisition_reason: 'príjem z výkonu funkcie prokurátora, dôchodok',
+                                         acquisition_date: 'do 31.12.2024', procurement_price: '26000' }])
+      end
+
+      it 'refuses a table whose columns it does not know' do
+        rights.at_css('th').content = 'popis nároku'
+
+        expect { items(document) }.to raise_error(ArgumentError, /No parser for \["popis nároku"/)
+      end
+    end
 
     it 'extracts the year correctly' do
       html = File.read(FIXTURES_PATH.join('Maroš-Žilinka-USPGP-2019', 'data.html'))

@@ -1,97 +1,15 @@
-# TODO assembled from legacy JusticeGovSk::Helper::Normalizer to retain compatibility for data refinements
-# TODO add more specs and refactor legacy code and eventually remove
-
+# The name of a person, from genpro.gov.sk's lists, declarations and decrees, split into its parts: academic titles
+# before and after it, first, middle and last names, and flags (born as, junior or senior). Kept from the courts' importer
+# (JusticeGovSk::Helper::Normalizer) so that names stay as they were stored.
 module Legacy
   module Normalizer
     extend self
 
     using Legacy::String
 
-    def normalize_court_name(value)
-      value = value.to_s.clone.utf8
-
-      value.gsub!(/[\-\,]/, '')
-
-      value.gsub!(/1/, ' I ')
-      value.gsub!(/2/, ' II ')
-      value.gsub!(/3/, ' III ')
-      value.gsub!(/4/, ' IV ')
-      value.gsub!(/5/, ' V ')
-
-      value.gsub!(/lll|III/i, ' III ')
-      value.gsub!(/okolie/i, ' okolie ')
-
-      value.gsub!(/Kraj.\s*súd/, 'Krajský súd')
-
-      value.gsub!(/B\.?\s*Bystrica/, 'Banská Bystrica')
-      value.gsub!(/D\.\s*Kubín/, 'Dolný Kubín')
-
-      value = " #{value} ".utf8
-
-      value.gsub!(/\s+v\s+BA/, ' Bratislava')
-      value.gsub!(/\s+v\s+ZA/, ' Žilina')
-
-      value.gsub!(/\s+v\s+Bansk(á|ej)\s+Bystric(a|i)/i, ' Banská Bystrica')
-      value.gsub!(/\s+v\s+Bratislav(a|e)/i, ' Bratislava')
-      value.gsub!(/\s+v\s+Košic(a|iach)/i, ' Košice')
-      value.gsub!(/\s+v\s+Nitr(a|e)/i, ' Nitra')
-      value.gsub!(/\s+v\s+Prešove?/i, ' Prešov')
-      value.gsub!(/\s+v\s+Trenčíne?/i, ' Trenčín')
-      value.gsub!(/\s+v\s+Trnav(a|e)/i, ' Trnava')
-      value.gsub!(/\s+v\s+Žilin(a|e)/i, ' Žilina')
-
-      value.squeeze!(' ')
-      value.strip!
-
-      value.gsub!(%r{n\/B}i, 'nad Bebravou')
-      value.gsub!(%r{n\/V}i, 'nad Váhom')
-      value.gsub!(%r{n\/T|n\.T\.}i, 'nad Topľou')
-      value.gsub!(%r{n\/H}i, 'nad Hronom')
-
-      value.gsub!(/Najvyšší\s*súd\s*(SR|Slovenskej*\srepubliky)?/i, 'Najvyšší súd Slovenskej republiky')
-      value.gsub!(/ŠTS(\s*v\s*Pezinku)?/i, 'Špecializovaný trestný súd')
-      value.gsub!(/MS\s*SR/, 'Ministerstvo spravodlivosti Slovenskej republiky')
-      value.gsub!(/NS\s*SR/, 'Najvyšší súd Slovenskej republiky')
-
-      value.gsub!(/\./, '')
-
-      value
-        .split(/\s+/)
-        .map { |word|
-          case word
-          when 'KS'
-            'Krajský súd'
-          when 'OS'
-            'Okresný súd'
-          when 'BA'
-            'Bratislava'
-          when 'KE'
-            'Košice'
-          when 'ZA'
-            'Žilina'
-          when 'BB'
-            'Banská Bystrica'
-          when /\A(I|V)+\z/
-            word
-          when /\ASR\z/i
-            'Slovenskej republiky'
-          when /\A(a|v|nad|pre|súd|okolie|trestný|republiky)\z/i
-            word.downcase
-          else
-            word.titlecase
-          end
-        }.join ' '
-    end
-
-    public
-
-    def normalize_person_name(value, options = {})
-      partition_person_name(value, options)[:value]
-    end
-
     def partition_person_name(value, options = {})
       copy = value.clone
-      value = value.clone.utf8
+      value = value.dup
 
       prefixes = []
       suffixes = []
@@ -340,76 +258,5 @@ module Legacy
     end
 
     public
-
-    def normalize_zipcode(value)
-      value = value.clone.ascii.strip.gsub(/\s+/, '')
-
-      "#{value[0..2]} #{value[3..-1]}"
-    end
-
-    def normalize_street(value)
-      value = value.clone.utf8
-
-      value.gsub!(/\,/, ' ')
-      value.gsub!(/\.\s*/, '. ')
-      value.gsub!(/sv\./i, 'sv.')
-      value.gsub!(/slov\./i, 'slovenskej')
-
-      value.gsub!(/Námestie/i) { |s| "#{s[0]}ám." }
-      value.gsub!(/Ulica/i) { |s| "#{s[0]}l." }
-      value.gsub!(/Číslo/i) { |s| "#{s[0]}." }
-
-      value.strip!
-      value.squeeze!(' ')
-
-      value.to_s
-    end
-
-    def normalize_email(value)
-      value.split(/\,|\;/).map(&:strip).join ', '
-    end
-
-    def normalize_phone(value)
-      value =
-        value.gsub(/(\d+\s*)+/) do |part|
-          part.gsub!(/\s/, '')
-
-          case part.size
-          when 7
-            "#{part[0]} #{part[1..3]} #{part[4..6]} "
-          when 8
-            "#{part[0..1]} #{part[2..4]} #{part[5..7]} "
-          when 10
-            "#{part[0..3]} #{part[4..6]} #{part[7..9]} "
-          else
-            part + ' '
-          end
-        end
-
-      value.gsub!(%r{\s*\/+\s*}, '/')
-      value.gsub!(/\s*\-+\s*/, ' - ')
-      value.gsub!(/\s*([\,\;])+\s*/, ', ')
-
-      value.gsub!(/fax\s*\.\s*/i, ' fax ')
-      value.gsub!(/kl(apka)?\s*\.\s*/i, ' klapka ')
-
-      value.gsub!(/\s*@\s*/, '@')
-
-      value.strip.squeeze(' ')
-    end
-
-    def normalize_hours(value)
-      value = value.clone.ascii.gsub(/[a-z]+/i, '')
-
-      times =
-        value
-          .split(/\s*\-\s*|\,\s*|\;\s*|\s+/)
-          .map do |time|
-            hour, minute = time.split(/\:/)
-            "#{'%d' % hour.to_i}:#{'%02d' % minute.to_i}"
-          end
-
-      times.each_slice(2).map { |interval| "#{interval.first} - #{interval.last}" }.join ', '
-    end
   end
 end

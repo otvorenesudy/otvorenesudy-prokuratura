@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 module TextHelper
-  def trim(text, length: 27, ommision: '…')
+  # The text cut to `length` characters, the whole of it in a tooltip.
+  def trim(text, length: 27, omission: '…')
     return text unless text && text.size > length
 
-    content_tag(:span, 'data-toggle' => :tooltip, title: text) { truncate(text, length: length, omission: ommision) }
+    tag.span(truncate(text, length:, omission:), title: text, data: { controller: 'tooltip', bs_title: text })
   end
 end

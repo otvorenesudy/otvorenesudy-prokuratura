@@ -90,38 +90,38 @@
         "phone": "02/208 37 703"
       },
       {
-        "name": "JUDr. Adam Petrovič, PhD.",
+        "name": "JUDr. Tomáš Honz",
         "name_parts": {
-          "unprocessed": "JUDr. Adam Petrovič, PhD.",
+          "unprocessed": "JUDr. Tomáš Honz",
           "prefix": "JUDr.",
-          "first": "Adam",
+          "first": "Tomáš",
           "middle": null,
-          "last": "Petrovič",
-          "suffix": "PhD.",
+          "last": "Honz",
+          "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "vedúci oddelenia všeobecnej kriminality trestného odboru",
+        "position": "poverený výkonom funkcie vedúceho oddelenia všeobecnej kriminality trestného odboru",
         "rank": 5,
-        "phone": "02/208 37 584"
+        "phone": "02/208 37 611"
       },
       {
-        "name": "JUDr. Rudolf Bernát, PhD.",
+        "name": "JUDr. Peter Golha",
         "name_parts": {
-          "unprocessed": "JUDr. Rudolf Bernát, PhD.",
+          "unprocessed": "JUDr. Peter Golha",
           "prefix": "JUDr.",
-          "first": "Rudolf",
+          "first": "Peter",
           "middle": null,
-          "last": "Bernát",
-          "suffix": "PhD.",
+          "last": "Golha",
+          "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "vedúci oddelenia majetkovej kriminality trestného odboru",
+        "position": "poverený výkonom funkcie vedúceho oddelenia majetkovej kriminality trestného odboru",
         "rank": 6,
-        "phone": "02/208 37 626"
+        "phone": "02/208 37 704"
       },
       {
         "name": "JUDr. Tomáš Jarábek",
@@ -328,14 +328,14 @@
         "phone": "02/208 37 243"
       },
       {
-        "name": "Ing. Adam Mrázik",
+        "name": "Bc. Martin Bombiak, MSc",
         "name_parts": {
-          "unprocessed": "Ing. Adam Mrázik",
-          "prefix": "Ing.",
-          "first": "Adam",
+          "unprocessed": "Bc. Martin Bombiak, MSc",
+          "prefix": "Bc.",
+          "first": "Martin",
           "middle": null,
-          "last": "Mrázik",
-          "suffix": null,
+          "last": "Bombiak",
+          "suffix": "MSc",
           "addition": null,
           "flags": [],
           "role": null
@@ -893,7 +893,7 @@
         },
         "position": "krajský prokurátor v Banskej Bystrici",
         "rank": 1,
-        "phone": "048/28 36 170"
+        "phone": "048/28 36 104"
       },
       {
         "name": "JUDr. Kamil Baran",
@@ -927,7 +927,7 @@
         },
         "position": "námestníčka krajského prokurátora pre netrestný úsek",
         "rank": 3,
-        "phone": "048/28 36 505"
+        "phone": "048/28 36 104"
       },
       {
         "name": "JUDr. Katarína Hrušecká",
@@ -944,7 +944,7 @@
         },
         "position": "vedúca organizačného a personálneho oddelenia",
         "rank": 4,
-        "phone": "048/28 36 516"
+        "phone": "048/28 36 104"
       },
       {
         "name": "JUDr. Jana Kopernická, PhD.",
@@ -961,7 +961,7 @@
         },
         "position": "vedúca medzinárodného oddelenia",
         "rank": 5,
-        "phone": "048/28 36 432"
+        "phone": "048/28 36 104"
       },
       {
         "name": "Mgr. Jakub Mikuda",
@@ -976,9 +976,9 @@
           "flags": [],
           "role": null
         },
-        "position": "vedúci oddelenia oddelenia prvostupňového a boja proti organizovanému zločinu",
+        "position": "vedúci oddelenia prvostupňového a boja proti organizovanému zločinu",
         "rank": 6,
-        "phone": "048/28 36 621"
+        "phone": "048/28 36 104"
       },
       {
         "name": "JUDr. Jana Kupcová",
@@ -993,9 +993,9 @@
           "flags": [],
           "role": null
         },
-        "position": "poverená výkonom funkcie vedúcej trestného oddelenia",
+        "position": "vedúca trestného oddelenia",
         "rank": 7,
-        "phone": "048/28 36 410"
+        "phone": "048/28 36 104"
       },
       {
         "name": "JUDr. Jana Gallová",
@@ -1012,7 +1012,7 @@
         },
         "position": "vedúca netrestného oddelenia",
         "rank": 8,
-        "phone": "048/28 36 172"
+        "phone": "048/28 36 104"
       },
       {
         "name": "Ing. Kristína Mlynárčiková",
@@ -1029,7 +1029,7 @@
         },
         "position": "vedúca oddelenia vnútornej správy",
         "rank": 9,
-        "phone": "048/28 36 511"
+        "phone": "048/28 36 104"
       },
       {
         "name": "Ing. Ladislav Szatmári",
@@ -1046,7 +1046,7 @@
         },
         "position": "vedúci oddelenia informatiky",
         "rank": 10,
-        "phone": "048/28 36 527"
+        "phone": "048/28 36 104"
       },
       {
         "name": "Mgr. Elena Lénártová",
@@ -1063,7 +1063,7 @@
         },
         "position": "vedúca správy registratúry",
         "rank": 11,
-        "phone": "048/28 36 175"
+        "phone": "048/28 36 104"
       },
       {
         "name": "Mgr. Lenka Cabanová",
@@ -1080,7 +1080,7 @@
         },
         "position": "referát ochrany utajovaných skutočností",
         "rank": 12,
-        "phone": "048/28 36 532"
+        "phone": "048/28 36 104"
       }
     ]
   },
@@ -1090,7 +1090,7 @@
     "address": "Vajnorská 47",
     "zipcode": "812 56",
     "city": "Bratislava 1",
-    "phone": "02/208 36 282",
+    "phone": "02/208 36 111",
     "fax": "02/44 25 82 66",
     "email": "kpbratislava@genpro.gov.sk, podatelna.kpBA@genpro.gov.sk",
     "electronic_registry": "ico://sk/00166448",
@@ -1121,7 +1121,7 @@
         },
         "position": "krajský prokurátor",
         "rank": 1,
-        "phone": "02/208 36 282"
+        "phone": "02/208 36 111"
       },
       {
         "name": "Mgr. Miloš Textoris",
@@ -1155,7 +1155,7 @@
         },
         "position": "námestník krajského prokurátora pre trestný úsek",
         "rank": 3,
-        "phone": "02/208 36 282"
+        "phone": "02/208 36 111"
       },
       {
         "name": "JUDr. Anetta Hullová",
@@ -1172,7 +1172,7 @@
         },
         "position": "vedúca oddelenia dohľadu v trestnom konaní",
         "rank": 4,
-        "phone": "02/208 36 282"
+        "phone": "02/208 36 111"
       },
       {
         "name": "Mgr. Patrik Hujsa",
@@ -1187,9 +1187,9 @@
           "flags": [],
           "role": null
         },
-        "position": "poverený výkonom funkcie vedúceho oddelenia dozoru v trestnom konaní",
+        "position": "vedúci oddelenia dozoru v trestnom konaní",
         "rank": 5,
-        "phone": "02/208 36 282"
+        "phone": "02/208 36 111"
       },
       {
         "name": "JUDr. Ľubomír Pagáč, PhD.",
@@ -1206,7 +1206,7 @@
         },
         "position": "vedúci netrestného oddelenia",
         "rank": 6,
-        "phone": "02/208 36 282"
+        "phone": "02/208 36 111"
       },
       {
         "name": "JUDr. Alexandra Oleárová",
@@ -1223,7 +1223,7 @@
         },
         "position": "vedúca medzinárodného oddelenia",
         "rank": 7,
-        "phone": "02/208 36 282"
+        "phone": "02/208 36 111"
       },
       {
         "name": "JUDr. Juraj Hudec",
@@ -1243,19 +1243,19 @@
         "phone": "02/208 36 251"
       },
       {
-        "name": "RNDr. Peter Cikatricis",
+        "name": "Ing. Adam Mrázik",
         "name_parts": {
-          "unprocessed": "RNDr. Peter Cikatricis",
-          "prefix": "RNDr.",
-          "first": "Peter",
+          "unprocessed": "Ing. Adam Mrázik",
+          "prefix": "Ing.",
+          "first": "Adam",
           "middle": null,
-          "last": "Cikatricis",
+          "last": "Mrázik",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "poverený výkonom funkcie vedúceho oddelenia informatiky",
+        "position": "vedúci oddelenia informatiky ",
         "rank": 9,
         "phone": "02/208 36 270"
       },
@@ -1274,24 +1274,24 @@
         },
         "position": "vedúca oddelenia vnútornej správy",
         "rank": 10,
-        "phone": "02/208 36 282"
+        "phone": "02/208 36 111"
       },
       {
-        "name": "Mgr. Gabriela Pecha Klenová",
+        "name": "Jana Hetešová",
         "name_parts": {
-          "unprocessed": "Mgr. Gabriela Pecha Klenová",
-          "prefix": "Mgr.",
-          "first": "Gabriela",
-          "middle": "Pecha",
-          "last": "Klenová",
+          "unprocessed": "Jana Hetešová",
+          "prefix": null,
+          "first": "Jana",
+          "middle": null,
+          "last": "Hetešová",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "vedúca správy registratúry",
+        "position": "poverená výkonom funkcie vedúcej správy registratúry",
         "rank": 11,
-        "phone": "02/208 36 282"
+        "phone": "02/208 36 111"
       },
       {
         "name": "Mgr. Viera Kuruczová",
@@ -1308,7 +1308,7 @@
         },
         "position": "vedúca referátu ochrany utajovaných skutočností",
         "rank": 12,
-        "phone": "02/208 36 282"
+        "phone": "02/208 36 111"
       }
     ]
   },
@@ -1577,7 +1577,7 @@
         },
         "position": "krajský prokurátor",
         "rank": 1,
-        "phone": "037/65 22 730"
+        "phone": "037/65 22 729"
       },
       {
         "name": "Mgr. Rastislav Brestenský",
@@ -1594,7 +1594,7 @@
         },
         "position": "námestník krajského prokurátora pre trestný úsek",
         "rank": 2,
-        "phone": "037/65 22 730"
+        "phone": "037/65 22 729"
       },
       {
         "name": "JUDr. Jaroslav Maček",
@@ -1628,7 +1628,7 @@
         },
         "position": "vedúci oddelenia dohľadu v trestnom konaní",
         "rank": 4,
-        "phone": "037/65 22 730"
+        "phone": "037/65 22 729"
       },
       {
         "name": "JUDr. Richard Singer",
@@ -1645,24 +1645,24 @@
         },
         "position": "vedúci netrestného oddelenia",
         "rank": 5,
-        "phone": "037/65 22 730"
+        "phone": "037/65 22 729"
       },
       {
-        "name": "JUDr. Karin Martha Kolenčíková",
+        "name": "Mgr. Martin Spišák",
         "name_parts": {
-          "unprocessed": "JUDr. Karin Martha Kolenčíková",
-          "prefix": "JUDr.",
-          "first": "Karin",
-          "middle": "Martha",
-          "last": "Kolenčíková",
+          "unprocessed": "Mgr. Martin Spišák",
+          "prefix": "Mgr.",
+          "first": "Martin",
+          "middle": null,
+          "last": "Spišák",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "vedúca oddelenia medzinárodného a boja s organizovaným zločinom",
+        "position": "poverený výkonom funkcie vedúceho oddelenia medzinárodného a boja s organizovaným zločinom",
         "rank": 6,
-        "phone": "037/65 22 730"
+        "phone": "037/65 22 729"
       },
       {
         "name": "Ing. Marcela Jakabová",
@@ -1679,7 +1679,7 @@
         },
         "position": "vedúca oddelenia vnútornej správy",
         "rank": 7,
-        "phone": "037/65 22 730"
+        "phone": "037/65 22 729"
       },
       {
         "name": "JUDr. Miroslava Jahnátková",
@@ -1713,7 +1713,7 @@
         },
         "position": "vedúci oddelenia informatiky",
         "rank": 9,
-        "phone": "037/65 22 730"
+        "phone": "037/65 22 729"
       },
       {
         "name": "Dagmar Ferancová",
@@ -1730,7 +1730,7 @@
         },
         "position": "vedúca správy registratúry krajskej prokuratúry",
         "rank": 10,
-        "phone": "037/65 22 730"
+        "phone": "037/65 22 729"
       },
       {
         "name": "Ing. Lenka Gundová",
@@ -1747,7 +1747,7 @@
         },
         "position": "bezpečnostný zamestnanec",
         "rank": 11,
-        "phone": "037/65 22 730"
+        "phone": "037/65 22 729"
       }
     ]
   },
@@ -1910,6 +1910,23 @@
         "phone": "051/28 36 113"
       },
       {
+        "name": "Ing. Milan Cenker",
+        "name_parts": {
+          "unprocessed": "Ing. Milan Cenker",
+          "prefix": "Ing.",
+          "first": "Milan",
+          "middle": null,
+          "last": "Cenker",
+          "suffix": null,
+          "addition": null,
+          "flags": [],
+          "role": null
+        },
+        "position": "vedúci oddelenia informatiky",
+        "rank": 9,
+        "phone": "051/77 21 877"
+      },
+      {
         "name": "Ing. Jana Grejták Kandráčová",
         "name_parts": {
           "unprocessed": "Ing. Jana Grejták Kandráčová",
@@ -1923,25 +1940,8 @@
           "role": null
         },
         "position": "vedúca oddelenia vnútornej správy",
-        "rank": 9,
-        "phone": "051/28 36 113"
-      },
-      {
-        "name": "Ing. Milan Cenker",
-        "name_parts": {
-          "unprocessed": "Ing. Milan Cenker",
-          "prefix": "Ing.",
-          "first": "Milan",
-          "middle": null,
-          "last": "Cenker",
-          "suffix": null,
-          "addition": null,
-          "flags": [],
-          "role": null
-        },
-        "position": "poverený vedúci oddelenia informatiky",
         "rank": 10,
-        "phone": "051/77 21 877"
+        "phone": "051/28 36 113"
       },
       {
         "name": "PhDr. Anna Cupráková",
@@ -2048,7 +2048,7 @@
           "flags": [],
           "role": null
         },
-        "position": "poverený výkonom funkcie námestníka krajskej prokurátorky pre netrestný úsek",
+        "position": "námestník krajskej prokurátorky pre netrestný úsek",
         "rank": 3,
         "phone": "032/65 380 13"
       },
@@ -2349,13 +2349,13 @@
         "phone": "033/59 17 211"
       },
       {
-        "name": "Ing. Peter Jablonický",
+        "name": "Ing. Stanislav Jindra",
         "name_parts": {
-          "unprocessed": "Ing. Peter Jablonický",
+          "unprocessed": "Ing. Stanislav Jindra",
           "prefix": "Ing.",
-          "first": "Peter",
+          "first": "Stanislav",
           "middle": null,
-          "last": "Jablonický",
+          "last": "Jindra",
           "suffix": null,
           "addition": null,
           "flags": [],
@@ -2441,6 +2441,23 @@
         "phone": "041/56 26 448"
       },
       {
+        "name": "JUDr. Štefan Tomaško",
+        "name_parts": {
+          "unprocessed": "JUDr. Štefan Tomaško",
+          "prefix": "JUDr.",
+          "first": "Štefan",
+          "middle": null,
+          "last": "Tomaško",
+          "suffix": null,
+          "addition": null,
+          "flags": [],
+          "role": null
+        },
+        "position": "námestník krajského prokurátora pre trestný úsek",
+        "rank": 2,
+        "phone": "041/56 26 352"
+      },
+      {
         "name": "Mgr. Viera Kubalová",
         "name_parts": {
           "unprocessed": "Mgr. Viera Kubalová",
@@ -2454,25 +2471,8 @@
           "role": null
         },
         "position": "námestníčka krajského prokurátora pre netrestný úsek",
-        "rank": 2,
-        "phone": "041/56 26 574"
-      },
-      {
-        "name": "Mgr. Alexandra Mesiarkinová",
-        "name_parts": {
-          "unprocessed": "Mgr. Alexandra Mesiarkinová",
-          "prefix": "Mgr.",
-          "first": "Alexandra",
-          "middle": null,
-          "last": "Mesiarkinová",
-          "suffix": null,
-          "addition": null,
-          "flags": [],
-          "role": null
-        },
-        "position": "námestníčka krajského prokurátora pre trestný úsek",
         "rank": 3,
-        "phone": "041/56 26 448"
+        "phone": "041/56 26 574"
       },
       {
         "name": "JUDr. Stanislav Jakubčík",
@@ -2487,7 +2487,7 @@
           "flags": [],
           "role": null
         },
-        "position": "poverený výkonom funkcie vedúceho medzinárodného oddelenia",
+        "position": "vedúci medzinárodného oddelenia",
         "rank": 4,
         "phone": "041/56 26 448"
       },
@@ -2681,7 +2681,7 @@
           "flags": [],
           "role": null
         },
-        "position": "námestníčka okresného prokurátora pre trestný úsek v Banskej Bystrici",
+        "position": "námestníčka okresného prokurátora pre trestný úsek",
         "rank": 3,
         "phone": "048/28 36 111"
       },
@@ -2727,6 +2727,23 @@
     },
     "employees": [
       {
+        "name": "JUDr. Ján Fertaľ ",
+        "name_parts": {
+          "unprocessed": "JUDr. Ján Fertaľ ",
+          "prefix": "JUDr.",
+          "first": "Ján",
+          "middle": null,
+          "last": "Fertaľ ",
+          "suffix": null,
+          "addition": null,
+          "flags": [],
+          "role": null
+        },
+        "position": "okresný prokurátor",
+        "rank": 1,
+        "phone": "054/472 20 68"
+      },
+      {
         "name": "JUDr. Vladislava Slosarčíková",
         "name_parts": {
           "unprocessed": "JUDr. Vladislava Slosarčíková",
@@ -2739,25 +2756,25 @@
           "flags": [],
           "role": null
         },
-        "position": "námestníčka okresnej prokurátorky",
-        "rank": 1,
+        "position": "námestníčka okresného prokurátora",
+        "rank": 2,
         "phone": "054/472 21 20"
       },
       {
-        "name": "Mgr. Milena Zápachová",
+        "name": "Mgr. Andrea Prokopová",
         "name_parts": {
-          "unprocessed": "Mgr. Milena Zápachová",
+          "unprocessed": "Mgr. Andrea Prokopová",
           "prefix": "Mgr.",
-          "first": "Milena",
+          "first": "Andrea",
           "middle": null,
-          "last": "Zápachová",
+          "last": "Prokopová",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
         "position": "vedúca správy registratúry",
-        "rank": 2,
+        "rank": 3,
         "phone": "054/472 20 68"
       }
     ]
@@ -2923,7 +2940,7 @@
           "flags": [],
           "role": null
         },
-        "position": "poverená výkonom funkcie námestníčky okresného prokurátora",
+        "position": "námestníčka okresného prokurátora",
         "rank": 3,
         "phone": "02/208 36 711"
       },
@@ -2986,23 +3003,6 @@
         "phone": "02/208 36 314"
       },
       {
-        "name": "JUDr. Ján Tichý",
-        "name_parts": {
-          "unprocessed": "JUDr. Ján Tichý",
-          "prefix": "JUDr.",
-          "first": "Ján",
-          "middle": null,
-          "last": "Tichý",
-          "suffix": null,
-          "addition": null,
-          "flags": [],
-          "role": null
-        },
-        "position": "námestník okresnej prokurátorky",
-        "rank": 2,
-        "phone": "02/208 36 314"
-      },
-      {
         "name": "JUDr. Peter Hatala",
         "name_parts": {
           "unprocessed": "JUDr. Peter Hatala",
@@ -3016,8 +3016,25 @@
           "role": null
         },
         "position": "námestník okresnej prokurátorky",
-        "rank": 3,
+        "rank": 2,
         "phone": "02/208 36 314"
+      },
+      {
+        "name": "JUDr. Michal Andrýsek, PhD.",
+        "name_parts": {
+          "unprocessed": "JUDr. Michal Andrýsek, PhD.",
+          "prefix": "JUDr.",
+          "first": "Michal",
+          "middle": null,
+          "last": "Andrýsek",
+          "suffix": "PhD.",
+          "addition": null,
+          "flags": [],
+          "role": null
+        },
+        "position": "poverený výkonom funkcie námestníka okresnej prokurátorky",
+        "rank": 3,
+        "phone": "02/208 36 212"
       }
     ]
   },
@@ -3044,23 +3061,6 @@
     },
     "employees": [
       {
-        "name": "JUDr. Lucia Štefanková",
-        "name_parts": {
-          "unprocessed": "JUDr. Lucia Štefanková",
-          "prefix": "JUDr.",
-          "first": "Lucia",
-          "middle": null,
-          "last": "Štefanková",
-          "suffix": null,
-          "addition": null,
-          "flags": [],
-          "role": null
-        },
-        "position": "okresná prokurátorka",
-        "rank": 1,
-        "phone": "02/208 36 411"
-      },
-      {
         "name": "JUDr. Matej Papulák",
         "name_parts": {
           "unprocessed": "JUDr. Matej Papulák",
@@ -3074,7 +3074,7 @@
           "role": null
         },
         "position": "námestník okresnej prokurátorky",
-        "rank": 2,
+        "rank": 1,
         "phone": "02/208 36 433"
       },
       {
@@ -3091,7 +3091,7 @@
           "role": null
         },
         "position": "vedúca správy registratúry",
-        "rank": 3,
+        "rank": 2,
         "phone": "02/208 36 411"
       }
     ]
@@ -3119,13 +3119,13 @@
     },
     "employees": [
       {
-        "name": "JUDr. Eva Drgoňová",
+        "name": "Mgr. Jarmila Poráziková",
         "name_parts": {
-          "unprocessed": "JUDr. Eva Drgoňová",
-          "prefix": "JUDr.",
-          "first": "Eva",
+          "unprocessed": "Mgr. Jarmila Poráziková",
+          "prefix": "Mgr.",
+          "first": "Jarmila",
           "middle": null,
-          "last": "Drgoňová",
+          "last": "Poráziková",
           "suffix": null,
           "addition": null,
           "flags": [],
@@ -3148,26 +3148,26 @@
           "flags": [],
           "role": null
         },
-        "position": "námestník okresnej prokurátorky",
+        "position": "poverený výkonom funkcie námestníka okresnej prokurátorky",
         "rank": 2,
-        "phone": "02/208 36 557"
+        "phone": "02/208 36 535"
       },
       {
-        "name": "Mgr. Jarmila Poráziková",
+        "name": "JUDr. Melánia Dornáková",
         "name_parts": {
-          "unprocessed": "Mgr. Jarmila Poráziková",
-          "prefix": "Mgr.",
-          "first": "Jarmila",
+          "unprocessed": "JUDr. Melánia Dornáková",
+          "prefix": "JUDr.",
+          "first": "Melánia",
           "middle": null,
-          "last": "Poráziková",
+          "last": "Dornáková",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "námestníčka okresnej prokurátorky",
+        "position": "poverená výkonom funkcie námestníčky okresnej prokurátorky",
         "rank": 3,
-        "phone": "02/208 36 557"
+        "phone": "02/208 36 524"
       },
       {
         "name": "Jana Schmögerová",
@@ -3286,38 +3286,38 @@
     },
     "employees": [
       {
-        "name": "JUDr. Eva Žiklová",
+        "name": "JUDr. Branislav Záhumenský",
         "name_parts": {
-          "unprocessed": "JUDr. Eva Žiklová",
+          "unprocessed": "JUDr. Branislav Záhumenský",
           "prefix": "JUDr.",
-          "first": "Eva",
+          "first": "Branislav",
           "middle": null,
-          "last": "Žiklová",
+          "last": "Záhumenský",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "okresná prokurátorka",
+        "position": "okresný prokurátor",
         "rank": 1,
         "phone": "038/53 666 12"
       },
       {
-        "name": "JUDr. Andrea Šmondrková",
+        "name": "JUDr. Marián Kollár",
         "name_parts": {
-          "unprocessed": "JUDr. Andrea Šmondrková",
+          "unprocessed": "JUDr. Marián Kollár",
           "prefix": "JUDr.",
-          "first": "Andrea",
+          "first": "Marián",
           "middle": null,
-          "last": "Šmondrková",
+          "last": "Kollár",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "námestníčka okresnej prokurátorky",
+        "position": "poverený výkonom funkcie námestníka okresného prokurátora",
         "rank": 2,
-        "phone": "038/53 666 19"
+        "phone": "038/53 666 14"
       },
       {
         "name": "Denisa Hrušková",
@@ -3695,36 +3695,36 @@
     },
     "employees": [
       {
-        "name": "JUDr. Jana Mitníková",
+        "name": "JUDr. Jozef Halkoci",
         "name_parts": {
-          "unprocessed": "JUDr. Jana Mitníková",
+          "unprocessed": "JUDr. Jozef Halkoci",
           "prefix": "JUDr.",
-          "first": "Jana",
+          "first": "Jozef",
           "middle": null,
-          "last": "Mitníková",
+          "last": "Halkoci",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "okresná prokurátorka",
+        "position": "poverený výkonom funkcie okresného prokurátora",
         "rank": 1,
-        "phone": "052/45 25 150"
+        "phone": "052/45 25 115"
       },
       {
-        "name": "JUDr. Ondrej Švagerko",
+        "name": "JUDr. Miloslav Veselovský",
         "name_parts": {
-          "unprocessed": "JUDr. Ondrej Švagerko",
+          "unprocessed": "JUDr. Miloslav Veselovský",
           "prefix": "JUDr.",
-          "first": "Ondrej",
+          "first": "Miloslav",
           "middle": null,
-          "last": "Švagerko",
+          "last": "Veselovský",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "námestník okresnej prokurátorky",
+        "position": "poverený výkonom funkcie námestníka okresného prokurátora",
         "rank": 2,
         "phone": "052/45 25 115"
       },
@@ -3787,19 +3787,19 @@
         "phone": "035/77 01 729"
       },
       {
-        "name": "Mgr. Róbert Škulavík",
+        "name": "JUDr. Martina Čambalová",
         "name_parts": {
-          "unprocessed": "Mgr. Róbert Škulavík",
-          "prefix": "Mgr.",
-          "first": "Róbert",
+          "unprocessed": "JUDr. Martina Čambalová",
+          "prefix": "JUDr.",
+          "first": "Martina",
           "middle": null,
-          "last": "Škulavík",
+          "last": "Čambalová",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": " námestník okresnej prokurátorky",
+        "position": " poverená výkonom funkcie námestníčky okresnej prokurátorky",
         "rank": 2,
         "phone": "035/77 01 729"
       },
@@ -3845,38 +3845,38 @@
     },
     "employees": [
       {
-        "name": "JUDr. Marek Rajnič, PhD. MBA",
+        "name": "JUDr. Peter Volkai",
         "name_parts": {
-          "unprocessed": "JUDr. Marek Rajnič, PhD., MBA",
+          "unprocessed": "JUDr. Peter Volkai",
           "prefix": "JUDr.",
-          "first": "Marek",
+          "first": "Peter",
           "middle": null,
-          "last": "Rajnič",
-          "suffix": "PhD. MBA",
-          "addition": null,
-          "flags": [],
-          "role": null
-        },
-        "position": "okresný prokurátor",
-        "rank": 1,
-        "phone": "055/68 16 357"
-      },
-      {
-        "name": "JUDr. Dagmar Vargová",
-        "name_parts": {
-          "unprocessed": "JUDr. Dagmar Vargová",
-          "prefix": "JUDr.",
-          "first": "Dagmar",
-          "middle": null,
-          "last": "Vargová",
+          "last": "Volkai",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "námestníčka okresného prokurátora",
+        "position": " okresný prokurátor",
+        "rank": 1,
+        "phone": "055/68 16 357"
+      },
+      {
+        "name": "JUDr. Tomáš Richter",
+        "name_parts": {
+          "unprocessed": "JUDr. Tomáš Richter",
+          "prefix": "JUDr.",
+          "first": "Tomáš",
+          "middle": null,
+          "last": "Richter",
+          "suffix": null,
+          "addition": null,
+          "flags": [],
+          "role": null
+        },
+        "position": "poverený výkonom funkcie námestníka okresného prokurátora v Košiciach okolí",
         "rank": 2,
-        "phone": "055/68 16 288"
+        "phone": "055/68 16 284"
       },
       {
         "name": "Ing. Mgr. Dušana Maindlová",
@@ -3920,13 +3920,13 @@
     },
     "employees": [
       {
-        "name": "JUDr. Jozef Sonderlich",
+        "name": "JUDr. Roman Sopoliga",
         "name_parts": {
-          "unprocessed": "JUDr. Jozef Sonderlich",
+          "unprocessed": "JUDr. Roman Sopoliga",
           "prefix": "JUDr.",
-          "first": "Jozef",
+          "first": "Roman",
           "middle": null,
-          "last": "Sonderlich",
+          "last": "Sopoliga",
           "suffix": null,
           "addition": null,
           "flags": [],
@@ -3954,21 +3954,21 @@
         "phone": "055/68 16 307"
       },
       {
-        "name": "JUDr. Roman Sopoliga",
+        "name": "JUDr. Jana Redayová",
         "name_parts": {
-          "unprocessed": "JUDr. Roman Sopoliga",
+          "unprocessed": "JUDr. Jana Redayová",
           "prefix": "JUDr.",
-          "first": "Roman",
+          "first": "Jana",
           "middle": null,
-          "last": "Sopoliga",
+          "last": "Redayová",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "námestník okresného prokurátora",
+        "position": "námestníčka okresného prokurátora",
         "rank": 3,
-        "phone": "055/68 16 379"
+        "phone": "055/68 16 237"
       },
       {
         "name": "Mgr. Jana Sušková",
@@ -4133,7 +4133,7 @@
           "flags": [],
           "role": null
         },
-        "position": "námestníčka okresnej prokurátorky",
+        "position": "námestníčka okresnej prokurátorky",
         "rank": 2,
         "phone": "036/63 12 411"
       },
@@ -4150,7 +4150,7 @@
           "flags": [],
           "role": null
         },
-        "position": "poverená výkonom funkcie námestníčky okresnej prokurátorky v Leviciach",
+        "position": "námestníčka okresnej prokurátorky",
         "rank": 3,
         "phone": "036/63 12 411"
       },
@@ -4438,23 +4438,6 @@
     },
     "employees": [
       {
-        "name": "JUDr. Mária Štupáková",
-        "name_parts": {
-          "unprocessed": "JUDr. Mária Štupáková",
-          "prefix": "JUDr.",
-          "first": "Mária",
-          "middle": null,
-          "last": "Štupáková",
-          "suffix": null,
-          "addition": null,
-          "flags": [],
-          "role": null
-        },
-        "position": "okresná prokurátorka",
-        "rank": 1,
-        "phone": "043/42 12 472"
-      },
-      {
         "name": "JUDr. Marián Ťažiar",
         "name_parts": {
           "unprocessed": "JUDr. Marián Ťažiar",
@@ -4467,8 +4450,8 @@
           "flags": [],
           "role": null
         },
-        "position": "námestník okresnej prokurátorky pre trestný úsek",
-        "rank": 2,
+        "position": "okresný prokurátor",
+        "rank": 1,
         "phone": "043/42 12 451"
       },
       {
@@ -4484,9 +4467,26 @@
           "flags": [],
           "role": null
         },
-        "position": "námestníčka okresnej prokurátorky pre netrestný úsek",
-        "rank": 3,
+        "position": "námestníčka okresného prokurátora pre netrestný úsek",
+        "rank": 2,
         "phone": "043/42 12 454"
+      },
+      {
+        "name": "JUDr. Petra Šimková",
+        "name_parts": {
+          "unprocessed": "JUDr. Petra Šimková",
+          "prefix": "JUDr.",
+          "first": "Petra",
+          "middle": null,
+          "last": "Šimková",
+          "suffix": null,
+          "addition": null,
+          "flags": [],
+          "role": null
+        },
+        "position": "námestníčka okresného prokurátora pre trestný úsek",
+        "rank": 3,
+        "phone": "043/42 12 450"
       },
       {
         "name": "Iveta Martinková",
@@ -4547,23 +4547,6 @@
         "phone": "056/68 700 15"
       },
       {
-        "name": "JUDr. Martin Kovalík",
-        "name_parts": {
-          "unprocessed": "JUDr. Martin Kovalík",
-          "prefix": "JUDr.",
-          "first": "Martin",
-          "middle": null,
-          "last": "Kovalík",
-          "suffix": null,
-          "addition": null,
-          "flags": [],
-          "role": null
-        },
-        "position": "námestník okresnej prokurátorky",
-        "rank": 2,
-        "phone": "056/68 700 16"
-      },
-      {
         "name": "JUDr. Ján Jozef",
         "name_parts": {
           "unprocessed": "JUDr. Ján Jozef",
@@ -4577,7 +4560,7 @@
           "role": null
         },
         "position": "námestník okresnej prokurátorky",
-        "rank": 3,
+        "rank": 2,
         "phone": "056/68 700 18"
       },
       {
@@ -4594,7 +4577,7 @@
           "role": null
         },
         "position": "vedúca správy registratúry",
-        "rank": 4,
+        "rank": 3,
         "phone": "056/68 700 20"
       }
     ]
@@ -4731,13 +4714,13 @@
         "phone": "032/74 089 10"
       },
       {
-        "name": "JUDr. Gabriela Mezovská",
+        "name": "JUDr. Katarína Pavlíková",
         "name_parts": {
-          "unprocessed": "JUDr. Gabriela Mezovská",
+          "unprocessed": "JUDr. Katarína Pavlíková",
           "prefix": "JUDr.",
-          "first": "Gabriela",
+          "first": "Katarína",
           "middle": null,
-          "last": "Mezovská",
+          "last": "Pavlíková",
           "suffix": null,
           "addition": null,
           "flags": [],
@@ -4745,7 +4728,7 @@
         },
         "position": "námestníčka okresnej prokurátorky",
         "rank": 2,
-        "phone": "032/74 089 17"
+        "phone": "032/74 089 22"
       },
       {
         "name": "Martina Malíčková",
@@ -4789,13 +4772,13 @@
     },
     "employees": [
       {
-        "name": "Mgr. Lejla Bieliková",
+        "name": "Mgr. Lejla Neziri",
         "name_parts": {
-          "unprocessed": "Mgr. Lejla Bieliková",
+          "unprocessed": "Mgr. Lejla Neziri",
           "prefix": "Mgr.",
           "first": "Lejla",
           "middle": null,
-          "last": "Bieliková",
+          "last": "Neziri",
           "suffix": null,
           "addition": null,
           "flags": [],
@@ -4878,7 +4861,7 @@
         },
         "position": "okresný prokurátor",
         "rank": 1,
-        "phone": "043/55 06 820"
+        "phone": "043/55 06 822"
       },
       {
         "name": "Mgr. Vladimír Martinovič",
@@ -4895,7 +4878,7 @@
         },
         "position": "námestník okresného prokurátora",
         "rank": 2,
-        "phone": "043/55 06 820"
+        "phone": "043/55 06 818"
       },
       {
         "name": "Helena Lachmanová",
@@ -4956,21 +4939,21 @@
         "phone": "038/76 299 17"
       },
       {
-        "name": "JUDr. Martin Števík",
+        "name": "Mgr. Anna Ratvajská",
         "name_parts": {
-          "unprocessed": "JUDr. Martin Števík",
-          "prefix": "JUDr.",
-          "first": "Martin",
+          "unprocessed": "Mgr. Anna Ratvajská",
+          "prefix": "Mgr.",
+          "first": "Anna",
           "middle": null,
-          "last": "Števík",
+          "last": "Ratvajská",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "námestník okresného prokurátora",
+        "position": "námestníčka okresného prokurátora",
         "rank": 2,
-        "phone": "038/76 299 15"
+        "phone": "038/76 299 14"
       },
       {
         "name": "Eva Sládková",
@@ -5014,13 +4997,13 @@
     },
     "employees": [
       {
-        "name": "JUDr. Miroslav Mihal",
+        "name": "JUDr. Ján Tichý",
         "name_parts": {
-          "unprocessed": "JUDr. Miroslav Mihal",
+          "unprocessed": "JUDr. Ján Tichý",
           "prefix": "JUDr.",
-          "first": "Miroslav",
+          "first": "Ján",
           "middle": null,
-          "last": "Mihal",
+          "last": "Tichý",
           "suffix": null,
           "addition": null,
           "flags": [],
@@ -5048,6 +5031,23 @@
         "phone": "033/28 36 111"
       },
       {
+        "name": "JUDr. Michal Špaček",
+        "name_parts": {
+          "unprocessed": "JUDr. Michal Špaček",
+          "prefix": "JUDr.",
+          "first": "Michal",
+          "middle": null,
+          "last": "Špaček",
+          "suffix": null,
+          "addition": null,
+          "flags": [],
+          "role": null
+        },
+        "position": "námestník okresného prokurátora",
+        "rank": 3,
+        "phone": "033/28 36 111"
+      },
+      {
         "name": "Bc. Daniela Pavlíková",
         "name_parts": {
           "unprocessed": "Bc. Daniela Pavlíková",
@@ -5061,7 +5061,7 @@
           "role": null
         },
         "position": "vedúca správy registratúry",
-        "rank": 3,
+        "rank": 4,
         "phone": "033/28 36 111"
       }
     ]
@@ -5193,7 +5193,7 @@
           "flags": [],
           "role": null
         },
-        "position": "námestník okresného prokurátora v Poprade",
+        "position": "námestník okresného prokurátora",
         "rank": 2,
         "phone": "052/77 21 847"
       },
@@ -5331,19 +5331,19 @@
     },
     "employees": [
       {
-        "name": "JUDr.  Juraj Oravec",
+        "name": "JUDr.  Martin Kovalik",
         "name_parts": {
-          "unprocessed": "JUDr. Juraj Oravec",
+          "unprocessed": "JUDr. Martin Kovalik",
           "prefix": "JUDr.",
-          "first": " Juraj",
+          "first": " Martin",
           "middle": null,
-          "last": "Oravec",
+          "last": "Kovalik",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "okresný prokurátor",
+        "position": "poverený výkonom funkcie okresného prokurátora",
         "rank": 1,
         "phone": "051/77 31 159"
       },
@@ -5472,6 +5472,23 @@
         "position": "vedúca správy registratúry",
         "rank": 3,
         "phone": "046/51 839 16"
+      },
+      {
+        "name": "JUDr. Michal Bíro",
+        "name_parts": {
+          "unprocessed": "JUDr. Michal Bíro",
+          "prefix": "JUDr.",
+          "first": "Michal",
+          "middle": null,
+          "last": "Bíro",
+          "suffix": null,
+          "addition": null,
+          "flags": [],
+          "role": null
+        },
+        "position": "námestník okresného prokurátora",
+        "rank": 4,
+        "phone": "046/51 839 25"
       }
     ]
   },
@@ -5498,23 +5515,6 @@
     },
     "employees": [
       {
-        "name": "JUDr. Pavol Koreň",
-        "name_parts": {
-          "unprocessed": "JUDr. Pavol Koreň",
-          "prefix": "JUDr.",
-          "first": "Pavol",
-          "middle": null,
-          "last": "Koreň",
-          "suffix": null,
-          "addition": null,
-          "flags": [],
-          "role": null
-        },
-        "position": "okresný prokurátor",
-        "rank": 1,
-        "phone": "058/28 36 173"
-      },
-      {
         "name": "JUDr. Daniel Prč",
         "name_parts": {
           "unprocessed": "JUDr. Daniel Prč",
@@ -5527,9 +5527,26 @@
           "flags": [],
           "role": null
         },
+        "position": "okresný prokurátor",
+        "rank": 1,
+        "phone": "058/28 36 171"
+      },
+      {
+        "name": "JUDr. Peter Kulik",
+        "name_parts": {
+          "unprocessed": "JUDr. Peter Kulik",
+          "prefix": "JUDr.",
+          "first": "Peter",
+          "middle": null,
+          "last": "Kulik",
+          "suffix": null,
+          "addition": null,
+          "flags": [],
+          "role": null
+        },
         "position": "námestník okresného prokurátora",
         "rank": 2,
-        "phone": "058/28 36 171"
+        "phone": "058/28 36 129"
       },
       {
         "name": "Mgr. Magdaléna Majkúthová",
@@ -5607,13 +5624,13 @@
         "phone": "047/28 36 271"
       },
       {
-        "name": "Bc. Eva Imreczeová",
+        "name": "Mgr. Veronika Šmírová",
         "name_parts": {
-          "unprocessed": "Bc. Eva Imreczeová",
-          "prefix": "Bc.",
-          "first": "Eva",
+          "unprocessed": "Mgr. Veronika Šmírová",
+          "prefix": "Mgr.",
+          "first": "Veronika",
           "middle": null,
-          "last": "Imreczeová",
+          "last": "Šmírová",
           "suffix": null,
           "addition": null,
           "flags": [],
@@ -5723,38 +5740,38 @@
     },
     "employees": [
       {
-        "name": "JUDr. Štefan Tomaško",
+        "name": "JUDr. Mária Štupáková",
         "name_parts": {
-          "unprocessed": "JUDr. Štefan Tomaško",
+          "unprocessed": "JUDr. Mária Štupáková",
           "prefix": "JUDr.",
-          "first": "Štefan",
+          "first": "Mária",
           "middle": null,
-          "last": "Tomaško",
+          "last": "Štupáková",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "okresný prokurátor",
+        "position": "okresná prokurátorka",
         "rank": 1,
         "phone": "044/43 14 926"
       },
       {
-        "name": "JUDr. Elena Makovická",
+        "name": "Mgr. Zuzana Vaverčáková",
         "name_parts": {
-          "unprocessed": "JUDr. Elena Makovická",
-          "prefix": "JUDr.",
-          "first": "Elena",
+          "unprocessed": "Mgr. Zuzana Vaverčáková",
+          "prefix": "Mgr.",
+          "first": "Zuzana",
           "middle": null,
-          "last": "Makovická",
+          "last": "Vaverčáková",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "námestníčka okresného prokurátora",
+        "position": "námestníčka okresnej prokurátorky",
         "rank": 2,
-        "phone": "044/43 14 925"
+        "phone": "044/43 14 924"
       },
       {
         "name": "Jana Klocková",
@@ -5873,23 +5890,6 @@
     },
     "employees": [
       {
-        "name": "JUDr. Oľga Bakičová",
-        "name_parts": {
-          "unprocessed": "JUDr. Oľga Bakičová",
-          "prefix": "JUDr.",
-          "first": "Oľga",
-          "middle": null,
-          "last": "Bakičová",
-          "suffix": null,
-          "addition": null,
-          "flags": [],
-          "role": null
-        },
-        "position": "okresná prokurátorka",
-        "rank": 1,
-        "phone": "034/69 99 454"
-      },
-      {
         "name": "JUDr. Ing. Timotej Baďo, PhD.",
         "name_parts": {
           "unprocessed": "JUDr. Ing. Timotej Baďo, PhD.",
@@ -5902,9 +5902,26 @@
           "flags": [],
           "role": null
         },
-        "position": "námestník okresnej prokurátorky",
-        "rank": 2,
+        "position": "okresný prokurátor",
+        "rank": 1,
         "phone": "034/69 99 455"
+      },
+      {
+        "name": "JUDr. Zuzana Vépyová",
+        "name_parts": {
+          "unprocessed": "JUDr. Zuzana Vépyová",
+          "prefix": "JUDr.",
+          "first": "Zuzana",
+          "middle": null,
+          "last": "Vépyová",
+          "suffix": null,
+          "addition": null,
+          "flags": [],
+          "role": null
+        },
+        "position": "námestníčka okresného prokurátora",
+        "rank": 2,
+        "phone": "034/69 99 453"
       },
       {
         "name": "Ing. Bc. Renáta Štepanovská",
@@ -5948,19 +5965,19 @@
     },
     "employees": [
       {
-        "name": "JUDr. Branislav Kročian",
+        "name": "JUDr. Eva Gardošíková",
         "name_parts": {
-          "unprocessed": "JUDr. Branislav Kročian",
+          "unprocessed": "JUDr. Eva Gardošíková",
           "prefix": "JUDr.",
-          "first": "Branislav",
+          "first": "Eva",
           "middle": null,
-          "last": "Kročian",
+          "last": "Gardošíková",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "okresný prokurátor",
+        "position": "poverená výkonom funkcie okresnej prokurátorky",
         "rank": 1,
         "phone": "053/44 627 48"
       },
@@ -5977,24 +5994,24 @@
           "flags": [],
           "role": null
         },
-        "position": "námestník okresného prokurátora",
+        "position": "námestník okresnej prokurátorky",
         "rank": 2,
         "phone": "053/44 627 48"
       },
       {
-        "name": "JUDr. Michaela Takáčová",
+        "name": "JUDr. Ladislav Kolář",
         "name_parts": {
-          "unprocessed": "JUDr. Michaela Takáčová",
+          "unprocessed": "JUDr. Ladislav Kolář",
           "prefix": "JUDr.",
-          "first": "Michaela",
+          "first": "Ladislav",
           "middle": null,
-          "last": "Takáčová",
+          "last": "Kolář",
           "suffix": null,
           "addition": null,
           "flags": [],
           "role": null
         },
-        "position": "námestníčka okresného prokurátora",
+        "position": "poverený výkonom funkcie námestníka okresnej prokurátorky",
         "rank": 3,
         "phone": "053/44 627 48"
       },
@@ -6415,23 +6432,6 @@
     },
     "employees": [
       {
-        "name": "JUDr. Ingrid Sedlárová",
-        "name_parts": {
-          "unprocessed": "JUDr. Ingrid Sedlárová",
-          "prefix": "JUDr.",
-          "first": "Ingrid",
-          "middle": null,
-          "last": "Sedlárová",
-          "suffix": null,
-          "addition": null,
-          "flags": [],
-          "role": null
-        },
-        "position": "okresná prokurátorka",
-        "rank": 1,
-        "phone": "033/59 23 306"
-      },
-      {
         "name": "Mgr. Elena Bednáriková",
         "name_parts": {
           "unprocessed": "Mgr. Elena Bednáriková",
@@ -6444,8 +6444,8 @@
           "flags": [],
           "role": null
         },
-        "position": "námestníčka okresnej prokurátorky",
-        "rank": 2,
+        "position": "okresná prokurátorka",
+        "rank": 1,
         "phone": "033/59 23 310"
       },
       {
@@ -6462,8 +6462,25 @@
           "role": null
         },
         "position": "námestník okresnej prokurátorky",
-        "rank": 3,
+        "rank": 2,
         "phone": "033/59 23 309"
+      },
+      {
+        "name": "Mgr. Marcela Schmidtová",
+        "name_parts": {
+          "unprocessed": "Mgr. Marcela Schmidtová",
+          "prefix": "Mgr.",
+          "first": "Marcela",
+          "middle": null,
+          "last": "Schmidtová",
+          "suffix": null,
+          "addition": null,
+          "flags": [],
+          "role": null
+        },
+        "position": "námestníčka okresnej prokurátorky",
+        "rank": 3,
+        "phone": "033/59 23 334"
       },
       {
         "name": "Eva Hadvigová",
@@ -6691,13 +6708,13 @@
         "phone": "045/28 36 172"
       },
       {
-        "name": "JUDr. Andrea Karkalíková",
+        "name": "Mgr. Tamara Baranová",
         "name_parts": {
-          "unprocessed": "JUDr. Andrea Karkalíková",
-          "prefix": "JUDr.",
-          "first": "Andrea",
+          "unprocessed": "Mgr. Tamara Baranová",
+          "prefix": "Mgr.",
+          "first": "Tamara",
           "middle": null,
-          "last": "Karkalíková",
+          "last": "Baranová",
           "suffix": null,
           "addition": null,
           "flags": [],
@@ -6705,7 +6722,7 @@
         },
         "position": "námestníčka okresného prokurátora pre netrestný úsek",
         "rank": 3,
-        "phone": "045/28 36 171"
+        "phone": "045/28 36 140"
       },
       {
         "name": "Mária Rojíková",
@@ -6766,13 +6783,13 @@
         "phone": "041/43 22 395"
       },
       {
-        "name": "Mgr. Janka Švaňová",
+        "name": "JUDr. Monika Koteková",
         "name_parts": {
-          "unprocessed": "Mgr. Janka Švaňová",
-          "prefix": "Mgr.",
-          "first": "Janka",
+          "unprocessed": "JUDr. Monika Koteková",
+          "prefix": "JUDr.",
+          "first": "Monika",
           "middle": null,
-          "last": "Švaňová",
+          "last": "Koteková",
           "suffix": null,
           "addition": null,
           "flags": [],
@@ -6797,7 +6814,7 @@
         },
         "position": "vedúca správy registratúry",
         "rank": 3,
-        "phone": "041/43 22 691"
+        "phone": "041/43 23 691"
       }
     ]
   },
@@ -6933,6 +6950,23 @@
         "phone": "041/56 20 990"
       },
       {
+        "name": "JUDr. Martina Majková",
+        "name_parts": {
+          "unprocessed": "JUDr. Martina Majková",
+          "prefix": "JUDr.",
+          "first": "Martina",
+          "middle": null,
+          "last": "Majková",
+          "suffix": null,
+          "addition": null,
+          "flags": [],
+          "role": null
+        },
+        "position": "námestníčka okresného prokurátora pre netrestný úsek",
+        "rank": 3,
+        "phone": "041/56 20 990"
+      },
+      {
         "name": "Mgr. Lenka Ďurkovská",
         "name_parts": {
           "unprocessed": "Mgr. Lenka Ďurkovská",
@@ -6946,7 +6980,7 @@
           "role": null
         },
         "position": "vedúca správy registratúry",
-        "rank": 3,
+        "rank": 4,
         "phone": "041/56 20 990"
       }
     ]

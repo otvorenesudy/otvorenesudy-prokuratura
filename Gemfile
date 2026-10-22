@@ -1,84 +1,109 @@
 source 'https://rubygems.org'
 
-ruby File.read(File.expand_path('../.ruby-version', __FILE__)).strip
+ruby file: '.ruby-version'
 
-gem 'rails', '~> 7.1', '>= 7.1.3.2'
+gem 'rails', '~> 8.1.4'
 
-gem 'activerecord-import'
-gem 'bootsnap'
-gem 'bootstrap', '4.1.0'
-gem 'crawler_detect'
-gem 'curb'
+# database
+gem 'pg', '~> 1.7'
+
+# server
+gem 'bootsnap', require: false
+gem 'puma', '>= 7.0'
+gem 'rack-attack'
+
+# assets
+gem 'bootstrap', '~> 5.3'
+gem 'dartsass-rails'
+gem 'importmap-rails'
+gem 'propshaft'
+gem 'stimulus-rails'
+gem 'turbo-rails'
+
+# views
+gem 'kaminari', '~> 1.2'
+gem 'rails-i18n', '~> 8.1'
+
+# jobs
+gem 'sidekiq', '~> 8.1'
+
+# caching
 gem 'dalli'
-gem 'geocoder'
-gem 'google-api-client'
-gem 'i18n-tasks'
+
+# monitoring
+gem 'sentry-rails', '~> 7.1'
+gem 'sentry-ruby', '~> 7.1'
+gem 'sentry-sidekiq', '~> 7.1'
+gem 'skylight', '~> 7.1'
+
+# scheduling
+gem 'whenever', '~> 1.1', require: false
+
+# sitemap
+gem 'sitemap_generator', '~> 7.1'
+
+# importers: genpro.gov.sk and minv.sk pages, PDF, RTF and spreadsheet documents
+gem 'csv'
+gem 'curb'
 gem 'iguvium'
-gem 'jbuilder'
-gem 'json-schema'
-gem 'kaminari'
-gem 'mechanize'
-gem 'openssl'
 gem 'parallel'
 gem 'pdf-reader'
-gem 'pg'
-gem 'puma'
-gem 'rack-attack'
-gem 'rails-i18n'
-gem 'roo-xls'
 gem 'roo'
-gem 'sass-rails'
-gem 'selenium-webdriver'
-gem 'sentry-rails'
-gem 'sentry-ruby'
-gem 'sidekiq'
-gem 'sitemap_generator'
-gem 'skylight'
-gem 'svgeez'
-gem 'turbo-rails'
-gem 'webpacker', '6.0.0.rc.6'
-gem 'whenever'
+gem 'roo-xls'
+
+# validation of the JSON columns
+gem 'json-schema'
+
+# addresses of the offices
+gem 'geocoder'
+
+# news about offices and prosecutors (Google Custom Search)
+gem 'google-apis-customsearch_v1'
+
+# bots kept off the search pages
+gem 'crawler_detect'
+
+# the charts' PNG export, rendered by headless Chrome
+gem 'selenium-webdriver', '~> 4.51'
+
+group :development, :test do
+  gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
+  gem 'debug', require: 'debug/prelude'
+  gem 'dotenv-rails', '~> 3.2'
+  gem 'factory_bot_rails', '~> 6.5'
+  gem 'i18n-tasks', require: false
+  gem 'rspec-rails', '~> 8.0'
+  gem 'rubocop', require: false
+  gem 'rubocop-capybara', require: false
+  gem 'rubocop-factory_bot', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'rubocop-rspec_rails', require: false
+  gem 'shoulda-matchers'
+  gem 'vcr'
+end
 
 group :development do
-  gem 'annotate'
-  gem 'bcrypt_pbkdf'
-  gem 'capistrano-bundler'
-  gem 'capistrano-git'
-  gem 'capistrano-passenger'
-  gem 'capistrano-rails'
-  gem 'capistrano-rbenv'
-  gem 'capistrano-sidekiq'
-  gem 'capistrano'
-  gem 'ed25519'
-  gem 'listen'
-  gem 'spring-watcher-listen'
-  gem 'spring'
+  gem 'annotaterb', require: false
+  gem 'bcrypt_pbkdf', require: false
+  gem 'bump', git: 'https://github.com/pavolzbell/bump.git', require: false
+  gem 'capistrano', '~> 3.20', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-passenger', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rbenv', require: false
+  gem 'capistrano-sidekiq', require: false
+  gem 'ed25519', require: false
+  gem 'svgeez', require: false
   gem 'web-console'
 end
 
 group :test do
-  gem 'capybara'
-  gem 'database_cleaner-active_record'
-  gem 'simplecov', require: false
-  gem 'webdrivers'
-  gem 'webmock'
+  gem 'capybara', '~> 3.40'
+  # undercover 0.8 reads SimpleCov 0.x results; move to SimpleCov 1.x with undercover's next release.
+  gem 'simplecov', '~> 0.22', require: false
+  gem 'undercover', '~> 0.8.5', require: false
+  gem 'webmock', '~> 3.32'
 end
-
-group :development, :test do
-  gem 'dotenv-rails', '~> 3.2'
-  gem 'rspec-rails'
-  gem 'shoulda-matchers'
-  gem 'factory_bot'
-  gem 'vcr'
-  gem 'pry-rails'
-  gem 'rubocop', require: false
-  gem 'syntax_tree', require: false
-  gem 'brakeman', require: false
-  gem 'bundler-audit', require: false
-end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
-# Use Redis for Action Cable
-gem 'redis', '~> 4.0'

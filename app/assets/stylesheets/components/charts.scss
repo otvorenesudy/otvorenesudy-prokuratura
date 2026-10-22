@@ -1,0 +1,15 @@
+// A chart fills the width of its container and the height set here (Chart.js keeps to the container); on phones it
+// keeps the width of the small breakpoint and the page scrolls.
+.chart {
+  position: relative;
+  min-width: map-get($grid-breakpoints, sm);
+  height: 500px;
+}
+
+.chart-sm {
+  height: 300px;
+}
+
+.chart-md {
+  height: 400px;
+}

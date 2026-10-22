@@ -1,0 +1,10 @@
+<%# Google Analytics runs once the visitor accepts analytics cookies (cookie_consent.js). %>
+<% if (tracking_id = Rails.application.credentials.dig(:google, :analytics, :tracking_id)).present? %>
+  <script type="text/plain" data-category="analytics" data-service="Google Analytics" async src="https://www.googletagmanager.com/gtag/js?id=<%= tracking_id %>"></script>
+  <script type="text/plain" data-category="analytics" data-service="Google Analytics">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', <%= raw tracking_id.to_json %>);
+  </script>
+<% end %>

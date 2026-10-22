@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GenproGovSk
   module Criminality
     def self.import(structure_urls: nil, paragraph_paths: nil)
@@ -5,18 +7,18 @@ module GenproGovSk
       statistics = [parse_structures(structure_urls), parse_paragraphs(paragraph_paths)].flatten
       records =
         statistics
-          .map do |attributes|
-            year = attributes[:year]
-            office = attributes[:office]
+        .map do |attributes|
+          year = attributes[:year]
+          office = attributes[:office]
 
-            unknown_attributes += attributes[:unknown] if attributes[:unknown].any?
+          unknown_attributes += attributes[:unknown] if attributes[:unknown].any?
 
-            attributes[:statistics].map do |statistic|
-              next if statistic[:count].blank?
+          attributes[:statistics].map do |statistic|
+            next if statistic[:count].blank?
 
-              statistic.slice(:metric, :paragraph, :count).merge(office: office, year: year, file: attributes[:file])
-            end
+            statistic.slice(:metric, :paragraph, :count).merge(office: office, year: year, file: attributes[:file])
           end
+        end
           .flatten
           .compact
 
@@ -29,27 +31,27 @@ module GenproGovSk
     def self.parse_structures(structure_urls = nil)
       urls =
         structure_urls ||
-          %w[
-            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2010/2010_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2011/2011_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2012/2012_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2013/2013_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2014/2014_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2015/2015_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2016/2016_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2017/2017_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2018/2018_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2019/Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2020/12_Struktura_kriminality_a_stíhanych_a_obzalovanych_osob.csv
-            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2021/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2022/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2023/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-            https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2024/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
-          ]
+        %w[
+          https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2010/2010_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+          https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2011/2011_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+          https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2012/2012_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+          https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2013/2013_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+          https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2014/2014_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+          https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2015/2015_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+          https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2016/2016_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+          https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2017/2017_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+          https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2018/2018_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+          https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2019/Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+          https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2020/12_Struktura_kriminality_a_stíhanych_a_obzalovanych_osob.csv
+          https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2021/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+          https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2022/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+          https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2023/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+          https://www.genpro.gov.sk/fileadmin/Statistiky_datasety/2024/12_Struktura_kriminality_a_stihanych_a_obzalovanych_osob.csv
+        ]
 
       urls
         .map do |url|
-          FileDownloader.download(URI::Parser.new.escape(url)) do |path|
+          FileDownloader.download(URI::DEFAULT_PARSER.escape(url)) do |path|
             StructureParser.parse(File.read(path, encoding: 'Windows-1250').force_encoding('UTF-8'))
           end
         end
@@ -57,79 +59,12 @@ module GenproGovSk
     end
 
     def self.parse_paragraphs(paragraph_paths = nil)
-      path = paragraph_paths || Rails.root.join('data', 'genpro_gov_sk', 'criminality', 'paragraphs', '*.xls*')
+      path = paragraph_paths || Rails.root.join('data/genpro_gov_sk/criminality/paragraphs/*.xls*')
       files = Dir.glob(path).to_a.reject { |e| e.match(/obvod/) }
 
       Parallel
         .map(files, in_processes: Parallel.processor_count) { |file| ParagraphsParser.parse(file)&.merge(file: file) }
         .compact
-    end
-
-    def self.paragraphs_map
-      @paragraphs_map ||=
-        %i[new old]
-          .each
-          .with_object({ new: {}, old: {} }) do |key, hash|
-            csv =
-              CSV.open(
-                Rails.root.join('data', 'genpro_gov_sk', 'criminality', "paragraph-definitions-#{key}.csv"),
-                headers: true
-              )
-
-            csv.each do |row|
-              hash[key][row[2]] = {
-                chapter: row[0],
-                chapter_name: row[1]&.downcase&.capitalize,
-                paragraph: row[2],
-                paragraph_name: row[3].downcase.capitalize
-              }
-            end
-          end
-    end
-
-    def self.generate_and_save_metrics_map
-      sources = {
-        'Štruktúry' => STRUCTURES_MAP,
-        'Prehľad o osobách odsúdených pre trestné činy' => PARAGRAPHS_BY_CONVICTED_MAP,
-        'Prehľad o stíhaných a obžalovaných osobách' => PARAGRAPHS_BY_ACCUSED_AND_PROSECUTED_MAP
-      }
-
-      CSV.open(Rails.root.join('data', 'genpro_gov_sk', 'criminality', 'metrics-map.csv'), 'w') do |csv|
-        csv << [
-          'Symbol nášho atribútu',
-          'Názov nášho atribútu',
-          'Názov atribútu z dát Generálnej prokuratúry',
-          'Typ súboru'
-        ]
-
-        sources
-          .values
-          .map(&:values)
-          .flatten
-          .uniq
-          .sort
-          .each
-          .with_object({}) do |metric, hash|
-            rows =
-              sources
-                .each
-                .with_object([]) do |(key, source), array|
-                  values = source.select { |_, e| e == metric }.map(&:first)
-
-                  values.each { |value| array << [nil, nil, value, key] }
-                end
-                .sort_by { |e| e[1] }
-
-            rows[0][0] = metric
-
-            title = Statistic::GROUPS.find { |group, values| metric.in?(values) }
-
-            rows[0][1] = (title ? "#{I18n.t("statistics.index.search.#{title[0]}.title")} - " : '') +
-              I18n.t("models.statistic.metrics.#{metric}")
-
-            rows.each { |row| csv << row }
-          end
-      end
     end
 
     OFFICES_MAP = {
@@ -291,7 +226,7 @@ module GenproGovSk
         :valid_court_decision_only_convicted_with_guilt_and_sentence_agreement,
       'Počet oznámení o schválení dohody o vine a treste súdom' =>
         :valid_court_decision_only_convicted_with_guilt_and_sentence_agreement,
-      "Právoplatné rozhodnutia súdu – spolu rozhodnutie \"inak\"" => :valid_other_court_decision
+      'Právoplatné rozhodnutia súdu – spolu rozhodnutie "inak"' => :valid_other_court_decision
     }
 
     PARAGRAPHS_BY_ACCUSED_AND_PROSECUTED_MAP = {

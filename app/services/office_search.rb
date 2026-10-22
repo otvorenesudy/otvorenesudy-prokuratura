@@ -14,7 +14,7 @@ class OfficeSearch
           paragraph: Search::ParagraphFilter.new(Office),
           decrees_count:
             Search::DecreesCountFilter.new(
-              [1..50, 51..200, 201..500, 501..1000, 1001..1500, 1501..2000, 2001..Office.maximum(:decrees_count)]
+              [1..50, 51..200, 201..500, 501..1000, 1001..1500, 1501..2000, 2001..Office.maximum(:decrees_count).to_i]
             ),
           sort: SortFilter
         }
@@ -89,7 +89,7 @@ class OfficeSearch
         6..10,
         11..20,
         21..30,
-        31..Appointment.current.group(:office_id).order(Arel.sql('count(*) DESC')).count.first[1]
+        31..Appointment.current.group(:office_id).count.values.max.to_i
       ]
 
       facets =

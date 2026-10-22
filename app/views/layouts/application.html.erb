@@ -1,59 +1,41 @@
+<!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <script async data-category="analytics" data-service="Google Analytics" src="https://www.googletagmanager.com/gtag/js?id=<%= Rails.application.credentials.dig(:google, :analytics, :tracking_id) %>"></script>
-    <script data-category="analytics" data-service="Google Analytics">
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag() { dataLayer.push(arguments); }
-
-      gtag('js', new Date());
-      gtag('config', '<%= Rails.application.credentials.dig(:google, :analytics, :tracking_id) %>');
-
-      document.addEventListener('turbo:load', event => {
-        if (typeof gtag === 'function') {
-          gtag('config', '<%= Rails.application.credentials.dig(:google, :analytics, :tracking_id) %>', {
-            'page_location': event.detail.url
-          });
-        }
-      });
-    </script>
-
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <title><%= resolve_title(yield :title) %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="<%= t '.description'%>" />
-    <meta name="keywords" content="<%= t '.keywords' %>" />
-    <meta name="author" content="<%= t '.authors' %>" />
-    <meta property="og:title" content="<%= resolve_title(yield :title) %>" />
-    <meta property="og:description" content="<%= t '.content' %>" />
-    <meta property="og:image" content="<%= asset_path "brands/otvorena-prokuratura.svg" %>" />
-    <meta property="og:url" content="<%= canonical_url %>" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="<%= resolve_title(yield :title) %>" />
-    <meta name="twitter:description" content="<%= t '.content' %>" />
-    <meta name="twitter:image" content="<%= asset_path "brands/otvorena-prokuratura.svg" %>" />
-    <meta name="twitter:url" content="<%= canonical_url %>" />
-    <link rel="mask-icon" href="<%= asset_path 'maskicon.svg' %>" sizes="any" />
-    <link rel="apple-touch-icon" href="<%= asset_path 'touchicon.png' %>" />
-    <link rel="icon" href="<%= asset_path 'favicon.png' %>" />
-    <meta name="msapplication-TileImage" content="<%= asset_path 'tileicon.png' %>" />
-    <meta name="msapplication-TileColor" content="#fff" />
-    <link rel="prefetch" href="<%= asset_path 'icons.svg' %>" />
-    <link rel="prefetch" href="<%= asset_path 'brands.svg' %>" />
-    <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:300,700&subset=latin-ext" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css">
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload' %>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="<%= t '.description' %>">
+    <meta name="keywords" content="<%= t '.keywords' %>">
+    <meta name="author" content="<%= t '.authors' %>">
+    <meta property="og:title" content="<%= resolve_title(yield :title) %>">
+    <meta property="og:description" content="<%= t '.content' %>">
+    <meta property="og:image" content="<%= image_url 'brands/otvorena-prokuratura.svg' %>">
+    <meta property="og:url" content="<%= canonical_url %>">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="<%= resolve_title(yield :title) %>">
+    <meta name="twitter:description" content="<%= t '.content' %>">
+    <meta name="twitter:image" content="<%= image_url 'brands/otvorena-prokuratura.svg' %>">
+    <meta name="twitter:url" content="<%= canonical_url %>">
+    <link rel="mask-icon" href="<%= asset_path 'maskicon.svg' %>" sizes="any">
+    <link rel="apple-touch-icon" href="<%= asset_path 'touchicon.png' %>">
+    <link rel="icon" href="<%= asset_path 'favicon.png' %>">
+    <meta name="msapplication-TileImage" content="<%= asset_path 'tileicon.png' %>">
+    <meta name="msapplication-TileColor" content="#fff">
+    <link rel="prefetch" href="<%= asset_path 'icons.svg' %>">
+    <link rel="prefetch" href="<%= asset_path 'brands.svg' %>">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,700&subset=latin-ext">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', 'data-turbo-track': 'reload' %>
+    <%= javascript_importmap_tags %>
+    <%= yield :head %>
+    <%= render 'layouts/analytics' %>
   </head>
   <body>
     <%= render 'layouts/header' %>
-    <div class="container mt-4 px-sm-0">
+    <main class="container mt-4 px-sm-0">
       <%= yield %>
-    </div>
+    </main>
     <%= render 'layouts/footer' %>
   </body>
 </html>

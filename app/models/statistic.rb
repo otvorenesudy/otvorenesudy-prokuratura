@@ -36,7 +36,7 @@ class Statistic < ApplicationRecord
               scope: %i[year office_id paragraph]
             },
             inclusion: {
-              in: -> { GROUPS.values.flatten }
+              in: -> { GROUPS.values.flatten.map(&:to_s) }
             }
   validates :count, presence: true, numericality: true
 

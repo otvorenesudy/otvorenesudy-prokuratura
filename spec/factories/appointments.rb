@@ -32,5 +32,6 @@ FactoryBot.define do
     office
     prosecutor
     started_at { Time.zone.now }
+    type { :fixed }
   end
 end

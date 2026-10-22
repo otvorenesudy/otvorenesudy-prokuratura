@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StatisticSearch
   attr_reader :search, :params, :current_statistic_metric, :current_statistic_paragraphs, :default_params
 
@@ -82,18 +84,16 @@ class StatisticSearch
         sums = relation.where(paragraph: nil).joins(:office).order(:year).group(:year).sum(:count)
         sums_by_paragraphs = relation.joins(:office).where.not(paragraph: nil).group(:year).order(:year).sum(:count)
 
-        all =
-          sums_by_paragraphs.merge(sums) do |_, from_paragraphs, from_sums|
-            from_sums.present? ? from_sums : from_paragraphs
-          end
+        # A year's total, where the source has one, wins over the sum of its paragraphs.
+        all = sums_by_paragraphs.merge(sums)
 
         years = all.keys
         groupped =
           all
-            .each
-            .with_object({}) do |(year, count), hash|
-              hash[office_aggregate_key] = (hash[office_aggregate_key] || {}).merge(year => count)
-            end
+          .each
+          .with_object({}) do |(year, count), hash|
+            hash[office_aggregate_key] = (hash[office_aggregate_key] || {}).merge(year => count)
+          end
 
         by_office = data_by(years, aggregate: :office)
 
@@ -126,7 +126,7 @@ class StatisticSearch
     @metrics ||= search.all.pluck(Arel.sql('DISTINCT statistics.metric')).map(&:to_sym)
 
     if params[:metric].blank? ||
-         (value.match(/\A_(sentence|closure)/) && params[:metric].first.match(/\A_?#{Regexp.last_match(1)}/))
+       (value.match(/\A_(sentence|closure)/) && params[:metric].first.match(/\A_?#{Regexp.last_match(1)}/))
       true
     else
       value.in?(@metrics)
@@ -144,16 +144,13 @@ class StatisticSearch
     sums_by_paragraphs =
       relation.joins(:office).where.not(paragraph: nil).group(:year, group).order(:year, group).sum(:count)
 
-    all =
-      sums_by_paragraphs.merge(sums) do |_, from_paragraphs, from_sums|
-        from_sums.present? ? from_sums : from_paragraphs
-      end
+    all = sums_by_paragraphs.merge(sums)
 
     groupped =
       all.each.with_object({}) { |((year, name), count), hash| hash[name] = (hash[name] || {}).merge(year => count) }
 
     groupped.map do |name, values|
-      { name: name, table: aggregate == :office ? true : false, data: years.map { |e| values[e] } }.merge(
+      { name: name, table: aggregate == :office, data: years.map { |e| values[e] } }.merge(
         aggregate => true
       )
     end
@@ -229,7 +226,7 @@ class StatisticSearch
       return relation unless params[:metric].present?
 
       metric = params[:metric].first
-      metric = metric.match(/\A_(sentence|closure)/) ? Statistic::GROUPS[Regexp.last_match(1).to_sym] : metric
+      metric = Statistic::GROUPS[Regexp.last_match(1).to_sym] if metric =~ /\A_(sentence|closure)/
 
       relation = relation.where(metric: metric)
     end
@@ -262,9 +259,9 @@ class StatisticSearch
 
       scope =
         Paragraph
-          .all
-          .order(Arel.sql("array_position(ARRAY[#{highlights.join(',')}] :: text[], value :: text) ASC NULLS LAST"))
-          .order(name: :asc)
+        .all
+        .order(Arel.sql("array_position(ARRAY[#{highlights.join(',')}] :: text[], value :: text) ASC NULLS LAST"))
+        .order(name: :asc)
 
       paragraphs = ::QueryFilter.filter(scope, { q: suggest }, columns: %i[name]).pluck(:value).to_a
 

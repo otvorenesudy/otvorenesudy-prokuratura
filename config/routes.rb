@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
@@ -6,12 +8,12 @@ Rails.application.routes.draw do
   if Rails.env.production?
     Sidekiq::Web.use Rack::Auth::Basic do |username, password|
       ActiveSupport::SecurityUtils.secure_compare(
-        ::Digest::SHA256.hexdigest(username),
-        ::Digest::SHA256.hexdigest(Rails.application.credentials.dig(:sidekiq, :username))
+        Digest::SHA256.hexdigest(username),
+        Digest::SHA256.hexdigest(Rails.application.credentials.dig(:sidekiq, :username))
       ) &&
         ActiveSupport::SecurityUtils.secure_compare(
-          ::Digest::SHA256.hexdigest(password),
-          ::Digest::SHA256.hexdigest(Rails.application.credentials.dig(:sidekiq, :password))
+          Digest::SHA256.hexdigest(password),
+          Digest::SHA256.hexdigest(Rails.application.credentials.dig(:sidekiq, :password))
         )
     end
   end
@@ -43,7 +45,7 @@ Rails.application.routes.draw do
   end
 
   # error pages
-  %w[400 404 422 500 503].each { |code| get "/#{code}", to: 'errors#show', code: code }
+  %w[400 404 422 500 503].each { |code| match "/#{code}", to: 'errors#show', code:, via: :all }
 
-  match '/:slug', via: :get, to: 'static_pages#show', as: :static_page
+  get '/:slug', to: 'static_pages#show', as: :static_page
 end

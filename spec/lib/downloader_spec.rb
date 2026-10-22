@@ -1,99 +1,39 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Downloader do
   describe '.download' do
-    let(:url) { 'https://example.com/test.csv' }
-    let(:body) { 'test content' }
+    let(:url) { 'https://www.minv.sk/statistiky/test.csv' }
 
-    context 'with successful download' do
-      it 'returns body when no block given' do
-        curl = instance_double(Curl::Easy)
-        allow(Curl::Easy).to receive(:new).with(url).and_return(curl)
-        allow(curl).to receive(:timeout=)
-        allow(curl).to receive(:connect_timeout=)
-        allow(curl).to receive(:perform)
-        allow(curl).to receive(:response_code).and_return(200)
-        allow(curl).to receive(:body_str).and_return(body)
+    it 'returns the body, or what the block makes of it' do
+      stub_request(:get, url).to_return(body: 'test content')
 
-        result = described_class.download(url)
-
-        expect(result).to eq(body)
-      end
-
-      it 'yields body to block when block given' do
-        curl = instance_double(Curl::Easy)
-        allow(Curl::Easy).to receive(:new).with(url).and_return(curl)
-        allow(curl).to receive(:timeout=)
-        allow(curl).to receive(:connect_timeout=)
-        allow(curl).to receive(:perform)
-        allow(curl).to receive(:response_code).and_return(200)
-        allow(curl).to receive(:body_str).and_return(body)
-
-        result = described_class.download(url) { |b| b.upcase }
-
-        expect(result).to eq('TEST CONTENT')
-      end
+      expect(described_class.download(url)).to eq('test content')
+      expect(described_class.download(url, &:upcase)).to eq('TEST CONTENT')
     end
 
-    context 'with HTTP error' do
-      it 'does not raise on 3xx redirect codes' do
-        curl = instance_double(Curl::Easy)
-        allow(Curl::Easy).to receive(:new).with(url).and_return(curl)
-        allow(curl).to receive(:timeout=)
-        allow(curl).to receive(:connect_timeout=)
-        allow(curl).to receive(:perform)
-        allow(curl).to receive(:response_code).and_return(301)
-        allow(curl).to receive(:body_str).and_return(body)
+    it 'takes a redirect\'s body as it is' do
+      stub_request(:get, url).to_return(status: 301, body: 'moved')
 
-        result = described_class.download(url)
-
-        expect(result).to eq(body)
-      end
-
-      it 'retries on 4xx and 5xx response codes' do
-        curl = instance_double(Curl::Easy)
-        allow(Curl::Easy).to receive(:new).with(url).and_return(curl)
-        allow(curl).to receive(:timeout=)
-        allow(curl).to receive(:connect_timeout=)
-        allow(curl).to receive(:perform)
-        allow(curl).to receive(:response_code).and_return(500, 200)
-        allow(curl).to receive(:body_str).and_return(body)
-        allow(Rails.logger).to receive(:info)
-
-        result = described_class.download(url, retries: 3)
-
-        expect(result).to eq(body)
-      end
-
-      it 'raises after max retries' do
-        curl = instance_double(Curl::Easy)
-        allow(Curl::Easy).to receive(:new).with(url).and_return(curl)
-        allow(curl).to receive(:timeout=)
-        allow(curl).to receive(:connect_timeout=)
-        allow(curl).to receive(:perform)
-        allow(curl).to receive(:response_code).and_return(500)
-        allow(Rails.logger).to receive(:info)
-        allow(Rails.logger).to receive(:error)
-
-        expect { described_class.download(url, retries: 3) }.to raise_error(Downloader::DownloadError)
-      end
+      expect(described_class.download(url)).to eq('moved')
     end
 
-    context 'with network error' do
-      it 'retries on Curl errors' do
-        curl = instance_double(Curl::Easy)
-        allow(Curl::Easy).to receive(:new).with(url).and_return(curl)
-        allow(curl).to receive(:timeout=)
-        allow(curl).to receive(:connect_timeout=)
-        allow(curl).to receive(:perform).and_raise(Curl::Err::GotNothingError).once.and_return(nil)
-        allow(curl).to receive(:response_code).and_return(200)
-        allow(curl).to receive(:body_str).and_return(body)
-        allow(Rails.logger).to receive(:info)
+    it 'tries again after a server error or a dropped connection, waiting longer each time' do
+      stub_request(:get, url).to_return(status: 500).then.to_raise(Curl::Err::GotNothingError).then
+                             .to_return(body: 'test content')
 
-        result = described_class.download(url, retries: 3)
+      expect(described_class.download(url, retries: 3)).to eq('test content')
+      expect(a_request(:get, url)).to have_been_made.times(3)
+    end
 
-        expect(result).to eq(body)
-      end
+    it 'gives up once the retries run out' do
+      stub_request(:get, url).to_return(status: 404)
+
+      expect do
+        described_class.download(url, retries: 1)
+      end.to raise_error(Downloader::DownloadError, "HTTP 404 for #{url}")
+      expect(a_request(:get, url)).to have_been_made.times(2)
     end
   end
 end

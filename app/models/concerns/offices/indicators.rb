@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Offices
   module Indicators
     extend ActiveSupport::Concern
@@ -9,31 +11,14 @@ module Offices
 
     def average_convicted_people_yearly
       @average_convicted_people_yearly ||=
-        begin
-          if convicted_people_by_years.blank?
-            nil
-          else
-            convicted_people_by_years.values.sum / convicted_people_by_years.keys.size.to_f
-          end
+        if convicted_people_by_years.blank?
+          nil
+        else
+          convicted_people_by_years.values.sum / convicted_people_by_years.keys.size.to_f
         end
     end
 
-    def average_incoming_cases_per_prosecutor_monthly_by_years
-      @average_incoming_cases_per_prosecutor_monthly_by_years ||=
-        self.class.indicators[id].try { |e| e[:average_incoming_cases_per_prosecutor_monthly_by_years] }
-    end
 
-    def average_incoming_cases_per_prosecutor_monthly
-      @average_incoming_cases_per_prosecutor_monthly ||=
-        begin
-          if average_incoming_cases_per_prosecutor_monthly_by_years.blank?
-            nil
-          else
-            average_incoming_cases_per_prosecutor_monthly_by_years.values.sum /
-              average_incoming_cases_per_prosecutor_monthly_by_years.keys.size.to_f
-          end
-        end
-    end
 
     def average_incoming_cases_per_prosecutor_yearly_by_years
       @average_incoming_cases_per_prosecutor_yearly_by_years ||=
@@ -50,20 +35,7 @@ module Offices
         end
     end
 
-    def average_filed_prosecutions_per_prosecutor_monthly_by_years
-      @average_filed_prosecutoions_per_prosecutor_monthly_by_years ||=
-        self.class.indicators[id].try { |e| e[:average_filed_prosecutions_per_prosecutor_monthly_by_years] }
-    end
 
-    def average_filed_prosecutions_per_prosecutor_monthly
-      @average_filed_prosecutions_per_prosecutor_monthly ||=
-        if average_filed_prosecutions_per_prosecutor_monthly_by_years.blank?
-          nil
-        else
-          average_filed_prosecutions_per_prosecutor_monthly_by_years.values.sum /
-            average_filed_prosecutions_per_prosecutor_monthly_by_years.keys.size.to_f
-        end
-    end
 
     def average_filed_prosecutions_per_prosecutor_yearly_by_years
       @average_filed_prosecutoions_per_prosecutor_yearly_by_years ||=
@@ -215,14 +187,21 @@ module Offices
     end
 
     class_methods do
+      # The indicators and their averages are read from the datasets once per process; this reads them again.
+      def reset_indicators!
+        instance_variables.each do |name|
+          remove_instance_variable(name) if name.start_with?('@average', '@indicators', '@offices_map')
+        end
+      end
+
       def offices_map
         @offices_map ||=
           Office
-            .all
-            .each
-            .with_object({}) do |office, acc|
-              [office.id, office.name, *office.synonyms].compact.each { |name| acc[name] = office }
-            end
+          .all
+          .each
+          .with_object({}) do |office, acc|
+            [office.id, office.name, *office.synonyms].compact.each { |name| acc[name] = office }
+          end
       end
 
       def indicators
@@ -294,27 +273,23 @@ module Offices
       def prepare_indicators
         indicators = {}
 
-        lines = CSV.readlines(Rails.root.join('data', 'offices-incoming-cases.csv'))
+        lines = CSV.readlines(Rails.root.join('data/offices-incoming-cases.csv'))
         parse_indicators_lines(lines) do |office, row|
           indicators[office.id] = {
-            average_incoming_cases_per_prosecutor_monthly_by_years:
-              row[2..11].reverse.each.with_index.with_object({}) { |(value, i), values| values[2010 + i] = value.to_f },
             average_incoming_cases_per_prosecutor_yearly_by_years:
               row[13..23].reverse.each.with_index.with_object({}) { |(value, i), values| values[2010 + i] = value.to_f }
           }
         end
 
-        lines = CSV.readlines(Rails.root.join('data', 'offices-filed-prosecutions.csv'))
+        lines = CSV.readlines(Rails.root.join('data/offices-filed-prosecutions.csv'))
         parse_indicators_lines(lines) do |office, row|
           indicators[office.id].merge!(
-            average_filed_prosecutions_per_prosecutor_monthly_by_years:
-              row[2..11].reverse.each.with_index.with_object({}) { |(value, i), values| values[2010 + i] = value.to_f },
             average_filed_prosecutions_per_prosecutor_yearly_by_years:
               row[13..23].reverse.each.with_index.with_object({}) { |(value, i), values| values[2010 + i] = value.to_f }
           )
         end
 
-        lines = CSV.readlines(Rails.root.join('data', 'offices-historical-prosecutors-counts.csv'))
+        lines = CSV.readlines(Rails.root.join('data/offices-historical-prosecutors-counts.csv'))
         parse_indicators_lines(lines) do |office, row|
           indicators[office.id].merge!(
             prosecutors_count_by_years:
@@ -322,10 +297,10 @@ module Offices
           )
         end
 
-        lines = CSV.readlines(Rails.root.join('data', 'offices-rest-vs-incoming-cases.csv'))
+        lines = CSV.readlines(Rails.root.join('data/offices-rest-vs-incoming-cases.csv'))
         offices =
           lines[0][3..-1].map do |value|
-            name = value.match(/\AKP/) ? value.gsub(/\AKP/, 'Krajská prokuratúra') : "Okresná prokuratúra #{value}"
+            name = /\AKP/.match?(value) ? value.gsub(/\AKP/, 'Krajská prokuratúra') : "Okresná prokuratúra #{value}"
 
             offices_map[name]
           end
@@ -349,7 +324,7 @@ module Offices
 
       def parse_indicators_lines(lines)
         lines[2..-1].each do |row|
-          name = row[0..1].join(' ').gsub(/OP/, 'Okresná prokuratúra').gsub(/KP/, 'Krajská prokuratúra').strip
+          name = row[0..1].join(' ').gsub('OP', 'Okresná prokuratúra').gsub('KP', 'Krajská prokuratúra').strip
 
           office = offices_map[name]
 
@@ -379,9 +354,9 @@ module Offices
           .with_object({}) do |(type, offices), hash|
             sums =
               offices
-                .map(&metric)
-                .each
-                .with_object({}) { |values, result| result.merge!(values || {}) { |_, a, b| a && b ? a + b : a || b } }
+              .map(&metric)
+              .each
+              .with_object({}) { |values, result| result.merge!(values || {}) { |_, a, b| a + b } }
 
             next if sums.blank? || type.in?(%w[general specialized])
 

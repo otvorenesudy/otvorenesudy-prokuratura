@@ -37,7 +37,7 @@ class Appointment < ApplicationRecord
   validates :place, presence: true, unless: :office_id?
   validates :office, presence: true, unless: :place?
 
-  enum type: %i[fixed temporary]
+  enum :type, %i[fixed temporary]
 
   scope :current, -> { where(ended_at: nil) }
   scope :past, -> { where.not(ended_at: nil) }

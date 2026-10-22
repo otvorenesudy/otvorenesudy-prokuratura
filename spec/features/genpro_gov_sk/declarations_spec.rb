@@ -1,11 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe 'GenproGovSk Declarations', type: :feature, webmock: :disabled do
+RSpec.describe 'GenproGovSk Declarations', type: :feature do
   describe 'ImportDeclarationsJob' do
     it 'imports declarations for Maroš Žilinka from live website' do
-      create(:office, name: 'Úrad špeciálnej prokuratúry')
-      create(:office, name: 'Generálna prokuratúra Slovenskej republiky')
-
       url = 'https://www.genpro.gov.sk/majetkove-priznania/?meno=Maro%C5%A1&priezvisko=%C5%BDilinka'
       GenproGovSk::ImportDeclarationsJob.perform_now(url)
 

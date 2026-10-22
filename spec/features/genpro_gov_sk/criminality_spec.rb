@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'GenproGovSk::Criminality', type: :feature do
-  it 'correctly imports and parses data', webmock: :disabled do
+  it 'correctly imports and parses data' do
     GenproGovSk::Offices.import
 
     paragraphs_path = Rails.root.join('data', 'genpro_gov_sk', 'criminality', 'paragraphs', '*.xls*')

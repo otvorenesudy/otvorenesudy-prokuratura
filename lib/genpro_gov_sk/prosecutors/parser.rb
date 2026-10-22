@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_support'
 require 'legacy'
 
@@ -91,6 +93,7 @@ module GenproGovSk
 
         def parse_row(row)
           source_name, source_office, source_temporary_office = row
+          source_office, source_temporary_office = split_offices(source_office) if source_temporary_office.blank?
 
           office = parse_office_or_place(source_office)
           temporary_office = parse_office_or_place(source_temporary_office)
@@ -118,6 +121,20 @@ module GenproGovSk
           value = value.gsub('doc. et doc.', 'doc.')
 
           ::Legacy::Normalizer.partition_person_name(value, reverse: true)
+        end
+
+        # The list's table sometimes runs the office and the temporary office together in one cell: two of the known
+        # offices, one after the other.
+        def split_offices(value)
+          OFFICES_MAP.each_key do |name|
+            next unless value.to_s.start_with?("#{name} ")
+
+            rest = value.delete_prefix(name).strip
+
+            return [name, rest] if OFFICES_MAP.key?(rest)
+          end
+
+          [value, nil]
         end
 
         def parse_office_or_place(value)

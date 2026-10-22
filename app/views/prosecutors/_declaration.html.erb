@@ -2,9 +2,9 @@
   <%= t '.office' %>:
 
   <% if office = Office.find_by(name: declaration[:office]) %>
-    <%= link_to(office.name, office_path(office), class: 'font-weight-normal') %>
+    <%= link_to(office.name, office_path(office), class: 'fw-normal') %>
   <% else %>
-    <span class="font-weight-normal"><%= declaration[:office] %></span>
+    <span class="fw-normal"><%= declaration[:office] %></span>
   <% end %>
 </h6>
 
@@ -15,16 +15,16 @@
     <table class="table">
       <thead>
         <tr>
-          <th class="text-left"><%= t '.name' %></th>
-          <th class="text-left"><%= t '.reason' %></th>
-          <th class="text-left"><%= t '.date' %></th>
+          <th class="text-start"><%= t '.name' %></th>
+          <th class="text-start"><%= t '.reason' %></th>
+          <th class="text-start"><%= t '.date' %></th>
 
           <% if (show_procurement_price = list[:items].map { |e| e[:procurement_price] }.compact.any?) %>
-            <th class="text-left"><%= t '.procurement_price' %></th>
+            <th class="text-start"><%= t '.procurement_price' %></th>
           <% end %>
 
           <% if (show_price = list[:items].map { |e| e[:price].presence }.compact.any?) %>
-            <th class="text-left"><%= t '.price' %></th>
+            <th class="text-start"><%= t '.price' %></th>
           <% end %>
         </tr>
       </thead>
@@ -55,8 +55,8 @@
     <table class="table">
       <thead>
         <tr>
-          <th class="text-left"><%= t '.name' %></th>
-          <th class="text-left"><%= t '.income_value' %></th>
+          <th class="text-start"><%= t '.name' %></th>
+          <th class="text-start"><%= t '.income_value' %></th>
         </tr>
       </thead>
 
@@ -84,6 +84,6 @@
 
 
 <div class="small mt-4 text-muted">
-  <%= t '.source' %>: <%= link_to 'Generálna Prokuratúra &middot; Majetkové priznania prokurátorov'.html_safe, declaration[:url], class: 'text-muted', target: '_blank' %>
+  <%= t '.source' %>: <%= link_to_source 'Generálna Prokuratúra · Majetkové priznania prokurátorov', declaration[:url], class: 'text-muted' %>
 </div>
 

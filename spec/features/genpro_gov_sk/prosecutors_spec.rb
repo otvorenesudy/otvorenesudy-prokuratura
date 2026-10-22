@@ -1,14 +1,28 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'GenproGovSk Prosecutors', type: :feature do
-  it 'correctly parses all prosecutors', webmock: :disabled do
+  it 'correctly parses all prosecutors' do
     GenproGovSk::Offices.import
     GenproGovSk::Prosecutors.import
 
+    # The recorded list's prosecutors (spec/fixtures/vcr/live_sources/genpro_gov_sk/prosecutors), each with the office
+    # and the temporary office the list gives.
     expected_prosecutors =
-      JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'prosecutors', 'all_prosecutors.json')))
+      JSON.parse(File.read(Rails.root.join('spec/fixtures/genpro_gov_sk/prosecutors/live_list.json')))
 
-    expect(::Prosecutor.count).to eq(expected_prosecutors.size)
+    expect(Prosecutor.count).to eq(expected_prosecutors.size)
+
+    places = ->(appointments) { appointments.map { |e| e.office&.name || e.place } }
+    imported = Prosecutor.includes(appointments: :office).map do |prosecutor|
+      [prosecutor.name, places.call(prosecutor.appointments.select(&:fixed?)),
+       places.call(prosecutor.appointments.select(&:temporary?))]
+    end
+
+    expect(imported).to match_array(
+      expected_prosecutors.map { |e| [e['name'], [e['office']], [e['temporary_office']].compact] }
+    )
 
     prosecutor = Prosecutor.find_by(name: 'Mgr. Martin Draľ')
     expect(prosecutor.name).to eq('Mgr. Martin Draľ')
@@ -77,9 +91,9 @@ RSpec.describe 'GenproGovSk Prosecutors', type: :feature do
         'unprocessed' => 'Bartko Tomáš, JUDr.'
       }
     )
-    expect(prosecutor.appointments.size).to eq(2)
-    expect(prosecutor.appointments.fixed.map { |e| e.office.name }).to eq(['Okresná prokuratúra Prešov'])
-    expect(prosecutor.appointments.temporary.map { |e| e.office.name }).to eq(['Okresná prokuratúra Poprad'])
+    # The list of 5 October 2026 has him at Poprad, no longer at Prešov.
+    expect(prosecutor.appointments.size).to eq(1)
+    expect(prosecutor.appointments.fixed.map { |e| e.office.name }).to eq(['Okresná prokuratúra Poprad'])
 
     prosecutor = Prosecutor.find_by(name: 'Mgr. Branislav Boháčik')
     expect(prosecutor.name).to eq('Mgr. Branislav Boháčik')
@@ -96,10 +110,20 @@ RSpec.describe 'GenproGovSk Prosecutors', type: :feature do
         'unprocessed' => 'Boháčik Branislav, Mgr.'
       }
     )
-    expect(prosecutor.appointments.size).to eq(2)
-    expect(prosecutor.appointments.fixed.map { |e| e.office.name }).to eq(
-      ['Generálna prokuratúra Slovenskej republiky']
-    )
-    expect(prosecutor.appointments.temporary[0].place).to eq('EUROJUST')
+    # The list of 5 October 2026 has him at the General Prosecutor's Office only, no longer at Eurojust.
+    expect(prosecutor.appointments.size).to eq(1)
+    expect(prosecutor.appointments.fixed.map do |e|
+      e.office.name
+    end).to eq(['Generálna prokuratúra Slovenskej republiky'])
+
+    prosecutor = Prosecutor.find_by(name: 'JUDr. Jozef Halkoci')
+    expect(prosecutor.appointments.fixed.map { |e| e.office.name }).to eq(['Okresná prokuratúra Poprad'])
+    expect(prosecutor.appointments.temporary.map { |e| e.office.name }).to eq(['Okresná prokuratúra Kežmarok'])
+
+    prosecutor = Prosecutor.find_by(name: 'JUDr. Lucia Čentéšová')
+    expect(prosecutor.appointments.fixed.map do |e|
+      e.office.name
+    end).to eq(['Generálna prokuratúra Slovenskej republiky'])
+    expect(prosecutor.appointments.temporary.map(&:place)).to eq(['Justičná akadémia SR'])
   end
 end

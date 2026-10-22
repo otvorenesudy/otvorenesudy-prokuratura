@@ -13,7 +13,7 @@ class ProsecutorSearch
           paragraph: Search::ParagraphFilter.new(Prosecutor),
           decrees_count:
             Search::DecreesCountFilter.new(
-              [1..10, 11..50, 51..100, 101..150, 151..200, 201..300, 301..Prosecutor.maximum(:decrees_count)]
+              [1..10, 11..50, 51..100, 101..150, 151..200, 201..300, 301..Prosecutor.maximum(:decrees_count).to_i]
             ),
           sort: SortFilter,
           query: QueryFilter
@@ -30,10 +30,7 @@ class ProsecutorSearch
     def self.filter(relation, params)
       return relation if params[:q].blank?
 
-      columns = %i[name office]
-      order = params[:sort] == 'relevancy' && params[:order].in?(%w[asc desc]) ? params[:order].to_sym : nil
-
-      ::QueryFilter.filter(relation, params, columns: columns)
+      ::QueryFilter.filter(relation, params, columns: %i[name office])
     end
   end
 
@@ -90,7 +87,6 @@ class ProsecutorSearch
       relation = relation.order('genpro_gov_sk_prosecutors_list_id ASC NULLS LAST')
 
       return relation unless order.in?(%w[asc desc])
-      return relation.order(type: order == 'asc' ? 'desc' : 'asc') if params[:sort] == 'type'
       return relation.order(name: order) if params[:sort] == 'name'
 
       relation.order(id: order)

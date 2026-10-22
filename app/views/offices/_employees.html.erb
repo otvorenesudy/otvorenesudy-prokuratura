@@ -3,15 +3,15 @@
 </h2>
 
 <p>
-  <%= t('.explanation')%>
+  <%= t('.explanation') %>
 </p>
 
-<div class="table-responsive-md" data-controller="table">
+<div class="table-responsive-md">
   <%= table_tag class: 'table' do %>
     <thead>
       <tr>
-        <%= table_header_tag t('.name'), class: 'text-left w-60', sorter: 'text' %>
-        <%= table_header_tag t('.position'), class: 'text-left w-40', sorter: 'text' %>
+        <%= table_header_tag t('.name'), class: 'text-start w-60' %>
+        <%= table_header_tag t('.position'), class: 'text-start w-40' %>
       </tr>
     </thead>
     <tbody>

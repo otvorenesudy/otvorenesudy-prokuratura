@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GenproGovSk
   module Declarations
     class Parser
@@ -10,21 +12,21 @@ module GenproGovSk
           year: document.css('.tx-tempest-applications > h3')[0].text.match(/rok (\d+)/)[1].to_i,
           lists:
             document
-              .search('.idsk-table')
-              .map do |table|
-                caption = table.xpath('preceding-sibling::h3[1]').text.strip.presence
+            .search('.idsk-table')
+            .map do |table|
+              caption = table.xpath('preceding-sibling::h3[1]').text.strip.presence
 
-                next if caption == 'Príjmy a iné pôžitky'
+              next if caption == 'Príjmy a iné pôžitky'
 
-                { category: caption, items: parse_items(table) }
-              end
-              .compact,
-          incomes: nil, # parse_incomes(document),
+              { category: caption, items: parse_items(table) }
+            end
+            .compact,
+          incomes: nil,
           statements:
             document
-              .css('.tx-tempest-applications > .content > ol.govuk-label > li')
-              .map { |li| li.text.strip.presence }
-              .compact
+            .css('.tx-tempest-applications > .content > ol.govuk-label > li')
+            .map { |li| li.text.strip.presence }
+            .compact
         }
       end
 
@@ -35,10 +37,10 @@ module GenproGovSk
             lambda do |heading|
               case heading
               when ['popis veci', 'dátum nadobudnutia'], ['druh záväzku', 'dátum nadobudnutia'], [
-                     'popis veci',
-                     'dátum nadobudnutia',
-                     'cena obvyklá'
-                   ]
+                'popis veci',
+                'dátum nadobudnutia',
+                'cena obvyklá'
+              ]
                 lambda do |row|
                   {
                     description: row.css('td')[0].text.strip.presence,
@@ -47,40 +49,40 @@ module GenproGovSk
                   }
                 end
               when ['názov/popis', 'dôvod nadobudnutia', 'dátum nadobudnutia'], [
-                     'názov/popis',
-                     'dôvod nadobudnutia',
-                     'dátum nadobudnutia',
-                     'cena obvyklá',
-                     'cena obstarania'
-                   ], ['názov/popis', 'dôvod nadobudnutia', 'dátum nadobudnutia', 'cena obvyklá', 'cena obstarania'], [
-                     'popis majetku',
-                     'dôvod nadobudnutia',
-                     'dátum nadobudnutia',
-                     'cena obvyklá',
-                     'cena obstarania'
-                   ], [
-                     'popis práva',
-                     'právny dôvod nadobudnutia',
-                     'dátum nadobudnutia',
-                     'cena obvyklá',
-                     'cena obstarania'
-                   ], ['popis práva', 'právny dôvod nadobudnutia', 'dátum nadobudnutia', 'cena obvyklá'], [
-                     'popis majetku',
-                     'dôvod nadobudnutia',
-                     'dátum nadobudnutia',
-                     'cena obvyklá'
-                   ], ['popis majetku', 'dôvod nadobudnutia', 'dátum nadobudnutia'], [
-                     'popis práva',
-                     'právny dôvod nadobudnutia',
-                     'dátum nadobudnutia'
-                   ], [
-                     'názov/popis',
-                     'dôvod nadobudnutia',
-                     'dátum nadobudnutia',
-                     'cenaobvyklá',
-                     'cena obstarania',
-                     'veľkosťpodielu'
-                   ]
+                'názov/popis',
+                'dôvod nadobudnutia',
+                'dátum nadobudnutia',
+                'cena obvyklá',
+                'cena obstarania'
+              ], ['názov/popis', 'dôvod nadobudnutia', 'dátum nadobudnutia', 'cena obvyklá', 'cena obstarania'], [
+                'popis majetku',
+                'dôvod nadobudnutia',
+                'dátum nadobudnutia',
+                'cena obvyklá',
+                'cena obstarania'
+              ], [
+                'popis práva',
+                'právny dôvod nadobudnutia',
+                'dátum nadobudnutia',
+                'cena obvyklá',
+                'cena obstarania'
+              ], ['popis práva', 'právny dôvod nadobudnutia', 'dátum nadobudnutia', 'cena obvyklá'], [
+                'popis majetku',
+                'dôvod nadobudnutia',
+                'dátum nadobudnutia',
+                'cena obvyklá'
+              ], ['popis majetku', 'dôvod nadobudnutia', 'dátum nadobudnutia'], [
+                'popis práva',
+                'právny dôvod nadobudnutia',
+                'dátum nadobudnutia'
+              ], [
+                'názov/popis',
+                'dôvod nadobudnutia',
+                'dátum nadobudnutia',
+                'cenaobvyklá',
+                'cena obstarania',
+                'veľkosťpodielu'
+              ]
                 lambda do |row|
                   {
                     description: row.css('td')[0].text.strip.presence,
@@ -101,39 +103,18 @@ module GenproGovSk
                   }
                 end
               when ['popis majetku', 'dôvod nadobudnutia', 'dátum nadobudnutia', 'cena obstarania'], [
-                     'popis práva',
-                     'právny dôvod nadobudnutia',
-                     'dátum nadobudnutia',
-                     'cena obstarania'
-                   ]
+                'popis práva',
+                'právny dôvod nadobudnutia',
+                'dátum nadobudnutia',
+                'cena obstarania'
+              ]
                 lambda do |row|
                   {
                     description: row.css('td')[0].text.strip.presence,
                     acquisition_reason: row.css('td')[1].text.strip.presence,
                     acquisition_date: row.css('td')[2].text.strip.presence,
-                    procurement_price: row.css('td')[4].try { |e| e.text.strip.presence }
+                    procurement_price: row.css('td')[3].try { |e| e.text.strip.presence }
                   }
-                end
-              end
-            end
-        )
-      end
-
-      def self.parse_incomes(document)
-        table =
-          document.xpath('//table.idsk-table[preceding-sibling::h3[contains(text(), "Príjmy a iné pôžitky")]]').try(
-            :parent
-          )
-
-        return unless table
-
-        Table.parse(
-          table,
-          parser_factory:
-            lambda do |heading|
-              if heading == %w[popis príjmy]
-                lambda do |row|
-                  { description: row.css('td')[0].text.strip.presence, value: row.css('td')[1].text.strip.presence }
                 end
               end
             end

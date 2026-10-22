@@ -6,25 +6,30 @@ paths:
   - "Gemfile"
 ---
 
-# Ruby 3.3 and Rails 7.1
+# Ruby 4.0 and Rails 8.1
 
-The app runs **Ruby 3.3 and Rails 7.1** (`.ruby-version`, `Gemfile.lock`). Much of the code predates these
-conventions: match the surrounding code, and write what you add the way this rule says.
+The app runs **Ruby 4.0 and Rails 8.1** (`.ruby-version`, `Gemfile.lock`). Write current Ruby and Rails, and match the
+surrounding code before anything here.
 
 ## Formatting and Lint
 
-syntax_tree formats every Ruby file (`.streerc`: 120 columns, single quotes). RuboCop then checks it with only its Lint
-and Security cops (`.rubocop.yml`), so no style cop runs: the style below is ours to keep. The PostToolUse hook runs
-`bin/lint --fix` on each file you write and sends back what it couldn't fix; fix that, and don't hand-format or fight
-the formatter.
+RuboCop formats and checks every Ruby file (`.rubocop.yml`): the community Ruby and Rails style guides, with the Rails,
+RSpec, FactoryBot, Capybara and Performance cops on their defaults. The PostToolUse hook runs `bin/lint --fix` on each
+file you write and sends back what it couldn't fix; fix that, don't hand-format. What the configuration settles:
 
-- Offenses listed in `.rubocop_todo.yml` predate the setup. Leave them unless the change is about them; when you fix
-  one, regenerate the list with `bin/lint --regenerate-todo`.
+- `# frozen_string_literal: true` opens every Ruby file (`bin/lint --fix` adds it).
+- Single quotes, inside interpolation too; lines up to 120 columns.
+- Methods up to 20 lines, classes and modules up to 200, ABC size 30, cyclomatic and perceived complexity 10. A method
+  over them splits into private methods named after their steps; don't raise a limit or disable the cop.
+- Numbers in names are separated by an underscore (`structure_2023`).
+- No documentation comment is required above a class. A comment says what the code can't: a source's quirk, a
+  constraint, an order that matters (a quirk of genpro.gov.sk's pages). Never one that restates the code.
 - A `rubocop:disable` carries its reason after `--` on the same line.
-- The files don't start with `# frozen_string_literal: true`; don't add it to one file alone.
 
 ## Ruby
 
+- Use what the versions give: shorthand hash and keyword values (`{ office:, prosecutor: }`), endless ranges,
+  anonymous block forwarding (`&`), `filter_map`, `sum`, `compact_blank`, and `Data.define` for small value objects.
 - Guard clauses and early returns over nested conditionals (`return relation if params[:city].blank?`); a blank line
   between logical blocks; `unless` only without `else`.
 - `present?`, `blank?`, `presence` and safe navigation (`&.`) over manual nil and empty checks.
@@ -33,16 +38,12 @@ the formatter.
 - Stateless code is module or class methods, with the helpers private under `class << self` (the parsers in
   `lib/genpro_gov_sk/*/parser.rb`).
 - Static mappings are frozen constants.
-- Use what Ruby 3.3 gives in new code: shorthand hash and keyword values (`{ office:, prosecutor: }`), endless ranges,
-  `filter_map`, `Data.define` for small value objects.
-- Comments only for the non-obvious: a constraint, a workaround, a quirk of genpro.gov.sk's pages. Never one that
-  restates the code.
 - Names follow the `naming` skill: short in small scopes, descriptive for methods, parameters and anything public.
 
 ## Controllers and Search
 
-Controllers are thin. Strong parameters live in private methods, exposed to the views with `helper_method` when the
-views build links from them, and every listing goes through a search object:
+Controllers are thin. Parameters come through `params.permit` or `params.expect` in private methods, exposed to the
+views with `helper_method` when the views build links from them, and every listing goes through a search object:
 
 ```ruby
 class OfficesController < ApplicationController
@@ -67,8 +68,11 @@ with `self.filter(relation, params)`, which returns the relation unchanged when 
 
 ## Rails
 
-- Models keep the schema annotation at the top (`annotate`), validate with `validates :name, presence: true`, and use
-  enums with explicit values (`enum type: { general: 0, specialized: 1, regional: 2, district: 3 }`).
+- Models keep the schema annotation at the top (`bin/rails annotate_models`, annotaterb), validate with
+  `validates :name, presence: true`, and use enums with explicit values
+  (`enum :type, { general: 0, specialized: 1, regional: 2, district: 3 }`).
+- The schema lives in `db/structure.sql`, with the materialized views the listings search (`offices_search`,
+  `prosecutors_search`, `paragraphs_search`), which `schema.rb` can't hold.
 - Importing is two steps. `lib/genpro_gov_sk/` and `lib/minv_sk/` fetch and parse a source's pages and documents.
   `import_from` on a model in `app/models/genpro_gov_sk/` stores the raw page with its parsed data and writes the
   domain records (Office, Prosecutor, Appointment, Employee, Decree, Crime, Statistic, Paragraph). It does nothing for
@@ -79,14 +83,25 @@ with `self.filter(relation, params)`, which returns the relation unchanged when 
 - Iterate with `find_each` / `in_batches` over large tables; `includes` against N+1 queries.
 - Errors you rescue and still want to hear about go to Sentry (`Sentry.capture_exception`). Rescue the errors you
   expect, not `Exception`.
-- User-facing text goes through I18n, with every key in both `config/locales/sk.yml` and `en.yml`.
-- Secrets come from Rails credentials (`Rails.application.credentials.dig(...)`), never from code. You can't read the
-  credentials; ask the user when a change needs a new one.
-- Settings that differ by machine (the database login) come from ENV, with a default in the code. dotenv-rails loads
-  them in development and test from `.env` and `.env.test`, whose templates are the committed `.env.example` and
-  `.env.test.example`; CI's are in `.env.ci`. You can't open dotenv files, so ask the user to add a new setting there.
+- User-facing text goes through I18n, with every key in both `config/locales/sk.yml` and `en.yml`; missing
+  translations raise in development and tests.
+- Secrets come from Rails credentials (`Rails.application.credentials.dig(...)`, nil outside production unless you made
+  your own), never from code. You can't read the credentials; ask the user when a change needs a new one, and list it
+  in `config/initializers/production_boot_check.rb`.
+- Settings that differ by machine (the database login) come from ENV, with a default in the code
+  (`ENV.fetch('REDIS_URL', ...)`). dotenv-rails loads them in development and test from `.env` and `.env.test`, whose
+  templates are the committed `.env.example` and `.env.test.example`; CI's are in `.env.ci`. You can't open dotenv
+  files, so ask the user to add a new setting there.
 - Log through `Rails.logger`, prefixed with the class, values in brackets:
   `Rails.logger.info "Downloader # Retry [#{attempt}/#{retries}] for [#{url}] after [#{backoff_time}s]: [#{e.class}]"`.
+  Rake tasks may `puts` their progress; nothing else does.
+
+## Views
+
+- ERB, which no formatter checks: keep the indentation of the surrounding markup.
+- Build HTML with helpers: `tag`, `link_to`, `safe_join`, `to_sentence`. `html_safe` and `raw` only on markup we wrote,
+  with a reason.
+- Behavior is a Stimulus controller wired with `data-*` attributes (the `javascript` rule); no inline scripts or styles.
 
 ## Where Code Goes
 
@@ -98,4 +113,4 @@ with `self.filter(relation, params)`, which returns the relation unchanged when 
 | Faceted search and filters | `app/services/*_search.rb`, `app/services/search/` |
 | Background work | `app/jobs/` |
 | PDF and RTF text | `lib/p_d_f_extractor.rb`, `lib/r_t_f_extractor.rb`, `lib/unoconv.rb` |
-| Front-end behavior | Stimulus controllers in `app/javascript/src/controllers/` (the `javascript` rule) |
+| Front-end behavior | Stimulus controllers in `app/javascript/controllers/` (the `javascript` rule) |

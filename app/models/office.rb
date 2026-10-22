@@ -53,7 +53,7 @@ class Office < ApplicationRecord
   has_many :statistics, dependent: :destroy
   has_many :decrees, dependent: :nullify
 
-  enum type: { general: 0, specialized: 1, regional: 2, district: 3 }
+  enum :type, { general: 0, specialized: 1, regional: 2, district: 3 }
 
   validates :name, presence: true, uniqueness: true
   validates :address, presence: true

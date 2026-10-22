@@ -22,7 +22,7 @@ module CrimesHelper
     paragraphs_list =
       content_tag :div, class: 'mt-3' do
         content_tag :small do
-          content_tag :ul, class: 'list-unstyled ml-3 paragraphs-list' do
+          content_tag :ul, class: 'list-unstyled ms-3 paragraphs-list' do
             paragraph_names
               .map do |name|
                 content_tag(:li, class: 'mt-1 d-flex') do
@@ -30,7 +30,7 @@ module CrimesHelper
                     content_tag(:span, name, class: 'text-truncate') +
                       (
                         if Paragraph.type_of(Paragraph.by_name[name]) == :old
-                          content_tag(:span, class: 'ml-2 facet-tag') do
+                          content_tag(:span, class: 'ms-2 facet-tag') do
                             tooltip_tag(
                               I18n.t('statistics.index.search.paragraph.old.badge'),
                               I18n.t('statistics.index.search.paragraph.old.title')
@@ -48,7 +48,7 @@ module CrimesHelper
                             { paragraph: Paragraph.by_name[name] }
                           )
                         ),
-                        class: 'flex-fill ml-2 cancel'
+                        class: 'flex-fill ms-2 cancel'
                       )
                   ).html_safe
                 end

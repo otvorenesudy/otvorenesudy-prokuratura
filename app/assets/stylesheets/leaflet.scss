@@ -1,3 +1,5 @@
+// The maps (the map controller, on Leaflet): clusters in the site's red, popups without a close button, links in the
+// site's colors. Leaflet's own stylesheets come from vendor/assets/stylesheets.
 .marker-cluster {
   background-color: transparentize($red, 0.75) !important;
 
@@ -12,13 +14,14 @@
 }
 
 .leaflet-popup-close-button {
-   display: none;
+  display: none;
 }
 
 .leaflet-container a {
   color: $link-color;
 
-  &:hover,&.active {
+  &:hover,
+  &.active {
     color: $link-hover-color;
   }
 }

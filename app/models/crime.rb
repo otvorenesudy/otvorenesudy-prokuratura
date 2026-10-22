@@ -22,7 +22,7 @@ class Crime < ApplicationRecord
               scope: %i[year paragraph]
             },
             inclusion: {
-              in: -> { GROUPS.values.flatten }
+              in: -> { GROUPS.values.flatten.map(&:to_s) }
             }
   validates :count, presence: true, numericality: true
 

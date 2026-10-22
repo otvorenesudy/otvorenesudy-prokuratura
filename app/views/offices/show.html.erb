@@ -8,13 +8,13 @@
 
 <h1 class="text-uppercase my-4">
   <%= yield :title %>
-  <small class="d-block h6 font-weight-bold mt-2 mb-0">
+  <small class="d-block h6 fw-bold mt-2 mb-0">
     <%= @office.full_address %>
   </small>
 </h1>
 
 <p>
-  <% if @office.attorney_general&.prosecutor  %>
+  <% if @office.attorney_general&.prosecutor %>
     <%= t "offices.index.list.prosecutor_subtitle.#{@office.type}_html", link: link_to(@office.attorney_general.prosecutor.name, prosecutor_path(@office.attorney_general.prosecutor)) %>
   <% end %>
 </p>
@@ -81,23 +81,25 @@
 <% end %>
 
 <% @office.to_indicators_chart_data.tap do |data| %>
- <% if data[:data].any? %>
-    <div
-      class="w-100 mt-5 mb-5 text-right"
-      data-controller="indicators-chart"
-      data-watermark-url="<%= image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg") %>"
-      data-json="<%= data.to_json %>"
-    >
-      <div class="chart"></div>
+  <% if data[:data].any? %>
+    <div class="w-100 mt-5 mb-5 text-end">
+      <%= tag.div class: 'chart chart-md', data: {
+            controller: 'indicators-chart',
+            indicators_chart_years_value: data[:years].to_json,
+            indicators_chart_series_value: data[:data].to_json,
+            indicators_chart_watermark_value: image_url("brands/transparency-international-slovensko.#{I18n.locale}.svg")
+          } do %>
+        <canvas data-indicators-chart-target="canvas" role="img" aria-label="<%= t '.indicators' %>"></canvas>
+      <% end %>
 
-      <small class="mt-2 text-muted text-right">
+      <small class="mt-2 text-muted text-end">
         <%= t 'statistics.index.data_disclaimer' %>
       </small>
     </div>
   <% end %>
 <% end %>
 
-<ul class="nav nav-tabs mt-4" role="tablist">
+<ul class="nav nav-tabs mt-4" role="tablist" data-controller="tabs">
   <%= tab_link_tag t('.contact'), 'contact', class: @paragraphs.present? || @tab == 'decrees' ? '' : 'active' %>
   <%= tab_link_tag t('.prosecutors'), 'prosecutors' %>
   <%= tab_link_tag t('.employees'), 'employees' %>
@@ -109,6 +111,6 @@
   <%= render_tab partial: 'contact', class: @paragraphs.present? || @tab == 'decrees' ? '' : 'active' %>
   <%= render_tab partial: 'prosecutors' %>
   <%= render_tab partial: 'employees' %>
-  <%= render_tab partial: 'decrees', class: @paragraphs.present? || @tab == 'decrees' ? 'active' : '' %>  
+  <%= render_tab partial: 'decrees', class: @paragraphs.present? || @tab == 'decrees' ? 'active' : '' %>
   <%= render_tab partial: 'media' %>
 </div>

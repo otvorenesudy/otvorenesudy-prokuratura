@@ -22,29 +22,16 @@
       <%= t "prosecutors.index.list.past_offices_html", link: @prosecutor.past_appointments_excluding_current.map { |e| e.office ? link_to(e.office.name, office_path(e.office)) : e.place }.uniq.to_sentence.html_safe %>
       <br>
     <% end %>
-   
+
     <% @prosecutor.employments.active.each do |employment| %>
-    <p>
-      <%= t '.employee_html', link: link_to(employment.office.name, office_path(employment.office)), position: employment.position %>
-    </p>
+      <p>
+        <%= t '.employee_html', link: link_to(employment.office.name, office_path(employment.office)), position: employment.position %>
+      </p>
     <% end %>
   </div>
-
-  <!--
-  <div class="col-lg-5">
-    <div class="bg-light border p-3">
-      <ul class="mt-2 mb-2">
-        <li><a href="#media"><%= t '.media.title' %></a></li>
-        <li><a href="#media">Životopis</a></li>
-        <li><a href="#media">Motivačný list</a></li>
-        <li><a href="#media">Blízke osoby na prokuratúre</a></li>
-      </ul>
-    </div>
-  </div>
-  -->
 </div>
 
-<ul class="nav nav-tabs mt-4" role="tablist">
+<ul class="nav nav-tabs mt-4" role="tablist" data-controller="tabs">
   <%= tab_link_tag t('.declarations.title'), 'declarations', class: @paragraphs.present? || @tab == 'decrees' ? '' : 'active' %>
 
   <% if @prosecutor.decrees.any? %>
@@ -57,9 +44,9 @@
 <div class="tab-content mb-5">
   <%= render_tab partial: 'declarations', tab: 'declarations', locals: { declarations: @declarations }, class: @paragraphs.present? || @tab == 'decrees' ? '' : 'active' %>
 
-  <% if @prosecutor.decrees.any?  %>
+  <% if @prosecutor.decrees.any? %>
     <%= render_tab partial: 'decrees', tab: 'decrees', class: @paragraphs.present? || @tab == 'decrees' ? 'active' : '' %>
   <% end %>
-  
+
   <%= render_tab partial: 'media', tab: 'media' %>
 </div>

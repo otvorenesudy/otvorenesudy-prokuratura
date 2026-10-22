@@ -42,7 +42,7 @@ class Decree < ApplicationRecord
   belongs_to :genpro_gov_sk_decree, class_name: :'GenproGovSk::Decree', required: true
   belongs_to :paragraph, optional: true
 
-  enum file_type: { pdf: 0, rtf: 1 }
+  enum :file_type, { pdf: 0, rtf: 1 }
 
   validates :url, presence: true, uniqueness: true
   validates :number, presence: true
@@ -69,39 +69,4 @@ class Decree < ApplicationRecord
     normalized_text.last(100)
   end
 
-  def self.reconcile_prosecutors_from_signature
-    prosecutors =
-      where(prosecutor_id: nil)
-        .map do |decree|
-          _, name_unprocessed = *decree.signature.match(/((judr\.|mgr\.).*)\s+(prokurátor)/i)
-
-          next if !name_unprocessed || name_unprocessed.match(/xxx/i)
-
-          name = ::Legacy::Normalizer.partition_person_name(name_unprocessed)
-
-          prosecutor = Prosecutor.find_or_initialize_by(name: name[:value])
-
-          prosecutor.update(name_parts: name)
-          decree.update!(prosecutor: prosecutor)
-
-          prosecutor
-        end
-        .compact
-        .uniq(&:id)
-
-    prosecutors.each do |prosecutor|
-      appointments =
-        Decree
-          .where(prosecutor: prosecutor)
-          .where.not(office_id: nil)
-          .group(:office_id)
-          .pluck(:office_id, 'MIN(effective_on)', 'MAX(effective_on)')
-
-      appointments.each do |office_id, started_at, ended_at|
-        next if prosecutor.appointments.where(office_id: office_id).exists?
-
-        prosecutor.appointments.create!(office_id: office_id, type: :fixed, started_at: started_at, ended_at: ended_at)
-      end
-    end
-  end
 end

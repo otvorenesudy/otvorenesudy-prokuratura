@@ -1,0 +1,43 @@
+<%= turbo_frame_tag :"office-#{@office.id}-decrees", **(loading ? { src: decrees_office_path(@office, paragraph: show_params[:paragraph]), loading: :lazy } : {}) do %>
+  <div class="table-responsive-md mt-2" data-controller="table-filter">
+    <div class="row mt-3 mb-3">
+      <div class="col-lg-6 pt-1">
+        <h4><%= t('offices.decrees.table_title') %> <small class="text-muted">(<span data-table-filter-target="count"><%= @decrees.count %></span>)</small></h4>
+
+        <% if @paragraphs.present? %>
+          <h4>
+            <small class="text-muted">
+              <%= t 'offices.decrees.filtered_by' %> <%= @paragraphs.map(&:name).to_sentence %>
+
+              <%= link_to '×', decrees_office_path(@office), class: 'cancel', 'aria-label': t('offices.decrees.cancel_filter') %>
+            </small>
+          </h4>
+        <% end %>
+      </div>
+      <div class="col-lg-6">
+        <%= render 'shared/table_filter', placeholder: t('offices.decrees.search.placeholder') %>
+      </div>
+    </div>
+
+    <%= table_tag class: 'table' do %>
+      <thead>
+        <tr>
+          <%= table_header_tag t('offices.decrees.prosecutor'), class: 'text-start' %>
+          <%= table_header_tag t('offices.decrees.number'), class: 'text-start' %>
+          <%= table_header_tag t('offices.decrees.effective_on'), class: 'text-start', 'aria-sort': 'descending' %>
+          <%= table_header_tag t('offices.decrees.file_number'), class: 'text-start' %>
+          <%= table_header_tag t('offices.decrees.paragraph'), class: 'text-start' %>
+          <%= table_header_tag t('offices.decrees.resolution'), class: 'text-start' %>
+          <%= table_header_tag t('offices.decrees.means_of_resolution'), class: 'text-start' %>
+        </tr>
+      </thead>
+      <tbody>
+        <%= yield %>
+
+        <tr data-table-filter-target="empty" hidden>
+          <td colspan="7" class="text-center"><em><%= t('offices.decrees.search.no_results') %></em></td>
+        </tr>
+      </tbody>
+    <% end %>
+  </div>
+<% end %>
