@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: prosecutors
@@ -24,9 +26,47 @@
 #
 require 'rails_helper'
 
-RSpec.describe Prosecutor, type: :model do
+RSpec.describe Prosecutor do
   subject { build(:prosecutor) }
 
   it { is_expected.to belong_to(:genpro_gov_sk_prosecutors_list).optional(true) }
   it { is_expected.to validate_presence_of(:name) }
+
+  describe '.remove_excluded_urls_from_news!' do
+    it 'drops the articles from the excluded addresses' do
+      excluded = Rails.root.join('data/newsable/excluded-urls.txt').readlines(chomp: true).first
+      prosecutor = create(:prosecutor, news: { data: [{ url: excluded }, { url: 'https://dennikn.sk/1/' }] })
+      untouched = create(:prosecutor, news: nil)
+      clean = create(:prosecutor, news: { data: [{ url: 'https://dennikn.sk/4100001/' }] })
+
+      expect { described_class.remove_excluded_urls_from_news! }.not_to(change { clean.reload.updated_at })
+
+      expect(prosecutor.reload.articles).to eq([{ 'url' => 'https://dennikn.sk/1/' }])
+      expect(untouched.reload.articles).to eq([])
+      expect(clean.articles).to eq([{ 'url' => 'https://dennikn.sk/4100001/' }])
+    end
+  end
+
+  describe 'the declarations' do
+    it 'are refused when they do not follow the shape of an imported declaration' do
+      prosecutor = build(:prosecutor, declarations: [{ name: 'JUDr. Ján Novák', year: 2024 }])
+
+      expect(prosecutor).not_to be_valid
+      expect(prosecutor.errors).to be_of_kind(:declarations, :invalid)
+    end
+  end
+
+  describe '.fuzzy_find' do
+    it 'finds a prosecutor by the parts of the name, regardless of diacritics, those at the office first' do
+      kosice = Office.find_by!(name: 'Krajská prokuratúra v Košiciach')
+      novak = create(:prosecutor, name: 'JUDr. Ján Novák', name_parts: { first: 'Ján', last: 'Novák' })
+      namesake = create(:prosecutor, name: 'JUDr. Ján Novák, PhD.', name_parts: { first: 'Ján', last: 'Novák' })
+      create(:appointment, prosecutor: namesake, office: kosice)
+      create(:appointment, prosecutor: novak, office: Office.find_by!(name: 'Okresná prokuratúra Žilina'))
+
+      expect(described_class.fuzzy_find('Jan  Novak', office: kosice)).to eq(namesake)
+      expect(described_class.fuzzy_find('Ján Novák')).to eq(namesake)
+      expect(described_class.fuzzy_find('Peter Novák')).to be_nil
+    end
+  end
 end

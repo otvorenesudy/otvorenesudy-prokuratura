@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'p_d_f_extractor'
 require 'legacy'
 
@@ -6,7 +8,7 @@ module GenproGovSk
     using ::Legacy::String
 
     def self.import
-      landing = Nokogiri.HTML(Curl.get(url()).body_str)
+      landing = Nokogiri.HTML(Curl.get(url).body_str)
       last_page = landing.css('ul.govuk-pagination__list > li:last-child').text.to_i
 
       (1..last_page).each do |page|
@@ -15,16 +17,18 @@ module GenproGovSk
         decrees = Parser.parse(html, url: base_url)
 
         decrees.each do |decree|
-          next GenproGovSk::ImportPdfDecreeJob.perform_later(decree) if decree[:file_type] === 'pdf'
-          next GenproGovSk::ImportRtfDecreeJob.perform_later(decree) if decree[:file_type] === 'rtf'
+          next GenproGovSk::ImportPdfDecreeJob.perform_later(decree) if decree[:file_type] == 'pdf'
+          next GenproGovSk::ImportRtfDecreeJob.perform_later(decree) if decree[:file_type] == 'rtf'
 
-          raise ArgumentError.new("Unknown decree type: [#{decree[:file_type]}]")
+          raise ArgumentError, "Unknown decree type: [#{decree[:file_type]}]"
         end
       end
     end
 
+    LISTING_URL = 'https://www.genpro.gov.sk/informacie/uznesenie-o-zastaveni-trestneho-stihania/'
+
     def self.url(page: 1)
-      "https://www.genpro.gov.sk/informacie/uznesenie-o-zastaveni-trestneho-stihania/?datumOd=1960-01-01&page=#{page || 1}"
+      "#{LISTING_URL}?datumOd=1960-01-01&page=#{page || 1}"
     end
 
     def self.base_url

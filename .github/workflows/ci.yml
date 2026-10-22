@@ -1,0 +1,131 @@
+# bin/test on every pull request and push to main: lint, every spec with coverage, and undercover on the changes. A
+# push to main would then deploy to production, but that job is off for now (see below).
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    services:
+      # The login is .env.ci's; it exists only in this job's container, so it isn't a secret.
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres # betterleaks:allow
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+
+    # The app's settings for the specs, the database login among them, are in .env.ci, which the job copies to
+    # .env.test before the app boots.
+    env:
+      CI: 'true'
+      # A failed browser spec saves the page's HTML beside its screenshot in tmp/capybara.
+      RAILS_SYSTEM_TESTING_SCREENSHOT_HTML: '1'
+
+    steps:
+      - name: Check Out Repository
+        uses: actions/checkout@v4
+        with:
+          # undercover and bin/lint compare the branch with origin/main.
+          fetch-depth: 0
+
+      # The database login in .env.ci is the postgres service's above.
+      - name: Set Up Environment
+        run: cp .env.ci .env.test
+
+      # curb builds against libcurl; iguvium reads the prosecutors' PDF list with Ghostscript.
+      - name: Install System Packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libpq-dev libcurl4-openssl-dev ghostscript
+
+      - name: Set Up Ruby
+        uses: ruby/setup-ruby@e1bd6146574da5e0795075b5319b300edb30c5b0 # v1.333.0
+        with:
+          bundler-cache: true
+
+      - name: Set Up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .tool-versions
+          cache: npm
+
+      # Prettier, esbuild and the browser libraries bin/vendor --check compares the vendored files with.
+      - name: Install Node Packages
+        run: npm ci
+
+      - name: Run Tests
+        run: bin/test
+
+      - name: Upload Coverage Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 7
+
+      - name: Upload Failure Screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: tmp/capybara/
+          retention-days: 7
+          if-no-files-found: ignore
+
+  deploy:
+    name: Deploy to Production
+    needs: [test]
+    # Off until the production server runs the Rails 8 upgrade; deploy by hand with Capistrano meanwhile. To turn it
+    # back on: if: github.ref == 'refs/heads/main'
+    if: false
+
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@87a8f067114a8ce263df83e9ed5c849953548bc3 # v2.8.1
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          name: github-actions
+          known_hosts: "..."
+          config: |
+            host ${{ secrets.SSH_HOST }}
+              IdentityFile ~/.ssh/github-actions
+              IdentitiesOnly yes
+              ForwardAgent yes
+
+      - name: Add Known Hosts
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }}
+
+      - name: Check Out Repository
+        uses: actions/checkout@v4
+
+      # The Ruby of .ruby-version, as on the server.
+      - name: Set Up Ruby
+        uses: ruby/setup-ruby@e1bd6146574da5e0795075b5319b300edb30c5b0 # v1.333.0
+        with:
+          bundler-cache: true
+
+      - name: Deploy
+        run: |
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/github-actions
+          bundle exec cap production deploy deploy:restart sidekiq:restart

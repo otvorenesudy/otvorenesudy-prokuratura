@@ -1,0 +1,15 @@
+<%# The map of Slovakia with markers (the map controller): [{ name:, url:, address:, coordinates:, office: }]. A search URL
+    makes a cluster of one office's markers lead to that office in the listing. %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'leaflet/leaflet', 'leaflet.markercluster/MarkerCluster', 'leaflet.markercluster/MarkerCluster.Default' %>
+<% end %>
+
+<%= tag.div id: 'map', class: 'w-100 mb-4', role: 'region', 'aria-label': t('shared.map.title'), data: {
+      controller: 'map',
+      map_markers_value: markers.to_json,
+      map_border_value: '/data/slovakia.geojson',
+      map_icon_value: '/images/marker.png',
+      map_shadow_value: asset_path('leaflet/images/marker-shadow.png'),
+      map_search_url_value: local_assigns[:search_url],
+      map_search_message_value: local_assigns[:search_message]
+    }.compact %>

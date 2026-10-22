@@ -1,30 +1,14 @@
+# frozen_string_literal: true
+
+# The name normalizer's String extension: the text with its letters stripped of diacritics and anything outside ASCII
+# dropped, to compare titles and names regardless of how they're written.
 module Legacy
   module String
     refine ::String do
-      def utf8
-        self.mb_chars
-      end
-
       def ascii
-        return self if self.ascii_only?
+        return self if ascii_only?
 
-        self.utf8.unicode_normalize(:nfkd).bytes.map { |b| (0x00..0x7F).include?(b) ? b.chr : '' }.join
-      end
-
-      def downcase_first
-        self.sub(/^\D{0,1}/, &:downcase)
-      end
-
-      def downcase_first!
-        self.sub!(/^\D{0,1}/, &:downcase)
-      end
-
-      def upcase_first
-        self.sub(/^\D{0,1}/, &:upcase)
-      end
-
-      def upcase_first!
-        self.sub!(/^\D{0,1}/, &:upcase)
+        unicode_normalize(:nfkd).bytes.map { |byte| (0x00..0x7F).cover?(byte) ? byte.chr : '' }.join
       end
     end
   end

@@ -11,3 +11,13 @@
 # The password of the test database, which exists only in CI's service container.
 40f235c150b4032f2a0ee16034b5cef69897c95e:.github/workflows/main.yml:generic-password:20
 063aac166c12e22fddfcc1868fc58c56360964c5:.github/workflows/copilot-setup-steps.yml:generic-password:38
+
+# Not secrets: an image genpro.gov.sk's pages inline (a PNG as a data URI, whose base64 Betterleaks takes for a Square
+# token), in the recorded answers the specs of the live sources replay.
+spec/fixtures/vcr/live_sources/genpro_gov_sk/criminality.zz:square-access-token:1550
+spec/fixtures/vcr/live_sources/genpro_gov_sk/criminality.zz:square-access-token:66615
+spec/fixtures/vcr/live_sources/genpro_gov_sk/offices.zz:square-access-token:1550
+spec/fixtures/vcr/live_sources/genpro_gov_sk/offices.zz:square-access-token:66615
+spec/fixtures/vcr/live_sources/genpro_gov_sk/prosecutors.zz:square-access-token:1550
+spec/fixtures/vcr/live_sources/genpro_gov_sk/prosecutors.zz:square-access-token:66615
+spec/fixtures/vcr/live_sources/genpro_gov_sk/prosecutors.zz:square-access-token:81995

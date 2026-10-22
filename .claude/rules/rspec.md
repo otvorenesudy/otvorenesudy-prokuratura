@@ -1,70 +1,95 @@
 ---
 paths:
-  - "spec/**/*.rb"
+  - "spec/**/*"
 ---
 
 # RSpec
 
 The process is the `acceptance-first` skill: scenarios first, an end-to-end spec per scenario that fails on its
-assertion, then the code. This is how to write those specs here, on **rspec-rails, shoulda-matchers, FactoryBot, VCR
-with WebMock, Capybara and DatabaseCleaner**, against the real test database. Run them with `bin/test <spec>`: it
-lints, prepares the test database and runs outside the Claude Code sandbox, which plain `bundle exec rspec` can't (the
-database login is in `.env.test` or Rails credentials, both hidden from the sandbox).
+assertion, then the code. This is how to write those specs here, on **rspec-rails 8, FactoryBot, shoulda-matchers,
+Capybara (rack_test and headless Chrome through Selenium), WebMock and VCR**, against the real PostgreSQL. Run them
+with `bin/test <spec>`: it lints, prepares the test database and runs outside the Claude Code sandbox, which plain
+`bundle exec rspec` can't (the database login is in `.env.test`, and Rails keeps the test environment's secret in
+`tmp/local_secret.txt`, both hidden from the sandbox).
 
 ## Which Spec
 
 | Behavior | Spec | Directory |
 | --- | --- | --- |
-| A page: listing, filtering, facets, detail, charts, with or without JavaScript | System spec (`type: :system`) | `spec/system/` (new) |
-| An endpoint's status, redirect or JSON (`suggest`) | Request spec | `spec/requests/` (new) |
-| An import from a saved page or document | Spec of the importer through `import_from`, asserting the records | `spec/lib/genpro_gov_sk/`, `spec/lib/minv_sk/` |
-| An import from the live site, compared with expected data | Feature spec, on the network on purpose | `spec/features/` |
-| Parsing with many cases, validations, model logic | Parser and model specs | `spec/lib/`, `spec/models/` |
+| A page: listings, facets, detail, charts, the map | System spec; rack_test by default, `:js` (headless Chrome) when it needs JavaScript | `spec/system/` |
+| An endpoint: suggestions, the CSV export, a chart's picture, an error page | Request spec | `spec/requests/` |
+| An import from saved pages and documents | The importer's entry point (`GenproGovSk::Offices.import`), with WebMock answering from `spec/fixtures/`; assert the records | `spec/lib/genpro_gov_sk/`, `spec/lib/minv_sk/` |
+| A job | The job, run with `perform_enqueued_jobs` or `perform_now`; assert the outcome | `spec/jobs/` |
+| A rake task: the sitemap, the cache, the criminality map | The task; `type: :task` | `spec/tasks/` |
+| The live sources still parsing as expected | Feature spec replaying the recorded answers (VCR), compared with the expected JSON | `spec/features/` |
+| Logic with many branches: parsers, filters, validations | Parser, service or model spec | `spec/lib/`, `spec/services/`, `spec/models/` |
 
-Don't add a unit spec that repeats what an end-to-end spec proves. There are no system or request specs yet: the first
-one sets up its driver with `driven_by :rack_test`, or `driven_by :selenium, using: :headless_chrome` when the flow
-needs JavaScript.
+Don't add a model or service spec that repeats what an end-to-end spec already proves.
 
 ## Fakes
 
-- Real models, the real test database, factories, the real Rails stack.
-- Nothing blocks the network: VCR lets a request without a cassette through
-  (`allow_http_connections_when_no_cassette`). So a spec outside `spec/features/` fakes every request it makes, with a
-  VCR cassette (`vcr: { cassette_name: '...' }` metadata, recorded in `spec/fixtures/vcr/`) or WebMock `stub_request`.
-  `webmock: :disabled` only labels a spec that reaches the live site; nothing reads it.
-- Geocoding is stubbed for every example (`spec/support/geocoder.rb`); pass
-  `geocoder: { latitude:, longitude: }` metadata for specific coordinates.
-- Time: `travel_to` / `freeze_time`, once `rails_helper.rb` includes `ActiveSupport::Testing::TimeHelpers` (it doesn't
-  yet; the first spec that needs the clock adds it). Jobs: run them and assert the outcome.
-- Never `allow_any_instance_of`, and never doubles of this app's own classes in system or request specs.
+- Real models, the real database, real jobs, FactoryBot factories.
+- Fake only what we don't own, at the edge:
+  - genpro.gov.sk, minv.sk and Google: `stub_request` (WebMock), answering with a saved page from `spec/fixtures/`
+    (`stub_source`, `fixture`). No spec reaches the network.
+  - The live sources in `spec/features/`: VCR replays `spec/fixtures/vcr/live_sources/<spec>` and never records.
+    `RECORD_LIVE_SOURCES=1 bundle exec rspec spec/features` records them anew from the live sites: an opt-in check
+    the user runs, never part of `bin/test` or CI.
+  - Geocoding: Geocoder's test lookup, for every example (`spec/support/geocoder.rb`); pass
+    `geocoder: { latitude:, longitude: }` metadata for specific coordinates.
+  - unoconv: `:unoconv` puts a fake on the PATH (`spec/support/bin/unoconv`) that reads RTF the way unoconv would.
+  - The clock: `travel_to` / `freeze_time`.
+  - Jobs: run them with `perform_enqueued_jobs` and assert the outcome; `have_enqueued_job` only when enqueueing is the
+    behavior.
+- Never `allow_any_instance_of`, and never doubles or stubs of this app's own classes. A double of something we don't
+  own is verified (`instance_double`, `class_double`), and a message expectation is a spy: `allow(...)`, then
+  `expect(...).to have_received(...)`. RuboCop enforces both.
 
 ## Writing Them
 
-- `require 'rails_helper'`. `RSpec.describe Office, type: :model` for a class, with `described_class` inside;
-  `RSpec.describe 'Searching offices', type: :system` for a flow.
-- `describe '.class_method'` / `describe '#instance_method'`; `context 'when ...'` / `'with ...'` / `'without ...'` for
-  a situation; no more than three levels of nesting.
-- Example names state the outcome in the present tense, after the scenario: `it 'lists offices ordered by name'`,
-  never `it 'should ...'`.
-- `let` for setup with descriptive names; a subject the examples refer to is named (`subject(:office) { build(:office) }`).
-- FactoryBot with parentheses (`create(:office)`, `build(:prosecutor)`), factories in `spec/factories/`, minimal and
-  realistic.
-- Validations and associations through shoulda-matchers, grouped in `describe 'Validations'`:
-  `it { is_expected.to validate_presence_of(:name) }`. Custom validators (the JSONB `registry`) get one example per
-  case, with the error message.
-- `:seeds` metadata loads `db/seeds.rb` before the example. DatabaseCleaner wraps every example in a transaction; there
-  are no transactional fixtures.
+RuboCop runs the RSpec, FactoryBot and Capybara cops on every spec; these rules match them.
+
+- `require 'rails_helper'`. `RSpec.describe ClassName` for a class, with `described_class` inside; a string for a page
+  or flow (`RSpec.describe 'Offices'`). The directory sets the type.
+- `describe` names a method (`'.import'`, `'#full_address'`) or a part of the page (`'the listing'`); `context` names a
+  situation and starts with `when`, `with` or `without`. At most three levels of nesting.
+- Example names state the outcome in the present tense, after the scenario:
+  `it 'lists the active offices, 15 a page'`, never `it 'should ...'`.
+- A subject the examples refer to is named: `subject(:office) { build(:office) }`. At most five `let`s in a group;
+  `let!` only for a record that must exist before the example runs.
+- Factories with parentheses: `create(:prosecutor)`, `create(:decree, office:)`. They live in `spec/factories/`,
+  minimal and realistic.
+- Every example starts with the offices of `spec/fixtures/offices.json` and the seeds (`spec/support/seeds.rb`); use
+  them (`Office.find_by!(name: 'Okresná prokuratúra Žilina')`) rather than creating offices.
+- A request or other spec checks a small cluster of outcomes of one behavior (at most 5 expectations, 15 lines). A
+  system spec walks one scenario through the UI and has no such limit.
+- Examples run in a transaction. The listings search materialized views: call `refresh_search_views` after creating
+  the records a search should find.
 - Specs run in English (`config/application.rb`), so assert the English text; the site itself defaults to Slovak.
-- In a system spec, drive the page like a visitor (`visit`, `fill_in`, `click_on`, `select`, by visible label) and
-  assert what they see with Capybara's waiting matchers.
-- No `sleep`, no order dependence: the suite runs in random order.
+- Specs need no credentials: the code reads them with `dig` and does without.
+- No `sleep`, no dependence on order or on the time of day.
 
-## Live-Site Specs
+## System Specs
 
-When a spec in `spec/features/` fails because genpro.gov.sk or minv.sk changed, check the new values on the live page
+- rack_test by default; `:js` for headless Chrome when the flow needs JavaScript, `width: 390` for a phone.
+  `bounds(element)` returns where the browser drew an element, for scenarios about the layout.
+- Drive the page like a visitor: `visit`, `fill_in`, `click_on`, `select`, by the visible label or text. Assert what
+  they see with Capybara's waiting matchers (`have_text`, `have_css`, `have_current_path`). After a click that loads
+  another page, wait for something only the new page shows before reading it.
+- Headings are uppercase on screen (CSS), so the browser reads them uppercase: match them case-insensitively.
+- A Stimulus controller connects after the page shows: hover with `hover_when_connected(element, 'tooltip')`. A chart
+  is drawn when its canvas has `data-chart-drawn`.
+- `:error_pages` shows the error pages instead of raising.
+- A `:js` example that fails prints the browser's console: read it before guessing.
+
+## Live Sources
+
+When a spec in `spec/features/` fails after its cassette was recorded again, check the new values on the live page
 before updating the expected JSON, and update only the entries that changed. If the page's structure changed instead,
 it's a parser bug: save the new page as a fixture and fix the parser first.
 
 ## Never
 
-Skip, delete or loosen a failing spec to get green. If a spec is wrong, say which scenario it contradicts.
+- Skip, delete or loosen a failing spec to get green. If a spec is wrong, say which scenario it contradicts.
+- Filter application code out of coverage. A full `bin/test` fails below 95% of lines or 90% of branches, and
+  undercover reports every changed method no spec runs: cover them with specs.

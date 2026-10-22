@@ -1,0 +1,1577 @@
+[
+  {
+    "name": "Generálna prokuratúra Slovenskej republiky",
+    "type": 0,
+    "address": "Štúrova 2",
+    "additional_address": null,
+    "zipcode": "812 85",
+    "city": "Bratislava 1",
+    "phone": "02/208 37 505, 02/595 32 505",
+    "fax": null,
+    "email": "GPSR@genpro.gov.sk",
+    "electronic_registry": "https://www.slovensko.sk/sk/lokator-sluzieb",
+    "registry": {
+      "note": "Na základe rozhodnutia generálneho prokurátora Slovenskej republiky pre prijímanie podaní, ktoré sú urobené ústne do zápisnice na Generálnej prokuratúre Slovenskej republiky sa v rámci úradných hodín vymedzuje konkrétny čas od 9:00 h do 11:00 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": "02/208 37 766, 02/595 32 766"
+    },
+    "latitude": 48.143397,
+    "longitude": 17.112559
+  },
+  {
+    "name": "Krajská prokuratúra v Bratislave",
+    "type": 2,
+    "address": "Vajnorská 47",
+    "additional_address": null,
+    "zipcode": "812 56",
+    "city": "Bratislava 1",
+    "phone": "02/208 36 111",
+    "fax": "02/44 25 82 66",
+    "email": "kpbratislava@genpro.gov.sk, podatelna.kpBA@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166448",
+    "registry": {
+      "note": "Na základe rozhodnutia krajského prokurátora v Bratislave pre prijímanie podaní, ktoré sú urobené ústne do zápisnice na Krajskej prokuratúre v Bratislave a okresných prokuratúrach v obvode jej pôsobnosti sa v rámci úradných hodín vymedzuje konkrétny čas od 09:00 h do 11:00 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.167809,
+    "longitude": 17.137115
+  },
+  {
+    "name": "Okresná prokuratúra Bratislava I",
+    "type": 3,
+    "address": "P. O. Box 65",
+    "additional_address": null,
+    "zipcode": "820 18",
+    "city": "Bratislava 218",
+    "phone": "02/208 36 611",
+    "fax": "02/55 56 64 48",
+    "email": "podatelna.opba1@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166448",
+    "registry": {
+      "note": "Na základe rozhodnutia krajského prokurátora v Bratislave pre prijímanie podaní, ktoré sú urobené ústne do zápisnice na Krajskej prokuratúre Bratislava a okresných prokuratúrach v obvode jej pôsobnosti sa v rámci úradných hodín vymedzuje konkrétny čas od 09:00 h do 11:00 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.556628,
+    "longitude": 22.068616
+  },
+  {
+    "name": "Okresná prokuratúra Bratislava II",
+    "type": 3,
+    "address": "P. O. Box 53",
+    "additional_address": null,
+    "zipcode": "820 18",
+    "city": "Bratislava 218",
+    "phone": "02/208 36 711",
+    "fax": "02/55 41 04 12",
+    "email": "podatelna.opba2@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166448",
+    "registry": {
+      "note": "Na základe rozhodnutia krajského prokurátora v Bratislave pre prijímanie podaní, ktoré sú urobené ústne do zápisnice na Krajskej prokuratúre Bratislava a okresných prokuratúrach v obvode jej pôsobnosti sa v rámci úradných hodín vymedzuje konkrétny čas od 09.00 h do 11.00 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.55476,
+    "longitude": 22.073068
+  },
+  {
+    "name": "Okresná prokuratúra Bratislava III",
+    "type": 3,
+    "address": "Vajnorská 47",
+    "additional_address": null,
+    "zipcode": "832 77",
+    "city": "Bratislava 3",
+    "phone": "02/208 36 111",
+    "fax": "02/44 45 07 09",
+    "email": "podatelna.opba3@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166448",
+    "registry": {
+      "note": "Na základe rozhodnutia krajského prokurátora v Bratislave pre prijímanie podaní, ktoré sú urobené ústne do zápisnice na Krajskej prokuratúre Bratislava a okresných prokuratúrach v obvode jej pôsobnosti sa v rámci úradných hodín vymedzuje konkrétny čas od 09:00 h do 11:00 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.167809,
+    "longitude": 17.137115
+  },
+  {
+    "name": "Okresná prokuratúra Bratislava IV",
+    "type": 3,
+    "address": "Hanulova 9/A",
+    "additional_address": null,
+    "zipcode": "840 11",
+    "city": "Bratislava 411",
+    "phone": "02/208 36 411 - 413",
+    "fax": "02/642 84 217",
+    "email": "podatelna.opba4@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166448",
+    "registry": {
+      "note": "Na základe rozhodnutia krajského prokurátora v Bratislave pre prijímanie podaní, ktoré sú urobené ústne do zápisnice na Krajskej prokuratúre Bratislava a okresných prokuratúrach v obvode jej pôsobnosti sa v rámci úradných hodín vymedzuje konkrétny čas od 09.00 h do 11.00 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.17775145,
+    "longitude": 17.041532419012132
+  },
+  {
+    "name": "Okresná prokuratúra Bratislava V",
+    "type": 3,
+    "address": "Prokofievova 4",
+    "additional_address": null,
+    "zipcode": "851 01",
+    "city": "Bratislava 5",
+    "phone": "02/208 36 511, 02/208 36 500 - 502",
+    "fax": "02/63 81 02 55",
+    "email": "podatelna.opba5@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166448",
+    "registry": {
+      "note": "Na základe rozhodnutia krajského prokurátora v Bratislave pre prijímanie podaní, ktoré sú urobené ústne do zápisnice na Krajskej prokuratúre Bratislava a okresných prokuratúrach v obvode jej pôsobnosti sa v rámci úradných hodín vymedzuje konkrétny čas od 09.00 h do 11.00 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.117784,
+    "longitude": 17.10057
+  },
+  {
+    "name": "Okresná prokuratúra Malacky",
+    "type": 3,
+    "address": "P.O.BOX 41",
+    "additional_address": null,
+    "zipcode": "901 01",
+    "city": "Malacky",
+    "phone": "034/28 36 111",
+    "fax": "034/77 31 075",
+    "email": "podatelna.opma@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166448",
+    "registry": {
+      "note": "Na základe rozhodnutia krajského prokurátora v Bratislave pre prijímanie podaní, ktoré sú urobené ústne do zápisnice na Krajskej prokuratúre Bratislava a okresných prokuratúrach v obvode jej pôsobnosti sa v rámci úradných hodín vymedzuje konkrétny čas od 09:00 h do 11:00 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.368293,
+    "longitude": 17.143187
+  },
+  {
+    "name": "Okresná prokuratúra Pezinok",
+    "type": 3,
+    "address": "Šenkvická cesta 5",
+    "additional_address": null,
+    "zipcode": "902 01",
+    "city": "Pezinok",
+    "phone": "033/28 36 111-113",
+    "fax": "033/64 06 493",
+    "email": "podatelna.oppk@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166448",
+    "registry": {
+      "note": "Na základe rozhodnutia krajského prokurátora v Bratislave pre prijímanie podaní, ktoré sú urobené ústne do zápisnice na Krajskej prokuratúre Bratislava a okresných prokuratúrach v obvode jej pôsobnosti sa v rámci úradných hodín vymedzuje konkrétny čas od 09:00 h do 11:00 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.2924833,
+    "longitude": 17.276396715270774
+  },
+  {
+    "name": "Krajská prokuratúra v Trnave",
+    "type": 2,
+    "address": "Dolné bašty 2",
+    "additional_address": null,
+    "zipcode": "917 44",
+    "city": "Trnava 1",
+    "phone": "033/59 17 211",
+    "fax": "033/55 11 474",
+    "email": "kptrnava@genpro.gov.sk, podatelna.kpTT@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629053",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.37637275,
+    "longitude": 17.603704131722143
+  },
+  {
+    "name": "Okresná prokuratúra Dunajská Streda",
+    "type": 3,
+    "address": "Nám. sv. Štefana 1",
+    "additional_address": null,
+    "zipcode": "929 21",
+    "city": "Dunajská Streda 1",
+    "phone": "031/55 22 494",
+    "fax": "031/55 25 494",
+    "email": "podatelna.opds@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629053",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 47.99605865,
+    "longitude": 17.616417111668724
+  },
+  {
+    "name": "Okresná prokuratúra Galanta",
+    "type": 3,
+    "address": "Hlavná ulica 987/25",
+    "additional_address": null,
+    "zipcode": "924 29",
+    "city": "Galanta 1",
+    "phone": "031/78 02 348, 031/78 03 053",
+    "fax": "031/78 05 267",
+    "email": "podatelna.opga@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629053",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.191992,
+    "longitude": 17.732252
+  },
+  {
+    "name": "Okresná prokuratúra Piešťany",
+    "type": 3,
+    "address": "Vážska 28",
+    "additional_address": null,
+    "zipcode": "921 01",
+    "city": "Piešťany",
+    "phone": "033/77 29 328",
+    "fax": "033/73 30 516",
+    "email": "podatelna.oppn@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629053",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.5827411,
+    "longitude": 17.8313685
+  },
+  {
+    "name": "Okresná prokuratúra Senica",
+    "type": 3,
+    "address": "Ulica Janka Kráľa 735",
+    "additional_address": null,
+    "zipcode": "905 45",
+    "city": "Senica",
+    "phone": "034/65 15 051-52",
+    "fax": "034/65 15 157",
+    "email": "podatelna.opse@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629053",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.690542,
+    "longitude": 17.404553
+  },
+  {
+    "name": "Okresná prokuratúra Skalica",
+    "type": 3,
+    "address": "Ružová 2",
+    "additional_address": null,
+    "zipcode": "909 01",
+    "city": "Skalica",
+    "phone": "034/69 99 451",
+    "fax": "034/69 99 450",
+    "email": "podatelna.opsi@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629053",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.844680749999995,
+    "longitude": 17.22955786022758
+  },
+  {
+    "name": "Okresná prokuratúra Trnava",
+    "type": 3,
+    "address": "Dolné bašty 1",
+    "additional_address": null,
+    "zipcode": "918 67",
+    "city": "Trnava",
+    "phone": "033/59 23 333",
+    "fax": "033/55 12 676",
+    "email": "podatelna.optt@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629053",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.3740711,
+    "longitude": 17.5886932
+  },
+  {
+    "name": "Krajská prokuratúra v Trenčíne",
+    "type": 2,
+    "address": "Legionárska 7158/5",
+    "additional_address": null,
+    "zipcode": "912 50",
+    "city": "Trenčín",
+    "phone": "032/65 38 051, 032/65 38 015",
+    "fax": "032/65 22 077",
+    "email": "podatelna.kptn@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629045",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:00 – 15:00",
+        "monday": "7:00 – 15:00",
+        "tuesday": "7:00 – 15:00",
+        "thursday": "7:00 – 15:00",
+        "wednesday": "7:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.8872798,
+    "longitude": 18.0356832
+  },
+  {
+    "name": "Okresná prokuratúra Bánovce nad Bebravou",
+    "type": 3,
+    "address": "K Zornici 892",
+    "additional_address": null,
+    "zipcode": "957 01",
+    "city": "Bánovce nad Bebravou",
+    "phone": "038/76 01 681",
+    "fax": "038/76 01 656",
+    "email": "podatelna.opbn@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629045",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:00 – 15:00",
+        "monday": "7:00 – 15:00",
+        "tuesday": "7:00 – 15:00",
+        "thursday": "7:00 – 15:00",
+        "wednesday": "7:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.7206306,
+    "longitude": 18.26532047220405
+  },
+  {
+    "name": "Okresná prokuratúra Nové Mesto nad Váhom",
+    "type": 3,
+    "address": "Hviezdoslavova 36",
+    "additional_address": null,
+    "zipcode": "915 01",
+    "city": "Nové Mesto nad Váhom",
+    "phone": "032/77 16751",
+    "fax": "032/77 16 750",
+    "email": "podatelna.opnm@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629045",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:00 – 15:00",
+        "monday": "7:00 – 15:00",
+        "tuesday": "7:00 – 15:00",
+        "thursday": "7:00 – 15:00",
+        "wednesday": "7:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.7547,
+    "longitude": 17.8350406
+  },
+  {
+    "name": "Okresná prokuratúra Partizánske",
+    "type": 3,
+    "address": "Februárová 157",
+    "additional_address": null,
+    "zipcode": "958 01",
+    "city": "Partizánske",
+    "phone": "038/76 29 911",
+    "fax": "038/53 13 552",
+    "email": "podatelna.oppe@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629045",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:00 – 15:00",
+        "monday": "7:00 – 15:00",
+        "tuesday": "7:00 – 15:00",
+        "thursday": "7:00 – 15:00",
+        "wednesday": "7:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.62412727082253,
+    "longitude": 18.372054123400616
+  },
+  {
+    "name": "Okresná prokuratúra Považská Bystrica",
+    "type": 3,
+    "address": "Ľ. Štúra 1",
+    "additional_address": null,
+    "zipcode": "017 01",
+    "city": "Považská Bystrica",
+    "phone": "042/43 25 881",
+    "fax": "042/43 26 491",
+    "email": "podatelna.oppb@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629045",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:00 – 15:00",
+        "monday": "7:00 – 15:00",
+        "tuesday": "7:00 – 15:00",
+        "thursday": "7:00 – 15:00",
+        "wednesday": "7:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 49.121699,
+    "longitude": 18.443148
+  },
+  {
+    "name": "Okresná prokuratúra Prievidza",
+    "type": 3,
+    "address": "M. Mišíka 22",
+    "additional_address": null,
+    "zipcode": "971 34",
+    "city": "Prievidza 1",
+    "phone": "046/51 83 910",
+    "fax": "046/54 22 863",
+    "email": "podatelna.opPD@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629045",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:00 – 15:00",
+        "monday": "7:00 – 15:00",
+        "tuesday": "7:00 – 15:00",
+        "thursday": "7:00 – 15:00",
+        "wednesday": "7:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.7768084,
+    "longitude": 18.6450066
+  },
+  {
+    "name": "Okresná prokuratúra Trenčín",
+    "type": 3,
+    "address": "Bernolákova 2",
+    "additional_address": null,
+    "zipcode": "912 50",
+    "city": "Trenčín",
+    "phone": "032/65 26 950",
+    "fax": "032/65 26 949",
+    "email": "podatelna.optn@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629045",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:00 – 15:00",
+        "monday": "7:00 – 15:00",
+        "tuesday": "7:00 – 15:00",
+        "thursday": "7:00 – 15:00",
+        "wednesday": "7:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.890626,
+    "longitude": 18.033287
+  },
+  {
+    "name": "Krajská prokuratúra v Nitre",
+    "type": 2,
+    "address": "Damborského 1",
+    "additional_address": null,
+    "zipcode": "949 66",
+    "city": "Nitra",
+    "phone": "037/65 22 730",
+    "fax": "037/65 22 726",
+    "email": "kpnitra@genpro.gov.sk podatelna.kpNR@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629061",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:30 – 15:00",
+        "monday": "7:30 – 15:00",
+        "tuesday": "7:30 – 15:00",
+        "thursday": "7:30 – 15:00",
+        "wednesday": "7:30 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.307998,
+    "longitude": 18.083949
+  },
+  {
+    "name": "Okresná prokuratúra Komárno",
+    "type": 3,
+    "address": "Pohraničná 6",
+    "additional_address": null,
+    "zipcode": "945 28",
+    "city": "Komárno",
+    "phone": "035/77 01 729",
+    "fax": "035/77 01 737",
+    "email": "podatelna.opkn@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629061",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:30 – 15:00",
+        "monday": "7:30 – 15:00",
+        "tuesday": "7:30 – 15:00",
+        "thursday": "7:30 – 15:00",
+        "wednesday": "7:30 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 47.759229,
+    "longitude": 18.129385
+  },
+  {
+    "name": "Okresná prokuratúra Levice",
+    "type": 3,
+    "address": "Šafárikova 7",
+    "additional_address": null,
+    "zipcode": "934 01",
+    "city": "Levice",
+    "phone": "036/63 12 411",
+    "fax": "036/63 12 414",
+    "email": "podatelna.oplv@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629061",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:30 – 15:00",
+        "monday": "7:30 – 15:00",
+        "tuesday": "7:30 – 15:00",
+        "thursday": "7:30 – 15:00",
+        "wednesday": "7:30 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.216904,
+    "longitude": 18.594472
+  },
+  {
+    "name": "Okresná prokuratúra Nitra",
+    "type": 3,
+    "address": "Damborského 1",
+    "additional_address": null,
+    "zipcode": "949 99",
+    "city": "Nitra",
+    "phone": "037/65 22 730",
+    "fax": "037/65 22 723",
+    "email": "podatelna.opnr@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629061",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:30 – 15:00",
+        "monday": "7:30 – 15:00",
+        "tuesday": "7:30 – 15:00",
+        "thursday": "7:30 – 15:00",
+        "wednesday": "7:30 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.307998,
+    "longitude": 18.083949
+  },
+  {
+    "name": "Okresná prokuratúra Nové Zámky",
+    "type": 3,
+    "address": "Radničná ulica č. 3",
+    "additional_address": null,
+    "zipcode": "940 02",
+    "city": "Nové Zámky",
+    "phone": "035/64 00 383",
+    "fax": "035/ 64 00 392",
+    "email": "podatelna.opnz@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629061",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:30 – 15:00",
+        "monday": "7:30 – 15:00",
+        "tuesday": "7:30 – 15:00",
+        "thursday": "7:30 – 15:00",
+        "wednesday": "7:30 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 47.984818,
+    "longitude": 18.163369
+  },
+  {
+    "name": "Okresná prokuratúra Topoľčany",
+    "type": 3,
+    "address": "Námestie M. R. Štefánika 55",
+    "additional_address": null,
+    "zipcode": "955 53",
+    "city": "Topoľčany",
+    "phone": "038/53 25 001",
+    "fax": "038/53 27 008",
+    "email": "podatelna.opto@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35629061",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:30 – 15:00",
+        "monday": "7:30 – 15:00",
+        "tuesday": "7:30 – 15:00",
+        "thursday": "7:30 – 15:00",
+        "wednesday": "7:30 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.5586976,
+    "longitude": 18.1750963
+  },
+  {
+    "name": "Krajská prokuratúra v Žiline",
+    "type": 2,
+    "address": "Moyzesova 20",
+    "additional_address": null,
+    "zipcode": "011 04",
+    "city": "Žilina",
+    "phone": "041/56 26 448, 041/ 56 25 706, 041/70 03 181 -182",
+    "fax": "041/562 66 59",
+    "email": "podatelna.kpZA@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35996072",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:00 – 14:30",
+        "monday": "7:00 – 14:30",
+        "tuesday": "7:00 – 14:30",
+        "thursday": "7:00 – 14:30",
+        "wednesday": "7:00 – 14:30"
+      },
+      "phone": null
+    },
+    "latitude": 49.22227175,
+    "longitude": 18.746343616884573
+  },
+  {
+    "name": "Okresná prokuratúra Čadca",
+    "type": 3,
+    "address": "ul. 17. novembra 1567",
+    "additional_address": null,
+    "zipcode": "022 01",
+    "city": "Čadca",
+    "phone": "041/43 23 691",
+    "fax": "041/43 22 779",
+    "email": null,
+    "electronic_registry": "ico://sk/35996072",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:00 – 14:30",
+        "monday": "7:00 – 14:30",
+        "tuesday": "7:00 – 14:30",
+        "thursday": "7:00 – 14:30",
+        "wednesday": "7:00 – 14:30"
+      },
+      "phone": null
+    },
+    "latitude": 49.4341065,
+    "longitude": 18.78355085618636
+  },
+  {
+    "name": "Okresná prokuratúra Dolný Kubín",
+    "type": 3,
+    "address": "Radlinského 1713/36",
+    "additional_address": null,
+    "zipcode": "026 26",
+    "city": "Dolný Kubín",
+    "phone": "043/58 64 984, 043/58 64 985",
+    "fax": "043/58 63 634",
+    "email": "podatelna.opdk@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35996072",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:30 – 14:30",
+        "monday": "7:30 – 14:30",
+        "tuesday": "7:30 – 14:30",
+        "thursday": "7:30 – 14:30",
+        "wednesday": "7:30 – 14:30"
+      },
+      "phone": null
+    },
+    "latitude": 49.2108087,
+    "longitude": 19.294280663229696
+  },
+  {
+    "name": "Okresná prokuratúra Liptovský Mikuláš",
+    "type": 3,
+    "address": "Tomášikova 5",
+    "additional_address": null,
+    "zipcode": "031 80",
+    "city": "Liptovský Mikuláš",
+    "phone": "044/55 24 237",
+    "fax": "044/55 22 935",
+    "email": "podatelna.oplm@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35996072",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:00 – 14:30",
+        "monday": "7:00 – 14:30",
+        "tuesday": "7:00 – 14:30",
+        "thursday": "7:00 – 14:30",
+        "wednesday": "7:00 – 14:30"
+      },
+      "phone": null
+    },
+    "latitude": 49.084891,
+    "longitude": 19.607695
+  },
+  {
+    "name": "Okresná prokuratúra Martin",
+    "type": 3,
+    "address": "Vajanského námestie 1",
+    "additional_address": null,
+    "zipcode": "036 80",
+    "city": "Martin",
+    "phone": "043/42 12 450, 043/41 32 087",
+    "fax": "043/41 33 216",
+    "email": "podatelna.opmt@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35996072",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:00 – 15:00",
+        "monday": "7:00 – 15:00",
+        "tuesday": "7:00 – 15:00",
+        "thursday": "7:00 – 15:00",
+        "wednesday": "7:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 49.0684556,
+    "longitude": 18.925701571752704
+  },
+  {
+    "name": "Okresná prokuratúra Námestovo",
+    "type": 3,
+    "address": "Hviezdoslavovo námestie 213",
+    "additional_address": null,
+    "zipcode": "02901",
+    "city": "Námestovo",
+    "phone": "043/55 06 811",
+    "fax": "043/55 06 820",
+    "email": "podatelna.opno@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35996072",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:30 – 14:30",
+        "monday": "7:30 – 14:30",
+        "tuesday": "7:30 – 14:30",
+        "thursday": "7:30 – 14:30",
+        "wednesday": "7:30 – 14:30"
+      },
+      "phone": null
+    },
+    "latitude": 49.4061862,
+    "longitude": 19.4779769
+  },
+  {
+    "name": "Okresná prokuratúra Ružomberok",
+    "type": 3,
+    "address": "Dončova 8",
+    "additional_address": null,
+    "zipcode": "034 53",
+    "city": "Ružomberok",
+    "phone": "044/43 27 472, 044/43 14 927",
+    "fax": "044/43 27 477",
+    "email": "podatelna.oprk@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35996072",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 49.083242,
+    "longitude": 19.299162
+  },
+  {
+    "name": "Okresná prokuratúra Žilina",
+    "type": 3,
+    "address": "Moyzesova 20",
+    "additional_address": null,
+    "zipcode": "011 56",
+    "city": "Žilina",
+    "phone": "041/56 20 989, 041/56 20 990",
+    "fax": "041/56 25 520",
+    "email": "podatelna.opza@genpro.gov.sk",
+    "electronic_registry": "ico://sk/35996072",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "7:00 – 14:30",
+        "monday": "7:00 – 14:30",
+        "tuesday": "7:00 – 14:30",
+        "thursday": "7:00 – 14:30",
+        "wednesday": "7:00 – 14:30"
+      },
+      "phone": null
+    },
+    "latitude": 49.22227175,
+    "longitude": 18.746343616884573
+  },
+  {
+    "name": "Krajská prokuratúra v Banskej Bystrici",
+    "type": 2,
+    "address": "Partizánska cesta 1",
+    "additional_address": null,
+    "zipcode": "975 62",
+    "city": "Banská Bystrica",
+    "phone": "048/28 36 111",
+    "fax": "048/28 36 880",
+    "email": "kpbbystrica@genpro.gov.sk podatelna.kpBB@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166456",
+    "registry": {
+      "note": "Čas vymedzený pre prijímanie ústne urobených podaní do zápisnice na Krajskej prokuratúre v Banskej Bystrici a okresných prokuratúrach v obvode jej pôsobnosti od 9:00 h do 11:00 h a od 13:00 h do 14:30 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.739573500000006,
+    "longitude": 19.158425159909545
+  },
+  {
+    "name": "Okresná prokuratúra Banská Bystrica",
+    "type": 3,
+    "address": "Partizánska cesta 1",
+    "additional_address": null,
+    "zipcode": "975 63",
+    "city": "Banská Bystrica",
+    "phone": "048/28 36 111",
+    "fax": "048/28 36 881",
+    "email": "podatelna.opbb@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166456",
+    "registry": {
+      "note": "Čas vymedzený pre prijímanie ústne urobených podaní do zápisnice na Krajskej prokuratúre Banská Bystrica a okresných prokuratúrach v obvode jej pôsobnosti od 9:00 h do 11:00 h a od 13:00 h do 14:30 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.739573500000006,
+    "longitude": 19.158425159909545
+  },
+  {
+    "name": "Okresná prokuratúra Brezno",
+    "type": 3,
+    "address": "Boženy Němcovej 3",
+    "additional_address": null,
+    "zipcode": "977 31",
+    "city": "Brezno",
+    "phone": "048/28 36 711",
+    "fax": null,
+    "email": "podatelna.opbr@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166456",
+    "registry": {
+      "note": "Čas vymedzený pre prijímanie ústne urobených podaní do zápisnice na Krajskej prokuratúre Banská Bystrica a okresných prokuratúrach v obvode jej pôsobnosti od 9:00 h do 11:00 h a od 13:00 h do 14:30 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.80538845,
+    "longitude": 19.641786112136252
+  },
+  {
+    "name": "Okresná prokuratúra Lučenec",
+    "type": 3,
+    "address": "F. Lehára 12",
+    "additional_address": null,
+    "zipcode": "984 80",
+    "city": "Lučenec",
+    "phone": "047/28 36 102",
+    "fax": "047/28 36 116",
+    "email": "podatelna.oplc@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166456",
+    "registry": {
+      "note": "Čas vymedzený pre prijímanie ústne urobených podaní do zápisnice na Krajskej prokuratúre Banská Bystrica a okresných prokuratúrach v obvode jej pôsobnosti od 9:00 h do 11:00 h a od 13:00 h do 14:30 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.328907400000006,
+    "longitude": 19.657695842250682
+  },
+  {
+    "name": "Okresná prokuratúra Revúca",
+    "type": 3,
+    "address": "Ul. J. Kordoša 1370/1A",
+    "additional_address": null,
+    "zipcode": "050 01",
+    "city": "Revúca",
+    "phone": "058/28 36 111",
+    "fax": "058/28 36 116",
+    "email": "podatelna.opra@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166456",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.68346,
+    "longitude": 20.11734
+  },
+  {
+    "name": "Okresná prokuratúra Rimavská Sobota",
+    "type": 3,
+    "address": "Jesenského 1",
+    "additional_address": null,
+    "zipcode": "979 01",
+    "city": "Rimavská Sobota",
+    "phone": "047/28 36 200-1",
+    "fax": "047/28 36 263",
+    "email": "podatelna.oprs@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166456",
+    "registry": {
+      "note": "Čas vymedzený pre prijímanie ústne urobených podaní do zápisnice na Krajskej prokuratúre Banská Bystrica a okresných prokuratúrach v obvode jej pôsobnosti od 9:00 h do 11:00 h a od 13:00 h do 14:30 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.3855439,
+    "longitude": 20.022270079568862
+  },
+  {
+    "name": "Okresná prokuratúra Veľký Krtíš",
+    "type": 3,
+    "address": "Banícka 3",
+    "additional_address": null,
+    "zipcode": "990 01",
+    "city": "Veľký Krtíš",
+    "phone": "047/28 36 311",
+    "fax": "047/28 36 882",
+    "email": "podatelna.opvk@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166456",
+    "registry": {
+      "note": "Čas vymedzený pre prijímanie ústne urobených podaní do zápisnice na Krajskej prokuratúre Banská Bystrica a okresných prokuratúrach v obvode jej pôsobnosti od 9:00 h do 11:00 h a od 13:00 h do 14:30 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.20919957212312,
+    "longitude": 19.353277076997244
+  },
+  {
+    "name": "Okresná prokuratúra Žiar nad Hronom",
+    "type": 3,
+    "address": "J. Hollého 1",
+    "additional_address": null,
+    "zipcode": "965 01",
+    "city": "Žiar nad Hronom",
+    "phone": "045/28 36 211",
+    "fax": null,
+    "email": "podatelna.opzh@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166456",
+    "registry": {
+      "note": "Čas vymedzený pre prijímanie ústne urobených podaní do zápisnice na Krajskej prokuratúre Banská Bystrica a okresných prokuratúrach v obvode jej pôsobnosti od 9:00 h do 11:00 h a od 13:00 h do 14:30 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.59268897666128,
+    "longitude": 18.850863835263304
+  },
+  {
+    "name": "Okresná prokuratúra Zvolen",
+    "type": 3,
+    "address": "Trhová 7",
+    "additional_address": null,
+    "zipcode": "960 19",
+    "city": "Zvolen",
+    "phone": "045/28 36 111, 045/28 36 144",
+    "fax": "045/28 36 188",
+    "email": "podatelna.opzv@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166456",
+    "registry": {
+      "note": "Čas vymedzený pre prijímanie ústne urobených podaní do zápisnice na Krajskej prokuratúre Banská Bystrica a okresných prokuratúrach v obvode jej pôsobnosti od 9:00 h do 11:00 h a od 13:00 h do 14:30 h.",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.57768935,
+    "longitude": 19.128039746182182
+  },
+  {
+    "name": "Krajská prokuratúra v Prešove",
+    "type": 2,
+    "address": "Masarykova 16",
+    "additional_address": null,
+    "zipcode": "080 01",
+    "city": "Prešov 1",
+    "phone": "051/77 22 406, 051/77 22 507, 051/77 22 578, 051/77 20 749",
+    "fax": "051/77 34 196",
+    "email": "kppresov@genpro.gov.sk podatelna.kpPO@genpro.gov.sk",
+    "electronic_registry": "ico://sk/17069807",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.9895761,
+    "longitude": 21.2472333
+  },
+  {
+    "name": "Okresná prokuratúra Bardejov",
+    "type": 3,
+    "address": "Kellerova 7",
+    "additional_address": null,
+    "zipcode": "085 43",
+    "city": "Bardejov 3",
+    "phone": "054/47 22 068",
+    "fax": "054/47 46 182",
+    "email": "podatelna.opbj@genpro.gov.sk",
+    "electronic_registry": "ico://sk/17069807",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 49.296566,
+    "longitude": 21.275294
+  },
+  {
+    "name": "Okresná prokuratúra Humenné",
+    "type": 3,
+    "address": "Štefánikova 1900/69",
+    "additional_address": null,
+    "zipcode": "066 42",
+    "city": "Humenné 1",
+    "phone": "057/28 36 111, 057/77 52 437",
+    "fax": "057/77 55 953",
+    "email": "podatelna.ophe@genpro.gov.sk",
+    "electronic_registry": "ico://sk/17069807",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.9303732,
+    "longitude": 21.9087445
+  },
+  {
+    "name": "Okresná prokuratúra Kežmarok",
+    "type": 3,
+    "address": "Michalská 2493/8A",
+    "additional_address": null,
+    "zipcode": "060 01",
+    "city": "Kežmarok",
+    "phone": "052/45 25 115",
+    "fax": "052/45 25 150",
+    "email": "podatelna.opkk@genpro.gov.sk",
+    "electronic_registry": "ico://sk/17069807",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 49.139076,
+    "longitude": 20.424572
+  },
+  {
+    "name": "Okresná prokuratúra Poprad",
+    "type": 3,
+    "address": "Mnoheľova 833/26",
+    "additional_address": null,
+    "zipcode": "058 01",
+    "city": "Poprad",
+    "phone": "052/77 21 847",
+    "fax": "052/77 21 859",
+    "email": "podatelna.oppp@genpro.gov.sk",
+    "electronic_registry": "ico://sk/17069807",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 49.05470965,
+    "longitude": 20.298066564368483
+  },
+  {
+    "name": "Okresná prokuratúra Prešov",
+    "type": 3,
+    "address": "Masarykova 16",
+    "additional_address": null,
+    "zipcode": "080 01",
+    "city": "Prešov 1",
+    "phone": "051/77 25 326, 051/77 31 159",
+    "fax": "051/77 24 758",
+    "email": "podatelna.oppo@genpro.gov.sk",
+    "electronic_registry": "ico://sk/17069807",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.9895761,
+    "longitude": 21.2472333
+  },
+  {
+    "name": "Okresná prokuratúra Stará Ľubovňa",
+    "type": 3,
+    "address": "Obrancov mieru 18",
+    "additional_address": null,
+    "zipcode": "064 01",
+    "city": "Stará Ľubovňa",
+    "phone": "052/28 36 311, 052/43 21 251",
+    "fax": "052/43 23 394",
+    "email": "podatelna.opsl@genpro.gov.sk",
+    "electronic_registry": "ico://sk/17069807",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 49.29750755,
+    "longitude": 20.686555204973125
+  },
+  {
+    "name": "Okresná prokuratúra Svidník",
+    "type": 3,
+    "address": "Sovietskych hrdinov 200",
+    "additional_address": null,
+    "zipcode": "089 01",
+    "city": "Svidník",
+    "phone": "054/28 36 211, 054/75 21 429",
+    "fax": "054/75 21 921",
+    "email": "podatelna.opsk@genpro.gov.sk",
+    "electronic_registry": "ico://sk/17069807",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 49.3086938,
+    "longitude": 21.5712367
+  },
+  {
+    "name": "Okresná prokuratúra Vranov nad Topľou",
+    "type": 3,
+    "address": "Námestie slobody 5",
+    "additional_address": null,
+    "zipcode": "093 24",
+    "city": "Vranov nad Topľou",
+    "phone": "057/28 36 211, 057/44 64 689",
+    "fax": "057/44 21 315",
+    "email": "podatelna.opvt@genpro.gov.sk",
+    "electronic_registry": "ico://sk/17069807",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.8900497,
+    "longitude": 21.6841272
+  },
+  {
+    "name": "Krajská prokuratúra v Košiciach",
+    "type": 2,
+    "address": "Mojmírova 5",
+    "additional_address": null,
+    "zipcode": "041 62",
+    "city": "Košice",
+    "phone": "055/68 16 111, 055/62 28 471, 055/52 28 215",
+    "fax": "055/78 82 04",
+    "email": "kpkosice@genpro.gov.sk podatelna.kpKE@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166464",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.716935,
+    "longitude": 21.257353
+  },
+  {
+    "name": "Okresná prokuratúra Košice - okolie",
+    "type": 3,
+    "address": "Mojmírova 5",
+    "additional_address": null,
+    "zipcode": "040 38",
+    "city": "Košice",
+    "phone": "055/68 16 111",
+    "fax": "055/68 16 286",
+    "email": "podatelna.opks@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166464",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.716935,
+    "longitude": 21.257353
+  },
+  {
+    "name": "Okresná prokuratúra Košice I",
+    "type": 3,
+    "address": "Mojmírova 5",
+    "additional_address": null,
+    "zipcode": "04147",
+    "city": "Košice",
+    "phone": "055/68 16 111",
+    "fax": "055/68 16 394",
+    "email": "podatelna.opke1@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166464",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.716935,
+    "longitude": 21.257353
+  },
+  {
+    "name": "Okresná prokuratúra Košice II",
+    "type": 3,
+    "address": "Štúrova 5",
+    "additional_address": null,
+    "zipcode": "040 46",
+    "city": "Košice",
+    "phone": "055/68 16 111",
+    "fax": "055/68 16 303",
+    "email": "podatelna.opke2@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166464",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.7160605,
+    "longitude": 21.258727971712375
+  },
+  {
+    "name": "Okresná prokuratúra Michalovce",
+    "type": 3,
+    "address": "Námestie slobody 3",
+    "additional_address": null,
+    "zipcode": "071 01",
+    "city": "Michalovce",
+    "phone": "056/68 700 11",
+    "fax": "056/64 313 64",
+    "email": "podatelna.opmi@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166464",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.7558146,
+    "longitude": 21.9128888
+  },
+  {
+    "name": "Okresná prokuratúra Rožňava",
+    "type": 3,
+    "address": "Námestie 1. mája 11",
+    "additional_address": null,
+    "zipcode": "048 01",
+    "city": "Rožňava",
+    "phone": "058/78 773 11",
+    "fax": "058/73 447 44",
+    "email": "podatelna.oprv@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166464",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.661871,
+    "longitude": 20.527377
+  },
+  {
+    "name": "Okresná prokuratúra Spišská Nová Ves",
+    "type": 3,
+    "address": "Elektrárenská 1",
+    "additional_address": null,
+    "zipcode": "052 26",
+    "city": "Spišská Nová Ves",
+    "phone": "053/44 627 48",
+    "fax": "053/44 662 86",
+    "email": "podatelna.opsn@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166464",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.9444577,
+    "longitude": 20.562273236265163
+  },
+  {
+    "name": "Okresná prokuratúra Trebišov",
+    "type": 3,
+    "address": "Jána Husa 1925/15",
+    "additional_address": null,
+    "zipcode": "075 40",
+    "city": "Trebišov",
+    "phone": "056/67 22 667",
+    "fax": "056/67 25 855",
+    "email": "podatelna.optv@genpro.gov.sk",
+    "electronic_registry": "ico://sk/00166464",
+    "registry": {
+      "note": "",
+      "hours": {
+        "friday": "8:00 – 15:00",
+        "monday": "8:00 – 15:00",
+        "tuesday": "8:00 – 15:00",
+        "thursday": "8:00 – 15:00",
+        "wednesday": "8:00 – 15:00"
+      },
+      "phone": null
+    },
+    "latitude": 48.631695050000005,
+    "longitude": 21.713411372373912
+  }
+]

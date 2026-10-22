@@ -3,13 +3,13 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "1fe11d6ad6d31e79c485f99328adaed0ac5ea1755beed13f21a839d3c882c72d",
+      "fingerprint": "cc24c6700d2d7de1dbbf969aeb32413e8ee4c49c683f11651e35aad87238027f",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/services/query_filter.rb",
-      "line": 25,
+      "line": 19,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "Arel.sql((columns.map do\n ActiveRecord::Base.connection.quote_column_name(column)\n end.map do\n \"similarity(#{column}, lower(unaccent(#{ActiveRecord::Base.connection.quote(params[:q])})))\"\n end.join(\" + \") + \" DESC\"))",
+      "code": "Arel.sql(\"#{columns.map do\n ActiveRecord::Base.connection.quote_column_name(column)\n end.map do\n \"similarity(#{column}, lower(unaccent(#{ActiveRecord::Base.connection.quote(params[:q])})))\"\n end.join(\" + \")} DESC\")",
       "render_path": null,
       "location": {
         "type": "method",

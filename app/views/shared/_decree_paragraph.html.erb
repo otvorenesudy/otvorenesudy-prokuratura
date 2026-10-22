@@ -1,0 +1,5 @@
+<% if (paragraph = decree.paragraph) %>
+  <%= tooltip_tag paragraph.name, paragraph.type_old? ? safe_join([t('statistics.index.search.paragraph.old.title'), decree.paragraph_section].compact, ' – ') : decree.paragraph_section %>
+<% else %>
+  –
+<% end %>

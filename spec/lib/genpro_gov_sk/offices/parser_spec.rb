@@ -1,227 +1,100 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe GenproGovSk::Offices::Parser do
-  describe '.parse' do
-    it 'parses the general office correctly' do
-      html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'general.html'))
-      expected_json =
-        JSON.parse(
-          File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'general.json')),
-          symbolize_names: true
-        )
-
-      data = described_class.parse(html)
-
-      expect(data[:name]).to eq(expected_json[:name])
-      expect(data[:type]).to eq(expected_json[:type].to_sym)
-      expect(data[:address]).to eq(expected_json[:address])
-      expect(data[:zipcode]).to eq(expected_json[:zipcode])
-      expect(data[:city]).to eq(expected_json[:city])
-      expect(data[:phone]).to eq(expected_json[:phone])
-      expect(data[:email]).to eq(expected_json[:email])
-      expect(data[:electronic_registry]).to eq(expected_json[:electronic_registry])
-      expect(data[:registry][:phone]).to eq(expected_json[:registry][:phone])
-      expect(data[:registry][:note]).to eq(expected_json[:registry][:note])
-      expect(data[:registry][:hours][:monday]).to eq(expected_json[:registry][:hours][:monday])
-      expect(data[:registry][:hours][:tuesday]).to eq(expected_json[:registry][:hours][:tuesday])
-      expect(data[:registry][:hours][:wednesday]).to eq(expected_json[:registry][:hours][:wednesday])
-      expect(data[:registry][:hours][:thursday]).to eq(expected_json[:registry][:hours][:thursday])
-      expect(data[:registry][:hours][:friday]).to eq(expected_json[:registry][:hours][:friday])
-
-      expect(data[:employees][0][:name]).to eq(expected_json[:employees][0][:name])
-      expect(data[:employees][0][:position]).to eq(expected_json[:employees][0][:position])
-      expect(data[:employees][0][:phone]).to eq(expected_json[:employees][0][:phone])
-
-      expect(data[:employees][1][:name]).to eq(expected_json[:employees][1][:name])
-      expect(data[:employees][1][:position]).to eq(expected_json[:employees][1][:position])
-      expect(data[:employees][1][:phone]).to eq(expected_json[:employees][1][:phone])
-
-      expect(data[:employees][2][:name]).to eq(expected_json[:employees][2][:name])
-      expect(data[:employees][2][:position]).to eq(expected_json[:employees][2][:position])
-      expect(data[:employees][2][:phone]).to eq(expected_json[:employees][2][:phone])
-
-      expect(data[:employees][-1][:name]).to eq(expected_json[:employees][-1][:name])
-      expect(data[:employees][-1][:position]).to eq(expected_json[:employees][-1][:position])
-      expect(data[:employees][-1][:phone]).to eq(expected_json[:employees][-1][:phone])
-
-      expect(data[:employees].size).to be > 0
-    end
-
-    it 'parses a regional office (Bratislava) correctly' do
-      html =
-        File.read(
-          Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'krajsk_prokuratra_v_bratislave.html')
-        )
-      expected_json =
-        JSON.parse(
-          File.read(
-            Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'krajsk_prokuratra_v_bratislave.json')
-          ),
-          symbolize_names: true
-        )
-
-      data = described_class.parse(html)
-
-      expect(data[:name]).to eq(expected_json[:name])
-      expect(data[:type]).to eq(expected_json[:type].to_sym)
-      expect(data[:address]).to eq(expected_json[:address])
-      expect(data[:zipcode]).to eq(expected_json[:zipcode])
-      expect(data[:city]).to eq(expected_json[:city])
-      expect(data[:phone]).to eq(expected_json[:phone])
-      expect(data[:email]).to eq(expected_json[:email])
-      expect(data[:registry][:note]).to eq(expected_json[:registry][:note])
-      expect(data[:registry][:phone]).to eq(expected_json[:registry][:phone])
-      expect(data[:registry][:hours][:monday]).to eq(expected_json[:registry][:hours][:monday])
-      expect(data[:registry][:hours][:tuesday]).to eq(expected_json[:registry][:hours][:tuesday])
-      expect(data[:registry][:hours][:wednesday]).to eq(expected_json[:registry][:hours][:wednesday])
-      expect(data[:registry][:hours][:thursday]).to eq(expected_json[:registry][:hours][:thursday])
-      expect(data[:registry][:hours][:friday]).to eq(expected_json[:registry][:hours][:friday])
-      expect(data[:employees][0][:name]).to eq(expected_json[:employees][0][:name])
-      expect(data[:employees][0][:position]).to eq(expected_json[:employees][0][:position])
-      expect(data[:employees][0][:phone]).to eq(expected_json[:employees][0][:phone])
-
-      expect(data[:employees].size).to be > 0
-    end
-
-    it 'parses a regional office (Košice) correctly' do
-      html =
-        File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'krajsk_prokuratra_v_koiciach.html'))
-      expected_json =
-        JSON.parse(
-          File.read(
-            Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'krajsk_prokuratra_v_koiciach.json')
-          ),
-          symbolize_names: true
-        )
-
-      data = described_class.parse(html)
-
-      expect(data[:name]).to eq(expected_json[:name])
-      expect(data[:type]).to eq(expected_json[:type].to_sym)
-      expect(data[:address]).to eq(expected_json[:address])
-      expect(data[:zipcode]).to eq(expected_json[:zipcode])
-      expect(data[:city]).to eq(expected_json[:city])
-      expect(data[:registry][:note]).to eq(expected_json[:registry][:note])
-      expect(data[:registry][:hours][:monday]).to eq(expected_json[:registry][:hours][:monday])
-      expect(data[:registry][:hours][:tuesday]).to eq(expected_json[:registry][:hours][:tuesday])
-      expect(data[:registry][:hours][:wednesday]).to eq(expected_json[:registry][:hours][:wednesday])
-      expect(data[:registry][:hours][:thursday]).to eq(expected_json[:registry][:hours][:thursday])
-      expect(data[:registry][:hours][:friday]).to eq(expected_json[:registry][:hours][:friday])
-
-      expect(data[:employees][0][:name]).to eq(expected_json[:employees][0][:name])
-      expect(data[:employees][0][:position]).to eq(expected_json[:employees][0][:position])
-
-      expect(data[:employees].size).to be > 0
-    end
-
-    it 'parses a district office (Banská Bystrica) correctly' do
-      html =
-        File.read(
-          Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_bansk_bystrica.html')
-        )
-      expected_json =
-        JSON.parse(
-          File.read(
-            Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_bansk_bystrica.json')
-          ),
-          symbolize_names: true
-        )
-
-      data = described_class.parse(html)
-
-      expect(data[:name]).to eq(expected_json[:name])
-      expect(data[:type]).to eq(expected_json[:type].to_sym)
-      expect(data[:address]).to eq(expected_json[:address])
-      expect(data[:zipcode]).to eq(expected_json[:zipcode])
-      expect(data[:city]).to eq(expected_json[:city])
-      expect(data[:registry][:note]).to eq(expected_json[:registry][:note])
-      expect(data[:registry][:hours][:monday]).to eq(expected_json[:registry][:hours][:monday])
-      expect(data[:registry][:hours][:tuesday]).to eq(expected_json[:registry][:hours][:tuesday])
-      expect(data[:registry][:hours][:wednesday]).to eq(expected_json[:registry][:hours][:wednesday])
-      expect(data[:registry][:hours][:thursday]).to eq(expected_json[:registry][:hours][:thursday])
-      expect(data[:registry][:hours][:friday]).to eq(expected_json[:registry][:hours][:friday])
-      expect(data[:employees][0][:name]).to eq(expected_json[:employees][0][:name])
-      expect(data[:employees][0][:position]).to eq(expected_json[:employees][0][:position])
-
-      expect(data[:employees].size).to be > 0
-    end
-
-    it 'parses a district office (Košice I) correctly' do
-      html =
-        File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_koice_i.html'))
-      expected_json =
-        JSON.parse(
-          File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_koice_i.json')),
-          symbolize_names: true
-        )
-
-      data = described_class.parse(html)
-
-      expect(data[:name]).to eq(expected_json[:name])
-      expect(data[:type]).to eq(expected_json[:type].to_sym)
-      expect(data[:address]).to eq(expected_json[:address])
-      expect(data[:zipcode]).to eq(expected_json[:zipcode])
-      expect(data[:city]).to eq(expected_json[:city])
-      expect(data[:registry][:note]).to eq(expected_json[:registry][:note])
-      expect(data[:registry][:hours][:monday]).to eq(expected_json[:registry][:hours][:monday])
-      expect(data[:registry][:hours][:tuesday]).to eq(expected_json[:registry][:hours][:tuesday])
-      expect(data[:registry][:hours][:wednesday]).to eq(expected_json[:registry][:hours][:wednesday])
-      expect(data[:registry][:hours][:thursday]).to eq(expected_json[:registry][:hours][:thursday])
-      expect(data[:registry][:hours][:friday]).to eq(expected_json[:registry][:hours][:friday])
-
-      expect(data[:employees][0][:name]).to eq(expected_json[:employees][0][:name])
-      expect(data[:employees][0][:position]).to eq(expected_json[:employees][0][:position])
-
-      expect(data[:employees].size).to be > 0
-    end
-
-    it 'parses a district office (Trnava) correctly' do
-      html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_trnava.html'))
-      expected_json =
-        JSON.parse(
-          File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'okresn_prokuratra_trnava.json')),
-          symbolize_names: true
-        )
-
-      data = described_class.parse(html)
-
-      expect(data[:name]).to eq(expected_json[:name])
-      expect(data[:type]).to eq(expected_json[:type].to_sym)
-      expect(data[:address]).to eq(expected_json[:address])
-      expect(data[:zipcode]).to eq(expected_json[:zipcode])
-      expect(data[:city]).to eq(expected_json[:city])
-      expect(data[:registry][:note]).to eq(expected_json[:registry][:note])
-      expect(data[:registry][:hours][:monday]).to eq(expected_json[:registry][:hours][:monday])
-      expect(data[:registry][:hours][:tuesday]).to eq(expected_json[:registry][:hours][:tuesday])
-      expect(data[:registry][:hours][:wednesday]).to eq(expected_json[:registry][:hours][:wednesday])
-      expect(data[:registry][:hours][:thursday]).to eq(expected_json[:registry][:hours][:thursday])
-      expect(data[:registry][:hours][:friday]).to eq(expected_json[:registry][:hours][:friday])
-
-      expect(data[:employees][0][:name]).to eq(expected_json[:employees][0][:name])
-      expect(data[:employees][0][:position]).to eq(expected_json[:employees][0][:position])
-      expect(data[:employees].size).to be > 0
-    end
+  def parse(page)
+    described_class.parse(fixture("genpro_gov_sk/offices/#{page}.html").read)
   end
 
-  context 'with coupled people names and positions' do
-    it 'correctly parses names and positions of prosecutors' do
-      html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'offices', 'bratislava.html'))
-      data = described_class.parse(html)
+  def expected(page)
+    JSON.parse(fixture("genpro_gov_sk/offices/#{page}.json").read, symbolize_names: true)
+  end
 
-      expect(data[:name]).to eq('Okresná prokuratúra Bratislava I')
-      expect(data[:type]).to eql(:district)
+  # The parts of an office's data a saved page is checked for.
+  def summary(data, fields:, registry:, employees:, employee_fields:)
+    {
+      **data.slice(:name, :address, :zipcode, :city, *fields),
+      type: data[:type].to_sym,
+      registry: data[:registry].slice(*registry),
+      employees: data[:employees].values_at(*employees).map { |employee| employee.slice(*employee_fields) },
+      staffed: data[:employees].any?
+    }
+  end
 
-      expect(data[:employees][0][:name]).to eq('JUDr. Katarína Kuljačková')
-      expect(data[:employees][0][:position]).to eq('okresná prokurátorka')
-      expect(data[:employees][0][:phone]).to eq('02/208 36 611')
+  describe '.parse' do
+    {
+      'the General Prosecutor\'s Office' => [
+        'general',
+        { fields: %i[phone email electronic_registry], registry: %i[note phone hours], employees: [0, 1, 2, -1],
+          employee_fields: %i[name position phone] }
+      ],
+      'a regional office (Bratislava)' => [
+        'krajsk_prokuratra_v_bratislave',
+        { fields: %i[phone email], registry: %i[note phone hours], employees: [0],
+          employee_fields: %i[name position phone] }
+      ],
+      'a regional office (Košice)' => [
+        'krajsk_prokuratra_v_koiciach',
+        { fields: [], registry: %i[note hours], employees: [0], employee_fields: %i[name position] }
+      ],
+      'a district office (Banská Bystrica)' => [
+        'okresn_prokuratra_bansk_bystrica',
+        { fields: [], registry: %i[note hours], employees: [0], employee_fields: %i[name position] }
+      ],
+      'a district office (Košice I)' => [
+        'okresn_prokuratra_koice_i',
+        { fields: [], registry: %i[note hours], employees: [0], employee_fields: %i[name position] }
+      ],
+      'a district office (Trnava)' => [
+        'okresn_prokuratra_trnava',
+        { fields: [], registry: %i[note hours], employees: [0], employee_fields: %i[name position] }
+      ]
+    }.each do |office, (page, parts)|
+      it "reads the contacts, the registry and the staff of #{office}" do
+        expect(summary(parse(page), **parts)).to eq(summary(expected(page), **parts))
+      end
+    end
 
-      expect(data[:employees][1][:name]).to eq('JUDr. Hana Štaffenová')
-      expect(data[:employees][1][:position]).to eq('námestníčka okresnej prokurátorky')
-      expect(data[:employees][1][:phone]).to eq('02/208 36 611')
+    context 'with a page lacking the address and the registry\'s phones' do
+      def page(name)
+        days = %w[Pondelok Utorok Streda Štvrtok Piatok].map do |day|
+          "<tr><td>#{day}</td><td>8.00</td><td>15.00</td></tr>"
+        end
 
-      expect(data[:employees][2][:name]).to eq('JUDr. Norbert Fecko')
-      expect(data[:employees][2][:position]).to eq('námestník okresnej prokurátorky')
-      expect(data[:employees][2][:phone]).to eq('02/208 36 611')
+        <<~HTML
+          <div class="tx-tempest-contacts"><h1>#{name}</h1>
+            <div class="table-responsive"><table class="gp-table">
+              <tr><td></td><td>tel.: 02/111</td></tr><tr><td>Podateľňa</td></tr>#{days.join}
+            </table></div>
+          </div>
+        HTML
+      end
+
+      it 'leaves them out, and the type of an office it does not know' do
+        special = described_class.parse(page('Úrad špeciálnej prokuratúry'))
+
+        expect(special).to include(
+          type: :specialized, address: nil, zipcode: nil, city: nil, phone: '02/111', employees: [],
+          registry: include(phone: nil, hours: include(monday: '8:00 – 15:00', friday: '8:00 – 15:00'))
+        )
+        expect(described_class.parse(page('Eurojust'))[:type]).to be_nil
+      end
+    end
+
+    context 'with names and positions in one cell' do
+      it 'tells the prosecutors\' names from their positions' do
+        data = parse('bratislava')
+
+        expect(data.slice(:name, :type)).to eq(name: 'Okresná prokuratúra Bratislava I', type: :district)
+        expect(data[:employees].first(3).map { |employee| employee.slice(:name, :position, :phone) }).to eq(
+          [
+            { name: 'JUDr. Katarína Kuljačková', position: 'okresná prokurátorka', phone: '02/208 36 611' },
+            { name: 'JUDr. Hana Štaffenová', position: 'námestníčka okresnej prokurátorky', phone: '02/208 36 611' },
+            { name: 'JUDr. Norbert Fecko', position: 'námestník okresnej prokurátorky', phone: '02/208 36 611' }
+          ]
+        )
+      end
     end
   end
 end

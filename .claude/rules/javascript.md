@@ -2,59 +2,78 @@
 paths:
   - "app/javascript/**"
   - "app/assets/**"
-  - "config/webpack/**"
-  - "*.js"
+  - "config/importmap.rb"
   - "package.json"
 ---
 
 # JavaScript and Styles
 
-Webpacker 6 (`config/webpack/`, release candidate) bundles one pack, `app/javascript/application.js`, with Babel.
-Behavior is Stimulus controllers in `app/javascript/src/controllers/`, with Turbo and Rails UJS; charts are Highcharts,
-maps Leaflet (with markercluster and snogylop), sortable tables tablesorter, all on jQuery and Bootstrap 4's
-JavaScript. `config/webpack/custom.js` provides `$` and `jQuery` to every module. Styles are SCSS on Bootstrap 4 in
-`app/assets/stylesheets/` (`components/` and `utilities/`), compiled by Sprockets.
+The browser code is plain JavaScript modules, served without a build step: Importmap (`config/importmap.rb`) maps each
+import to a file in `app/javascript/` or `vendor/javascript/`, and Propshaft serves it as written. Turbo drives the
+navigation, Stimulus the behavior and Bootstrap 5.3 the components; charts are Chart.js (`charts.js` holds the shared
+colors, gradients and watermark), maps Leaflet with markercluster and snogylop. Styles are SCSS compiled by Dart Sass
+(`bin/dev` watches them).
+
+Nothing transpiles the code, so write only what current browsers run natively: class fields, optional chaining, `??`,
+dynamic `import()` and the rest of modern JavaScript, but no TypeScript, JSX or anything else that needs a compiler.
 
 ## Formatting
 
-The PostToolUse hook runs `bin/lint --fix`, which formats `*.js`, `*.scss` and `*.css` with Prettier (`.prettierrc`: 120
-columns, single quotes, and Prettier 2's defaults otherwise: semicolons, trailing commas where ES5 allows them,
-parentheses around arrow parameters). Most files predate it, so many still use double quotes; a file you touch comes
-out in single quotes. ESLint (`.eslintrc.js`) doesn't run in `bin/lint`.
+Prettier formats `app/javascript/**/*.js` and `app/assets/stylesheets/**/*.scss` (`.prettierrc.json`: 120 columns,
+single quotes, and Prettier 3's defaults otherwise: semicolons, trailing commas, parentheses around arrow parameters).
+The PostToolUse hook runs `bin/lint --fix` on each file you write; don't hand-format. `vendor/` and
+`app/assets/stylesheets/vendor/` are third-party code, kept as published.
 
 ## Stimulus Controllers
 
-- The app runs **Stimulus 1.1**: it imports `stimulus`, not `@hotwired/stimulus` (in `package.json` too, but unused).
-  Follow the existing controllers, and don't use what came in Stimulus 2 and 3: no `static values` or
-  `static classes`, no outlets.
-- One controller per behavior in `app/javascript/src/controllers/<behavior>_controller.js`, as
-  `export default class extends Controller`. `index.js` loads every file there (`definitionsFromContext`), so there is
-  nothing to register; `suggest_controller.js` is `data-controller="suggest"`.
-- Wire controllers with `data-controller`, `data-action` and targets (`static targets = ['query']`, then
-  `this.queryTarget`). No inline scripts, `on*` attributes or inline styles in the views.
-- Data comes from the page: the view renders JSON into a data attribute (`data-json`) and options into others
-  (`data-comparison`, `data-animation`), read with `this.element.getAttribute(...)`. A chart doesn't fetch its data.
-- A chart controller extends `ChartController` (`chart_controller.js`) for the shared colors, resizing and watermark,
-  and builds its Highcharts options in methods (`barChartOptions`, `lineChartOptions`). The export views
-  (`crimes/export.html.erb`, `statistics/export.html.erb`) turn the animation off with `data-animation="false"`.
-- Undo in `disconnect()` what the controller set up: handlers on `window`, timers, maps and charts. Turbo restores pages
-  from its cache, so a controller connects more than once.
-- HTML built from data goes through `sanitize-html` before it reaches the page (`map_controller.js`).
+- One controller per behavior, in `app/javascript/controllers/<behavior>_controller.js`. `controllers/index.js` loads
+  every file there, so there is nothing to register. The file name is the identifier in the markup:
+  `facet_suggest_controller.js` is `data-controller="facet-suggest"`.
+- `import { Controller } from '@hotwired/stimulus'` and `export default class extends Controller`: Stimulus's
+  convention, and the only default export here.
+- Declare `static targets` and `static values`, with defaults in the declaration
+  (`delay: { type: Number, default: 500 }`), and use them (`this.inputTarget`, `this.urlValue`); don't query the DOM or
+  read `data-*` attributes by hand.
+- The page renders the data a controller needs as values (`data-statistics-chart-data-value`, the map's markers),
+  instead of the controller fetching it on load. A request the visitor triggers uses `fetch` with an
+  `AbortController`, so a newer one cancels an older one (`facet_suggest_controller.js`).
+- A chart controller draws with `draw()` from `charts.js`, which marks the canvas `data-chart-drawn` once it's drawn:
+  the specs and the charts' PNG export wait for it. The export views turn the animation off
+  (`data-*-animated-value="false"`).
+- Undo in `disconnect()` what `connect()` set up: timers, maps, charts (`this.chart?.destroy()`), pending requests.
+  Turbo restores pages from its cache, so a controller connects more than once.
+- A heavy library loads only where it's used: `import()` inside the controller and `preload: false` on its pin, as
+  Leaflet does in `map_controller.js`.
+- HTML built from data is built as DOM elements with `textContent`, never by concatenating strings
+  (`map_controller.js`'s popups).
+- A comment above the class says what the controller does for the visitor, in a sentence or two.
 
 ## JavaScript
 
-- `const` by default, `let` when reassigned, never `var`; `===` and `!==` only (some old code uses `==`; fix it in what
-  you touch).
-- Optional chaining and `??` over manual null checks; destructuring, spread and template literals; arrow functions for
-  callbacks.
-- `async`/`await` over `.then()` chains, and check `response.ok` before reading a response. Never swallow an error.
+- `const` by default, `let` when reassigned, never `var`; `===` and `!==` only.
+- Optional chaining and `??` over manual null checks; destructuring, template literals, arrow functions for callbacks.
+- `async`/`await` over `.then()` chains. Catch only what you expect (the `AbortError` of a cancelled request) and
+  rethrow the rest; never swallow an error.
 - Guard clauses and early returns; short methods named after what they do.
-- Code that runs on every visit listens to `turbo:load`, not `DOMContentLoaded` (`src/fixes.js`).
-- jQuery is there for Bootstrap 4's components and tablesorter; plain DOM APIs for everything else.
-- Use the libraries already in `package.json` (lodash's `debounce`, `sanitize-html`) before adding one; add with
-  `yarn add` so `yarn.lock` changes with it.
+- Code that runs on every visit listens to `turbo:load`, not `DOMContentLoaded` (`external_links.js`). A module that
+  isn't a controller gets a pin in `config/importmap.rb` and an import in `application.js`.
+- No inline scripts, `on*` attributes or inline styles in the views. Bootstrap's components work through their
+  `data-bs-*` attributes.
+- Text the visitor reads comes from the page, through `t(...)`, not from strings in the JavaScript. The cookie banner's
+  translations in `cookie_consent.js` are the one exception.
+
+## Libraries
+
+Browser libraries are listed in `package.json` at exact versions, copied into `vendor/javascript/` by `bin/vendor` and
+pinned in `config/importmap.rb`; never edit the copies. To add or update one, change `package.json`, run `npm install`
+and `bin/vendor`; `bin/test` fails while the copies don't match. Use what's there before adding a library.
+
+## Styles
+
+SCSS in `app/assets/stylesheets/`: components in `components/`, utilities in `utilities/`, shared values in
+`variables.scss` and `mixins.scss`. Use Bootstrap's utilities and variables before writing new rules.
 
 ## Tests
 
-There are no JavaScript unit tests. A flow that needs JavaScript is a system spec on headless Chrome that asserts what
-the visitor sees (the `rspec` rule).
+There are no JavaScript unit tests. A flow that needs JavaScript is a system spec with `:js` (headless Chrome) that
+asserts what the visitor sees; see the `rspec` rule.

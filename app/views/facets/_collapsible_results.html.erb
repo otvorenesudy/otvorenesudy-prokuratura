@@ -5,13 +5,15 @@
 </ul>
 
 <% if hidden.present? %>
-  <ul id="<%= id %>" class="facet-list collapse <%= 'show' if selected.present? && (hidden.is_a?(Hash) ? hidden.keys : hidden).any? { |e| e.to_s.in?(selected)  } %>">
+  <% open = selected.present? && (hidden.is_a?(Hash) ? hidden.keys : hidden).any? { |value| value.to_s.in?(selected) } %>
+
+  <ul id="<%= id %>" class="facet-list collapse<%= ' show' if open %>">
     <% hidden.each do |value| %>
       <%= capture(value, &renderer) %>
     <% end %>
   </ul>
 
-  <a href="#" class="facet-results-continuation <%= 'collapsed' if selected.blank? || (hidden.is_a?(Hash) ? hidden.keys : hidden).none? { |e| e.to_s.in?(selected) } %>" data-toggle="collapse" data-target="#<%= id %>" aria-controls=<%= id %> aria-expanded="false">
+  <a href="#<%= id %>" class="facet-results-continuation<%= ' collapsed' unless open %>" data-bs-toggle="collapse" role="button" aria-controls="<%= id %>" aria-expanded="<%= open %>">
     <span class="show"><%= t '.show_more' %></span>
     <span class="hide"><%= t '.show_less' %></span>
   </a>

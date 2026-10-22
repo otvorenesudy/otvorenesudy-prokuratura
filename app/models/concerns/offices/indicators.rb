@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Offices
   module Indicators
     extend ActiveSupport::Concern
@@ -9,29 +11,10 @@ module Offices
 
     def average_convicted_people_yearly
       @average_convicted_people_yearly ||=
-        begin
-          if convicted_people_by_years.blank?
-            nil
-          else
-            convicted_people_by_years.values.sum / convicted_people_by_years.keys.size.to_f
-          end
-        end
-    end
-
-    def average_incoming_cases_per_prosecutor_monthly_by_years
-      @average_incoming_cases_per_prosecutor_monthly_by_years ||=
-        self.class.indicators[id].try { |e| e[:average_incoming_cases_per_prosecutor_monthly_by_years] }
-    end
-
-    def average_incoming_cases_per_prosecutor_monthly
-      @average_incoming_cases_per_prosecutor_monthly ||=
-        begin
-          if average_incoming_cases_per_prosecutor_monthly_by_years.blank?
-            nil
-          else
-            average_incoming_cases_per_prosecutor_monthly_by_years.values.sum /
-              average_incoming_cases_per_prosecutor_monthly_by_years.keys.size.to_f
-          end
+        if convicted_people_by_years.blank?
+          nil
+        else
+          convicted_people_by_years.values.sum / convicted_people_by_years.keys.size.to_f
         end
     end
 
@@ -50,23 +33,8 @@ module Offices
         end
     end
 
-    def average_filed_prosecutions_per_prosecutor_monthly_by_years
-      @average_filed_prosecutoions_per_prosecutor_monthly_by_years ||=
-        self.class.indicators[id].try { |e| e[:average_filed_prosecutions_per_prosecutor_monthly_by_years] }
-    end
-
-    def average_filed_prosecutions_per_prosecutor_monthly
-      @average_filed_prosecutions_per_prosecutor_monthly ||=
-        if average_filed_prosecutions_per_prosecutor_monthly_by_years.blank?
-          nil
-        else
-          average_filed_prosecutions_per_prosecutor_monthly_by_years.values.sum /
-            average_filed_prosecutions_per_prosecutor_monthly_by_years.keys.size.to_f
-        end
-    end
-
     def average_filed_prosecutions_per_prosecutor_yearly_by_years
-      @average_filed_prosecutoions_per_prosecutor_yearly_by_years ||=
+      @average_filed_prosecutions_per_prosecutor_yearly_by_years ||=
         self.class.indicators[id].try { |e| e[:average_filed_prosecutions_per_prosecutor_yearly_by_years] }
     end
 
@@ -102,7 +70,7 @@ module Offices
     end
 
     def average_rest_cases_yearly
-      @rest_incoming_cases_yearly ||=
+      @average_rest_cases_yearly ||=
         rest_cases_by_years.blank? ? nil : rest_cases_by_years.values.sum / rest_cases_by_years.keys.size.to_f
     end
 
@@ -121,108 +89,67 @@ module Offices
         end
     end
 
-    def to_indicators_chart_data
-      years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
-      key = ->(value) { "active_record.models.prosecutor.indicators.#{value}" }
-      mapper =
-        lambda do |data|
-          break if data.blank?
+    # The indicators the office's chart draws, each beside the average of the offices of its type: the translation key,
+    # the office's values by year and the class method with the averages by type. Only the first shows at first.
+    CHART_INDICATORS = {
+      convicted: %i[
+        average_convicted_people convicted_people_by_years average_convicted_people_by_years_by_office_type
+      ],
+      incoming_cases_per_prosecutor: %i[
+        average_incoming_cases_per_prosecutor
+        average_incoming_cases_per_prosecutor_yearly_by_years
+        average_incoming_cases_per_prosecutor_by_years_by_office_type
+      ],
+      filed_prosecutions_per_prosecutor: %i[
+        average_filed_prosecutions_per_prosecutor
+        average_filed_prosecutions_per_prosecutor_yearly_by_years
+        average_filed_prosecutions_per_prosecutor_by_years_by_office_type
+      ],
+      prosecutors_count: %i[
+        prosecutors_count prosecutors_count_by_years average_prosecutors_count_by_years_by_office_type
+      ],
+      rest_cases: %i[rest_cases rest_cases_by_years average_rest_cases_by_years_by_office_type],
+      incoming_cases: %i[incoming_cases incoming_cases_by_years average_incoming_cases_by_years_by_office_type],
+      ratio_of_rest_to_incoming_cases: %i[
+        ratio_of_rest_to_incoming_cases
+        average_ratio_of_rest_to_incoming_cases_by_years
+        average_ratio_of_rest_to_incoming_cases_by_years_by_office_type
+      ]
+    }.freeze
 
-          years.map { |year| data[year] }
+    CHART_YEARS = (2010..2019).to_a.freeze
+
+    def to_indicators_chart_data
+      data =
+        CHART_INDICATORS.flat_map do |id, (key, values, averages)|
+          name = "active_record.models.prosecutor.indicators.#{key}"
+          office = { id:, name: I18n.t("#{name}.office"), data: chart_values(public_send(values)) }
+          office[:visible] = false unless id == :convicted
+          average = { name: I18n.t("#{name}.#{type}"), data: chart_values(self.class.public_send(averages)[type]) }
+
+          [office, average.merge(dependent: id)]
         end
 
-      data =
-        [
-          {
-            id: :convicted,
-            name: I18n.t(key.call('average_convicted_people.office')),
-            data: mapper.call(convicted_people_by_years)
-          },
-          {
-            name: I18n.t(key.call("average_convicted_people.#{type}")),
-            data: mapper.call(self.class.average_convicted_people_by_years_by_office_type[type]),
-            dependent: :convicted
-          },
-          {
-            id: :incoming_cases_per_prosecutor,
-            name: I18n.t(key.call('average_incoming_cases_per_prosecutor.office')),
-            data: mapper.call(average_incoming_cases_per_prosecutor_yearly_by_years),
-            visible: false
-          },
-          {
-            name: I18n.t(key.call("average_incoming_cases_per_prosecutor.#{type}")),
-            data: mapper.call(self.class.average_incoming_cases_per_prosecutor_by_years_by_office_type[type]),
-            dependent: :incoming_cases_per_prosecutor
-          },
-          {
-            id: :filed_prosecutions_per_prosecutor,
-            name: I18n.t(key.call('average_filed_prosecutions_per_prosecutor.office')),
-            data: mapper.call(average_filed_prosecutions_per_prosecutor_yearly_by_years),
-            visible: false
-          },
-          {
-            name: I18n.t(key.call("average_filed_prosecutions_per_prosecutor.#{type}")),
-            data: mapper.call(self.class.average_filed_prosecutions_per_prosecutor_by_years_by_office_type[type]),
-            dependent: :filed_prosecutions_per_prosecutor
-          },
-          {
-            id: :prosecutors_count,
-            name: I18n.t(key.call('prosecutors_count.office')),
-            data: mapper.call(prosecutors_count_by_years),
-            visible: false
-          },
-          {
-            name: I18n.t(key.call("prosecutors_count.#{type}")),
-            data: mapper.call(self.class.average_prosecutors_count_by_years_by_office_type[type]),
-            dependent: :prosecutors_count
-          },
-          {
-            id: :rest_cases,
-            name: I18n.t(key.call('rest_cases.office')),
-            data: mapper.call(rest_cases_by_years),
-            visible: false
-          },
-          {
-            name: I18n.t(key.call("rest_cases.#{type}")),
-            data: mapper.call(self.class.average_rest_cases_by_years_by_office_type[type]),
-            dependent: :rest_cases
-          },
-          {
-            id: :incoming_cases,
-            name: I18n.t(key.call('incoming_cases.office')),
-            data: mapper.call(incoming_cases_by_years),
-            visible: false
-          },
-          {
-            name: I18n.t(key.call("incoming_cases.#{type}")),
-            data: mapper.call(self.class.average_incoming_cases_by_years_by_office_type[type]),
-            dependent: :incoming_cases
-          },
-          {
-            id: :ratio_of_rest_to_incoming_cases,
-            name: I18n.t(key.call('ratio_of_rest_to_incoming_cases.office')),
-            data: mapper.call(average_ratio_of_rest_to_incoming_cases_by_years),
-            visible: false
-          },
-          {
-            name: I18n.t(key.call("ratio_of_rest_to_incoming_cases.#{type}")),
-            data: mapper.call(self.class.average_ratio_of_rest_to_incoming_cases_by_years_by_office_type[type]),
-            dependent: :ratio_of_rest_to_incoming_cases
-          }
-        ].select { |values| values[:data].present? }
+      { years: CHART_YEARS, data: data.select { |series| series[:data].present? } }
+    end
 
-      { years: years, data: data }
+    def chart_values(values)
+      CHART_YEARS.map { |year| values[year] } if values.present?
     end
 
     class_methods do
+      # The indicators and their averages are read from the datasets once per process; this reads them again.
+      def reset_indicators!
+        instance_variables.each do |name|
+          remove_instance_variable(name) if name.start_with?('@average', '@indicators', '@offices_map')
+        end
+      end
+
       def offices_map
         @offices_map ||=
-          Office
-            .all
-            .each
-            .with_object({}) do |office, acc|
-              [office.id, office.name, *office.synonyms].compact.each { |name| acc[name] = office }
-            end
+          Office.find_each.with_object({}) do |office, acc|
+            [office.id, office.name, *office.synonyms].compact.each { |name| acc[name] = office }
+          end
       end
 
       def indicators
@@ -292,64 +219,42 @@ module Offices
       private
 
       def prepare_indicators
-        indicators = {}
+        indicators = Hash.new { |hash, id| hash[id] = {} }
 
-        lines = CSV.readlines(Rails.root.join('data', 'offices-incoming-cases.csv'))
-        parse_indicators_lines(lines) do |office, row|
-          indicators[office.id] = {
-            average_incoming_cases_per_prosecutor_monthly_by_years:
-              row[2..11].reverse.each.with_index.with_object({}) { |(value, i), values| values[2010 + i] = value.to_f },
-            average_incoming_cases_per_prosecutor_yearly_by_years:
-              row[13..23].reverse.each.with_index.with_object({}) { |(value, i), values| values[2010 + i] = value.to_f }
-          }
+        read_yearly_indicator(indicators, 'offices-incoming-cases', 13..23,
+                              :average_incoming_cases_per_prosecutor_yearly_by_years)
+        read_yearly_indicator(indicators, 'offices-filed-prosecutions', 13..23,
+                              :average_filed_prosecutions_per_prosecutor_yearly_by_years)
+        read_yearly_indicator(indicators, 'offices-historical-prosecutors-counts', 2..11, :prosecutors_count_by_years)
+        read_cases(indicators)
+
+        indicators.to_a.to_h
+      end
+
+      # A dataset of an indicator by year: the columns hold the years backwards from 2010 on.
+      def read_yearly_indicator(indicators, dataset, columns, key)
+        parse_indicators_lines(CSV.readlines(Rails.root.join("data/#{dataset}.csv"))) do |office, row|
+          indicators[office.id][key] = row[columns].reverse.each_with_index.to_h { |value, i| [2010 + i, value.to_f] }
+        end
+      end
+
+      # The incoming and the unresolved cases by year from 2006, a column per office.
+      def read_cases(indicators)
+        lines = CSV.readlines(Rails.root.join('data/offices-rest-vs-incoming-cases.csv'))
+        offices = lines[0][3..].map do |value|
+          offices_map[value.start_with?('KP') ? value.sub('KP', 'Krajská prokuratúra') : "Okresná prokuratúra #{value}"]
         end
 
-        lines = CSV.readlines(Rails.root.join('data', 'offices-filed-prosecutions.csv'))
-        parse_indicators_lines(lines) do |office, row|
-          indicators[office.id].merge!(
-            average_filed_prosecutions_per_prosecutor_monthly_by_years:
-              row[2..11].reverse.each.with_index.with_object({}) { |(value, i), values| values[2010 + i] = value.to_f },
-            average_filed_prosecutions_per_prosecutor_yearly_by_years:
-              row[13..23].reverse.each.with_index.with_object({}) { |(value, i), values| values[2010 + i] = value.to_f }
-          )
-        end
-
-        lines = CSV.readlines(Rails.root.join('data', 'offices-historical-prosecutors-counts.csv'))
-        parse_indicators_lines(lines) do |office, row|
-          indicators[office.id].merge!(
-            prosecutors_count_by_years:
-              row[2..11].reverse.each.with_index.with_object({}) { |(value, i), values| values[2010 + i] = value.to_f }
-          )
-        end
-
-        lines = CSV.readlines(Rails.root.join('data', 'offices-rest-vs-incoming-cases.csv'))
-        offices =
-          lines[0][3..-1].map do |value|
-            name = value.match(/\AKP/) ? value.gsub(/\AKP/, 'Krajská prokuratúra') : "Okresná prokuratúra #{value}"
-
-            offices_map[name]
-          end
-
-        lines[1..14].each.with_index do |line, i|
-          line[3..-1].each.with_index do |value, j|
-            indicators[offices[j].id][:incoming_cases_by_years] ||= {}
-            indicators[offices[j].id][:incoming_cases_by_years][2006 + i] = value.to_i
+        { incoming_cases_by_years: lines[1..14], rest_cases_by_years: lines[15..28] }.each do |key, rows|
+          rows.each_with_index do |row, i|
+            row[3..].each_with_index { |value, j| (indicators[offices[j].id][key] ||= {})[2006 + i] = value.to_i }
           end
         end
-
-        lines[15..28].each.with_index do |line, i|
-          line[3..-1].each.with_index do |value, j|
-            indicators[offices[j].id][:rest_cases_by_years] ||= {}
-            indicators[offices[j].id][:rest_cases_by_years][2006 + i] = value.to_i
-          end
-        end
-
-        indicators
       end
 
       def parse_indicators_lines(lines)
-        lines[2..-1].each do |row|
-          name = row[0..1].join(' ').gsub(/OP/, 'Okresná prokuratúra').gsub(/KP/, 'Krajská prokuratúra').strip
+        lines[2..].each do |row|
+          name = row[0..1].join(' ').gsub('OP', 'Okresná prokuratúra').gsub('KP', 'Krajská prokuratúra').strip
 
           office = offices_map[name]
 
@@ -379,9 +284,9 @@ module Offices
           .with_object({}) do |(type, offices), hash|
             sums =
               offices
-                .map(&metric)
-                .each
-                .with_object({}) { |values, result| result.merge!(values || {}) { |_, a, b| a && b ? a + b : a || b } }
+              .map(&metric)
+              .each
+              .with_object({}) { |values, result| result.merge!(values || {}) { |_, a, b| a + b } }
 
             next if sums.blank? || type.in?(%w[general specialized])
 

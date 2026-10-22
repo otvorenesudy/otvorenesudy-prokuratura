@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'file_downloader'
 require 'unoconv'
 

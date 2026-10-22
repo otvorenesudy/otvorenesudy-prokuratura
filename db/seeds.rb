@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -52,8 +54,8 @@ special_prosecutors_office.update!(
   }
 )
 
-Dir[Rails.root.join('data/genpro_gov_sk/criminality/paragraph-definitions-*')].each do |path|
-  _, type = *path.match(/(old|new).csv/)
+Rails.root.glob('data/genpro_gov_sk/criminality/paragraph-definitions-*').each do |path|
+  type = path.basename.to_s[/(old|new)\.csv/, 1]
 
   CSV
     .open(path, headers: true)

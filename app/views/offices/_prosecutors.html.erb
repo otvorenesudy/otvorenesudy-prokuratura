@@ -3,16 +3,16 @@
 </h2>
 
 <p>
-  <%= t('.explanation')%>
+  <%= t('.explanation') %>
 </p>
 
-<div class="table-responsive-md" data-controller="table">
+<div class="table-responsive-md">
   <%= table_tag class: 'table' do %>
     <thead>
       <tr>
         <%= table_header_tag tooltip_tag(t('.activity'), t('.activity_help')), class: 'text-center', sorter: false %>
-        <%= table_header_tag t('.name'), class: 'text-left w-60', sorter: 'text' %>
-        <%= table_header_tag t('.position'), class: 'text-left w-40' %>
+        <%= table_header_tag t('.name'), class: 'text-start w-60' %>
+        <%= table_header_tag t('.position'), class: 'text-start w-40' %>
       </tr>
     </thead>
     <tbody>
@@ -28,22 +28,6 @@
           </td>
         </tr>
       <% end %>
-
-      <!-- 
-      <% @office.employees.where.not(prosecutor_id: nil).where.not(prosecutor: @office.prosecutors).order(id: :asc).each do |employee| %>
-        <tr>
-          <td class="text-center">
-            <%= prosecutor_activity_icon_tag 'fixed', size: 12 %>
-          </td>
-          <td data-value="<%= employee.prosecutor.name_parts.values_at('last', 'first', 'middle').join(' ').strip %>">
-            <%= link_to(employee.prosecutor.name, employee.prosecutor) %>
-          </td>
-          <td>
-            <%= employee.position %>
-          </td>
-        </tr>
-      <% end %>
-      -->
     </tbody>
   <% end %>
 </div>

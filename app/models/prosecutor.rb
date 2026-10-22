@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: prosecutors
@@ -28,18 +30,20 @@ class Prosecutor < ApplicationRecord
 
   belongs_to :genpro_gov_sk_prosecutors_list, class_name: :'GenproGovSk::ProsecutorsList', optional: true
 
-  has_many :all_appointments, -> { order(id: :asc) }, dependent: :destroy, class_name: :Appointment
+  has_many :all_appointments, -> { order(id: :asc) },
+           dependent: :destroy, class_name: :Appointment, inverse_of: :prosecutor
   has_many :all_offices, through: :all_appointments, source: :office
 
-  has_many :past_appointments, -> { past.order(id: :asc) }, dependent: :destroy, class_name: :Appointment
+  has_many :past_appointments, -> { past.order(id: :asc) },
+           dependent: :destroy, class_name: :Appointment, inverse_of: :prosecutor
   has_many :past_offices, through: :past_appointments, source: :office
 
-  has_many :appointments, -> { current.order(id: :asc) }, dependent: :destroy
+  has_many :appointments, -> { current.order(id: :asc) }, dependent: :destroy, inverse_of: :prosecutor
   has_many :offices, through: :appointments
 
   has_many :employments, class_name: :Employee, dependent: :nullify
 
-  has_many :decrees, -> { order(id: :asc) }, dependent: :nullify
+  has_many :decrees, -> { order(id: :asc) }, dependent: :nullify, inverse_of: :prosecutor
 
   validates :name, presence: true
 
@@ -51,18 +55,6 @@ class Prosecutor < ApplicationRecord
 
   def past_appointments_excluding_current
     all_appointments.past.where.not(office: offices).order(id: :asc)
-  end
-
-  def merge_with(prosecutor)
-    return if prosecutor == self
-
-    ActiveRecord::Base.transaction do
-      prosecutor.appointments.update_all(prosecutor_id: id)
-      prosecutor.employments.update_all(prosecutor_id: id)
-      prosecutor.decrees.update_all(prosecutor_id: id)
-
-      Prosecutor.where(id: prosecutor.id).delete_all
-    end
   end
 
   def self.as_map_json
@@ -90,15 +82,15 @@ class Prosecutor < ApplicationRecord
           address: <<-TEXT
           #{values[3] ? "#{values[2]} (#{values[3]})" : values[2]},
           #{values[4]} #{values[5]}
-        TEXT
+          TEXT
         }
       end
   end
 
-  def self.find_by_fuzzy_name(name, office: nil)
+  def self.fuzzy_find(name, office: nil)
     # TODO: index?
     relation =
-      self.where(
+      where(
         "
         ARRAY_REMOVE(
           ARRAY[
@@ -111,7 +103,7 @@ class Prosecutor < ApplicationRecord
           NULL
         ) @> ARRAY[:name]
       ",
-        name: name.squeeze(' ').strip.split(' ').map { |e| I18n.transliterate(e).downcase }
+        name: name.squeeze(' ').strip.split.map { |e| I18n.transliterate(e).downcase }
       )
 
     if office

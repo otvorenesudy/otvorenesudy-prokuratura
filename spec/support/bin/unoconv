@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# A stand-in for unoconv (LibreOffice) in specs, called as `unoconv -p 2002 -n --stdout -f text <file>`: prints the text
+# of a plain RTF document, and fails like unoconv for anything else.
+content = File.read(ARGV.last)
+abort 'unoconv: the document could not be converted' unless content.start_with?('{\rtf')
+
+text = content.gsub(/\\u(-?\d+)\??/) { [Regexp.last_match(1).to_i % 65_536].pack('U') }
+              .gsub(/\\par\b ?/, "\n")
+              .gsub(/\{\\fonttbl.*?\}\}/m, '')
+              .gsub(/\\[a-z]+-?\d* ?/, '')
+              .delete('{}')
+
+$stdout.puts text.strip

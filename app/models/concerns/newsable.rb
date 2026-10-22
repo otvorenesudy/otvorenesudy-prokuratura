@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Newsable
   extend ActiveSupport::Concern
 
-  EXCLUDED_URLS = File.readlines(Rails.root.join('data', 'newsable', 'excluded-urls.txt')).map(&:strip)
+  EXCLUDED_URLS = Rails.root.join('data/newsable/excluded-urls.txt').readlines.map(&:strip)
 
   class_methods do
     def remove_excluded_urls_from_news!
@@ -10,7 +12,8 @@ module Newsable
 
         record.news['data'] = record.news['data'].reject do |e|
           EXCLUDED_URLS.any? do |url|
-            a, b = URI.parse(e['url']), URI.parse(url)
+            a = URI.parse(e['url'])
+            b = URI.parse(url)
 
             a.host == b.host && (a.path.match(b.path) || b.path.match(a.path))
           end

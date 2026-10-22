@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OfficeSearch
   attr_reader :search
 
@@ -14,7 +16,7 @@ class OfficeSearch
           paragraph: Search::ParagraphFilter.new(Office),
           decrees_count:
             Search::DecreesCountFilter.new(
-              [1..50, 51..200, 201..500, 501..1000, 1001..1500, 1501..2000, 2001..Office.maximum(:decrees_count)]
+              [1..50, 51..200, 201..500, 501..1000, 1001..1500, 1501..2000, 2001..Office.maximum(:decrees_count).to_i]
             ),
           sort: SortFilter
         }
@@ -43,7 +45,7 @@ class OfficeSearch
       relation.where(type: params[:type])
     end
 
-    def self.facets(relation, suggest:)
+    def self.facets(relation, **)
       relation.reorder(type: :asc).group(:type).count
     end
   end
@@ -76,30 +78,30 @@ class OfficeSearch
       relation.where(
         id:
           relation
-            .joins(:active_appointments)
-            .group(:id)
-            .having(ranges.map { |range| "#{range} @> count(*) :: int" })
-            .select(:id)
+          .joins(:active_appointments)
+          .group(:id)
+          .having(ranges.map { |range| "#{range} @> count(*) :: int" })
+          .select(:id)
       )
     end
 
-    def self.facets(relation, suggest:)
+    def self.facets(relation, **)
       buckets = [
         1..5,
         6..10,
         11..20,
         21..30,
-        31..Appointment.current.group(:office_id).order(Arel.sql('count(*) DESC')).count.first[1]
+        31..Appointment.current.group(:office_id).count.values.max.to_i
       ]
 
       facets =
         Office
-          .group(:prosecutors_count)
-          .order(prosecutors_count: :asc)
-          .from(relation.joins(:active_appointments).group(:id).select('count(*) as prosecutors_count'), :offices)
-          .count
+        .group(:prosecutors_count)
+        .order(prosecutors_count: :asc)
+        .from(relation.joins(:active_appointments).group(:id).select('count(*) as prosecutors_count'), :offices)
+        .count
 
-      buckets.map { |range, value| [range.to_s, facets.values_at(*range.to_a).compact.sum] }.to_h
+      buckets.to_h { |range, _value| [range.to_s, facets.values_at(*range.to_a).compact.sum] }
     end
   end
 

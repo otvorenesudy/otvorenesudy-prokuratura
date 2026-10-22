@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProsecutorsController < ApplicationController
   def index
     @search = ProsecutorSearch.new(index_params)
@@ -6,93 +8,31 @@ class ProsecutorsController < ApplicationController
   end
 
   def show
-    @prosecutor = Prosecutor.find(params[:id])
+    @prosecutor = Prosecutor.find(params.expect(:id))
     @tab = show_params[:tab]
     @paragraphs = Paragraph.where(value: show_params[:paragraph]) if params[:paragraph].present?
     @decrees = @prosecutor.decrees
     @decrees = @decrees.where(paragraph: @paragraphs) if @paragraphs.present?
+    return unless @prosecutor.declarations
+
     @declarations =
-      @prosecutor.declarations.map!(&:deep_symbolize_keys).sort_by { |e| e[:year] }.reverse if @prosecutor.declarations
+      @prosecutor.declarations.map!(&:deep_symbolize_keys).sort_by { |e| e[:year] }.reverse
   end
 
   def suggest
-    return head 404 unless suggest_params[:facet].in?(%w[city office paragraph])
+    return head :not_found unless suggest_params[:facet].in?(%w[city office paragraph])
 
     @search = ProsecutorSearch.new(index_params)
+    facet = suggest_params[:facet]
 
-    render(
-      json: {
-        html:
-          render_to_string(
-            partial: "#{suggest_params[:facet]}_results",
-            locals: {
-              values: @search.facets_for(suggest_params[:facet], suggest: suggest_params[:suggest]),
-              params: @search.params
-            }
-          )
-      }
-    )
+    render partial: "#{facet}_results", locals: {
+      values: @search.facets_for(facet, suggest: suggest_params[:suggest]),
+      params: @search.params
+    }
   end
 
   def export
-    csv =
-      CSV.generate do |csv|
-        csv << [
-          'ID',
-          'Name',
-          'Current Office',
-          'Temporary Office',
-          'Declaration Year',
-          'Declaration Category',
-          'Description',
-          'Acquisition Date',
-          'Aquisition Reason',
-          'Price/Value',
-          'Procurement Price/Value'
-        ]
-
-        Prosecutor.find_each.map do |prosecutor|
-          attributes = [
-            prosecutor.id,
-            prosecutor.name,
-            prosecutor.appointments.fixed.first&.office&.name,
-            prosecutor.appointments.temporary.first&.office&.name
-          ]
-
-          prosecutor.declarations&.each do |declaration|
-            declaration['lists'].each do |list|
-              list['items'].each do |item|
-                csv << [
-                  *attributes,
-                  declaration['year'],
-                  list['category'],
-                  *item.values_at('description', 'acquisition_date', 'acquisition_reason', 'price', 'procurement_price')
-                ]
-              end
-            end
-
-            declaration['incomes']&.each do |income|
-              csv << [
-                *attributes,
-                declaration['year'],
-                'Príjmy',
-                income['description'],
-                nil,
-                nil,
-                nil,
-                income['value'],
-                nil
-              ]
-            end
-
-            declaration['statements'].each do |statement|
-              csv << [*attributes, declaration['year'], 'Vyhlásenia', statement, nil, nil, nil, nil, nil]
-            end
-          end
-        end
-      end
-
-    render inline: csv
+    render plain: DeclarationsExport.to_csv
   end
 
   private

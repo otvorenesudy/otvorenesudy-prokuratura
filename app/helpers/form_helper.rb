@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FormHelper
   def form_params(params)
     params.each_pair do |name, value|

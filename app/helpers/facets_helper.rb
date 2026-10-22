@@ -1,7 +1,13 @@
+# frozen_string_literal: true
+
 module FacetsHelper
   def collapsible_facet_results(facets, selected: [], limit: 5, &renderer)
-    visible, hidden = facets.to_a[0...limit], facets.to_a[limit..-1]
-    visible, hidden = visible.to_h, hidden.to_h if facets.is_a?(Hash)
+    visible = facets.to_a[0...limit]
+    hidden = facets.to_a[limit..]
+    if facets.is_a?(Hash)
+      visible = visible.to_h
+      hidden = hidden.to_h
+    end
     id = "collapsible-facet-values-#{SecureRandom.hex}"
 
     render(

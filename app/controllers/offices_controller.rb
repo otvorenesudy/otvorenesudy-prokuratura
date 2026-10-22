@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OfficesController < ApplicationController
   layout false, only: [:decrees]
 
@@ -8,7 +10,7 @@ class OfficesController < ApplicationController
   end
 
   def show
-    @office = Office.find(params[:id])
+    @office = Office.find(params.expect(:id))
     @tab = show_params[:tab]
     @paragraphs = Paragraph.where(value: show_params[:paragraph]) if params[:paragraph].present?
     @decrees = @office.decrees
@@ -17,26 +19,19 @@ class OfficesController < ApplicationController
   end
 
   def suggest
-    return head 404 unless suggest_params[:facet].in?(%w[city paragraph])
+    return head :not_found unless suggest_params[:facet].in?(%w[city paragraph])
 
     @search = OfficeSearch.new(index_params)
+    facet = suggest_params[:facet]
 
-    render(
-      json: {
-        html:
-          render_to_string(
-            partial: "#{suggest_params[:facet]}_results",
-            locals: {
-              values: @search.facets_for(suggest_params[:facet], suggest: suggest_params[:suggest]),
-              params: @search.params
-            }
-          )
-      }
-    )
+    render partial: "#{facet}_results", locals: {
+      values: @search.facets_for(facet, suggest: suggest_params[:suggest]),
+      params: @search.params
+    }
   end
 
   def decrees
-    @office = Office.find(params[:id])
+    @office = Office.find(params.expect(:id))
     @decrees = @office.decrees
     @paragraphs = Paragraph.where(value: decrees_params[:paragraph]) if decrees_params[:paragraph].present?
     @decrees = @decrees.where(paragraph: @paragraphs) if @paragraphs.present?

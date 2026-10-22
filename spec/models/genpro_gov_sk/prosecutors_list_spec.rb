@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: genpro_gov_sk_prosecutors_lists
@@ -15,7 +17,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe GenproGovSk::ProsecutorsList, type: :model do
+RSpec.describe GenproGovSk::ProsecutorsList do
   subject { build(:'genpro_gov_sk/prosecutors_list') }
 
   it { is_expected.to validate_presence_of(:data) }
@@ -24,138 +26,58 @@ RSpec.describe GenproGovSk::ProsecutorsList, type: :model do
   it { is_expected.to validate_uniqueness_of(:digest) }
 
   describe '.import_from' do
-    context 'with new file' do
-      it 'saves the list' do
-        office = create(:office, name: "Attorney General's Office")
+    let(:general) { create(:office, name: "Attorney General's Office") }
+    let(:other) { create(:office, name: 'ABC') }
 
-        expect {
-          GenproGovSk::ProsecutorsList.import_from(
-            data: [
-              {
-                id: '1',
-                name: 'JUDr. John Smith',
-                name_parts: {
-                  value: 'JUDr. John Smith'
-                },
-                office: "Attorney General's Office"
-              }
-            ],
-            file: '123'
-          )
-        }.to change { GenproGovSk::ProsecutorsList.where(digest: Digest::MD5.hexdigest('123')).count }.by(1)
+    def import(file, office:, temporary_office: nil)
+      data = { id: '1', name: 'JUDr. John Smith', name_parts: { value: 'JUDr. John Smith' }, office:,
+               temporary_office: }
+
+      described_class.import_from(data: [data.compact], file:)
+    end
+
+    def lists_of(file)
+      described_class.where(digest: Digest::MD5.hexdigest(file))
+    end
+
+    def appointments_of(appointments)
+      appointments.order(id: :asc).map { |appointment| [appointment.office, appointment.type, appointment.current?] }
+    end
+
+    context 'with new file' do
+      it 'saves the list and appoints its prosecutor to the office' do
+        expect { import('123', office: general.name) }.to change { lists_of('123').count }.by(1)
 
         prosecutor = Prosecutor.order(:id).last
 
-        expect(prosecutor.name).to eql('JUDr. John Smith')
-        expect(prosecutor.genpro_gov_sk_prosecutors_list).to eql(
-          GenproGovSk::ProsecutorsList.find_by(digest: Digest::MD5.hexdigest('123'))
-        )
-        expect(prosecutor.appointments.size).to eql(1)
-        expect(prosecutor.appointments[0].office).to eql(office)
-        expect(prosecutor.appointments[0]).to be_fixed
-        expect(prosecutor.appointments[0]).to be_current
+        expect(prosecutor)
+          .to have_attributes(name: 'JUDr. John Smith', genpro_gov_sk_prosecutors_list: lists_of('123').first)
+        expect(appointments_of(prosecutor.appointments)).to eq([[general, 'fixed', true]])
       end
     end
 
     context 'with new file and already imported prosecutors' do
-      it 'correctly handles added temporary office' do
-        offices = [create(:office, name: "Attorney General's Office"), create(:office, name: 'ABC')]
+      it 'adds a temporary office the list now gives' do
+        import('123', office: general.name)
 
-        expect {
-          GenproGovSk::ProsecutorsList.import_from(
-            data: [
-              {
-                id: '1',
-                name: 'JUDr. John Smith',
-                name_parts: {
-                  value: 'JUDr. John Smith'
-                },
-                office: "Attorney General's Office"
-              }
-            ],
-            file: '123'
-          )
-        }.to change { GenproGovSk::ProsecutorsList.where(digest: Digest::MD5.hexdigest('123')).count }.by(1)
-
-        expect {
-          GenproGovSk::ProsecutorsList.import_from(
-            data: [
-              {
-                id: '1',
-                name: 'JUDr. John Smith',
-                name_parts: {
-                  value: 'JUDr. John Smith'
-                },
-                office: "Attorney General's Office",
-                temporary_office: 'ABC'
-              }
-            ],
-            file: '1234'
-          )
-        }.to change { GenproGovSk::ProsecutorsList.where(digest: Digest::MD5.hexdigest('1234')).count }.by(1)
+        expect { import('1234', office: general.name, temporary_office: other.name) }
+          .to change { lists_of('1234').count }.by(1)
 
         prosecutor = Prosecutor.order(:id).last
 
-        expect(prosecutor.name).to eql('JUDr. John Smith')
-        expect(prosecutor.genpro_gov_sk_prosecutors_list).to eql(
-          GenproGovSk::ProsecutorsList.find_by(digest: Digest::MD5.hexdigest('123'))
-        )
-        expect(prosecutor.appointments.size).to eql(2)
-
-        appointments = prosecutor.appointments.order(id: :asc)
-
-        expect(appointments[0].office).to eql(offices[0])
-        expect(appointments[0]).to be_fixed
-        expect(appointments[0]).to be_current
-        expect(appointments[1].office).to eql(offices[1])
-        expect(appointments[1]).to be_temporary
-        expect(appointments[1]).to be_current
+        expect(prosecutor.genpro_gov_sk_prosecutors_list).to eq(lists_of('123').first)
+        expect(appointments_of(prosecutor.appointments)).to eq([[general, 'fixed', true], [other, 'temporary', true]])
       end
 
-      it 'correctly handles changed office' do
-        offices = [create(:office, name: "Attorney General's Office"), create(:office, name: 'ABC')]
+      it 'ends the appointment at an office the prosecutor left' do
+        import('123', office: general.name)
 
-        expect {
-          GenproGovSk::ProsecutorsList.import_from(
-            data: [
-              {
-                id: '1',
-                name: 'JUDr. John Smith',
-                name_parts: {
-                  value: 'JUDr. John Smith'
-                },
-                office: "Attorney General's Office"
-              }
-            ],
-            file: '123'
-          )
-        }.to change { GenproGovSk::ProsecutorsList.where(digest: Digest::MD5.hexdigest('123')).count }.by(1)
-
-        expect {
-          GenproGovSk::ProsecutorsList.import_from(
-            data: [{ id: '1', name: 'JUDr. John Smith', name_parts: { value: 'JUDr. John Smith' }, office: 'ABC' }],
-            file: '1234'
-          )
-        }.to change { GenproGovSk::ProsecutorsList.where(digest: Digest::MD5.hexdigest('1234')).count }.by(1)
+        expect { import('1234', office: other.name) }.to change { lists_of('1234').count }.by(1)
 
         prosecutor = Prosecutor.order(:id).last
 
-        expect(prosecutor.name).to eql('JUDr. John Smith')
-
-        expect(prosecutor.genpro_gov_sk_prosecutors_list).to eql(
-          GenproGovSk::ProsecutorsList.find_by(digest: Digest::MD5.hexdigest('123'))
-        )
-        expect(prosecutor.all_appointments.size).to eql(2)
-
-        appointments = prosecutor.all_appointments.order(id: :asc)
-
-        expect(appointments[0].office).to eql(offices[0])
-        expect(appointments[0]).to be_fixed
-        expect(appointments[0]).not_to be_current
-
-        expect(appointments[1].office).to eql(offices[1])
-        expect(appointments[1]).to be_fixed
-        expect(appointments[1]).to be_current
+        expect(prosecutor.genpro_gov_sk_prosecutors_list).to eq(lists_of('123').first)
+        expect(appointments_of(prosecutor.all_appointments)).to eq([[general, 'fixed', false], [other, 'fixed', true]])
       end
     end
 
@@ -163,9 +85,8 @@ RSpec.describe GenproGovSk::ProsecutorsList, type: :model do
       it 'does nothing' do
         create(:'genpro_gov_sk/prosecutors_list', file: '123')
 
-        expect { GenproGovSk::ProsecutorsList.import_from(data: { a: 123 }, file: '123') }.not_to change {
-          GenproGovSk::ProsecutorsList.where(digest: Digest::MD5.hexdigest('123')).count
-        }
+        expect { described_class.import_from(data: { a: 123 }, file: '123') }
+          .not_to(change { lists_of('123').count })
       end
     end
   end

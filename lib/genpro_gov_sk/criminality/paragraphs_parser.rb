@@ -1,204 +1,191 @@
+# frozen_string_literal: true
+
 require 'roo'
 
 module GenproGovSk
   module Criminality
+    # A spreadsheet of the people accused, prosecuted or convicted by paragraph of the Criminal Code, for an office and
+    # a year: the heading rows say which report, year, office and code it is, the row with the paragraphs heads their
+    # columns, and the rows below it are the metrics.
     class ParagraphsParser
+      PARAGRAPH = /\A§\s{0,1}[0-9a-zA-Z]+\z/
+      CONVICTED = Regexp.union(
+        'Odsúdené osoby za trestné činy',
+        'Odsúdené osoby pre prečiny, zločiny',
+        'Prehľad o osobách odsúdených pre trestné činy'
+      )
+      OFFICE = /Prehľad za.* ((?:OP|KP|GP).+)$/
+
+      # Metrics the spreadsheet gives only in part, which the parser completes: the second of a pair from the total and
+      # the first, and the totals from their parts.
+      COMPLEMENTS = { 'girls' => 'boys', 'women' => 'men' }.freeze
+      SUMMED = %i[accused_recidivists_all].freeze
+
       def self.parse(path)
-        xls = Roo::Spreadsheet.open(path)
-        sheet = xls.sheet(0)
-        rows = sheet.to_a
-        columns = rows.find { |e| e.any? { |e| e.to_s.match(/\A§\s{0,1}[0-9a-zA-Z]+\z/) } }
-        previous_title = ''
-        unknown = []
+        sheet = Roo::Spreadsheet.open(path).sheet(0)
 
-        paragraphs =
-          if columns
-            columns
-              .each
-              .with_object({})
-              .with_index { |(column, hash), i| hash[column] = i if column.to_s.match(/\A§\s{0,1}[0-9a-zA-Z]+\z/) }
-          end
-
-        return if paragraphs.blank?
-
-        data =
-          rows
-            .each
-            .with_object({ statistics: [] }) do |row, data|
-              title = normalize_title(row[0].to_s.gsub(/(\A[[:space:]]|[[:space:]]\z)/, ''), row: row, rows: rows)
-
-              # Report Type
-              #
-              if title.match(
-                   /(Odsúdené osoby za trestné činy|Odsúdené osoby pre prečiny, zločiny|Prehľad o osobách odsúdených pre trestné činy)/
-                 )
-                data[:report] = :convicted
-              end
-
-              data[:report] = :accused_and_prosecuted if title.match(/Prehľad o stíhaných a obžalovaných osobách/)
-
-              # Year
-              #
-              data[:year] = title.match(/\d{4}/)[0].to_i if title.match(/obdobie/i)
-
-              # Office
-              #
-              data[:office] = OFFICES_MAP[title.match(/\d{4}/).to_a[0]] if title.match(/Prokuratúry/)
-
-              if title.match(/Prehľad za.* ((OP|KP|GP).+)$/) && data[:office].nil?
-                _, value = *title&.match(/Prehľad za.* ((OP|KP|GP).+)$/)
-
-                data[:office] ||= normalize_office_name(value)
-              end
-
-              # Type
-              #
-              data[:type] = :old if title.match(/podľa paragrafov trestného zákona do roku 2005/)
-              data[:type] = :new if title.match(/podľa paragrafov trestného zákona od roku 2006/)
-              data[:type] = title.match(/Nie/) ? :new : :old if title.match(/Podľa TZ 2005/)
-
-              # Statistics
-              #
-              next if rows.index(row) <= rows.index(columns)
-              return if data[:report].blank?
-
-              if title.starts_with?('-')
-                title = "#{previous_title} #{title}"
-              else
-                previous_title = title
-              end
-
-              map = {
-                accused_and_prosecuted: PARAGRAPHS_BY_ACCUSED_AND_PROSECUTED_MAP,
-                convicted: PARAGRAPHS_BY_CONVICTED_MAP
-              }
-
-              metric = map[data[:report]][title]
-
-              unless metric
-                unknown << title if title.present?
-                next
-              end
-
-              paragraphs.each do |paragraph, index|
-                paragraph = "#{paragraph} [#{data[:type]}]"
-
-                count = parse_count(row[index])
-
-                data[:statistics] << { metric: metric, paragraph: paragraph, count: count }
-              end
-            end
-
-        return if data[:statistics].blank?
-
-        data[:statistics].each do |statistic|
-          metric = statistic[:metric]
-          paragraph = statistic[:paragraph]
-          count = statistic[:count]
-
-          calculate_complemental_count(
-            data,
-            paragraph: paragraph,
-            metric: metric,
-            count: count,
-            from: 'girls',
-            to: 'boys'
-          )
-
-          calculate_complemental_count(
-            data,
-            paragraph: paragraph,
-            metric: metric,
-            count: count,
-            from: 'women',
-            to: 'men'
-          )
+        begin
+          new(sheet.to_a).parse
+        ensure
+          sheet.close
         end
-
-        %i[accused_recidivists_all].each do |metric|
-          data[:statistics]
-            .map { |e| e[:paragraph] }
-            .uniq
-            .each do |paragraph|
-              count =
-                data[:statistics].find { |e| e[:metric] == metric && e[:paragraph] == paragraph }.try { |e| e[:count] }
-
-              calculate_sum_count(data, paragraph: paragraph, metric: metric, count: count)
-            end
-        end
-
-        sheet.close
-
-        data.merge(unknown: unknown)
       end
 
-      def self.calculate_complemental_count(data, paragraph:, metric:, count:, from:, to:)
-        return unless metric.to_s.match(/_#{from}\z/)
-
-        base = metric.to_s.gsub(/_#{from}\z/, '').to_sym
-        all = :"#{base}_all"
-        sum = data[:statistics].find { |e| e[:metric] == all && e[:paragraph] == paragraph }
-
-        if !sum || !sum[:count] ||
-             data[:statistics].find { |e| e[:metric] == :"#{base}_#{to}" && e[:paragraph] == paragraph }
-          return
-        end
-
-        data[:statistics] << { metric: :"#{base}_#{to}", paragraph: paragraph, count: sum[:count] - (count || 0) }
+      def initialize(rows)
+        @rows = rows
+        @columns = rows.find { |row| row.any? { |cell| cell.to_s.match?(PARAGRAPH) } }
+        @paragraphs = @columns.to_a.each_with_index.to_h.select { |column, _| column.to_s.match?(PARAGRAPH) }
+        @data = { statistics: [] }
+        @unknown = []
+        @previous_title = ''
       end
 
-      def self.calculate_sum_count(data, paragraph:, metric:, count:)
-        return if !metric.to_s.match(/_all\z/) || count
+      def parse
+        return if @paragraphs.blank? || !read_rows || @data[:statistics].blank?
 
-        base = metric.to_s.gsub(/_all\z/, '').to_sym
-        children =
-          data[:statistics].select do |e|
-            e[:metric].match(/\A#{base}_\w+\z/) && e[:metric] != metric && e[:paragraph] == paragraph && e[:count]
-          end
+        complete
 
-        return if children.blank?
-
-        data[:statistics] << { metric: metric, paragraph: paragraph, count: children.map { |e| e[:count] }.sum }
+        @data.merge(unknown: @unknown)
       end
 
       def self.normalize_office_name(value)
         value
-          .gsub(/OP/, 'Okresná prokuratúra')
-          .gsub(/KP/, 'Krajská prokuratúra')
-          .gsub(/-/, ' - ')
-          .gsub(/1/, 'I')
-          .gsub(/2/, 'II')
-          .gsub(/3/, 'III')
-          .gsub(/4/, 'IV')
-          .gsub(/5/, 'V')
-          .gsub(%r{n\/}, 'nad ')
-          .gsub(/GP SR/, 'Generálna prokuratúra Slovenskej republiky')
+          .gsub('OP', 'Okresná prokuratúra')
+          .gsub('KP', 'Krajská prokuratúra')
+          .gsub('-', ' - ')
+          .tr('1', 'I')
+          .gsub('2', 'II')
+          .gsub('3', 'III')
+          .gsub('4', 'IV')
+          .tr('5', 'V')
+          .gsub(%r{n/}, 'nad ')
+          .gsub('GP SR', 'Generálna prokuratúra Slovenskej republiky')
       end
 
       def self.normalize_title(value, row:, rows:)
         title =
           value
-            .gsub(/\A[[:space:]]+/, '- ')
-            .gsub(/(\A[[:space:]]+|[[:space:]]+\z)/, '')
-            .gsub(/[[:space:]]+/, ' ')
-            .gsub(/\A[[:space:]]-/, '-')
-            .gsub(/(z toho:)/, '-')
-            .gsub(/[[:space:]]+z toho/, '-')
-            .gsub(/–/, '-')
-            .gsub(/Obžalované osoby/, 'Obžalovaných osôb')
-            .gsub(/-{1,}/, '-')
+          .gsub(/\A[[:space:]]+/, '- ')
+          .gsub(/(\A[[:space:]]+|[[:space:]]+\z)/, '')
+          .gsub(/[[:space:]]+/, ' ')
+          .gsub(/\A[[:space:]]-/, '-')
+          .gsub(/(z toho:)/, '-')
+          .gsub(/[[:space:]]+z toho/, '-')
+          .tr('–', '-')
+          .gsub('Obžalované osoby', 'Obžalovaných osôb')
+          .squeeze('-')
 
-        if title.match(/- dievčatá/)
-          title = "#{normalize_title(rows[rows.index(row) - 1][0], row: row, rows: rows)} #{title}"
-        end
+        # A row of girls belongs to the row above it.
+        return title unless title.include?('- dievčatá')
 
-        title
+        "#{normalize_title(rows[rows.index(row) - 1][0], row:, rows:)} #{title}"
       end
 
       def self.parse_count(value)
         count = value.to_s.gsub(/[[:space:]]/, '').gsub(/\..*\z/, '')
 
         count.presence ? Integer(count.presence) : nil
+      end
+
+      private
+
+      # False when the rows below the paragraphs belong to no report the parser knows.
+      def read_rows
+        @rows.all? do |row|
+          title = self.class.normalize_title(row[0].to_s.gsub(/(\A[[:space:]]|[[:space:]]\z)/, ''), row:, rows: @rows)
+
+          read_heading(title)
+
+          next true if @rows.index(row) <= @rows.index(@columns)
+          next false if @data[:report].blank?
+
+          read_statistics(row, title)
+          true
+        end
+      end
+
+      def read_heading(title)
+        @data[:report] = :convicted if CONVICTED.match?(title)
+        @data[:report] = :accused_and_prosecuted if title.include?('Prehľad o stíhaných a obžalovaných osobách')
+        @data[:year] = title.match(/\d{4}/)[0].to_i if /obdobie/i.match?(title)
+        @data[:office] = OFFICES_MAP[title[/\d{4}/]] if title.include?('Prokuratúry')
+
+        office = title[OFFICE, 1]
+        @data[:office] ||= self.class.normalize_office_name(office) if office
+
+        read_type(title)
+      end
+
+      def read_type(title)
+        @data[:type] = :old if title.include?('podľa paragrafov trestného zákona do roku 2005')
+        @data[:type] = :new if title.include?('podľa paragrafov trestného zákona od roku 2006')
+        @data[:type] = (title.include?('Nie') ? :new : :old) if title.include?('Podľa TZ 2005')
+      end
+
+      # A metric's row, a count per paragraph; a title starting with a dash is a part of the title above it.
+      def read_statistics(row, title)
+        if title.start_with?('-')
+          title = "#{@previous_title} #{title}"
+        else
+          @previous_title = title
+        end
+
+        metric = metrics[title]
+
+        if metric
+          @paragraphs.each do |paragraph, index|
+            count = self.class.parse_count(row[index])
+
+            @data[:statistics] << { metric:, paragraph: "#{paragraph} [#{@data[:type]}]", count: }
+          end
+        elsif title.present?
+          @unknown << title
+        end
+      end
+
+      def metrics
+        { accused_and_prosecuted: PARAGRAPHS_BY_ACCUSED_AND_PROSECUTED_MAP, convicted: PARAGRAPHS_BY_CONVICTED_MAP }
+          .fetch(@data[:report])
+      end
+
+      def complete
+        @data[:statistics].each do |statistic|
+          COMPLEMENTS.each { |part, complement| add_complement(statistic, part, complement) }
+        end
+
+        # The reports have no row for these totals.
+        SUMMED.each do |metric|
+          @data[:statistics].map { |e| e[:paragraph] }.uniq.each { |paragraph| add_sum(metric, paragraph) }
+        end
+      end
+
+      def add_complement(statistic, part, complement)
+        metric, paragraph, count = statistic.values_at(:metric, :paragraph, :count)
+
+        return unless metric.to_s.end_with?("_#{part}")
+
+        base = metric.to_s.delete_suffix("_#{part}")
+        total = find(:"#{base}_all", paragraph)
+
+        return if total.nil? || total[:count].nil? || find(:"#{base}_#{complement}", paragraph)
+
+        @data[:statistics] << { metric: :"#{base}_#{complement}", paragraph:, count: total[:count] - (count || 0) }
+      end
+
+      def add_sum(metric, paragraph)
+        base = metric.to_s.delete_suffix('_all')
+        parts =
+          @data[:statistics].select do |e|
+            e[:metric].match?(/\A#{base}_\w+\z/) && e[:metric] != metric && e[:paragraph] == paragraph && e[:count]
+          end
+
+        return if parts.blank?
+
+        @data[:statistics] << { metric:, paragraph:, count: parts.sum { |e| e[:count] } }
+      end
+
+      def find(metric, paragraph)
+        @data[:statistics].find { |e| e[:metric] == metric && e[:paragraph] == paragraph }
       end
     end
   end

@@ -1,12 +1,12 @@
+# frozen_string_literal: true
+
 class StaticPagesController < ApplicationController
   def show
     @slug = show_params[:slug]
 
-    return head 404 unless @slug.in?(%w[about contact copyright faq feedback privacy tos])
+    return head :not_found unless @slug.in?(%w[about contact copyright faq feedback privacy tos])
 
-    name = "_#{@slug.gsub(/-/, '_')}"
-
-    raise ActionController::RoutingError.new nil unless lookup_context.template_exists?(name, 'static_pages')
+    name = "_#{@slug.tr('-', '_')}"
 
     @title = translate "static_pages.#{name}", default: ''
 

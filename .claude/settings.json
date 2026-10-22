@@ -93,7 +93,6 @@
         "codeload.github.com",
         "*.githubusercontent.com",
         "registry.npmjs.org",
-        "registry.yarnpkg.com",
         "www.genpro.gov.sk",
         "www.minv.sk"
       ]

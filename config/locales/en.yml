@@ -137,6 +137,7 @@ en:
         assignation_of_prosecution: Assignation of Criminal Prosecution
         cessation_of_prosecution: Cessation of Criminal Prosecution
         closed_cases: Closed cases in criminal records Pv/Kv/Gv
+        conditional_cessation: Conditional Cessation of Prosecution
         conditional_cessation_by_court: Conditional Cessation of prosecution by court
         conditional_cessation_by_prosecutor: Conditional Cessation of prosecution by prosecutor
         conditional_cessation_by_prosecutor_all: Conditional Cessation of prosecution by prosecutor - All
@@ -158,6 +159,7 @@ en:
         convicted_young: Young
         convicted_young_boys: Young boys
         convicted_young_girls: Young girls
+        exempt_all: Exempted Persons
         exemption: Exemption Persons
         guilt_and_sentence_agreement: Agreement on Guilt and Punishment
         incoming_cases: All incoming cases which were attacked in registries Pv/Kv/Gv
@@ -280,6 +282,9 @@ en:
       found_with_timing_html: "%{count} out of %{total} (%{time} ms)"
       found_html: "%{count} out of %{total}"
       reset: Cancel all filters
+      export: Export
+      ascending: Ascending
+      descending: Descending
 
   facets:
     collapsible_results:
@@ -359,6 +364,7 @@ en:
       title: Prosecutors' Offices
 
     show:
+      indicators: Indicators of the office by year
       destroyed: The prosecutor's office has been cancelled. The data is historical and displayed for informational purposes only.
       contact: Contact
       employees: Leading Employees
@@ -381,6 +387,7 @@ en:
         more_from_google: More results from Google
 
     decrees:
+      cancel_filter: Cancel the filter
       title: Decrees
       table_title: List of Decrees
       filtered_by: Filtered by
@@ -426,6 +433,7 @@ en:
         register: We register
         office_fixed_html: The prosecutor is appointed to %{link}.
         office_temporary_html: The prosecutor is temporarily appointed to %{link}.
+        past_offices_html: The prosecutor previously worked at %{link}.
       search:
         city:
           not_found: No cities found
@@ -522,9 +530,9 @@ en:
       title: Prosecutors
       page_title: "Prosecutors · Criminality"
       subtitle: "Metric – %{metric}"
-      subtitle_with_paragraphs: "Metric – %{metric} – by paragraphs %{paragraphs}"
+      subtitle_with_paragraphs_html: "Metric – %{metric} – by paragraphs %{paragraphs}"
       subtitle_for_default_params: Overview by Corruption Prosecution
-      subtitle_for_default_params_with_paragraphs: "Overview by Corruption Prosecution %{paragraphs}"
+      subtitle_for_default_params_with_paragraphs_html: "Overview by Corruption Prosecution %{paragraphs}"
       show_paragraphs: Show Paragraphs
       no_data: "No statitics found for the given criteria"
       enlarge_chart: Enlarge
@@ -603,7 +611,7 @@ en:
       title: "Police"
       subtitle_for_default_params: "Overview by Corruption Criminality"
       monetary_subtitle: Material Damages
-      by_paragraphs_subtitle: by paragraphs %{paragraphs}
+      by_paragraphs_subtitle_html: by paragraphs %{paragraphs}
       show_paragraphs: Show Paragraphs
       no_data: No statistics found for the given criteria
       data_disclaimer: Disclaimer
@@ -621,7 +629,7 @@ en:
          headline: "More transparency"
          footline: "to the Slovak prosecution offices"
          project: "Otvorená Prokuratúra"
-         list: "%{project} brings:"
+         list_html: "%{project} brings:"
          items:
            - "list of prosecutors' offices and their valid decrees,"
            - "list of prosecutors and their estate declarations,"
@@ -636,3 +644,9 @@ en:
       average_incoming_cases_comparison_chart_title: Average Incoming Cases for Attorney per Year
       filed_cases_to_incoming_cases_chart_title: Average Amount of Filed Cases to Incoming Cases in Matters of Criminal Proceedings for the year of 2019
       ratio_of_rest_to_incoming_cases_chart_title: Ratio of Rest Incoming Cases from Previous Period
+
+  shared:
+    map:
+      title: Map of the offices
+    table_filter:
+      reset: Clear the search

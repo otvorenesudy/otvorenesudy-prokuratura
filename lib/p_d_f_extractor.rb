@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'pdf-reader'
 require 'file_downloader'
 
 class PDFExtractor
   def self.extract_text_from_url(url)
     FileDownloader.download(url, directory: '/tmp') do |path|
-      file = File.open(path, 'rb').read
+      file = File.binread(path)
       reader = PDF::Reader.new(path)
 
       [reader.pages.map(&:text).join(' '), file]

@@ -1,9 +1,8 @@
+# frozen_string_literal: true
+
 require 'unicode_string'
 
 module GenproGovSk
-  require 'genpro_gov_sk/legacy/property_declaration_crawler'
-  require 'genpro_gov_sk/legacy/property_declarations_crawler'
-
   require 'genpro_gov_sk/prosecutors/p_d_f_parser'
   require 'genpro_gov_sk/prosecutors/parser'
   require 'genpro_gov_sk/prosecutors'

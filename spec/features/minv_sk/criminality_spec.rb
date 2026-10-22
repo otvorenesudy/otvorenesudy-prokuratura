@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe 'MinvSk::Criminality', type: :feature do
-  it 'correctly imports and parses data', webmock: :disabled do
+RSpec.describe 'MinvSk::Criminality' do
+  it 'correctly imports and parses data' do
     MinvSk::Criminality.import
 
     validations = [

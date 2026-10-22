@@ -1,34 +1,36 @@
+# frozen_string_literal: true
+
 module GenproGovSk
   module Decrees
     module Parser
       def self.parse(html, url:)
-        html = Nokogiri.HTML(html)
-        rows = html.css('.tx-tempest-applications .govuk-table tbody tr')
-
-        rows
-          .map do |row|
-            columns = row.css('td')
-
-            link = columns[0].css('a')[0]
-
-            next unless link
-
-            data = {
-              url: "#{url}#{link[:href]}",
-              number: columns[0].css('a')[0].text.strip.lines.first.strip,
-              effective_on: Date.strptime(columns[1].text.strip.squeeze(' '), '%d. %m. %Y'),
-              published_on: Date.strptime(columns[2].text.strip.squeeze(' '), '%d. %m. %Y'),
-              file_number: columns[3].text.strip,
-              resolution: columns[4].text.strip,
-              means_of_resolution: columns[5].text.strip
-            }
-
-            _, file_type = columns[0].css('a')[0][:href].match(/\.([^.]+)$/).to_a
-
-            data.merge(file_type: file_type.downcase)
-          end
-          .compact
+        Nokogiri.HTML(html).css('.tx-tempest-applications .govuk-table tbody tr').filter_map do |row|
+          parse_row(row.css('td'), url:)
+        end
       end
+
+      # A decree's row: its link (or none on an empty listing), dates, file number and resolution.
+      def self.parse_row(columns, url:)
+        link = columns[0].css('a')[0]
+
+        return unless link
+
+        {
+          url: "#{url}#{link[:href]}",
+          number: link.text.strip.lines.first.strip,
+          effective_on: parse_date(columns[1]),
+          published_on: parse_date(columns[2]),
+          file_number: columns[3].text.strip,
+          resolution: columns[4].text.strip,
+          means_of_resolution: columns[5].text.strip,
+          file_type: link[:href][/\.([^.]+)$/, 1].downcase
+        }
+      end
+
+      def self.parse_date(column)
+        Date.strptime(column.text.strip.squeeze(' '), '%d. %m. %Y')
+      end
+      private_class_method :parse_row, :parse_date
     end
   end
 end

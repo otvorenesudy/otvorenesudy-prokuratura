@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: paragraphs
@@ -19,14 +21,10 @@ class Paragraph < ApplicationRecord
 
   self.inheritance_column = :_sti_disabled
 
-  enum type: %i[old new], _prefix: true
+  enum :type, { old: 0, new: 1 }, prefix: true
 
   validates :name, presence: true
   validates :value, presence: true, uniqueness: true
-
-  def self.value_of(name)
-    by_name[name]
-  end
 
   def self.name_of(value)
     by_value[value]
@@ -37,14 +35,19 @@ class Paragraph < ApplicationRecord
   end
 
   def self.by_name
-    @paragraphs_by_name ||= Paragraph.pluck(:name, :value).to_h
+    @by_name ||= Paragraph.pluck(:name, :value).to_h
   end
 
   def self.by_value
-    @paragraphs_by_value ||= by_name.map(&:reverse).to_h
+    @by_value ||= by_name.invert
   end
 
   def self.by_type
-    @paragraphs_by_type ||= Paragraph.pluck(:value, :type).map { |value, type| [value, type.to_sym] }.to_h
+    @by_type ||= Paragraph.pluck(:value, :type).to_h { |value, type| [value, type.to_sym] }
+  end
+
+  # The lookups above are read once per process; this reads them again.
+  def self.reset!
+    @by_name = @by_value = @by_type = nil
   end
 end

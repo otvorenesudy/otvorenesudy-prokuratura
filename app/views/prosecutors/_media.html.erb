@@ -1,18 +1,18 @@
 <% @prosecutor.articles.tap do |articles| %>
   <% if articles.any? %>
-    <ul id="media" class="list-unstyled mt-4">
+    <ul class="list-unstyled mt-4">
       <% articles.each do |article| %>
         <li class="mb-3">
-          <a href="<%= article['url'] %>" target="_blank"><%= article['title'] %></a> <span class="text-muted">&middot; <%= article['source'] %></span>
+          <%= link_to_source article['title'], article['url'] %> <span class="text-muted">&middot; <%= article['source'] %></span>
           <br>
           <span class="text-muted"><%= article['snippet'] %></span>
         </li>
       <% end %>
     </ul>
-  
+
     <p>
       <small class="text-muted">
-        <a href="<%= GoogleNews.search_url_for(@prosecutor) %>" target="_blank"><%= t 'prosecutors.show.media.more_from_google' %></a>
+        <a href="<%= GoogleNews.search_url_for(@prosecutor) %>"><%= t 'prosecutors.show.media.more_from_google' %></a>
 
         &middot;
 

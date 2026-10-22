@@ -1,260 +1,129 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe GenproGovSk::Decrees::Parser do
+  def parse(page)
+    described_class.parse(fixture("genpro_gov_sk/decrees/#{page}.html").read, url: 'https://www.genpro.gov.sk/')
+  end
+
+  # The listing writes some of the texts with non-breaking spaces.
+  def squish(decree, *keys)
+    decree.merge(decree.slice(*keys).transform_values { |value| value.gsub(/[ \s]+/, ' ') })
+  end
+
+  def a_decree(type)
+    match(
+      url: start_with('https://www.genpro.gov.sk/').and(match(/\.#{type}\z/)),
+      number: match(%r{^[A-Z]+/\d+/\d+/\d+/\d+$}),
+      effective_on: a_kind_of(Date),
+      published_on: a_kind_of(Date),
+      file_number: a_string_matching(/\S/),
+      resolution: a_string_matching(/\S/),
+      means_of_resolution: a_string_matching(/\S/),
+      file_type: match(/\A#{type}\z/)
+    )
+  end
+
   describe '.parse' do
-    context 'with page containing PDF files' do
-      it 'parses page 1 correctly' do
-        html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'decrees', 'page_1.html'))
-        decrees = described_class.parse(html, url: 'https://www.genpro.gov.sk/')
+    it 'skips a row without a link to a decree' do
+      html = <<~HTML
+        <div class="tx-tempest-applications"><table class="govuk-table"><tbody>
+          <tr><td colspan="6">Nenašli sa žiadne záznamy.</td></tr>
+        </tbody></table></div>
+      HTML
 
-        expect(decrees).to be_an(Array)
-        expect(decrees.size).to eq(20)
+      expect(described_class.parse(html, url: 'https://www.genpro.gov.sk/')).to eq([])
+    end
 
-        first_decree = decrees.first
-        expect(first_decree[:url]).to eq('https://www.genpro.gov.sk//download/uznesenie/2025/11/za_5511_997_11_2025_a_2fc7888a717949c39beaa8e2f743f2b8.pdf')
-        expect(first_decree[:number]).to eq('ZA/5511/997/11/2025')
-        expect(first_decree[:effective_on]).to eq(Date.new(2025, 11, 19))
-        expect(first_decree[:published_on]).to eq(Date.new(2025, 11, 19))
-        expect(first_decree[:file_number]).to eq('1 Pv 53/25/5511')
-        expect(first_decree[:resolution]).to eq('Uznesenie o schválení zmieru')
-        expect(first_decree[:means_of_resolution]).to eq('zmier schválený a zastavenie trestného stíhania - § 220 s poukazom na § 215/ 1g Tr.por.')
-        expect(first_decree[:file_type]).to eq('pdf')
+    context 'with a page of decrees in PDF' do
+      it 'reads the first page, its first decree in full' do
+        decrees = parse('page_1')
+
+        expect(decrees).to be_an(Array).and(have_attributes(size: 20)).and(all(a_decree('(pdf|rtf)')))
+        expect(decrees.first).to eq(
+          url: 'https://www.genpro.gov.sk//download/uznesenie/2025/11/za_5511_997_11_2025_a_2fc7888a717949c39beaa8e2f743f2b8.pdf',
+          number: 'ZA/5511/997/11/2025',
+          effective_on: Date.new(2025, 11, 19),
+          published_on: Date.new(2025, 11, 19),
+          file_number: '1 Pv 53/25/5511',
+          resolution: 'Uznesenie o schválení zmieru',
+          means_of_resolution:
+            'zmier schválený a zastavenie trestného stíhania - § 220 s poukazom na § 215/ 1g Tr.por.',
+          file_type: 'pdf'
+        )
       end
 
-      it 'parses page 50 correctly' do
-        html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'decrees', 'page_50.html'))
-        decrees = described_class.parse(html, url: 'https://www.genpro.gov.sk/')
+      it 'reads page 50, its first decree in full' do
+        decrees = parse('page_50')
 
-        expect(decrees).to be_an(Array)
-        expect(decrees.size).to eq(20)
-
-        first_decree = decrees.first
-        expect(first_decree[:url]).to eq('https://www.genpro.gov.sk//download/uznesenie/2025/06/bb_6608_164_05_2025_a_1d0aae4901.pdf')
-        expect(first_decree[:number]).to eq('BB/6608/164/05/2025')
-        expect(first_decree[:effective_on]).to eq(Date.new(2025, 5, 30))
-        expect(first_decree[:published_on]).to eq(Date.new(2025, 6, 4))
-        expect(first_decree[:file_number]).to eq('2 Pv 243/23/6608')
-        expect(first_decree[:resolution].gsub(/[\u00A0\s]+/, ' ')).to eq("Uznesenie prokurátora o osvedčení sa v skúšobnej dobe")
-        expect(first_decree[:means_of_resolution].gsub(/[\u00A0\s]+/, ' ')).to eq("podmienečné zastavenie trestného stíhania, osvedčil sa - § 217/1 (§ 308/3) Tr.por.")
-        expect(first_decree[:file_type]).to eq('pdf')
-
-        decrees.each do |decree|
-          expect(decree[:file_type]).to eq('pdf')
-          expect(decree[:url]).to be_a(String)
-          expect(decree[:url]).to start_with('https://www.genpro.gov.sk/')
-          expect(decree[:number]).to match(%r{^[A-Z]+/\d+/\d+/\d+/\d+$})
-          expect(decree[:effective_on]).to be_a(Date)
-          expect(decree[:published_on]).to be_a(Date)
-          expect(decree[:file_number]).to be_a(String)
-          expect(decree[:file_number]).not_to be_empty
-          expect(decree[:resolution]).to be_a(String)
-          expect(decree[:resolution]).not_to be_empty
-          expect(decree[:means_of_resolution]).to be_a(String)
-          expect(decree[:means_of_resolution]).not_to be_empty
-        end
+        expect(decrees).to have_attributes(size: 20).and(all(a_decree('pdf')))
+        expect(squish(decrees.first, :resolution, :means_of_resolution)).to eq(
+          url: 'https://www.genpro.gov.sk//download/uznesenie/2025/06/bb_6608_164_05_2025_a_1d0aae4901.pdf',
+          number: 'BB/6608/164/05/2025',
+          effective_on: Date.new(2025, 5, 30),
+          published_on: Date.new(2025, 6, 4),
+          file_number: '2 Pv 243/23/6608',
+          resolution: 'Uznesenie prokurátora o osvedčení sa v skúšobnej dobe',
+          means_of_resolution: 'podmienečné zastavenie trestného stíhania, osvedčil sa - § 217/1 (§ 308/3) Tr.por.',
+          file_type: 'pdf'
+        )
       end
 
-      it 'parses page 100 correctly' do
-        html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'decrees', 'page_100.html'))
-        decrees = described_class.parse(html, url: 'https://www.genpro.gov.sk/')
-
-        expect(decrees).to be_an(Array)
-        expect(decrees.size).to eq(20)
-
-        decrees.each do |decree|
-          expect(decree[:url]).to be_a(String)
-          expect(decree[:url]).to start_with('https://www.genpro.gov.sk/')
-          expect(decree[:url]).to match(/\.pdf$/)
-          expect(decree[:number]).to match(%r{^[A-Z]+/\d+/\d+/\d+/\d+$})
-          expect(decree[:effective_on]).to be_a(Date)
-          expect(decree[:published_on]).to be_a(Date)
-          expect(decree[:file_number]).to be_a(String)
-          expect(decree[:file_number]).not_to be_empty
-          expect(decree[:resolution]).to be_a(String)
-          expect(decree[:resolution]).not_to be_empty
-          expect(decree[:means_of_resolution]).to be_a(String)
-          expect(decree[:means_of_resolution]).not_to be_empty
-          expect(decree[:file_type]).to eq('pdf')
-        end
+      it 'reads page 100' do
+        expect(parse('page_100')).to have_attributes(size: 20).and(all(a_decree('pdf')))
       end
     end
 
-    context 'with page containing RTF files' do
-      it 'parses page 2000 correctly' do
-        html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'decrees', 'page_2000.html'))
-        decrees = described_class.parse(html, url: 'https://www.genpro.gov.sk/')
+    context 'with a page of decrees in RTF' do
+      it 'reads page 2000, its first decree in full' do
+        decrees = parse('page_2000')
 
-        expect(decrees).to be_an(Array)
-        expect(decrees.size).to eq(20)
-
-        first_decree = decrees.first
-        expect(first_decree[:url]).to eq('https://www.genpro.gov.sk//download/uznesenie/2015/03/NR_4401_24_03_2015_a.rtf')
-        expect(first_decree[:number]).to eq('NR/4401/24/03/2015')
-        expect(first_decree[:effective_on]).to eq(Date.new(2015, 3, 11))
-        expect(first_decree[:published_on]).to eq(Date.new(2015, 3, 17))
-        expect(first_decree[:file_number]).to eq('1 Pv 645/13/4401')
-        expect(first_decree[:resolution].gsub(/[\u00A0\s]+/, ' ')).to eq("Uznesenie prokurátora o osvedčení sa v skúšobnej dobe")
-        expect(first_decree[:means_of_resolution]).to eq("podmienečné zastavenie trestného stíhania, osvedčil sa - § 217/1 (§ 308/3) Tr.por.")
-        expect(first_decree[:file_type]).to eq('rtf')
+        expect(decrees).to have_attributes(size: 20)
+        expect(squish(decrees.first, :resolution)).to eq(
+          url: 'https://www.genpro.gov.sk//download/uznesenie/2015/03/NR_4401_24_03_2015_a.rtf',
+          number: 'NR/4401/24/03/2015',
+          effective_on: Date.new(2015, 3, 11),
+          published_on: Date.new(2015, 3, 17),
+          file_number: '1 Pv 645/13/4401',
+          resolution: 'Uznesenie prokurátora o osvedčení sa v skúšobnej dobe',
+          means_of_resolution: 'podmienečné zastavenie trestného stíhania, osvedčil sa - § 217/1 (§ 308/3) Tr.por.',
+          file_type: 'rtf'
+        )
       end
 
-      it 'parses page 2100 correctly' do
-        html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'decrees', 'page_2100.html'))
-        decrees = described_class.parse(html, url: 'https://www.genpro.gov.sk/')
+      it 'reads page 2100, its first decree in full' do
+        decrees = parse('page_2100')
 
-        expect(decrees).to be_an(Array)
-        expect(decrees.size).to eq(20)
-
-        first_decree = decrees.first
-        expect(first_decree[:url]).to eq('https://www.genpro.gov.sk//download/uznesenie/2014/10/ZA_5505_407_10_2014_a.rtf')
-        expect(first_decree[:number]).to eq('ZA/5505/407/10/2014')
-        expect(first_decree[:effective_on]).to eq(Date.new(2014, 10, 14))
-        expect(first_decree[:published_on]).to eq(Date.new(2014, 10, 29))
-        expect(first_decree[:file_number]).to eq('2 Pv 554/13/5505')
-        expect(first_decree[:resolution].gsub(/[\u00A0\s]+/, ' ')).to eq("Uznesenie o schválení zmieru")
-        expect(first_decree[:means_of_resolution].gsub(/[\u00A0\s]+/, ' ')).to eq("zmier schválený a zastavenie trestného stíhania - § 220 s poukazom na § 215/ 1g Tr.por.")
-        expect(first_decree[:file_type]).to eq('rtf')
-
-        decrees.each do |decree|
-          expect(decree[:url]).to be_a(String)
-          expect(decree[:url]).to start_with('https://www.genpro.gov.sk/')
-          expect(decree[:url]).to match(/\.rtf$/)
-          expect(decree[:number]).to match(%r{^[A-Z]+/\d+/\d+/\d+/\d+$})
-          expect(decree[:effective_on]).to be_a(Date)
-          expect(decree[:published_on]).to be_a(Date)
-          expect(decree[:file_number]).to be_a(String)
-          expect(decree[:file_number]).not_to be_empty
-          expect(decree[:resolution]).to be_a(String)
-          expect(decree[:resolution]).not_to be_empty
-          expect(decree[:means_of_resolution]).to be_a(String)
-          expect(decree[:means_of_resolution]).not_to be_empty
-          expect(decree[:file_type]).to eq('rtf')
-        end
+        expect(decrees).to have_attributes(size: 20).and(all(a_decree('rtf')))
+        expect(squish(decrees.first, :resolution, :means_of_resolution)).to eq(
+          url: 'https://www.genpro.gov.sk//download/uznesenie/2014/10/ZA_5505_407_10_2014_a.rtf',
+          number: 'ZA/5505/407/10/2014',
+          effective_on: Date.new(2014, 10, 14),
+          published_on: Date.new(2014, 10, 29),
+          file_number: '2 Pv 554/13/5505',
+          resolution: 'Uznesenie o schválení zmieru',
+          means_of_resolution:
+            'zmier schválený a zastavenie trestného stíhania - § 220 s poukazom na § 215/ 1g Tr.por.',
+          file_type: 'rtf'
+        )
       end
     end
 
-    context 'with pages containing mixed file types' do
-      it 'parses page 1950 correctly' do
-        html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'decrees', 'page_1950.html'))
-        decrees = described_class.parse(html, url: 'https://www.genpro.gov.sk/')
-
-        expect(decrees).to be_an(Array)
-        expect(decrees.size).to eq(20)
-
-        rtf_decrees = decrees.select { |d| d[:file_type] == 'rtf' }
-        pdf_decrees = decrees.select { |d| d[:file_type] == 'pdf' }
-
-        expect(rtf_decrees.size).to eq(19)
-        expect(pdf_decrees.size).to eq(1)
-      end
-
-      it 'parses page 2050 correctly' do
-        html = File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'decrees', 'page_2050.html'))
-        decrees = described_class.parse(html, url: 'https://www.genpro.gov.sk/')
-
-        expect(decrees).to be_an(Array)
-        expect(decrees.size).to eq(20)
-
-        rtf_decrees = decrees.select { |d| d[:file_type] == 'rtf' }
-        pdf_decrees = decrees.select { |d| d[:file_type] == 'pdf' }
-
-        expect(rtf_decrees.size).to eq(19)
-        expect(pdf_decrees.size).to eq(1)
+    context 'with a page of decrees in both' do
+      it 'tells the RTFs from the PDF' do
+        expect(%w[page_1950 page_2050].map { |page| parse(page).map { |decree| decree[:file_type] }.tally })
+          .to eq([{ 'rtf' => 19, 'pdf' => 1 }, { 'rtf' => 19, 'pdf' => 1 }])
       end
     end
 
-    context 'validates all parsed fields' do
-      let(:html) { File.read(Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'decrees', 'page_1.html')) }
-      let(:decrees) { described_class.parse(html, url: 'https://www.genpro.gov.sk/') }
+    it 'reads every decree of every saved page' do
+      pages = Rails.root.glob('spec/fixtures/genpro_gov_sk/decrees/page_*.html').map { |path| path.basename('.html') }
+      decrees = pages.map { |page| parse(page) }
 
-      it 'parses URL correctly' do
-        decrees.each do |decree|
-          expect(decree[:url]).to be_a(String)
-          expect(decree[:url]).to start_with('https://www.genpro.gov.sk/')
-          expect(decree[:url]).to match(/\.(pdf|rtf)$/)
-        end
-      end
-
-      it 'parses number correctly' do
-        decrees.each do |decree|
-          expect(decree[:number]).to be_a(String)
-          expect(decree[:number]).to match(%r{^[A-Z]+/\d+/\d+/\d+/\d+$})
-        end
-      end
-
-      it 'parses effective_on as Date' do
-        decrees.each do |decree|
-          expect(decree[:effective_on]).to be_a(Date)
-        end
-      end
-
-      it 'parses published_on as Date' do
-        decrees.each do |decree|
-          expect(decree[:published_on]).to be_a(Date)
-        end
-      end
-
-      it 'parses file_number correctly' do
-        decrees.each do |decree|
-          expect(decree[:file_number]).to be_a(String)
-          expect(decree[:file_number]).not_to be_empty
-        end
-      end
-
-      it 'parses resolution correctly' do
-        decrees.each do |decree|
-          expect(decree[:resolution]).to be_a(String)
-          expect(decree[:resolution]).not_to be_empty
-        end
-      end
-
-      it 'parses means_of_resolution correctly' do
-        decrees.each do |decree|
-          expect(decree[:means_of_resolution]).to be_a(String)
-          expect(decree[:means_of_resolution]).not_to be_empty
-        end
-      end
-
-      it 'parses file_type correctly' do
-        decrees.each do |decree|
-          expect(decree[:file_type]).to be_a(String)
-          expect(['pdf', 'rtf']).to include(decree[:file_type])
-        end
-      end
-    end
-
-    context 'with all fixture files' do
-      it 'successfully parses all downloaded fixtures' do
-        fixtures_dir = Rails.root.join('spec', 'fixtures', 'genpro_gov_sk', 'decrees')
-        fixture_files = Dir.glob(fixtures_dir.join('page_*.html'))
-
-        expect(fixture_files.size).to eq(10)
-
-        fixture_files.each do |file|
-          html = File.read(file)
-          decrees = described_class.parse(html, url: 'https://www.genpro.gov.sk/')
-
-          expect(decrees).to be_an(Array)
-          expect(decrees.size).to be > 0
-
-          decrees.each do |decree|
-            expect(decree[:url]).to be_a(String)
-            expect(decree[:url]).to start_with('https://www.genpro.gov.sk/')
-            expect(decree[:url]).to match(/\.(pdf|rtf)$/)
-            expect(decree[:number]).to be_a(String)
-            expect(decree[:number]).to match(%r{^[A-Z]+/\d+/\d+/\d+/\d+$})
-            expect(decree[:effective_on]).to be_a(Date)
-            expect(decree[:published_on]).to be_a(Date)
-            expect(decree[:file_number]).to be_a(String)
-            expect(decree[:file_number]).not_to be_empty
-            expect(decree[:resolution]).to be_a(String)
-            expect(decree[:resolution]).not_to be_empty
-            expect(decree[:means_of_resolution]).to be_a(String)
-            expect(decree[:means_of_resolution]).not_to be_empty
-            expect(['pdf', 'rtf']).to include(decree[:file_type])
-          end
-        end
-      end
+      expect(pages.size).to eq(10)
+      expect(decrees).to all(be_present)
+      expect(decrees.flatten).to all(a_decree('(pdf|rtf)'))
     end
   end
 end

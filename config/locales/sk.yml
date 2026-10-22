@@ -137,6 +137,7 @@ sk:
         assignation_of_prosecution: Postúpenie trestného stíhania
         cessation_of_prosecution: Zastavenie trestného stíhania
         closed_cases: Vybavených spisov v trestných registroch Pv/Kv/Gv
+        conditional_cessation: Podmienečné zastavenie TS
         conditional_cessation_by_court: Podmienečné zastavenie TS súdom
         conditional_cessation_by_prosecutor: Podmienečné zastavenie TS prokurátorom
         conditional_cessation_by_prosecutor_all: Všetky podmienečné zastavenia TS prokurátorom
@@ -158,6 +159,7 @@ sk:
         convicted_young: Mladiství
         convicted_young_boys: Mladiství chlapci
         convicted_young_girls: Mladistvé dievčatá
+        exempt_all: Oslobodené osoby
         exemption: Oslobodené osoby
         guilt_and_sentence_agreement: Dohoda o vine a treste
         incoming_cases: Všetky spisy, ktoré napadli registroch Pv/Kv/Gv
@@ -280,6 +282,9 @@ sk:
       found_with_timing_html: "%{count} z celkovo %{total} (%{time} ms)"
       found_html: "%{count} z celkovo %{total}"
       reset: Zrušiť kritéria
+      export: Export
+      ascending: Vzostupne
+      descending: Zostupne
 
   facets:
     collapsible_results:
@@ -367,6 +372,7 @@ sk:
       specialized_office_info: "Prokuratúra bola zrušená dňa 20. marca 2024."
 
     show:
+      indicators: Ukazovatele prokuratúry podľa rokov
       destroyed: Prokuratúra bola zrušená. Dáta sú historické a zobrazované len pre informačné účely.
       contact: Kontakt
       employees: Vedúci pracovníci
@@ -391,6 +397,7 @@ sk:
       specialized_office_info_html: "Prokuratúra bola zrušená dňa 20. marca 2024. Informácie sú historické a zobrazované len pre informačné účely.<br>Viac informácii na stránke <a href='https://www.genpro.gov.sk' target='_blank'>Generálnej prokuratúry SR</a>. " 
 
     decrees:
+      cancel_filter: Zrušiť filter
       title: Právoplatné rozhodnutia
       table_title: Zoznam právoplatných rozhodnutí
       filtered_by: Filtrované podľa
@@ -537,9 +544,9 @@ sk:
       page_title: "Prokuratúra · Kriminalita"
       title: Prokuratúra
       subtitle: "Štatistika – %{metric}"
-      subtitle_with_paragraphs: "Štatistika – %{metric} pre paragrafy %{paragraphs}"
+      subtitle_with_paragraphs_html: "Štatistika – %{metric} pre paragrafy %{paragraphs}"
       subtitle_for_default_params: "Vývoj trestania korupčných trestných činov"
-      subtitle_for_default_params_with_paragraphs: "Vývoj trestania korupčných trestných činov %{paragraphs}"
+      subtitle_for_default_params_with_paragraphs_html: "Vývoj trestania korupčných trestných činov %{paragraphs}"
       show_paragraphs: Zobraziť paragrafy
       no_data: Neboli nájdené žiadne štatistiky pre vaše vyhľadávacie kritéria
       enlarge_chart: Zväčšiť
@@ -618,7 +625,7 @@ sk:
       title: "Polícia"
       subtitle_for_default_params: "Vývoj vyšetrovania korupčných trestných činov"
       monetary_subtitle: Hmnotné škody
-      by_paragraphs_subtitle: podľa paragrafov %{paragraphs}
+      by_paragraphs_subtitle_html: podľa paragrafov %{paragraphs}
       show_paragraphs: Zobraziť paragrafy
       no_data: Neboli nájdené žiadne štatistiky pre vaše vyhľadávacie kritéria
       data_disclaimer: Disclaimer
@@ -636,7 +643,7 @@ sk:
          headline: "Viac transparentnosti"
          footline: "do slovenskej prokuratúry"
          project: "Otvorená Prokuratúra"
-         list: "%{project} prináša:"
+         list_html: "%{project} prináša:"
          items:
            - "zoznam prokuratúr a ich právoplatných rozhodnutí,"
            - "zoznam prokurátorov a ich majetkových priznaní,"
@@ -651,3 +658,9 @@ sk:
       average_incoming_cases_comparison_chart_title: Priemerný nápad vecí na prokurátora za rok
       filed_cases_to_incoming_cases_chart_title: Pomer podaných obžalôb k nápadu vecí dozoru v trestnom konaní za rok 2019
       ratio_of_rest_to_incoming_cases_chart_title: Podiel dozorových vecí prenesených z predchádzajúceho obdobie
+
+  shared:
+    map:
+      title: Mapa prokuratúr
+    table_filter:
+      reset: Zrušiť vyhľadávanie

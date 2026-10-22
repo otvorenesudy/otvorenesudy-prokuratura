@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: appointments
@@ -30,14 +32,14 @@ class Appointment < ApplicationRecord
 
   belongs_to :genpro_gov_sk_prosecutors_list, class_name: :'GenproGovSk::ProsecutorsList', optional: true
   belongs_to :prosecutor
-  belongs_to :office, required: false
+  belongs_to :office, optional: true
 
   validates :started_at, presence: true
   validates :type, presence: true
   validates :place, presence: true, unless: :office_id?
   validates :office, presence: true, unless: :place?
 
-  enum type: %i[fixed temporary]
+  enum :type, { fixed: 0, temporary: 1 }
 
   scope :current, -> { where(ended_at: nil) }
   scope :past, -> { where.not(ended_at: nil) }

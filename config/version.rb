@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OpenCourts
   module Prokuratura
     module VERSION

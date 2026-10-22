@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: prosecutors
@@ -24,8 +26,9 @@
 #
 FactoryBot.define do
   factory :prosecutor do
-    association :'genpro_gov_sk_prosecutors_list'
+    genpro_gov_sk_prosecutors_list
 
     sequence(:name) { |n| "JUDr. John Doe #{n}" }
+    name_parts { { first: name.split[1], last: name.split.last } }
   end
 end
