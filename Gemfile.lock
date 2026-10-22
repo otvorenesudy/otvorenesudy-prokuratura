@@ -106,7 +106,12 @@ GEM
       autoprefixer-rails (>= 6.0.3)
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
+    brakeman (8.1.0)
+      racc
     builder (3.3.0)
+    bundler-audit (0.9.3)
+      bundler (>= 1.2.0)
+      thor (~> 1.0)
     capistrano (3.18.1)
       airbrussh (>= 1.0.0)
       i18n
@@ -585,6 +590,8 @@ DEPENDENCIES
   bcrypt_pbkdf
   bootsnap
   bootstrap (= 4.1.0)
+  brakeman
+  bundler-audit
   capistrano
   capistrano-bundler
   capistrano-git

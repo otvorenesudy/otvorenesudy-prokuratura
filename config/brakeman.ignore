@@ -1,0 +1,51 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "1fe11d6ad6d31e79c485f99328adaed0ac5ea1755beed13f21a839d3c882c72d",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/query_filter.rb",
+      "line": 25,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Arel.sql((columns.map do\n ActiveRecord::Base.connection.quote_column_name(column)\n end.map do\n \"similarity(#{column}, lower(unaccent(#{ActiveRecord::Base.connection.quote(params[:q])})))\"\n end.join(\" + \") + \" DESC\"))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "QueryFilter",
+        "method": "self.filter"
+      },
+      "user_input": "columns.map do\n ActiveRecord::Base.connection.quote_column_name(column)\n end.map do\n \"similarity(#{column}, lower(unaccent(#{ActiveRecord::Base.connection.quote(params[:q])})))\"\n end.join(\" + \")",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": "Not SQL injection: the query is quoted with connection.quote and the columns with quote_column_name."
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "096c9208fde26456edbf4b290ba5904fdfb545492c6d0df01e215387bddd6209",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "lib/unoconv.rb",
+      "line": 3,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`timeout 10s unoconv -p 2002 -n --stdout -f text #{path}`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Unoconv",
+        "method": "self.convert"
+      },
+      "user_input": "path",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": "Not command injection: the path is /tmp/file-downloader-tmp-file-<SHA-256 of the content>, which FileDownloader builds."
+    }
+  ],
+  "brakeman_version": "8.1.0"
+}
