@@ -6,6 +6,8 @@ on:
   schedule:
     - cron: "0 9 * * 1" # Every Monday at 09:00 UTC
 
+# The app's settings for the specs are in .env.ci, which the test job copies to .env.test. These two stay here because
+# they're read before dotenv loads: RAILS_ENV picks the dotenv file, and spec/spec_helper.rb reads CI.
 env:
   RAILS_ENV: test
   CI: true
@@ -40,6 +42,10 @@ jobs:
         run: |
           mv config/credentials/test.ci.yml.enc config/credentials/test.yml.enc
           mv config/credentials/test.ci.key config/credentials/test.key
+
+      # The database login in .env.ci is the postgres service's above.
+      - name: Set Up Environment
+        run: cp .env.ci .env.test
 
       - name: Install required packages
         run: |

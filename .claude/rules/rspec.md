@@ -9,7 +9,7 @@ The process is the `acceptance-first` skill: scenarios first, an end-to-end spec
 assertion, then the code. This is how to write those specs here, on **rspec-rails, shoulda-matchers, FactoryBot, VCR
 with WebMock, Capybara and DatabaseCleaner**, against the real test database. Run them with `bin/test <spec>`: it
 lints, prepares the test database and runs outside the Claude Code sandbox, which plain `bundle exec rspec` can't (the
-database login is in Rails credentials).
+database login is in `.env.test` or Rails credentials, both hidden from the sandbox).
 
 ## Which Spec
 

@@ -4,7 +4,10 @@
 # these files and sandbox.filesystem.denyRead keeps sandboxed commands away; this hook also covers commands that run
 # outside the sandbox. Keep the three lists in sync. The same script guards every otvorenesudy repository:
 #
-#   .env, .env.*                  dotenv files (otvorenesudy, otvorenesudy-api); .env.example and .env.sample are fine
+#   .env, .env.*                  dotenv files (every repository): .env, .env.test, .env.local and .env.*.local hold
+#                                 each machine's settings and aren't committed. Of the committed ones, .env.example
+#                                 and .env.sample are fine; .env.test.example and CI's .env.ci hold no secrets but are
+#                                 blocked like the rest, so a person edits them
 #   config/configuration.yml      otvorenesudy's secrets; its .example and .travis templates are fine
 #   secret_token.rb               otvorenesudy's session secret initializer, and the token in its history
 #   config/credentials*, *.yml.enc, *.key, credentials:show and credentials:edit

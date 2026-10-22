@@ -24,6 +24,8 @@ cd otvorenesudy-prokuratura
 bin/setup
 ```
 
+`bin/setup` also creates `.env` and `.env.test`, the settings [dotenv](https://github.com/bkeepers/dotenv) loads in development and in the specs, from the committed `.env.example` and `.env.test.example`; it never overwrites them. Set your PostgreSQL login there if your own user can't log in. Neither file is committed: CI uses the committed `.env.ci` in place of `.env.test`, and production reads the same variables from the server's environment.
+
 Now import the data
 
 ```ruby
