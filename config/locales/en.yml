@@ -362,6 +362,7 @@ en:
             title: A paragraph of Criminal Code until the year of 2005
             badge: "TZ '61"
       title: Prosecutors' Offices
+      specialized_office_info: "The prosecutor's office was abolished on 20 March 2024."
 
     show:
       indicators: Indicators of the office by year
@@ -385,6 +386,8 @@ en:
         disclaimer: "News articles above are automated search results from Google for Denník N, SME and Aktuality for the name of the prosecutors' office and therefore not all the results might be relevant."
         no_results: No relevant news articles found.
         more_from_google: More results from Google
+
+      specialized_office_info_html: "The prosecutor's office was abolished on 20 March 2024. The information is historical and displayed for informational purposes only.<br>More information on the website of the <a href='https://www.genpro.gov.sk' target='_blank'>General Prosecutor's Office of the Slovak Republic</a>."
 
     decrees:
       cancel_filter: Cancel the filter
