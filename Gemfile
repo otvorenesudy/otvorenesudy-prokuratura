@@ -65,6 +65,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'dotenv-rails', '~> 3.2'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'factory_bot'

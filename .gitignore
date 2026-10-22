@@ -52,6 +52,14 @@ coverage/*
 
 .DS_Store
 
+# dotenv: .env (development) and .env.test (specs) hold each machine's settings, such as the database login; bin/setup
+# creates them from the committed .env.example and .env.test.example, and CI copies the committed .env.ci to .env.test.
+# .env.local and .env.<environment>.local override them. None of these is committed.
+/.env
+/.env.local
+/.env.*.local
+/.env.test
+
 # Claude Code: personal settings and agent worktrees
 /.claude/settings.local.json
 /.claude/worktrees/

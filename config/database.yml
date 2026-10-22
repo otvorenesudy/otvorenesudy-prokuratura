@@ -1,17 +1,15 @@
-# SQLite. Versions 3.8.0 and up are supported.
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
+# The login comes from OPENCOURTS_PROKURATURA_DATABASE_HOST, _USER and _PASSWORD. In development and test, dotenv-rails
+# loads them from .env and .env.test, which bin/setup creates from .env.example and .env.test.example and CI from
+# .env.ci; without them, the login in Rails credentials applies, then PostgreSQL's default (your own user). Production
+# reads them from the server's environment.
 default: &default
   adapter: postgresql
   pool: 30
   timeout: 100
   encoding: unicode
-  host: localhost
-  username: <%= Rails.application.credentials.dig(:postgresql, :username) %>
-  password: <%= Rails.application.credentials.dig(:postgresql, :password) %>
+  host: <%= ENV.fetch('OPENCOURTS_PROKURATURA_DATABASE_HOST', 'localhost') %>
+  username: <%= ENV.fetch('OPENCOURTS_PROKURATURA_DATABASE_USER') { Rails.application.credentials.dig(:postgresql, :username) } %>
+  password: <%= ENV.fetch('OPENCOURTS_PROKURATURA_DATABASE_PASSWORD') { Rails.application.credentials.dig(:postgresql, :password) } %>
 
 development:
   <<: *default

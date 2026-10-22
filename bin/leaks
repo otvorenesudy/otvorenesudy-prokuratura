@@ -41,7 +41,8 @@ forbidden='
 
 # Files that match a pattern above but are fine to commit, with the reason.
 allowed='
-(^|/)\.env\.(example|sample)$                           a template without values
+(^|/)\.env(\.test)?\.(example|sample)$                  a template for .env or .env.test, with local defaults only
+^\.env\.ci$                                             the settings of CI, with the login of its throwaway database
 ^config/credentials/test\.ci\.key$                      decrypts test.ci.yml.enc, the test credentials CI runs with
 '
 

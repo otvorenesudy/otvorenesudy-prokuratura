@@ -82,6 +82,9 @@ with `self.filter(relation, params)`, which returns the relation unchanged when 
 - User-facing text goes through I18n, with every key in both `config/locales/sk.yml` and `en.yml`.
 - Secrets come from Rails credentials (`Rails.application.credentials.dig(...)`), never from code. You can't read the
   credentials; ask the user when a change needs a new one.
+- Settings that differ by machine (the database login) come from ENV, with a default in the code. dotenv-rails loads
+  them in development and test from `.env` and `.env.test`, whose templates are the committed `.env.example` and
+  `.env.test.example`; CI's are in `.env.ci`. You can't open dotenv files, so ask the user to add a new setting there.
 - Log through `Rails.logger`, prefixed with the class, values in brackets:
   `Rails.logger.info "Downloader # Retry [#{attempt}/#{retries}] for [#{url}] after [#{backoff_time}s]: [#{e.class}]"`.
 

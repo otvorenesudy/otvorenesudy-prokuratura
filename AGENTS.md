@@ -39,6 +39,7 @@ it contradicts.
 ## Commands
 
 ```bash
+bin/setup                    # gems, the git hooks, .env and .env.test from their examples, the database
 bin/test                     # lint, then every spec (several minutes: the live-site specs); must be green
 bin/test spec/models/office_spec.rb:12   # lint, then those specs
 bin/lint                     # syntax_tree, RuboCop and Prettier on the files this branch changed
@@ -51,8 +52,8 @@ bin/rails server             # the app on localhost:3000
 
 `bin/test` needs PostgreSQL on localhost. It rebuilds the test database from `db/schema.rb`, holds a machine-wide lock
 shared with the other otvorenesudy apps, bypasses Spring, and runs outside the Claude Code sandbox because the
-database login is in Rails credentials. Run specs through it rather than `bundle exec rspec`, which the sandbox can't
-boot.
+database login is in `.env.test` or Rails credentials, which the sandbox hides. Run specs through it rather than
+`bundle exec rspec`, which the sandbox can't boot. Without either, the specs log in to PostgreSQL as your own user.
 
 ## Code Conventions
 
@@ -84,6 +85,7 @@ secret, ask the user to add it.
 
 | File | What |
 | --- | --- |
+| `.env`, `.env.test`, `.env.local`, `.env.*.local` | Each machine's settings, such as the database login (`OPENCOURTS_PROKURATURA_DATABASE_*`), which dotenv-rails loads in development and test; never committed. `bin/setup` creates `.env` and `.env.test` from the committed `.env.example` and `.env.test.example`, and CI copies the committed `.env.ci` to `.env.test`. Those three hold no secrets, but are denied to agents like the rest: ask the user to change them |
 | `config/credentials.yml.enc`, `config/master.key` | Rails credentials and their key |
 | `config/credentials/*.yml.enc`, `config/credentials/*.key` | Per-environment credentials (database login, Google, Geoapify, Sentry, Sidekiq, storage) and their keys, including CI's committed `test.ci.yml.enc` and `test.ci.key` |
 
@@ -95,8 +97,8 @@ Claude Code denies them to its file tools (`permissions.deny`) and to sandboxed 
 
 The history is public, so a secret that reaches it has leaked. `bin/leaks` stops one first: Betterleaks, pinned in
 the script and downloaded on first use, for what files say, and a list of names in the script (`config/master.key`,
-`config/credentials/*.key`, dotenv files, private keys, database dumps) for what they are called. CI's
-`config/credentials/test.ci.key` is the one key committed on purpose.
+`config/credentials/*.key`, dotenv files other than the templates and `.env.ci`, private keys, database dumps) for what
+they are called. CI's `config/credentials/test.ci.key` is the one key committed on purpose.
 
 | Where | When | What It Checks |
 | --- | --- | --- |
@@ -106,7 +108,8 @@ the script and downloaded on first use, for what files say, and a list of names 
 
 When it stops you:
 
-- **A real secret**: take it out, put it in the credentials, and tell the user, who revokes it if it was pushed.
+- **A real secret**: take it out, put it in the credentials or a gitignored `.env`, and tell the user, who revokes it if
+  it was pushed.
 - **Not a secret** (a test password, a placeholder, a value in a recorded page): `betterleaks:allow` in a comment on
   its line, or, where no comment fits, its fingerprint in `.betterleaksignore` with the reason above it.
 - **Never skip the hooks.** `--no-verify`, `git commit -n` and changing `core.hooksPath` are blocked for agents, and
