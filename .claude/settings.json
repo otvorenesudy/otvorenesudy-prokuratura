@@ -8,7 +8,9 @@
       "Bash(bin/lint)",
       "Bash(bin/lint *)",
       "Bash(bin/test)",
-      "Bash(bin/test *)"
+      "Bash(bin/test *)",
+      "Bash(gh pr checks *)",
+      "Bash(gh pr merge *)"
     ],
     "ask": [
       "Bash(bundle exec cap *)",
