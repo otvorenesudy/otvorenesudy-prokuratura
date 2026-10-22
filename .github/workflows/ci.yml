@@ -40,7 +40,7 @@ jobs:
 
     steps:
       - name: Check Out Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           # undercover and bin/lint compare the branch with origin/main.
           fetch-depth: 0
@@ -116,7 +116,7 @@ jobs:
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }}
 
       - name: Check Out Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # The Ruby of .ruby-version, as on the server.
       - name: Set Up Ruby

@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: Check Out Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           # bin/leaks scans every commit reachable from HEAD.
           fetch-depth: 0
@@ -40,7 +40,7 @@ jobs:
 
     steps:
       - name: Check Out Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # The native extensions of pg and curb, which bundle install builds.
       - name: Install Required Packages
@@ -63,7 +63,7 @@ jobs:
 
     steps:
       - name: Check Out Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # The native extensions of pg and curb, which bundle install builds.
       - name: Install Required Packages
