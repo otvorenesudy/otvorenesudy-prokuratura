@@ -189,6 +189,16 @@ RSpec.describe 'Prosecutors' do
       expect(page).to have_text('We register the prosecutor as krajský prokurátor at the prosecutors\' office')
     end
 
+    it 'shows a place outside the offices the prosecutor has worked at as text, never as markup' do
+      novak = prosecutor('Ján Novák')
+      create(:appointment, office: nil, place: '<b>Eurojust</b>', prosecutor: novak, ended_at: 1.year.ago)
+
+      visit prosecutor_path(novak)
+
+      expect(page).to have_text('<b>Eurojust</b>')
+      expect(page).to have_no_css('b', text: 'Eurojust')
+    end
+
     it 'shows each year\'s estate declaration in its tab', :js do
       declarations = [declaration(2022, office: kosice), declaration(2023, office: kosice)]
       novak = prosecutor('Ján Novák', office: kosice, declarations:)

@@ -71,6 +71,19 @@ RSpec.describe 'Offices' do
       expect(page).to have_text('At the prosecutor\'s office we register 2 prosecutors')
     end
 
+    it 'narrows the offices to those with any of the numbers of prosecutors chosen' do
+      appoint(kosice, 'Novák Ján', 'Horváth Peter')
+      appoint(bratislava, 'Kováč Adam', 'Kováč Boris', 'Kováč Cyril', 'Kováč Dávid', 'Kováč Emil', 'Kováč Filip')
+
+      visit offices_path
+      within('#office-prosecutors-count-content') { find('a', text: /\A1 up to 5 prosecutors/).click }
+      within('#office-prosecutors-count-content') { find('a', text: /\A6 up to 10 prosecutors/).click }
+
+      expect(page).to have_css('.search-result-title a', count: 2)
+      expect(page).to have_link('Krajská prokuratúra v Košiciach')
+      expect(page).to have_link('Krajská prokuratúra v Bratislave')
+    end
+
     it 'narrows the offices to those with decrees, and to a paragraph of them' do
       theft = Paragraph.find_by!(value: '§ 212 [new]')
       create_list(:decree, 2, office: kosice, paragraph: theft)

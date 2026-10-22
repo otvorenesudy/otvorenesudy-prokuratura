@@ -80,7 +80,7 @@ class OfficeSearch
           relation
           .joins(:active_appointments)
           .group(:id)
-          .having(ranges.map { |range| "#{range} @> count(*) :: int" })
+          .having(ranges.map { |range| "#{range} @> count(*) :: int" }.join(' OR '))
           .select(:id)
       )
     end

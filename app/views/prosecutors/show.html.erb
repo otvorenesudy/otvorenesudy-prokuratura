@@ -19,7 +19,7 @@
     <% end %>
 
     <% if @prosecutor.past_appointments_excluding_current.any? %>
-      <%= t "prosecutors.index.list.past_offices_html", link: @prosecutor.past_appointments_excluding_current.map { |e| e.office ? link_to(e.office.name, office_path(e.office)) : e.place }.uniq.to_sentence.html_safe %>
+      <%= t "prosecutors.index.list.past_offices_html", link: to_sentence(@prosecutor.past_appointments_excluding_current.map { |e| e.office ? link_to(e.office.name, office_path(e.office)) : e.place }.uniq) %>
       <br>
     <% end %>
 

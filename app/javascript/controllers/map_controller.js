@@ -32,6 +32,8 @@ export default class extends Controller {
     window.L.tileLayer(TILES, { attribution: ATTRIBUTION }).addTo(this.map);
 
     await this.addBorder();
+    if (!this.element.isConnected) return;
+
     this.addMarkers();
   }
 
@@ -45,7 +47,12 @@ export default class extends Controller {
     const response = await fetch(this.borderValue);
     if (!response.ok) throw new Error(`The map's border at ${this.borderValue} answered ${response.status}`);
 
-    const border = window.L.geoJSON(await response.json(), { invert: true, style: BORDER_STYLE }).addTo(this.map);
+    const geojson = await response.json();
+
+    // A visit away while the border loaded removed the map.
+    if (!this.element.isConnected) return;
+
+    const border = window.L.geoJSON(geojson, { invert: true, style: BORDER_STYLE }).addTo(this.map);
 
     this.fit = () => this.map.fitBounds(border.getBounds());
     this.fit();

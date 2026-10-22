@@ -14,7 +14,9 @@ class DeclarationsExport
     CSV.generate do |csv|
       csv << HEADER
 
-      Prosecutor.find_each { |prosecutor| rows_of(prosecutor).each { |row| csv << row } }
+      Prosecutor.where.not(declarations: nil).includes(appointments: :office).find_each do |prosecutor|
+        rows_of(prosecutor).each { |row| csv << row }
+      end
     end
   end
 
@@ -25,8 +27,8 @@ class DeclarationsExport
       columns = [
         prosecutor.id,
         prosecutor.name,
-        prosecutor.appointments.fixed.first&.office&.name,
-        prosecutor.appointments.temporary.first&.office&.name
+        prosecutor.appointments.find(&:fixed?)&.office&.name,
+        prosecutor.appointments.find(&:temporary?)&.office&.name
       ]
 
       Array(prosecutor.declarations).flat_map do |declaration|
