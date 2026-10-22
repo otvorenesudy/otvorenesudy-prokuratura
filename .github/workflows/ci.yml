@@ -11,6 +11,9 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Test
@@ -53,7 +56,7 @@ jobs:
           sudo apt-get install -y --no-install-recommends libpq-dev libcurl4-openssl-dev ghostscript
 
       - name: Set Up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@e1bd6146574da5e0795075b5319b300edb30c5b0 # v1.333.0
         with:
           bundler-cache: true
 
@@ -98,7 +101,7 @@ jobs:
 
     steps:
       - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
+        uses: shimataro/ssh-key-action@87a8f067114a8ce263df83e9ed5c849953548bc3 # v2.8.1
         with:
           key: ${{ secrets.SSH_KEY }}
           name: github-actions
@@ -117,7 +120,7 @@ jobs:
 
       # The Ruby of .ruby-version, as on the server.
       - name: Set Up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@e1bd6146574da5e0795075b5319b300edb30c5b0 # v1.333.0
         with:
           bundler-cache: true
 

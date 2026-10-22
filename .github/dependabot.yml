@@ -7,3 +7,9 @@ updates:
     directory: /
     schedule:
       interval: weekly
+
+  # The third-party actions are pinned to commits; this keeps the pins up to date.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
