@@ -143,7 +143,7 @@ GEM
     crack (1.0.1)
       bigdecimal
       rexml
-    crass (1.0.7)
+    crass (1.0.8)
     crawler_detect (1.2.20)
       qonfig (>= 0.24)
     csv (3.3.6)
@@ -768,7 +768,7 @@ CHECKSUMS
   connection_pool (3.0.2) sha256=33fff5ba71a12d2aa26cb72b1db8bba2a1a01823559fb01d29eb74c286e62e0a
   convolver-light (0.3.3) sha256=7fc67599a0c78c9e30c9b17fc4c6afc05f61fef1f47c4d93911d2e2f9abc5d90
   crack (1.0.1) sha256=ff4a10390cd31d66440b7524eb1841874db86201d5b70032028553130b6d4c7e
-  crass (1.0.7) sha256=94868719948664c89ddcaf0a37c65048413dfcb1c869470a5f7a7ceb5390b295
+  crass (1.0.8) sha256=7a0145c7a2c59f8e7923b3a69ce819c444823a00a5127d805298fea13be24efe
   crawler_detect (1.2.20) sha256=2abbd46d21c2c149f4d32e57e3d6beb9b0756478853e5fa046639896b39248fd
   csv (3.3.6) sha256=aba61e7e507a66f03d45cb1f3c4b6359861c3504038b422962875dce099e4456
   curb (1.4.1) sha256=f26e660fdfdc7fd15852ac72b33e92914ed7bf2d655b2326a370f998cf51080d
