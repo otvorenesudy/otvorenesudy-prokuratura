@@ -8,7 +8,7 @@
   "devDependencies": {
     "@kurkle/color": "0.3.4",
     "@popperjs/core": "2.11.8",
-    "bootstrap": "5.3.8",
+    "bootstrap": "5.3.9",
     "chart.js": "4.5.1",
     "esbuild": "0.28.2",
     "leaflet": "1.9.4",
